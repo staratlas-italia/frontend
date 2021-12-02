@@ -9,7 +9,6 @@ const Container = styled(Flex)`
 
 const SpaceBackground = styled(Flex)`
   border-radius: 100%;
-  background-color: #e65757;
   left: 0;
   right: 0;
   margin-left: auto;
