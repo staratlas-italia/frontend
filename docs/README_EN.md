@@ -1,6 +1,6 @@
 🇮🇹 &nbsp; [Italiano](https://github.com/staratlas-italia/candy-machine)
 
-# Candy Machine - English
+# Candy Machine
 
 Hi there! The [StartAtlas](https://strataltas.com/) biggest Italian commuty is here for you!
 
