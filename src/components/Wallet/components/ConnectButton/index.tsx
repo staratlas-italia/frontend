@@ -2,8 +2,8 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { Button, Dropdown, Menu } from "antd";
 import { ButtonProps } from "antd/lib/button";
 import React, { useCallback } from "react";
-import { useModal } from "../../../contexts/ModalContext";
-import { WalletModal } from "../../modals/WalletModal";
+import { WalletModal } from "~/components/modals/WalletModal";
+import { useModal } from "~/contexts/ModalContext";
 
 export type ConnectButtonProps = ButtonProps &
   React.RefAttributes<HTMLElement> & {
@@ -29,8 +29,6 @@ export const ConnectButton = ({
     () => (wallet ? connect().catch(() => {}) : open()),
     [wallet, connect, open]
   );
-
-  // only show if wallet selected or user connected
 
   if (!wallet || !allowWalletChange) {
     return (

@@ -1,14 +1,13 @@
 import { Image } from "antd";
 import styled from "styled-components";
-import { Flex } from "../layout/Flex";
+import { Flex } from "~/components/layout/Flex";
 
 const Container = styled(Flex)`
   position: relative;
   min-height: 300px;
 `;
 
-const Circle = styled(Flex)`
-  position: absolute;
+const SpaceBackground = styled(Flex)`
   border-radius: 100%;
   background-color: #e65757;
   left: 0;
@@ -24,15 +23,17 @@ const ShipImage = styled(Image).attrs({
   src: "/images/ship.png",
   preview: false,
 })`
+  min-width: 400px;
   max-width: 450px;
   transform: rotate(10deg);
 `;
 
 export const ShipBanner = () => {
   return (
-    <Container py={10} align="center" justify="center">
-      <Circle />
-      <ShipImage />
+    <Container py={10}>
+      <SpaceBackground align="center" justify="center">
+        <ShipImage />
+      </SpaceBackground>
     </Container>
   );
 };

@@ -6,13 +6,11 @@ import "antd/dist/antd.css";
 import { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import React, { ReactNode, useMemo } from "react";
-import { BaseLayout } from "../components/BaseLayout";
-import "../components/modals/InstructionsModal/index.css";
-import "../components/modals/WalletModal/index.css";
-import "../components/wallet/CurrentUserBadge/Identicon/index.css";
-import "../components/wallet/CurrentUserBadge/index.css";
-import { ModalProvider } from "../contexts/ModalContext";
-import "../styles/global.css";
+import { BaseLayout } from "~/components/layout/BaseLayout";
+import "~/components/modals/InstructionsModal/index.css";
+import "~/components/modals/WalletModal/index.css";
+import { ModalProvider } from "~/contexts/ModalContext";
+import "~/styles/global.css";
 
 const WalletProvider = dynamic<{ children: ReactNode }>(
   () =>

@@ -1,9 +1,9 @@
 import { CreditCardOutlined } from "@ant-design/icons";
 import { Card, Col, ModalProps, Row } from "antd";
 import React from "react";
-import { AvailableModal, useModal } from "../../../contexts/ModalContext";
-import { BaseModal } from "../BaseModal";
-import { ModalButton } from "../ModalButton";
+import { ModalButton } from "~/components/ModalButton";
+import { BaseModal } from "~/components/modals/BaseModal";
+import { AvailableModal, useModal } from "~/contexts/ModalContext";
 
 export const ContentCard = (props: {
   title: string;

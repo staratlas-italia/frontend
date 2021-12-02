@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styled from "styled-components";
-import { Flex } from "../layout/Flex";
+import { Flex } from "~/components/layout/Flex";
 
 const Container = styled(Flex)`
   position: relative;

@@ -1,5 +1,5 @@
 import React from "react";
-import { ConnectButton } from "../../wallet/ConnectButton";
+import { ConnectButton } from "~/components/Wallet/components/ConnectButton";
 import { InstructionsModal } from "../InstructionsModal";
 
 interface HowToBuyModalProps {

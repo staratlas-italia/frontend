@@ -2,9 +2,9 @@ import { Button, Col, Divider, Grid, Row, Typography } from "antd";
 import classNames from "classnames";
 import Head from "next/head";
 import React from "react";
-import { HumanBanner } from "../components/HumanBanner";
-import { Flex } from "../components/layout/Flex";
-import { ShipBanner } from "../components/ShipBanner";
+import { HumanBanner } from "~/components/banners/HumanBanner";
+import { ShipBanner } from "~/components/banners/ShipBanner";
+import { Flex } from "~/components/layout/Flex";
 
 const { useBreakpoint } = Grid;
 
