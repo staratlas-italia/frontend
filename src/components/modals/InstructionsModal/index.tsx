@@ -1,5 +1,6 @@
 import { CreditCardOutlined } from "@ant-design/icons";
 import { Card, Col, ModalProps, Row } from "antd";
+import classNames from "classnames";
 import React from "react";
 import { ModalButton } from "~/components/ModalButton";
 import { BaseModal } from "~/components/modals/BaseModal";
@@ -55,6 +56,7 @@ export const ModalContent = ({ children }) => {
 
 type Props = ModalProps & {
   id: AvailableModal;
+  buttonClassName?: string;
   buttonText: string;
   modalTitle: string;
   cardProps: any[];
@@ -63,7 +65,7 @@ type Props = ModalProps & {
 
 export const InstructionsModal = ({
   id,
-
+  buttonClassName,
   buttonText,
   modalTitle,
   cardProps,
@@ -86,7 +88,9 @@ export const InstructionsModal = ({
 
   return (
     <>
-      <ModalButton onClick={showModal}>{buttonText}</ModalButton>
+      <ModalButton className={classNames(buttonClassName)} onClick={showModal}>
+        {buttonText}
+      </ModalButton>
       <BaseModal
         id={id}
         title={modalTitle}

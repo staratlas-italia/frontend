@@ -33,13 +33,17 @@ const MainLayout = styled(Layout)`
   background-color: white !important;
 `;
 
+const MainHeader = styled(Header).attrs({
+  className: "d-flex px-5",
+})``;
+
 export const BaseLayout = React.memo(
   ({ children }: PropsWithChildren<unknown>) => {
     return (
       <MainLayout>
-        <Header className="d-flex">
+        <MainHeader>
           <AppBar />
-        </Header>
+        </MainHeader>
         <Container>{children}</Container>
       </MainLayout>
     );

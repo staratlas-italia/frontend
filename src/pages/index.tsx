@@ -16,7 +16,12 @@ const Home = () => {
       <Head>
         <title>Home - StarAtlasItalia</title>
       </Head>
-      <Row justify="center" align="middle" gutter={[16, 17]}>
+      <Row justify="center" align="middle" gutter={[16, 16]}>
+        {!screens.md && (
+          <Col span={24} md={12}>
+            <ShipBanner />
+          </Col>
+        )}
         <Col span={24} md={12}>
           <Typography.Title>Benvenuto!</Typography.Title>
           <Typography.Paragraph>
@@ -28,9 +33,11 @@ const Home = () => {
             Sei pronto a unirti alla gilda più grande d'Italia?
           </Typography.Paragraph>
         </Col>
-        <Col span={24} md={12}>
-          <ShipBanner />
-        </Col>
+        {screens.md && (
+          <Col span={24} md={12}>
+            <ShipBanner />
+          </Col>
+        )}
         <Divider />
       </Row>
 

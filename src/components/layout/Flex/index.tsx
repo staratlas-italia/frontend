@@ -1,9 +1,10 @@
 import cx from "classnames";
 import React from "react";
+import styled from "styled-components";
 import { Padding, PaddingProps } from "../Padding";
 
 type Align = "center" | "end" | "start" | "baseline" | "stretch";
-
+type Basis = string | number;
 type Direction = "column" | "column-reverse" | "row" | "row-reverse";
 type Grow = boolean;
 type Shrink = boolean;
@@ -12,6 +13,7 @@ type Wrap = "nowrap" | "wrap" | "wrap-reverse";
 
 export type Flexbox = {
   align: Align;
+  basis: Basis;
   direction: Direction;
   grow: Grow;
   justify: Justify;
@@ -21,6 +23,7 @@ export type Flexbox = {
 
 type MdFlexbox = {
   mdAlign: Align;
+  mdBasis: Basis;
   mdDirection: Direction;
   mdGrow: Grow;
   mdJustify: Justify;
@@ -30,6 +33,7 @@ type MdFlexbox = {
 
 type LgFlexbox = {
   lgAlign: Align;
+  lgBasis: Basis;
   lgDirection: Direction;
   lgGrow: Grow;
   lgJustify: Justify;
@@ -39,8 +43,28 @@ type LgFlexbox = {
 
 type Props = Partial<PaddingProps & Flexbox & MdFlexbox & LgFlexbox>;
 
+const Wrapper = styled(Padding)<Pick<Props, "basis" | "mdBasis" | "lgBasis">>`
+  flex-basis: ${({ basis }) =>
+    typeof basis === "number" ? `${basis}px}` : basis};
+
+  /* @media (max-width: 576px) {
+    flex-basis: ${(basis) =>
+    typeof basis === "number" ? `${basis}px}` : basis};
+  } */
+  @media (max-width: 768px) {
+    flex-basis: ${({ mdBasis }) =>
+      typeof mdBasis === "number" ? `${mdBasis}px}` : mdBasis} !important;
+  }
+
+  @media (max-width: 992px) {
+    flex-basis: ${({ lgBasis }) =>
+      typeof lgBasis === "number" ? `${lgBasis}px}` : lgBasis} !important;
+  }
+`;
+
 export const Flex = ({
   align,
+  basis,
   className,
   children,
   direction,
@@ -49,12 +73,14 @@ export const Flex = ({
   shrink,
   wrap,
   mdAlign,
+  mdBasis,
   mdDirection,
   mdGrow,
   mdJustify,
   mdShrink,
   mdWrap,
   lgAlign,
+  lgBasis,
   lgDirection,
   lgGrow,
   lgJustify,
@@ -65,6 +91,9 @@ export const Flex = ({
   return (
     <Padding
       {...props}
+      // basis={basis}
+      // mdBasis={mdBasis}
+      // lgBasis={lgBasis}
       className={cx(className, "d-flex", {
         [`align-${align}`]: align,
         [`flex-${direction}`]: direction,

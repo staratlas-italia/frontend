@@ -12,6 +12,7 @@ export const HowToBuyModal: React.FC<HowToBuyModalProps> = ({ onClick }) => {
   return (
     <InstructionsModal
       id="how-to-buy-modal"
+      buttonClassName="sm-d-none"
       width={1248}
       buttonText="How to Buy"
       modalTitle={`Buying NFTs on ${LABELS.STORE_NAME}`}
