@@ -11,13 +11,21 @@ import { CurrentUserBadge } from "../wallet/CurrentUserBadge";
 const getDefaultLinkActions = (connected: boolean) => {
   return [
     <Link href={`/`} key={"explore"}>
-      <Button className="app-btn">Explore</Button>
+      <span>
+        <Button className="app-btn">Explore</Button>
+      </span>
     </Link>,
     <Link href={`/artworks`} key={"artwork"}>
-      <Button className="app-btn">{connected ? "My Items" : "Artwork"}</Button>
+      <span>
+        <Button className="app-btn">
+          {connected ? "My Items" : "Artwork"}
+        </Button>
+      </span>
     </Link>,
     <Link href={`/artists`} key={"artists"}>
-      <Button className="app-btn">Creators</Button>
+      <span>
+        <Button className="app-btn">Creators</Button>
+      </span>
     </Link>,
   ];
 };
@@ -104,13 +112,15 @@ const getDefaultLinkActions = (connected: boolean) => {
 export const LogoLink = () => {
   return (
     <Link href={`/`}>
-      <Image
-        priority
-        src="/images/logo.png"
-        height={72 * 0.7}
-        width={200 * 0.7}
-        alt={"Start Atlas Italia"}
-      />
+      <span>
+        <Image
+          priority
+          src="/images/logo.png"
+          height={72 * 0.7}
+          width={200 * 0.7}
+          alt={"Start Atlas Italia"}
+        />
+      </span>
     </Link>
   );
 };

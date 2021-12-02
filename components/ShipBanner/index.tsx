@@ -15,8 +15,9 @@ const Circle = styled(Flex)`
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 350px;
+  background-image: url("images/space.png");
 `;
 
 const ShipImage = styled(Image).attrs({

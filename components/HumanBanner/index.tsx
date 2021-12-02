@@ -14,7 +14,6 @@ const Circle = styled(Flex)`
 
 const HumanImage = styled(Image).attrs({
   src: "/images/human.png",
-  preview: false,
 })`
   overflow: hidden;
   max-width: 450px;
