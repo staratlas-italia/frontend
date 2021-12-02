@@ -24,14 +24,8 @@ const withTM = require("next-transpile-modules")([
 /** @type {import('next').NextConfig} */
 module.exports = withTM({
   env: {
-    // APP_VERSION: version,
     ENVIRONMENT: process.env.ENVIRONMENT,
-  },
-  images: {
-    loader: "imgix",
-    path: "",
   },
   reactStrictMode: true,
   trailingSlash: false,
-  webpack5: true,
 });
