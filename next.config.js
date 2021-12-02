@@ -1,4 +1,3 @@
-const { version } = require("./package.json");
 const withTM = require("next-transpile-modules")([
   "@blocto/sdk",
   "@project-serum/sol-wallet-adapter",
@@ -24,8 +23,16 @@ const withTM = require("next-transpile-modules")([
 
 /** @type {import('next').NextConfig} */
 module.exports = withTM({
+  i18n: {
+    // These are all the locales you want to support in
+    // your application
+    locales: ["it", "en"],
+    // This is the default locale you want to be used when visiting
+    // a non-locale prefixed path e.g. `/hello`
+    defaultLocale: "it",
+  },
   env: {
-    APP_VERSION: version,
+    // APP_VERSION: version,
     ENVIRONMENT: process.env.ENVIRONMENT,
   },
   reactStrictMode: true,
