@@ -8,13 +8,15 @@ export const LogoLink = () => {
   return (
     <Link href={`/`}>
       <span>
-        <Image
-          priority
-          src="/images/logo.png"
-          height={72 * 0.7}
-          width={200 * 0.7}
-          alt={"Start Atlas Italia"}
-        />
+        <Flex align="center">
+          <Image
+            priority
+            src="/images/logo.png"
+            height={72 * 0.7}
+            width={200 * 0.7}
+            alt={"Start Atlas Italia"}
+          />
+        </Flex>
       </span>
     </Link>
   );
@@ -22,9 +24,8 @@ export const LogoLink = () => {
 
 export const AppBar = () => (
   <Flex align="center" justify="space-between" grow>
-    <Flex align="center">
-      <LogoLink />
-    </Flex>
+    <LogoLink />
+
     <Flex>
       <Wallet />
     </Flex>
