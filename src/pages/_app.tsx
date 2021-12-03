@@ -6,6 +6,7 @@ import "antd/dist/antd.css";
 import { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import React, { ReactNode, useMemo } from "react";
+import "tailwindcss/tailwind.css";
 import { BaseLayout } from "~/components/layout/BaseLayout";
 import "~/components/modals/InstructionsModal/index.css";
 import "~/components/modals/WalletModal/index.css";

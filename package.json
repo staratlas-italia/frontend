@@ -35,8 +35,11 @@
     "@netlify/plugin-nextjs": "^4.0.0-beta.12",
     "@types/node": "^16.11.11",
     "@types/react": "^17.0.37",
+    "autoprefixer": "^10.4.0",
     "husky": "^7.0.4",
     "next-transpile-modules": "^9.0.0",
+    "postcss": "^8.4.4",
+    "tailwindcss": "^2.2.19",
     "typescript": "^4.5.2"
   }
 }
