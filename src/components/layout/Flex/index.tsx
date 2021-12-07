@@ -1,14 +1,15 @@
 import cx from "classnames";
-import React from "react";
+import { ComponentType } from "react";
 import styled from "styled-components";
+import { PaneProps } from "~/components/layout/Pane";
 import { Padding, PaddingProps } from "../Padding";
 
 type Align = "center" | "end" | "start" | "baseline" | "stretch";
 type Basis = string | number;
-type Direction = "column" | "column-reverse" | "row" | "row-reverse";
-type Grow = boolean;
-type Shrink = boolean;
-type Justify = "center" | "end" | "start" | "space-around" | "space-between";
+type Direction = "col" | "col-reverse" | "row" | "row-reverse";
+type Grow = 0 | 1;
+type Shrink = 0 | 1;
+type Justify = "center" | "end" | "start" | "around" | "between" | "evenly";
 type Wrap = "nowrap" | "wrap" | "wrap-reverse";
 
 export type Flexbox = {
@@ -41,81 +42,56 @@ type LgFlexbox = {
   lgWrap: Wrap;
 };
 
-type Props = Partial<PaddingProps & Flexbox & MdFlexbox & LgFlexbox>;
+export type FlexProps = { as?: ComponentType | string } & Partial<
+  PaddingProps & Flexbox & MdFlexbox & LgFlexbox & PaneProps
+>;
 
-const Wrapper = styled(Padding)<Pick<Props, "basis" | "mdBasis" | "lgBasis">>`
-  flex-basis: ${({ basis }) =>
-    typeof basis === "number" ? `${basis}px}` : basis};
-
-  /* @media (max-width: 576px) {
-    flex-basis: ${(basis) =>
-    typeof basis === "number" ? `${basis}px}` : basis};
-  } */
-  @media (max-width: 768px) {
-    flex-basis: ${({ mdBasis }) =>
-      typeof mdBasis === "number" ? `${mdBasis}px}` : mdBasis} !important;
-  }
-
-  @media (max-width: 992px) {
-    flex-basis: ${({ lgBasis }) =>
-      typeof lgBasis === "number" ? `${lgBasis}px}` : lgBasis} !important;
-  }
-`;
-
-export const Flex = ({
-  align,
-  basis,
-  className,
-  children,
-  direction,
-  grow,
-  justify,
-  shrink,
-  wrap,
-  mdAlign,
-  mdBasis,
-  mdDirection,
-  mdGrow,
-  mdJustify,
-  mdShrink,
-  mdWrap,
-  lgAlign,
-  lgBasis,
-  lgDirection,
-  lgGrow,
-  lgJustify,
-  lgShrink,
-  lgWrap,
-  ...props
-}: Props) => {
-  return (
-    <Padding
-      {...props}
-      // basis={basis}
-      // mdBasis={mdBasis}
-      // lgBasis={lgBasis}
-      className={cx(className, "d-flex", {
-        [`align-${align}`]: align,
-        [`flex-${direction}`]: direction,
-        [`flex-grow-1`]: grow,
-        [`justify-${justify}`]: justify,
-        [`flex-shrink-1`]: shrink,
-        [`flex-${wrap}`]: wrap,
-        [`md-align-${mdAlign}`]: mdAlign,
-        [`md-flex-${mdDirection}`]: mdDirection,
-        [`md-flex-grow-1`]: mdGrow,
-        [`md-justify-${mdJustify}`]: mdJustify,
-        [`md-flex-shrink-1`]: mdShrink,
-        [`md-flex-${mdWrap}`]: mdWrap,
-        [`lg-align-${lgAlign}`]: lgAlign,
-        [`lg-flex-${lgDirection}`]: lgDirection,
-        [`lg-flex-grow-1`]: lgGrow,
-        [`lg-justify-${lgJustify}`]: lgJustify,
-        [`lg-flex-shrink-1`]: lgShrink,
-        [`lg-flex-${lgWrap}`]: lgWrap,
-      })}
-    >
-      {children}
-    </Padding>
-  );
-};
+export const Flex = styled(Padding).attrs<FlexProps>(
+  ({
+    align,
+    as,
+    basis,
+    className,
+    children,
+    direction,
+    grow,
+    justify,
+    shrink,
+    wrap,
+    mdAlign,
+    mdBasis,
+    mdDirection,
+    mdGrow,
+    mdJustify,
+    mdShrink,
+    mdWrap,
+    lgAlign,
+    lgBasis,
+    lgDirection,
+    lgGrow,
+    lgJustify,
+    lgShrink,
+    lgWrap,
+  }) => ({
+    className: cx("flex", {
+      [`items-${align}`]: align,
+      [`flex-${direction}`]: direction,
+      [`justify-${justify}`]: justify,
+      [`flex-${wrap}`]: wrap,
+      [`md:items-${mdAlign}`]: mdAlign,
+      [`md:flex-${mdDirection}`]: mdDirection,
+      [`md:justify-${mdJustify}`]: mdJustify,
+      [`md:flex-${mdWrap}`]: mdWrap,
+      [`lg:items-${lgAlign}`]: lgAlign,
+      [`lg:flex-${lgDirection}`]: lgDirection,
+      [`lg:justify-${lgJustify}`]: lgJustify,
+      [`lg:flex-${lgWrap}`]: lgWrap,
+      [grow === 0 ? "flex-grow-0" : "flex-grow"]: grow,
+      [shrink === 0 ? "flex-shrink-0" : "flex-shrink"]: shrink,
+      [mdGrow === 0 ? "md:flex-grow-0" : "md:flex-grow"]: mdGrow,
+      [mdShrink === 0 ? "md:flex-shrink-0" : "md:flex-shrink"]: mdShrink,
+      [lgGrow === 0 ? "lg:flex-grow-0" : "lg:flex-grow"]: lgGrow,
+      [lgShrink === 0 ? "lg:flex-shrink-0" : "lg:flex-shrink"]: lgShrink,
+    }),
+  })
+)<FlexProps>``;
