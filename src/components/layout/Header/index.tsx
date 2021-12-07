@@ -24,17 +24,19 @@ export const LogoLink = () => {
 
 export const Header = () => (
   <Flex
+    align="center"
+    color="gray-800"
+    grow={1}
     py={4}
     px={10}
-    color="gray-800"
-    align="center"
-    justify="between"
-    grow={1}
+    justify="center"
   >
-    <LogoLink />
+    <Flex className="container" justify="between">
+      <LogoLink />
 
-    <Flex className="hidden">
-      <Wallet />
+      <Flex className="hidden">
+        <Wallet />
+      </Flex>
     </Flex>
   </Flex>
 );
