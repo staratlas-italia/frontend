@@ -26,6 +26,9 @@ module.exports = withTM({
   env: {
     ENVIRONMENT: process.env.ENVIRONMENT,
   },
+  images: {
+    domains: ["storage.googleapis.com"],
+  },
   reactStrictMode: true,
   trailingSlash: false,
 });
