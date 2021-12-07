@@ -6,7 +6,6 @@ import dynamic from "next/dynamic";
 import React, { ReactNode, useMemo } from "react";
 import "tailwindcss/tailwind.css";
 import { BaseLayout } from "~/components/layout/BaseLayout";
-import "~/components/modals/WalletModal/index.css";
 import { ModalProvider } from "~/contexts/ModalContext";
 
 const WalletProvider = dynamic<{ children: ReactNode }>(
