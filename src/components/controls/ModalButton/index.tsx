@@ -1,9 +1,7 @@
-import { Button } from "antd";
 import styled from "styled-components";
+import { Button } from "~/components/controls/Button";
 
-export const ModalButton = styled(Button).attrs({
-  ghost: true,
-})`
+export const ModalButton = styled(Button)`
   font-style: normal;
   font-weight: normal;
   font-size: 16px;

@@ -1,8 +1,8 @@
 import classNames from "classnames";
 import React, { ComponentType } from "react";
+import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 import { ColorName } from "~/components/layout/Pane";
-import { Text } from "~/components/Text";
 
 type iconRenderProp = (props: {
   className: string;
