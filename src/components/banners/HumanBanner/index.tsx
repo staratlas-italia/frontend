@@ -1,16 +1,8 @@
 import Image from "next/image";
+import React from "react";
 import styled from "styled-components";
+import { BannerContainer } from "~/components/banners/BannerContainer";
 import { Flex } from "~/components/layout/Flex";
-
-const Container = styled(Flex)`
-  position: relative;
-  min-height: 300px;
-`;
-
-const Circle = styled(Flex)`
-  border-radius: 100%;
-  overflow: hidden;
-`;
 
 const HumanImage = styled(Image).attrs({
   src: "/images/human.png",
@@ -21,10 +13,10 @@ const HumanImage = styled(Image).attrs({
 
 export const HumanBanner = () => {
   return (
-    <Container py={10} align="center" justify="center">
-      <Circle>
+    <BannerContainer px={10} mdPx={0} py={10} align="center" justify="center">
+      <Flex className="rounded-full overflow-hidden">
         <HumanImage width={400} height={400} />
-      </Circle>
-    </Container>
+      </Flex>
+    </BannerContainer>
   );
 };

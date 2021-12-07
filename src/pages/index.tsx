@@ -2,12 +2,12 @@ import { ArrowRightIcon } from "@heroicons/react/solid";
 import Head from "next/head";
 import Link from "next/link";
 import React from "react";
-import { Button } from "~/components/ controls/Button";
 import { HumanBanner } from "~/components/banners/HumanBanner";
 import { ShipBanner } from "~/components/banners/ShipBanner";
 import { Divider } from "~/components/common/Divider";
+import { Text } from "~/components/common/Text";
+import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
-import { Text } from "~/components/Text";
 
 const Home = () => {
   return (

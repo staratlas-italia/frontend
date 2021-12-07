@@ -1,7 +1,7 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import { getPhantomWallet } from "@solana/wallet-adapter-wallets";
-import { Button, Collapse } from "antd";
 import React, { useCallback, useMemo, useState } from "react";
+import { Button } from "~/components/controls/Button";
 import { useModal } from "../../../contexts/ModalContext";
 import { BaseModal } from "../BaseModal";
 
@@ -45,7 +45,7 @@ export const WalletModal = () => {
         <img src={phatomWallet?.icon} style={{ width: "1.2rem" }} />
         &nbsp;Connect to Phantom
       </Button>
-      <Collapse
+      {/* <Collapse
         ghost
         expandIcon={(panelProps) =>
           panelProps.isActive ? (
@@ -119,7 +119,7 @@ export const WalletModal = () => {
             );
           })}
         </Collapse.Panel>
-      </Collapse>
+      </Collapse> */}
     </BaseModal>
   );
 };

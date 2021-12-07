@@ -1,10 +1,11 @@
-import { CreditCardOutlined } from "@ant-design/icons";
-import { Card, Col, ModalProps, Row } from "antd";
 import classNames from "classnames";
 import React from "react";
-import { ModalButton } from "~/components/ModalButton";
+import styled from "styled-components";
+import { ModalButton } from "~/components/controls/ModalButton";
 import { BaseModal } from "~/components/modals/BaseModal";
 import { AvailableModal, useModal } from "~/contexts/ModalContext";
+
+const Card = styled.div;
 
 export const ContentCard = (props: {
   title: string;
@@ -22,7 +23,7 @@ export const ContentCard = (props: {
     <Card
       cover={
         <div className={"card-cover"}>
-          {imgSrc ? (
+          {/* {imgSrc ? (
             <img src={imgSrc} />
           ) : (
             <CreditCardOutlined
@@ -31,7 +32,7 @@ export const ContentCard = (props: {
                 fontSize: 18,
               }}
             />
-          )}
+          )} */}
         </div>
       }
     >
@@ -54,7 +55,7 @@ export const ModalContent = ({ children }) => {
   );
 };
 
-type Props = ModalProps & {
+type Props = {
   id: AvailableModal;
   buttonClassName?: string;
   buttonText: string;
@@ -93,13 +94,13 @@ export const InstructionsModal = ({
       </ModalButton>
       <BaseModal
         id={id}
-        title={modalTitle}
-        visible={visible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-        className={"modal-box instructions-modal"}
-        closeIcon={<img src={"images/modals/close.svg"} />}
+        // title={modalTitle}
+        // visible={visible}
+        // onOk={handleOk}
+        // onCancel={handleCancel}
+        // footer={null}
+        // className={"modal-box instructions-modal"}
+        // closeIcon={<img src={"images/modals/close.svg"} />}
         {...props}
       >
         <ModalContent>

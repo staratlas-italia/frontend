@@ -9,7 +9,6 @@ import {
   getSolongWallet,
 } from "@solana/wallet-adapter-wallets";
 import React, { useCallback, useMemo } from "react";
-import { notify } from "../../utils/notify";
 
 export const WalletProvider = ({ children }) => {
   const wallets = useMemo(
@@ -33,10 +32,6 @@ export const WalletProvider = ({ children }) => {
 
   const onError = useCallback((error: WalletError) => {
     console.error(error);
-    notify({
-      message: "Wallet error",
-      description: error.message,
-    });
   }, []);
 
   return (

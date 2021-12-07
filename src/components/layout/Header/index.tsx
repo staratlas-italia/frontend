@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Flex } from "~/components/layout/Flex";
-import { Text } from "~/components/Text";
 import { Wallet } from "~/components/Wallet";
 
 export const LogoLink = () => {
@@ -34,19 +33,6 @@ export const Header = () => (
   >
     <LogoLink />
 
-    <Flex>
-      <Link href="/ships">
-        <Flex as="a" className="">
-          <Text
-            as="a"
-            color="white"
-            className="px-8 py-2 hover:text-black border-2 border-white rounded-full hover:bg-white"
-          >
-            Ships
-          </Text>
-        </Flex>
-      </Link>
-    </Flex>
     <Flex className="hidden">
       <Wallet />
     </Flex>

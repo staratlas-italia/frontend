@@ -1,11 +1,6 @@
-import { Image } from "antd";
 import styled from "styled-components";
+import { BannerContainer } from "~/components/banners/BannerContainer";
 import { Flex } from "~/components/layout/Flex";
-
-const Container = styled(Flex)`
-  position: relative;
-  min-height: 300px;
-`;
 
 const SpaceBackground = styled(Flex)`
   border-radius: 100%;
@@ -18,9 +13,8 @@ const SpaceBackground = styled(Flex)`
   background-image: url("images/space.png");
 `;
 
-const ShipImage = styled(Image).attrs({
+const ShipImage = styled.img.attrs({
   src: "/images/ship.png",
-  preview: false,
 })`
   min-width: 400px;
   max-width: 450px;
@@ -29,10 +23,10 @@ const ShipImage = styled(Image).attrs({
 
 export const ShipBanner = () => {
   return (
-    <Container py={10}>
+    <BannerContainer px={10} mdPx={0} py={10}>
       <SpaceBackground align="center" justify="center">
         <ShipImage />
       </SpaceBackground>
-    </Container>
+    </BannerContainer>
   );
 };
