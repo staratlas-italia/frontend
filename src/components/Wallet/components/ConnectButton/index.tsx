@@ -1,19 +1,17 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import React, { useCallback } from "react";
-import { ButtonProps } from "~/components/controls/Button";
 import { WalletModal } from "~/components/modals/WalletModal";
 import { useModal } from "~/contexts/ModalContext";
 
-export type ConnectButtonProps = ButtonProps &
-  React.RefAttributes<HTMLElement> & {
-    allowWalletChange?: boolean;
-    className?: string;
-  };
+export type ConnectButtonProps = React.RefAttributes<HTMLElement> & {
+  onClick?: () => void;
+  allowWalletChange?: boolean;
+  className?: string;
+};
 
 export const ConnectButton = ({
   allowWalletChange,
   className,
-  disabled,
   onClick,
   ...rest
 }: ConnectButtonProps) => {

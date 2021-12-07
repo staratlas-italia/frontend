@@ -4,6 +4,7 @@
   "version": "0.1.0-alpha.0",
   "scripts": {
     "dev": "next dev",
+    "lint": "tsc --noEmit",
     "build": "next build",
     "export": "next export",
     "prepare": "husky install",

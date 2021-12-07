@@ -10,22 +10,22 @@ type iconRenderProp = (props: {
 
 export type ButtonProps = {
   as?: ComponentType | string;
-  bgColor: ColorName;
+  bgColor?: ColorName;
   children: string;
   className?: string;
   onClick?: () => void;
   iconLeft?: iconRenderProp;
   iconRight?: iconRenderProp;
-  textColor: ColorName;
+  textColor?: ColorName;
 };
 
 export const Button = ({
   as,
-  bgColor,
+  bgColor = "white",
   children,
   iconLeft,
   iconRight,
-  textColor,
+  textColor = "black",
   className,
   ...props
 }: ButtonProps) => {
