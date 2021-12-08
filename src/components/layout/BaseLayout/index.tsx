@@ -7,7 +7,7 @@ export const BaseLayout = React.memo(
       <div>
         <Header />
 
-        <div className="container overflow-auto mx-auto py-5">{children}</div>
+        <div className="container overflow-auto mx-auto py-10">{children}</div>
       </div>
     );
   }

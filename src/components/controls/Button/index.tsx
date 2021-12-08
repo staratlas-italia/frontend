@@ -11,6 +11,8 @@ type iconRenderProp = (props: {
 export type ButtonProps = {
   as?: ComponentType | string;
   bgColor?: ColorName;
+  hoverBgColor?: ColorName;
+  hoverTextColor?: ColorName;
   children: string;
   className?: string;
   onClick?: () => void;
@@ -22,10 +24,12 @@ export type ButtonProps = {
 export const Button = ({
   as,
   bgColor = "white",
+  hoverBgColor = "gray-800",
   children,
   iconLeft,
   iconRight,
   textColor = "black",
+  hoverTextColor,
   className,
   ...props
 }: ButtonProps) => {
@@ -34,7 +38,9 @@ export const Button = ({
       as={as || "button"}
       align="center"
       justify="between"
-      className={classNames(className, "rounded-md hover:bg-indigo-200")}
+      className={classNames(className, "group rounded-md", {
+        [`hover:bg-${hoverBgColor}`]: hoverBgColor,
+      })}
       px={8}
       py={3}
       mdPy={4}
@@ -47,7 +53,13 @@ export const Button = ({
         </Flex>
       )}
 
-      <Text size="base" mdSize="lg" weight="medium" color={textColor}>
+      <Text
+        size="base"
+        mdSize="lg"
+        weight="medium"
+        color={textColor}
+        hoverColor={hoverTextColor}
+      >
         {children}
       </Text>
 

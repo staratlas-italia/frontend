@@ -52,6 +52,7 @@ type TextSize =
 type TextProps = {
   align: TextAlignment;
   color: ColorName;
+  hoverColor: ColorName;
   decoration: TextDecoration;
   opacity: TextOpacity;
   overflow: TextOverflow;
@@ -101,6 +102,7 @@ export const Text = styled.span.attrs(
   ({
     align,
     color,
+    hoverColor,
     decoration,
     opacity,
     overflow,
@@ -135,6 +137,7 @@ export const Text = styled.span.attrs(
     className: classNames({
       [`text-${align}`]: align,
       [`text-${color}`]: color,
+      [`group-hover:text-${hoverColor}`]: hoverColor,
       [`text-opacity-${opacity}`]: opacity,
       [decoration]: decoration,
       [overflow]: overflow,
