@@ -1,6 +1,6 @@
 export const Polygon = () => (
   <svg
-    className="hidden xl:block absolute left-0 inset-y-0 h-full w-48 text-white transform lg:-translate-x-11 2xl:-translate-x-16"
+    className="hidden xl:block absolute inset-y-0 h-full w-32 text-indigo-600 transform lg:-translate-x-3 2xl:-translate-x-8"
     fill="currentColor"
     viewBox="0 0 100 100"
     preserveAspectRatio="none"

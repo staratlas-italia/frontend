@@ -18,7 +18,7 @@ export const Heading = ({ color, subtitle, title }: Props) => (
   >
     <span className={cx(`block xl:inline`)}>{title}</span>
     <Text
-      color="gray-700"
+      color="gray-200"
       className="mt-2 block"
       size="3xl"
       transform="uppercase"

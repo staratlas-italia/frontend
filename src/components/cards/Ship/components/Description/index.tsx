@@ -6,7 +6,7 @@ type Props = {
 };
 
 export const Description = ({ text }: Props) => (
-  <Text as="p" size="base" smSize="lg" mdSize="xl" color="gray-500">
+  <Text as="p" size="base" smSize="lg" mdSize="xl" color="gray-100">
     {text.substring(0, 200).trim()}
     {"..."}
   </Text>
