@@ -12,7 +12,7 @@ type ShipAttributes = {
   unitHeight: number;
 };
 
-type ShipSlot = {
+export type ShipSlot = {
   type: string;
   size: string;
   quantity: number;
