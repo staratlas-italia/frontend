@@ -4,7 +4,6 @@ import Link from "next/link";
 import React from "react";
 import { HumanBanner } from "~/components/banners/HumanBanner";
 import { ShipBanner } from "~/components/banners/ShipBanner";
-import { Divider } from "~/components/common/Divider";
 import { Text } from "~/components/common/Text";
 import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
@@ -15,38 +14,45 @@ const Home = () => {
       <Head>
         <title>Home - StarAtlasItalia</title>
       </Head>
-      <Divider>
+      <div className="space-y-10">
         <Flex
-          pb={10}
           align="center"
           className="md:grid md:grid-cols-2"
           direction="col-reverse"
           mdDirection="row"
           justify="center"
         >
-          <Flex className="space-y-5" direction="col" justify="center">
+          <Flex
+            color="black"
+            className="space-y-5 md:rounded-3xl backdrop-filter backdrop-blur-xl bg-opacity-30"
+            p={5}
+            direction="col"
+            justify="center"
+          >
             <Text
-              className="tracking-tight "
+              color="white"
+              className="tracking-tight0"
               weight="extrabold"
               size="4xl"
-              mdSize="5xl"
+              mdSize="6xl"
             >
               Benvenuto!
             </Text>
-            <Text size="lg" mdSize="xl" color="gray-500">
+            <Text color="white" size="lg" mdSize="xl" weight="medium">
               Un cataclisma cosmico ha generato un tesoro di Minerali al centro
               della galassia. Le tre fazioni in lotta da millenni rivolgono ora
               le brame di conquista agli immensi tesori di Star Atlas.
             </Text>
-            <Text weight="semibold" size="lg" mdSize="xl">
+            <Text color="white" weight="semibold" size="lg" mdSize="xl">
               Sei pronto a unirti alla gilda più grande d'Italia?
             </Text>
-            <Flex pt={3}>
+            <Flex>
               <Link href="/ships">
                 <Button
-                  bgColor="indigo-100"
+                  bgColor="indigo-500"
+                  hoverBgColor="indigo-600"
                   iconRight={ArrowRightIcon}
-                  textColor="indigo-700"
+                  textColor="white"
                 >
                   Esplora le navi
                 </Button>
@@ -66,25 +72,32 @@ const Home = () => {
           mdDirection="row"
           justify="center"
         >
-          <Flex>
+          <Flex justify="center">
             <HumanBanner />
           </Flex>
-          <Flex className="space-y-5" direction="col" pt={10}>
+          <Flex
+            color="black"
+            className="space-y-5 md:rounded-3xl backdrop-filter backdrop-blur-xl bg-opacity-20"
+            direction="col"
+            py={5}
+            px={8}
+          >
             <Text
+              color="white"
               className="tracking-tight "
               weight="extrabold"
               size="4xl"
-              mdSize="5xl"
+              mdSize="6xl"
             >
               Vuoi far parte della gilda?
             </Text>
 
-            <Text size="lg" mdSize="xl" color="gray-500">
-              L’ingresso nella guild Star Atlas Italia è vinFlexato al pagamento
+            <Text size="lg" mdSize="xl" color="gray-200">
+              L’ingresso nella guild Star Atlas Italia è vincolato al pagamento
               di una fee di ingresso che sarà destinata all’acquisto di asset
               come ship, land e token.
             </Text>
-            <Text size="lg" mdSize="xl" color="gray-500">
+            <Text size="lg" mdSize="xl" color="gray-200">
               Introduzione di questa fee consentirà alla Gilda di avere una base
               di asset su cui poter contare. In base all’ammontare investito
               nella Guild verranno airdroppati 1 o più NFT che rappresenteranno
@@ -95,7 +108,12 @@ const Home = () => {
             <Flex justify="end" pt={3}>
               <Link href="https://forms.gle/Es6cb1LDu6AHbMJ38">
                 <a target="_blank">
-                  <Button as="span" bgColor="green-100" textColor="green-700">
+                  <Button
+                    as="span"
+                    bgColor="green-100"
+                    hoverBgColor="green-200"
+                    textColor="green-700"
+                  >
                     Vuoi arruolati? - Clicca qui
                   </Button>
                 </a>
@@ -103,7 +121,7 @@ const Home = () => {
             </Flex>
           </Flex>
         </Flex>
-      </Divider>
+      </div>
     </>
   );
 };

@@ -14,10 +14,14 @@ const shipSizes = {
   medium: 3,
   large: 4,
   capital: 5,
+  commander: 6,
 };
 
 const sortForSize = (shipA: StarAtlasEntity, shipB: StarAtlasEntity) => {
-  return shipSizes[shipA.attributes.class] - shipSizes[shipB.attributes.class];
+  return (
+    shipSizes[shipA.attributes.class.toLowerCase()] -
+    shipSizes[shipB.attributes.class.toLowerCase()]
+  );
 };
 
 const ShipsPage = ({ data }: Props) => {
@@ -30,10 +34,11 @@ const ShipsPage = ({ data }: Props) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await axios.get(process.env.STAR_ATLAS_NFTS_URL);
   const ships = res.data.filter((ship) => ship.attributes.category === "ship");
   ships.sort(sortForSize);
+
   return {
     props: {
       data: ships,
