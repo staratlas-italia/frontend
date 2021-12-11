@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { ShipListPage } from "~/components/pages/ShipList";
+import { ShipListPage } from "~/components/pages/Ships";
 import { StarAtlasEntity } from "~/types";
 
 type Props = {

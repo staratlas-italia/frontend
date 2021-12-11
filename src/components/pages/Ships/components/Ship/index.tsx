@@ -4,10 +4,10 @@ import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
 import { MaxWidth } from "~/components/layout/MaxWidth";
 import { ColorName } from "~/components/layout/Pane";
-import { Description } from "~/components/pages/ShipList/components/Ship/components/Description";
-import { Heading } from "~/components/pages/ShipList/components/Ship/components/Heading";
-import { Image } from "~/components/pages/ShipList/components/Ship/components/Image";
-import { Polygon } from "~/components/pages/ShipList/components/Ship/components/Polygon";
+import { Description } from "~/components/pages/Ships/components/Ship/components/Description";
+import { Heading } from "~/components/pages/Ships/components/Ship/components/Heading";
+import { Image } from "~/components/pages/Ships/components/Ship/components/Image";
+import { Polygon } from "~/components/pages/Ships/components/Ship/components/Polygon";
 import { StarAtlasEntity } from "~/types";
 
 type Props = { ship: StarAtlasEntity };
