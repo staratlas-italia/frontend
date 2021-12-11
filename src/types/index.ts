@@ -38,7 +38,7 @@ type ShipCollection = {
   name: string;
 };
 
-type Market = {
+export type Market = {
   _id: string;
   id: string;
   quotePair: string;
@@ -51,7 +51,7 @@ type Airdrop = {
   supply: number;
 };
 
-type Sale = {
+export type Sale = {
   _id: string;
   listTimestamp: number;
   supply: number;
