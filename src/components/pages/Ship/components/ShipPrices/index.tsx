@@ -1,21 +1,15 @@
 import { useMemo } from "react";
-import { StarAtlasEntity } from "~/components/cards/Ship/types";
 import { InfoRow } from "~/components/common/Info";
 import { Flex } from "~/components/layout/Flex";
-import { useEntityPrice } from "~/hooks/useEntityPrice";
-import { useEntityVwapPrice } from "~/hooks/useEntityVwapPrice";
+import { useEntityPrice } from "~/components/pages/Ship/hooks/useEntityPrice";
+import { useEntityVwapPrice } from "~/components/pages/Ship/hooks/useEntityVwapPrice";
 
-type Props = { ship: StarAtlasEntity };
+export const ShipPrices = () => {
+  const vwap = useEntityVwapPrice();
 
-export const ShipPrices = ({ ship }: Props) => {
-  const vwap = useEntityVwapPrice(ship);
+  const { loading, price } = useEntityPrice();
 
-  const { loading, price } = useEntityPrice(ship);
-
-  const { loading: atlasLoading, price: atlasPrice } = useEntityPrice(
-    ship,
-    "ATLAS"
-  );
+  const { loading: atlasLoading, price: atlasPrice } = useEntityPrice("ATLAS");
 
   const discount = useMemo(() => {
     if (!price || !vwap) return null;
@@ -33,9 +27,11 @@ export const ShipPrices = ({ ship }: Props) => {
       <InfoRow loading={loading} title="USDC Price">
         {parseFloat(price).toFixed(2)}$
       </InfoRow>
+
       <InfoRow loading={atlasLoading} title="ATLAS Price">
         {parseFloat(atlasPrice).toFixed(2)}
       </InfoRow>
+
       <InfoRow title="VWAP Price">{vwap?.toFixed(2)}$</InfoRow>
 
       <InfoRow title="VWAP vs Price">{discount}</InfoRow>

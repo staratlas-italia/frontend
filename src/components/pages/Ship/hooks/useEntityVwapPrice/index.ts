@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { StarAtlasEntity } from "~/components/cards/Ship/types";
+import { useShip } from "~/contexts/ShipContext";
 
-export const useEntityVwapPrice = (entity: StarAtlasEntity) => {
+export const useEntityVwapPrice = () => {
+  const { primarySales } = useShip();
+
   const [vwap, setVwap] = useState<number>();
 
   useEffect(() => {
     let totalEntities = 0;
 
     const totalRevenue =
-      entity?.primarySales?.reduce((result, item) => {
+      primarySales?.reduce((result, item) => {
         totalEntities += item.supply;
         result += item.price * item.supply;
 
@@ -16,7 +18,7 @@ export const useEntityVwapPrice = (entity: StarAtlasEntity) => {
       }, 0) || 0;
 
     setVwap(totalRevenue / totalEntities);
-  }, [entity]);
+  }, [primarySales]);
 
   return vwap;
 };

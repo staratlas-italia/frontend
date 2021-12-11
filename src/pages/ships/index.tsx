@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
-import { ShipCard } from "~/components/cards/Ship";
-import { StarAtlasEntity } from "~/components/cards/Ship/types";
+import { ShipListPage } from "~/components/pages/ShipList";
+import { StarAtlasEntity } from "~/types";
 
 type Props = {
   data: StarAtlasEntity[];
@@ -17,20 +17,12 @@ const shipSizes = {
   commander: 6,
 };
 
+const ShipsPage = ({ data }: Props) => <ShipListPage ships={data} />;
+
 const sortForSize = (shipA: StarAtlasEntity, shipB: StarAtlasEntity) => {
   return (
     shipSizes[shipA.attributes.class.toLowerCase()] -
     shipSizes[shipB.attributes.class.toLowerCase()]
-  );
-};
-
-const ShipsPage = ({ data }: Props) => {
-  return (
-    <div className="space-y-10">
-      {data.map((ship) => (
-        <ShipCard key={ship._id} ship={ship} />
-      ))}
-    </div>
   );
 };
 

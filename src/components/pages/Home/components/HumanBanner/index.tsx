@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
-import { BannerContainer } from "~/components/banners/BannerContainer";
 import { Flex } from "~/components/layout/Flex";
+import { BannerContainer } from "../BannerContainer";
 
 const HumanImage = styled(Image).attrs({
   src: "/images/human.png",
