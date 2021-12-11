@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { ShipList } from "~/components/pages/Ships/components/ShipList";
 import { ShipTable } from "~/components/pages/Ships/components/ShipTable";
-import { ToolbarState } from "~/components/pages/Ships/components/Toolbar";
+import {
+  Toolbar,
+  ToolbarState,
+} from "~/components/pages/Ships/components/Toolbar";
 import { StarAtlasEntity } from "~/types";
 
 type Props = { ships: StarAtlasEntity[] };
@@ -11,7 +14,7 @@ export const ShipListPage = ({ ships }: Props) => {
 
   return (
     <>
-      {/* <Toolbar type={toolbarState} onChange={setToolbarState} /> */}
+      <Toolbar type={toolbarState} onChange={setToolbarState} />
       {toolbarState === "grid" ? (
         <ShipList ships={ships} />
       ) : (

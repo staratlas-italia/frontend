@@ -1,4 +1,4 @@
-import { TableIcon, ViewGridIcon } from "@heroicons/react/outline";
+import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 
 export type ToolbarState = "table" | "grid";
@@ -10,12 +10,17 @@ export const Toolbar = ({ type = "grid", onChange }: Props) => (
     <Flex
       as="button"
       className="relative"
+      pb={5}
       onClick={() => onChange?.(type === "grid" ? "table" : "grid")}
     >
       {type === "grid" ? (
-        <TableIcon className="h-8 w-8 text-white" />
+        <Text size="xl" color="white" weight="bold">
+          Show table
+        </Text>
       ) : (
-        <ViewGridIcon className="h-8 w-8 text-white" />
+        <Text size="xl" color="white" weight="bold">
+          Show grid
+        </Text>
       )}
     </Flex>
   </Flex>
