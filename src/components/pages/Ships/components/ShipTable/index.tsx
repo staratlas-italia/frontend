@@ -28,7 +28,11 @@ export const ShipTable = ({ ships }: Props) => {
 
   return (
     <div className="relative p-10 bg-black overflow-hidden backdrop-filter backdrop-blur-lg bg-opacity-20">
-      <Flex direction="col" justify="center" className="space-y-5">
+      <Flex
+        direction="col"
+        justify="center"
+        className="overflow-scroll space-y-5"
+      >
         <Menu id="currency" items={availableCurrencies} />
         <table className="table-auto text-white">
           <thead>
@@ -64,7 +68,13 @@ export const ShipTable = ({ ships }: Props) => {
           </thead>
           <tbody className="divide-y-2 divide-white">
             {loading ? (
-              <tr>{loading && <Loader />}</tr>
+              <tr>
+                <td colSpan={9}>
+                  <Flex justify="center" py={5}>
+                    <Loader />
+                  </Flex>
+                </td>
+              </tr>
             ) : (
               data.map((ship) => (
                 <tr key={ship.id}>
@@ -78,15 +88,15 @@ export const ShipTable = ({ ships }: Props) => {
                     {ship.name}
                   </Text>
                   <Text as="td" className="px-4 py-2">
-                    {currency === "USDC" ? "$" : currency}{" "}
+                    {currency === "ATLAS" ? currency : "$"}{" "}
                     {ship.price.toFixed(2)}
                   </Text>
                   <Text as="td" className="px-4 py-2">
-                    {currency === "USDC" ? "$" : currency}{" "}
+                    {currency === "ATLAS" ? currency : "$"}{" "}
                     {ship.bestBidPrice.toFixed(2)}
                   </Text>
                   <Text as="td" className="px-4 py-2">
-                    {currency === "USDC" ? "$" : currency}{" "}
+                    {currency === "ATLAS" ? currency : "$"}{" "}
                     {ship.bestAskPrice.toFixed(2)}
                   </Text>
 

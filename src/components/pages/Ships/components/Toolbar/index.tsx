@@ -6,7 +6,7 @@ export type ToolbarState = "table" | "grid";
 type Props = { type?: ToolbarState; onChange?: (type: ToolbarState) => void };
 
 export const Toolbar = ({ type = "grid", onChange }: Props) => (
-  <Flex justify="end">
+  <Flex justify="end" px={5}>
     <Flex
       as="button"
       className="relative"
