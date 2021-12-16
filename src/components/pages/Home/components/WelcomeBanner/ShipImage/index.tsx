@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { Flex } from "~/components/layout/Flex";
-import { BannerContainer } from "../BannerContainer";
+
+const BannerContainer = styled(Flex)`
+  position: relative;
+`;
 
 const SpaceBackground = styled(Flex)`
   border-radius: 100%;
@@ -13,7 +16,7 @@ const SpaceBackground = styled(Flex)`
   background-image: url("images/space.png");
 `;
 
-const ShipImage = styled.img.attrs({
+const Ship = styled.img.attrs({
   src: "/images/ship.png",
 })`
   min-width: 400px;
@@ -21,11 +24,11 @@ const ShipImage = styled.img.attrs({
   transform: rotate(10deg);
 `;
 
-export const ShipBanner = () => {
+export const ShipImage = () => {
   return (
     <BannerContainer px={10} mdPx={0} py={10}>
       <SpaceBackground align="center" justify="center">
-        <ShipImage />
+        <Ship />
       </SpaceBackground>
     </BannerContainer>
   );

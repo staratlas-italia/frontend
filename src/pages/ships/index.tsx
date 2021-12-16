@@ -1,4 +1,5 @@
 import axios from "axios";
+import Head from "next/head";
 import React from "react";
 import { ShipListPage } from "~/components/pages/Ships";
 import { StarAtlasEntity } from "~/types";
@@ -17,7 +18,14 @@ const shipSizes = {
   commander: 6,
 };
 
-const ShipsPage = ({ data }: Props) => <ShipListPage ships={data} />;
+const ShipsPage = ({ data }: Props) => (
+  <>
+    <Head>
+      <title>Ships - StarAtlasItalia</title>
+    </Head>
+    <ShipListPage ships={data} />
+  </>
+);
 
 const sortForSize = (shipA: StarAtlasEntity, shipB: StarAtlasEntity) => {
   return (
