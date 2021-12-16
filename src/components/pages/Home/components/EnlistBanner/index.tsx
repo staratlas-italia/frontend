@@ -37,13 +37,7 @@ export const EnlistBanner = () => (
         tutti gli effetti il potere di decidere su di essa (DAO).
       </Text>
 
-      <Text
-        color="white"
-        className="tracking-tight "
-        weight="extrabold"
-        size="4xl"
-        mdSize="6xl"
-      >
+      <Text color="white" weight="semibold" size="lg" mdSize="xl">
         Sei pronto ad affrontare delle incredibili avventure spaziali?
       </Text>
 
