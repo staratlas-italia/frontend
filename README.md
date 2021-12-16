@@ -2,7 +2,7 @@
 
 # Candy Machine
 
-Ciao! La più grande community italiana di [StartAtlas](https://strataltas.com/) ti da il benvenuto!
+Ciao! La più grande community italiana di [StartAtlas](https://staratlas.com/) ti da il benvenuto!
 
 ## About
 
