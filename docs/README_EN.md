@@ -2,7 +2,7 @@
 
 # Candy Machine
 
-Hi there! The [StartAtlas](https://strataltas.com/) biggest Italian commuty is here for you!
+Hi there! The [StartAtlas](https://staratlas.com/) biggest Italian commuty is here for you!
 
 ## About
 
