@@ -3,9 +3,9 @@ import { Text } from "~/components/common/Text";
 import { Flex, FlexProps } from "~/components/layout/Flex";
 import { ShipSlot } from "~/types";
 
-type Props = FlexProps & { title: string; attrs: ShipSlot[] };
+type Props = FlexProps & { title: string; attrs?: ShipSlot[] };
 
-export const ShipAttributes = ({ attrs, title, ...props }: Props) => (
+export const ShipAttributes = ({ attrs = [], title, ...props }: Props) => (
   <Flex direction="col" {...props}>
     <Text
       color="white"

@@ -49,7 +49,7 @@ type TextSize =
   | "8xl"
   | "9xl";
 
-type TextProps = {
+type XsTextProps = {
   align: TextAlignment;
   color: ColorName;
   hoverColor: ColorName;
@@ -94,8 +94,8 @@ type XlTextProps = {
   xlWeight: TextWeight;
 };
 
-type Props = PropsWithChildren<
-  Partial<TextProps & SmTextProps & MdTextProps & XlTextProps>
+export type TextProps = PropsWithChildren<
+  Partial<XsTextProps & SmTextProps & MdTextProps & XlTextProps>
 >;
 
 export const Text = styled.span.attrs(
@@ -133,16 +133,16 @@ export const Text = styled.span.attrs(
     xlSize,
     xlTransform,
     xlWeight,
-  }: Props) => ({
+  }: TextProps) => ({
     className: classNames({
       [`text-${align}`]: align,
       [`text-${color}`]: color,
       [`group-hover:text-${hoverColor}`]: hoverColor,
       [`text-opacity-${opacity}`]: opacity,
-      [decoration]: decoration,
-      [overflow]: overflow,
+      [`${decoration}`]: decoration,
+      [`${overflow}`]: overflow,
       [`text-${size}`]: size,
-      [transform]: transform,
+      [`${transform}`]: transform,
       [`font-${weight}`]: weight,
       [`sm:text-${smAlign}`]: smAlign,
       [`sm:text-${smColor}`]: smColor,
@@ -170,4 +170,4 @@ export const Text = styled.span.attrs(
       [`xl:font-${xlWeight}`]: xlWeight,
     }),
   })
-)<Props>``;
+)<TextProps>``;

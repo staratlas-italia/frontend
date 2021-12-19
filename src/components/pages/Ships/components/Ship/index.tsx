@@ -25,7 +25,11 @@ const shipColors: { [key: string]: ColorName } = {
 export const ShipCard = ({ ship }: Props) => {
   return (
     <div className="rounded-3xl relative bg-black overflow-hidden backdrop-filter backdrop-blur-lg bg-opacity-10">
-      <Image src={ship.image} alt={ship.name} />
+      <Image
+        onLoad={(e) => console.log(e)}
+        src={ship?.image}
+        alt={ship?.name}
+      />
       <MaxWidth className="mx-auto" size="7xl">
         <div className="lg:float-right relative pb-8 sm:pb-16 md:pb-20 lg:max-w-lg xl:max-w-2xl lg:w-full">
           <Polygon />
@@ -33,12 +37,12 @@ export const ShipCard = ({ ship }: Props) => {
           <main className="relative z-10 pt-5 mx-auto w-full px-4 sm:pt-12 sm:px-6 md:pt-16 lg:px-8">
             <div className="xl:pl-28 sm:text-center lg:text-left">
               <Heading
-                color={shipColors[ship.attributes.class.toLowerCase()]}
-                title={ship.name}
-                subtitle={ship.attributes.class}
+                color={shipColors[ship?.attributes?.class?.toLowerCase()]}
+                title={ship?.name}
+                subtitle={ship?.attributes?.class}
               />
               <div className="mt-3 sm:mt-5 sm:max-w-xl sm:mx-auto md:mt-5 lg:mx-0">
-                <Description text={ship.description} />
+                <Description text={ship?.description} />
               </div>
               <Flex
                 direction="col"
@@ -48,7 +52,7 @@ export const ShipCard = ({ ship }: Props) => {
                 className="mt-5 sm:mt-10"
               >
                 <a
-                  href={`https://play.staratlas.com/market/${ship.markets[0].id}`}
+                  href={`https://play.staratlas.com/market/${ship?.markets[0].id}`}
                   target="_blank"
                 >
                   <Button
@@ -65,7 +69,7 @@ export const ShipCard = ({ ship }: Props) => {
                   <Link
                     href={{
                       pathname: "/ships/[id]",
-                      query: { id: ship._id },
+                      query: { id: ship?._id },
                     }}
                   >
                     <a className="w-full lg:w-auto">

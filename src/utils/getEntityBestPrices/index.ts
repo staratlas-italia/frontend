@@ -1,24 +1,22 @@
 import axios from "axios";
 import { DEXLAB_API_URL } from "~/common/constants";
-import { Market } from "~/types";
-
-type Currency = "USDC" | "ATLAS";
+import { Currency, Market } from "~/types";
 
 type OrderBook = {
-  bids: { price: number }[];
   asks: { price: number }[];
+  bids: { price: number }[];
 };
 
-export type BestPrices = {
+export type BestPrices = Partial<{
   bestAskPrice: number;
   bestBidPrice: number;
   price: number;
-};
+}>;
 
 export const getEntityBestPrices = async (
   markets: Market[],
   currency: Currency = "USDC"
-): Promise<BestPrices | null> => {
+) => {
   const market = markets.find((market) => market.quotePair === currency);
 
   if (market) {
@@ -38,5 +36,4 @@ export const getEntityBestPrices = async (
       price: (bestBidPrice + bestAskPrice) / 2,
     };
   }
-  return null;
 };

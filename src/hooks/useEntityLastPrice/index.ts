@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { DEXLAB_API_URL } from "~/common/constants";
-import { useShip } from "~/contexts/ShipContext";
-
-type Currency = "USDC" | "ATLAS";
+import { useShip } from "~/contexts/ShipsContext";
+import { Currency } from "~/types";
 
 type DexlabPrice = {
   market: string;
@@ -20,7 +19,7 @@ export const useEntityLastPrice = (currency: Currency = "USDC") => {
   useEffect(() => {
     const run = async () => {
       setLoading(true);
-      const market = markets.find((market) => market.quotePair === currency);
+      const market = markets?.find((market) => market.quotePair === currency);
 
       if (market) {
         const result = await axios.get(

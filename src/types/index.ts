@@ -12,6 +12,8 @@ type ShipAttributes = {
   unitHeight: number;
 };
 
+export type Currency = "USDC" | "ATLAS";
+
 export type ShipSlot = {
   type: string;
   size: string;

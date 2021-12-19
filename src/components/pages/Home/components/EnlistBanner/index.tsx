@@ -42,7 +42,7 @@ export const EnlistBanner = () => (
       </Text>
 
       <Flex justify="end" pt={3}>
-        <a target="_blank" href="#">
+        <a href="#">
           <Button as="span" bgColor="green-100" textColor="green-700">
             Vuoi arruolati? - Cooming soon
           </Button>
