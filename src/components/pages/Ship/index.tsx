@@ -4,7 +4,7 @@ import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 import { ShipAttributes } from "~/components/pages/Ship/components/ShipAttributes";
 import { ShipPrices } from "~/components/pages/Ship/components/ShipPrices";
-import { useShip } from "~/contexts/ShipContext";
+import { useShip } from "~/contexts/ShipsContext";
 
 export const ShipPage = () => {
   const {
@@ -50,7 +50,7 @@ export const ShipPage = () => {
         >
           {saleIsNotBegin ? (
             <Text transform="uppercase" weight="medium">
-              Official sale date - {saleDate.toLocaleString()}
+              Official sale date - {saleDate?.toLocaleString()}
             </Text>
           ) : (
             <ShipPrices />
@@ -63,7 +63,7 @@ export const ShipPage = () => {
                 weight="semibold"
                 transform="uppercase"
               >
-                {attributes.spec} - {attributes.rarity}
+                {attributes?.spec} - {attributes?.rarity}
               </Text>
             </Flex>
             <Text size="xl" color="gray-100">
@@ -72,14 +72,14 @@ export const ShipPage = () => {
           </Flex>
         </Flex>
         <Flex direction="col" className="col-span-3">
-          <ShipAttributes attrs={slots.componentSlots} title="Components" />
+          <ShipAttributes attrs={slots?.componentSlots} title="Components" />
 
-          <ShipAttributes attrs={slots.crewSlots} pt={10} title="Crew" />
+          <ShipAttributes attrs={slots?.crewSlots} pt={10} title="Crew" />
 
-          <ShipAttributes attrs={slots.moduleSlots} pt={10} title="Modules" />
+          <ShipAttributes attrs={slots?.moduleSlots} pt={10} title="Modules" />
 
           <Flex pt={16} className="grid grid-cols-3">
-            {media.gallery.map((imageUrl, index) => (
+            {media?.gallery?.map((imageUrl, index) => (
               <Flex
                 key={index.toString()}
                 className="max-h-72 col-span-3 lg:col-span-1 "

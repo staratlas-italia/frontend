@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { InfoRow } from "~/components/common/Info";
+import { Price } from "~/components/common/Price";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 import { useAtlasPrice } from "~/hooks/useAtlasPrice";
@@ -37,18 +38,20 @@ export const ShipPrices = () => {
   return (
     <Flex className="grid grid-cols-2 lg:grid-cols-5  gap-5">
       <InfoRow loading={loading} title="USDC Price">
-        $ {price?.toFixed(2)}
+        <Price value={price} />
       </InfoRow>
 
       <InfoRow loading={loading} title="USDC Best Bid Price">
-        $ {bestBidPrice?.toFixed(2)}
+        <Price value={bestBidPrice} />
       </InfoRow>
 
       <InfoRow loading={loading} title="USDC Best Ask Price">
-        $ {bestAskPrice?.toFixed(2)}
+        <Price value={bestAskPrice} />
       </InfoRow>
 
-      <InfoRow title="VWAP Price">$ {vwap?.toFixed(2)}</InfoRow>
+      <InfoRow title="VWAP Price">
+        <Price value={vwap} />
+      </InfoRow>
       <InfoRow title="VWAP vs Price">
         {priceVsVwapDiscount && (
           <Text
@@ -62,15 +65,15 @@ export const ShipPrices = () => {
       </InfoRow>
 
       <InfoRow loading={atlasLoading} title="ATLAS Price">
-        {atlasPrice?.toFixed(2)}
+        <Price currency="ATLAS" value={atlasPrice} />
       </InfoRow>
 
       <InfoRow loading={atlasLoading} title="ATLAS Best Bid Price">
-        {bestBidPriceAtlas?.toFixed(2)}
+        <Price currency="ATLAS" value={bestBidPriceAtlas} />
       </InfoRow>
 
       <InfoRow loading={atlasLoading} title="ATLAS Best Ask Price">
-        {bestAskPriceAtlas?.toFixed(2)}
+        <Price currency="ATLAS" value={bestAskPriceAtlas} />
       </InfoRow>
       <InfoRow title="Atlas Price vs Price">
         {priceVsAtlasDiscount && (

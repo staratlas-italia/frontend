@@ -7,6 +7,7 @@ import React, { ReactNode, useMemo } from "react";
 import "tailwindcss/tailwind.css";
 import { BaseLayout } from "~/components/layout/BaseLayout";
 import { ModalProvider } from "~/contexts/ModalContext";
+import { ShipsProvider } from "~/contexts/ShipsContext";
 
 const WalletProvider = dynamic<{ children: ReactNode }>(
   () =>
@@ -18,18 +19,22 @@ const WalletProvider = dynamic<{ children: ReactNode }>(
   }
 );
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   const network = WalletAdapterNetwork.Devnet;
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
   return (
     <ConnectionProvider endpoint={endpoint}>
       <ModalProvider>
         <WalletProvider>
-          <BaseLayout>
-            <Component {...pageProps} />
-          </BaseLayout>
+          <ShipsProvider>
+            <BaseLayout>
+              <Component {...pageProps} />
+            </BaseLayout>
+          </ShipsProvider>
         </WalletProvider>
       </ModalProvider>
     </ConnectionProvider>
   );
 }
+
+export default App;
