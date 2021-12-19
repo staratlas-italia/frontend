@@ -1,145 +1,109 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { Loader } from "~/components/common/Loader";
-import { Text } from "~/components/common/Text";
+import { useCallback, useMemo } from "react";
+import { availableCurrencies } from "~/common/constants";
 import { Flex } from "~/components/layout/Flex";
 import { Menu } from "~/components/Menu";
 import { useShipsTable } from "~/components/pages/Ships/components/ShipTable/useShipsTable";
-import { StarAtlasEntity } from "~/types";
+import { buildDiscountColumn } from "~/components/pages/Ships/components/ShipTable/utils/buildDiscountColumn";
+import { buildImageColumn } from "~/components/pages/Ships/components/ShipTable/utils/buildImageColumn";
+import { buildPriceColumn } from "~/components/pages/Ships/components/ShipTable/utils/buildPriceColumn";
+import { Table } from "~/components/Table";
+import { useShips } from "~/contexts/ShipsContext";
+import { Currency } from "~/types";
+import { fillUrlParameters } from "~/utils/fillUrlParameters";
+import { getRoute } from "~/utils/getRoute";
 
-type Props = { ships: StarAtlasEntity[] };
-
-const availableCurrencies = [
-  {
-    id: "USDC",
-    name: "USDC",
-  },
-  {
-    id: "ATLAS",
-    name: "ATLAS",
-  },
-];
-
-export const ShipTable = ({ ships }: Props) => {
+export const ShipTable = () => {
   const {
-    query: { currency },
+    query: { currency: c },
   } = useRouter();
 
-  const { data, loading } = useShipsTable(ships, currency as any, [currency]);
+  const { ships } = useShips();
+
+  const currency = c as Currency;
+
+  const [fetch, { data, loading }] = useShipsTable(ships, currency as any);
+
+  const fetchData = useCallback(() => {
+    fetch();
+  }, [fetch, currency]);
+
+  const cols = useMemo(
+    () => [
+      buildImageColumn({ name: "#", accessor: "imageUrl", sortDisabled: true }),
+      { Header: "Name", accessor: "name" },
+      buildPriceColumn({
+        name: "Price",
+        accessor: "price",
+        currency,
+      }),
+      buildPriceColumn({
+        name: "Best Ask Price",
+        accessor: "bestAskPrice",
+        currency,
+      }),
+      buildPriceColumn({
+        name: "Best Bid Price",
+        accessor: "bestBidPrice",
+        currency,
+      }),
+      buildDiscountColumn({
+        name: "Price Vs VWAP",
+        accessor: "priceVsVwapPrice",
+        suffix: " %",
+      }),
+      buildDiscountColumn({
+        name: "Bid Price vs VWAP",
+        accessor: "bestBidPriceVsVwapPrice",
+        suffix: " %",
+      }),
+      buildDiscountColumn({
+        name: "Ask Price vs VWAP",
+        accessor: "bestAskPriceVsVwapPrice",
+        suffix: " %",
+      }),
+      buildPriceColumn({
+        name: "VWAP",
+        accessor: "vwapPrice",
+        currency,
+      }),
+      {
+        Header: "",
+        id: "actions",
+        sortDisabled: true,
+        Cell: ({ row }) => {
+          return (
+            <Flex px={3}>
+              <Link
+                href={fillUrlParameters(getRoute("/ships/:shipId"), {
+                  shipId: row.original.id,
+                })}
+              >
+                <a>Read more</a>
+              </Link>
+            </Flex>
+          );
+        },
+      },
+    ],
+    [currency]
+  );
 
   return (
     <div className="relative p-10 bg-black overflow-hidden backdrop-filter backdrop-blur-lg bg-opacity-20">
       <Flex
+        className="overflow-scroll space-y-5"
         direction="col"
         justify="center"
-        className="overflow-scroll space-y-5"
       >
         <Menu id="currency" items={availableCurrencies} />
-        <table className="table-auto text-white">
-          <thead>
-            <tr className="border-b-2 border-white">
-              <Text as="th" className="px-4 py-2">
-                #
-              </Text>
-              <Text as="th" className="px-4 py-2">
-                Name
-              </Text>
-              <Text as="th" className="px-4 py-2">
-                Price
-              </Text>
-              <Text as="th" className="px-4 py-2">
-                Best Ask Price
-              </Text>
-              <Text as="th" className="px-4 py-2">
-                Best Bid Price
-              </Text>
-              <Text as="th" className="px-4 py-2">
-                Price Vs VWAP
-              </Text>
-              <Text as="th" className="px-4 py-2">
-                Bid Price vs VWAP
-              </Text>
-              <Text as="th" className="px-4 py-2">
-                Ask Price vs VWAP
-              </Text>
-              <Text as="th" className="px-4 py-2">
-                VWAP
-              </Text>
-            </tr>
-          </thead>
-          <tbody className="divide-y-2 divide-white">
-            {loading ? (
-              <tr>
-                <td colSpan={9}>
-                  <Flex justify="center" py={5}>
-                    <Loader />
-                  </Flex>
-                </td>
-              </tr>
-            ) : (
-              data.map((ship) => (
-                <tr key={ship.id}>
-                  <Text as="td" className="py-2">
-                    <img
-                      src={ship.imageUrl}
-                      className="h-16 w-16 object-cover"
-                    />
-                  </Text>
-                  <Text as="td" className="px-4 py-2">
-                    {ship.name}
-                  </Text>
-                  <Text as="td" className="px-4 py-2">
-                    {currency === "ATLAS" ? currency : "$"}{" "}
-                    {ship.price.toFixed(2)}
-                  </Text>
-                  <Text as="td" className="px-4 py-2">
-                    {currency === "ATLAS" ? currency : "$"}{" "}
-                    {ship.bestBidPrice.toFixed(2)}
-                  </Text>
-                  <Text as="td" className="px-4 py-2">
-                    {currency === "ATLAS" ? currency : "$"}{" "}
-                    {ship.bestAskPrice.toFixed(2)}
-                  </Text>
-
-                  <Text
-                    as="td"
-                    align="center"
-                    weight="medium"
-                    color={ship.priceVsVwapPrice > 0 ? "green-300" : "red-300"}
-                    className="px-4 py-2"
-                  >
-                    {Math.abs(ship.priceVsVwapPrice).toFixed(2)} %
-                  </Text>
-                  <Text
-                    as="td"
-                    align="center"
-                    weight="medium"
-                    color={
-                      ship.bestBidPriceVsVwapPrice > 0 ? "green-300" : "red-300"
-                    }
-                    className="px-4 py-2"
-                  >
-                    {Math.abs(ship.bestBidPriceVsVwapPrice).toFixed(2)} %
-                  </Text>
-                  <Text
-                    as="td"
-                    align="center"
-                    weight="medium"
-                    color={
-                      ship.bestAskPriceVsVwapPrice > 0 ? "green-300" : "red-300"
-                    }
-                    className="px-4 py-2"
-                  >
-                    {Math.abs(ship.bestAskPriceVsVwapPrice).toFixed(2)} %
-                  </Text>
-                  <Text as="td" align="center" className="px-4 py-2">
-                    {currency === "ATLAS" ? currency : "$"}{" "}
-                    {ship.vwapPrice.toFixed(2)}
-                  </Text>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+        <Table
+          columns={cols}
+          data={data}
+          fetchData={fetchData}
+          loading={loading}
+        />
       </Flex>
     </div>
   );
