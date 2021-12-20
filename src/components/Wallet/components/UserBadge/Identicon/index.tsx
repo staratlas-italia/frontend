@@ -19,9 +19,13 @@ export const Identicon = ({ style, className, alt, ...props }: Props) => {
   return (
     <Jazzicon
       diameter={style?.width || 16}
-      seed={jsNumberForAddress(
-        bs58.decode(address).toString("hex").slice(5, 15)
-      )}
+      seed={
+        address
+          ? jsNumberForAddress(
+              bs58.decode(address).toString("hex").slice(5, 15)
+            )
+          : null
+      }
     />
   );
 };

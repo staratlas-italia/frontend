@@ -13,7 +13,7 @@ export const useAtlasPrice = () => {
       const price = await getMarketLastPrice(ATLAS_USDC_MARKET_ADDR);
 
       setLoading(false);
-      setPrice(parseFloat(price));
+      setPrice(price);
     };
 
     run();
