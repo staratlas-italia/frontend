@@ -21,9 +21,11 @@ export const Price = ({ value, currency = "USDC", ...props }: Props) => {
           ? (+value).toFixed(2)?.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
           : "-"}
       </Text>
-      <CurrencyImage
-        src={`/images/currencies/${currency.toLowerCase()}_symbol.png`}
-      />
+      {!!value && (
+        <CurrencyImage
+          src={`/images/currencies/${currency.toLowerCase()}_symbol.png`}
+        />
+      )}
     </Flex>
   );
 };

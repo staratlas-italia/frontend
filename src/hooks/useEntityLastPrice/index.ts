@@ -1,19 +1,11 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { DEXLAB_API_URL } from "~/common/constants";
 import { useShip } from "~/contexts/ShipsContext";
 import { Currency } from "~/types";
-
-type DexlabPrice = {
-  market: string;
-  marketAddress: string;
-  price: string;
-  time: string;
-};
+import { getMarketLastPrice } from "~/utils/getMarketLastPrice";
 
 export const useEntityLastPrice = (currency: Currency = "USDC") => {
   const { markets } = useShip();
-  const [data, setData] = useState<DexlabPrice>();
+  const [price, setPrice] = useState<number>();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -22,11 +14,9 @@ export const useEntityLastPrice = (currency: Currency = "USDC") => {
       const market = markets?.find((market) => market.quotePair === currency);
 
       if (market) {
-        const result = await axios.get(
-          `${DEXLAB_API_URL}/prices/${market.id}/last`
-        );
+        const price = await getMarketLastPrice(market.id);
 
-        setData(result.data.data);
+        setPrice(price);
       }
       setLoading(false);
     };
@@ -35,8 +25,7 @@ export const useEntityLastPrice = (currency: Currency = "USDC") => {
   }, [markets, setLoading]);
 
   return {
-    price: data?.price,
-
+    price,
     loading,
   };
 };

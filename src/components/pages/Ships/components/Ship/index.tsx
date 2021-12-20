@@ -25,11 +25,7 @@ const shipColors: { [key: string]: ColorName } = {
 export const ShipCard = ({ ship }: Props) => {
   return (
     <div className="rounded-3xl relative bg-black overflow-hidden backdrop-filter backdrop-blur-lg bg-opacity-10">
-      <Image
-        onLoad={(e) => console.log(e)}
-        src={ship?.image}
-        alt={ship?.name}
-      />
+      <Image src={ship?.image} alt={ship?.name} />
       <MaxWidth className="mx-auto" size="7xl">
         <div className="lg:float-right relative pb-8 sm:pb-16 md:pb-20 lg:max-w-lg xl:max-w-2xl lg:w-full">
           <Polygon />
