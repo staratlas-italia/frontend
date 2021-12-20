@@ -13,6 +13,7 @@ type ShipTableRow = {
   bestAskPrice: number;
   bestBidPrice: number;
   priceVsVwapPrice: number;
+  atlasPriceVsPrice: number;
   atlasPriceVsVwapPrice: number;
   bestBidPriceVsVwapPrice: number;
   bestAskPriceVsVwapPrice: number;
@@ -67,9 +68,12 @@ export const useShipsTable = (
 
         if (atlasMarker) {
           const atlasMarketPrice = await getMarketLastPrice(atlasMarker.id);
+
           result = {
             ...result,
             atlasPrice: atlasMarketPrice,
+            atlasPriceVsPrice:
+              (1 - (atlasMarketPrice * atlasPrice) / (result.price || 1)) * 100,
             atlasPriceVsVwapPrice:
               (1 - (atlasMarketPrice * atlasPrice) / vwapPrice) * 100,
           };

@@ -1,6 +1,8 @@
 import { ExternalLinkIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import { useCallback, useMemo } from "react";
+import { Price } from "~/components/common/Price";
+import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 import { useShipsTable } from "~/components/pages/Ships/components/ShipTable/useShipsTable";
 import { buildDiscountColumn } from "~/components/pages/Ships/components/ShipTable/utils/buildDiscountColumn";
@@ -38,7 +40,6 @@ export const ShipTable = () => {
       buildAtlasPriceColumn({
         name: "Atlas Price",
         accessor: "atlasPrice",
-        currency: "ATLAS",
         atlasValue: atlasPrice,
       }),
       // buildPriceColumn({
@@ -51,6 +52,11 @@ export const ShipTable = () => {
       //   accessor: "bestBidPrice",
       //   currency,
       // }),
+      buildDiscountColumn({
+        name: "Atlas Price Vs Price",
+        accessor: "atlasPriceVsPrice",
+        suffix: " %",
+      }),
       buildDiscountColumn({
         name: "Price Vs VWAP",
         accessor: "priceVsVwapPrice",
@@ -118,7 +124,13 @@ export const ShipTable = () => {
         direction="col"
         justify="center"
       >
-        {/* <Menu id="currency" items={availableCurrencies} /> */}
+        {!!atlasPrice && (
+          <Flex className="space-x-2">
+            <Price value={1} color="white" currency="ATLAS" />
+            <Text color="white">=</Text>
+            <Price color="white" value={atlasPrice} />
+          </Flex>
+        )}
         <Table
           columns={cols}
           data={data}
