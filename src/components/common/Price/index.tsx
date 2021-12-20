@@ -4,16 +4,19 @@ import { Flex } from "~/components/layout/Flex";
 import { Currency } from "~/types";
 
 type Props = TextProps & {
+  small?: boolean;
   value?: number | string;
   currency?: Currency;
 };
 
-const CurrencyImage = styled.img`
-  width: 20px;
-  height: 20px;
+type P = { small?: boolean };
+
+const CurrencyImage = styled.img<P>`
+  width: ${({ small }) => (small ? 15 : 20)}px;
+  height: ${({ small }) => (small ? 15 : 20)}px;
 `;
 
-export const Price = ({ value, currency = "USDC", ...props }: Props) => {
+export const Price = ({ value, currency = "USDC", small, ...props }: Props) => {
   return (
     <Flex align="center" className="space-x-2">
       <Text {...props}>
@@ -23,6 +26,7 @@ export const Price = ({ value, currency = "USDC", ...props }: Props) => {
       </Text>
       {!!value && (
         <CurrencyImage
+          small={small}
           src={`/images/currencies/${currency.toLowerCase()}_symbol.png`}
         />
       )}
