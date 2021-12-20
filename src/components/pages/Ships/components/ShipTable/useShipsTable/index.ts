@@ -1,17 +1,19 @@
 import { useCallback, useState } from "react";
 import { useAtlasPrice } from "~/hooks/useAtlasPrice";
 import { Currency, StarAtlasEntity } from "~/types";
-import { getEntityBestPrices } from "~/utils/getEntityBestPrices";
 import { getEntityVwapPrice } from "~/utils/getEntityVwapPrice";
+import { getMarketLastPrice } from "~/utils/getMarketLastPrice";
 
 type ShipTableRow = {
   id: string;
   imageUrl: string;
   name: string;
   price: number;
+  atlasPrice: number;
   bestAskPrice: number;
   bestBidPrice: number;
   priceVsVwapPrice: number;
+  atlasPriceVsVwapPrice: number;
   bestBidPriceVsVwapPrice: number;
   bestAskPriceVsVwapPrice: number;
   vwapPrice: number;
@@ -20,7 +22,10 @@ type ShipTableRow = {
 export const useShipsTable = (
   ships: StarAtlasEntity[],
   currency: Currency = "USDC"
-): [VoidFunction, { data: Partial<ShipTableRow>[]; loading: boolean }] => {
+): [
+  VoidFunction,
+  { data: Partial<ShipTableRow>[]; atlasPrice: number; loading: boolean }
+] => {
   const { price: atlasPrice } = useAtlasPrice();
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<Partial<ShipTableRow>[]>([]);
@@ -32,28 +37,57 @@ export const useShipsTable = (
 
     const result = await Promise.all(
       ships.map(async (ship) => {
-        let result: Partial<ShipTableRow> = {
-          id: ship._id,
-          imageUrl: ship.media.thumbnailUrl,
-          name: ship.name,
-        };
+        const usdcMarket = ship.markets.find(
+          (market) => market.quotePair === "USDC"
+        );
 
-        const bestPrices = await getEntityBestPrices(ship.markets, currency);
+        const atlasMarker = ship.markets.find(
+          (market) => market.quotePair === "ATLAS"
+        );
 
         const vwapPrice =
           getEntityVwapPrice(ship.primarySales) /
           (currency === "ATLAS" ? atlasPrice : 1);
 
+        let result: Partial<ShipTableRow> = {
+          id: ship._id,
+          imageUrl: ship.media.thumbnailUrl,
+          name: ship.name,
+          vwapPrice,
+        };
+
+        if (usdcMarket) {
+          const price = await getMarketLastPrice(usdcMarket.id);
+          result = {
+            ...result,
+            price,
+            priceVsVwapPrice: (1 - price / vwapPrice) * 100,
+          };
+        }
+
+        if (atlasMarker) {
+          const atlasMarketPrice = await getMarketLastPrice(atlasMarker.id);
+          result = {
+            ...result,
+            atlasPrice: atlasMarketPrice,
+            atlasPriceVsVwapPrice:
+              (1 - (atlasMarketPrice * atlasPrice) / vwapPrice) * 100,
+          };
+        }
+
+        const bestPrices = {
+          bestAskPrice: 0,
+          bestBidPrice: result?.price || 0,
+        }; //await getEntityBestPrices(ship.markets, currency);
+
         if (bestPrices) {
-          const { price, bestBidPrice, bestAskPrice } = bestPrices;
+          const { bestBidPrice, bestAskPrice } = bestPrices;
           result = {
             ...result,
             bestAskPrice,
             bestAskPriceVsVwapPrice: (1 - bestAskPrice / vwapPrice) * 100,
             bestBidPrice,
             bestBidPriceVsVwapPrice: (1 - bestBidPrice / vwapPrice) * 100,
-            price,
-            priceVsVwapPrice: (1 - price / vwapPrice) * 100,
           };
         }
 
@@ -64,5 +98,5 @@ export const useShipsTable = (
     setLoading(false);
   }, [atlasPrice, currency, ships]);
 
-  return [fetch, { data, loading }];
+  return [fetch, { data, atlasPrice: atlasPrice || 0, loading }];
 };

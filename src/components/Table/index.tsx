@@ -6,7 +6,7 @@ import { Flex } from "~/components/layout/Flex";
 type Props<T extends object> = {
   columns: any[];
   data: T[];
-  fetchData: () => void;
+  fetchData?: () => void;
   loading?: boolean;
 };
 
@@ -25,10 +25,7 @@ export const Table = <T extends object>({
       useSortBy
     );
 
-  useEffect(() => {
-    console.log("[dd] fetchdata");
-    fetchData();
-  }, [fetchData]);
+  useEffect(() => fetchData?.(), [fetchData]);
 
   return (
     <table {...getTableProps({ className: "table-auto text-white" })}>
@@ -48,14 +45,14 @@ export const Table = <T extends object>({
                     {!(column as any)?.sortDisabled ? (
                       column.isSorted ? (
                         column.isSortedDesc ? (
-                          "▼"
+                          <img src="/images/table/arrow_drop_down_white_24dp.svg" />
                         ) : (
-                          "▲"
+                          <img src="/images/table/arrow_drop_up_white_24dp.svg" />
                         )
                       ) : (
-                        <Flex as="span" direction="col">
-                          <span>▲</span>
-                          <span>▼</span>
+                        <Flex as="span" direction="col" className="-space-y-3">
+                          <img src="/images/table/arrow_drop_up_white_24dp.svg" />
+                          <img src="/images/table/arrow_drop_down_white_24dp.svg" />
                         </Flex>
                       )
                     ) : null}

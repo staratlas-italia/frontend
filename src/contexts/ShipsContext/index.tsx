@@ -13,7 +13,24 @@ export const ShipsContext = createContext<ShipsContextState>(
   {} as ShipsContextState
 );
 
-export const useShips = () => useContext(ShipsContext);
+const saleIsNotBegin = (item: StarAtlasEntity) => {
+  const now = Math.floor(Date.now() / 1000);
+  return item?.primarySales?.some((sale) => now < sale.listTimestamp);
+};
+
+const saleIsBegin = (item: StarAtlasEntity) => !saleIsNotBegin(item);
+
+export const useShips = () => {
+  const { ships, loading } = useContext(ShipsContext);
+
+  const availableShips = useMemo(() => ships.filter(saleIsBegin), [ships]);
+  const notAvailableShips = useMemo(
+    () => ships.filter(saleIsNotBegin),
+    [ships]
+  );
+
+  return { ships: availableShips, notAvailableShips, loading };
+};
 
 export const useShip = () => {
   const {
@@ -64,7 +81,6 @@ export const ShipsProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    console.log("Running");
     if (data?.length) {
       updateShipsData({ lastUpdate: new Date().toISOString(), data });
     }

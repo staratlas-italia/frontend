@@ -1,72 +1,80 @@
+import { ExternalLinkIcon } from "@heroicons/react/solid";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useCallback, useMemo } from "react";
-import { availableCurrencies } from "~/common/constants";
 import { Flex } from "~/components/layout/Flex";
-import { Menu } from "~/components/Menu";
 import { useShipsTable } from "~/components/pages/Ships/components/ShipTable/useShipsTable";
 import { buildDiscountColumn } from "~/components/pages/Ships/components/ShipTable/utils/buildDiscountColumn";
-import { buildImageColumn } from "~/components/pages/Ships/components/ShipTable/utils/buildImageColumn";
-import { buildPriceColumn } from "~/components/pages/Ships/components/ShipTable/utils/buildPriceColumn";
+import { buildNameColumn } from "~/components/pages/Ships/components/ShipTable/utils/buildNameColumn";
+import {
+  buildAtlasPriceColumn,
+  buildPriceColumn,
+} from "~/components/pages/Ships/components/ShipTable/utils/buildPriceColumn";
 import { Table } from "~/components/Table";
 import { useShips } from "~/contexts/ShipsContext";
-import { Currency } from "~/types";
 import { fillUrlParameters } from "~/utils/fillUrlParameters";
 import { getRoute } from "~/utils/getRoute";
 
 export const ShipTable = () => {
-  const {
-    query: { currency: c },
-  } = useRouter();
-
   const { ships } = useShips();
 
-  const currency = c as Currency;
-
-  const [fetch, { data, loading }] = useShipsTable(ships, currency as any);
+  const [fetch, { data, atlasPrice, loading }] = useShipsTable(ships);
 
   const fetchData = useCallback(() => {
     fetch();
-  }, [fetch, currency]);
+  }, [fetch]);
 
   const cols = useMemo(
     () => [
-      buildImageColumn({ name: "#", accessor: "imageUrl", sortDisabled: true }),
-      { Header: "Name", accessor: "name" },
+      buildNameColumn({
+        name: "Name",
+        accessor: "name",
+        imageUrlAccessor: "imageUrl",
+      }),
       buildPriceColumn({
-        name: "Price",
+        name: "USDC Price",
         accessor: "price",
-        currency,
+        currency: "USDC",
       }),
-      buildPriceColumn({
-        name: "Best Ask Price",
-        accessor: "bestAskPrice",
-        currency,
+      buildAtlasPriceColumn({
+        name: "Atlas Price",
+        accessor: "atlasPrice",
+        currency: "ATLAS",
+        atlasValue: atlasPrice,
       }),
-      buildPriceColumn({
-        name: "Best Bid Price",
-        accessor: "bestBidPrice",
-        currency,
-      }),
+      // buildPriceColumn({
+      //   name: "Best Ask Price",
+      //   accessor: "bestAskPrice",
+      //   currency,
+      // }),
+      // buildPriceColumn({
+      //   name: "Best Bid Price",
+      //   accessor: "bestBidPrice",
+      //   currency,
+      // }),
       buildDiscountColumn({
         name: "Price Vs VWAP",
         accessor: "priceVsVwapPrice",
         suffix: " %",
       }),
       buildDiscountColumn({
-        name: "Bid Price vs VWAP",
-        accessor: "bestBidPriceVsVwapPrice",
+        name: "Atlas Price Vs VWAP",
+        accessor: "atlasPriceVsVwapPrice",
         suffix: " %",
       }),
-      buildDiscountColumn({
-        name: "Ask Price vs VWAP",
-        accessor: "bestAskPriceVsVwapPrice",
-        suffix: " %",
-      }),
+      // buildDiscountColumn({
+      //   name: "Bid Price vs VWAP",
+      //   accessor: "bestBidPriceVsVwapPrice",
+      //   suffix: " %",
+      // }),
+      // buildDiscountColumn({
+      //   name: "Ask Price vs VWAP",
+      //   accessor: "bestAskPriceVsVwapPrice",
+      //   suffix: " %",
+      // }),
       buildPriceColumn({
         name: "VWAP",
         accessor: "vwapPrice",
-        currency,
+        currency: "USDC",
       }),
       {
         Header: "",
@@ -80,30 +88,49 @@ export const ShipTable = () => {
                   shipId: row.original.id,
                 })}
               >
-                <a>Read more</a>
+                <a target="_blank">
+                  <ExternalLinkIcon className="h-5 w-5" />
+                </a>
               </Link>
             </Flex>
           );
         },
       },
     ],
-    [currency]
+    [atlasPrice]
   );
 
+  // const notInSaleShipsCols = useMemo(
+  //   () => [
+  //     buildNameColumn({
+  //       name: "Name",
+  //       accessor: "name",
+  //       imageUrlAccessor: "image",
+  //     }),
+  //   ],
+  //   []
+  // );
+
   return (
-    <div className="relative p-10 bg-black overflow-hidden backdrop-filter backdrop-blur-lg bg-opacity-20">
+    <div className="relative p-5 md:p-8 bg-black overflow-hidden backdrop-filter backdrop-blur-lg bg-opacity-20">
       <Flex
         className="overflow-scroll space-y-5"
         direction="col"
         justify="center"
       >
-        <Menu id="currency" items={availableCurrencies} />
+        {/* <Menu id="currency" items={availableCurrencies} /> */}
         <Table
           columns={cols}
           data={data}
           fetchData={fetchData}
           loading={loading}
         />
+
+        {/* <Table
+          columns={notInSaleShipsCols}
+          data={notAvailableShips}
+          loading={loading}
+        /> */}
       </Flex>
     </div>
   );
