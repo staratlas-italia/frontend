@@ -18,12 +18,19 @@ export const buildNameColumn = ({
   accessor,
   sortDisabled,
   Cell: ({ row, cell }) => (
-    <Flex align="center" className="space-x-3">
+    <Flex
+      align="start"
+      lgAlign="center"
+      direction="col"
+      lgDirection="row"
+      justify="start"
+      className="lg:space-x-3"
+    >
       <img
         src={row.original[imageUrlAccessor]}
-        className="h-16 w-16 object-cover"
+        className="h-12 w-12 object-cover"
       />
-      <Text className="my-3">{cell.value}</Text>
+      <Text>{cell.value}</Text>
     </Flex>
   ),
 });

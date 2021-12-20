@@ -23,20 +23,19 @@ export const buildPriceColumn = ({ accessor, currency, name }: Param) => ({
 export const buildAtlasPriceColumn = ({
   accessor,
   atlasValue,
-  currency,
   name,
-}: Param & { atlasValue: number }) => ({
+}: Omit<Param, "currency"> & { atlasValue: number }) => ({
   Header: name,
   accessor,
   Cell: ({ cell }) => (
-    <Flex justify="end" className="space-x-2">
+    <Flex justify="end">
       {cell.value ? (
-        <>
+        <Flex direction="col" lgDirection="row" className="lg:space-x-2">
           <Price currency={"USDC"} value={cell.value * atlasValue} />
           <Flex>
-            (<Price small size="sm" currency={currency} value={cell.value} />)
+            ( <Price small size="sm" currency={"ATLAS"} value={cell.value} /> )
           </Flex>
-        </>
+        </Flex>
       ) : (
         "-"
       )}

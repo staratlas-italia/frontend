@@ -18,7 +18,7 @@ const CurrencyImage = styled.img<P>`
 
 export const Price = ({ value, currency = "USDC", small, ...props }: Props) => {
   return (
-    <Flex align="center" className="space-x-2">
+    <Flex as="span" align="center" className="space-x-2">
       <Text {...props}>
         {value
           ? (+value).toFixed(2)?.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
