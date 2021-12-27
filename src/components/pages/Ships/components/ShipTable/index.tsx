@@ -1,8 +1,9 @@
 import { ExternalLinkIcon } from "@heroicons/react/solid";
 import Link from "next/link";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Price } from "~/components/common/Price";
 import { Text } from "~/components/common/Text";
+import { ButtonGroup } from "~/components/controls/ButtonGroup";
 import { Flex } from "~/components/layout/Flex";
 import { useShipsTable } from "~/components/pages/Ships/components/ShipTable/useShipsTable";
 import { buildDiscountColumn } from "~/components/pages/Ships/components/ShipTable/utils/buildDiscountColumn";
@@ -12,14 +13,14 @@ import {
   buildPriceColumn,
 } from "~/components/pages/Ships/components/ShipTable/utils/buildPriceColumn";
 import { Table } from "~/components/Table";
-import { useShips } from "~/contexts/ShipsContext";
+import { ShipSize, shipSizes } from "~/types";
 import { fillUrlParameters } from "~/utils/fillUrlParameters";
 import { getRoute } from "~/utils/getRoute";
 
 export const ShipTable = () => {
-  const { ships } = useShips();
+  const [size, setSize] = useState<ShipSize>("medium");
 
-  const [fetch, { data, atlasPrice, loading }] = useShipsTable(ships);
+  const [fetch, { data, atlasPrice, loading }] = useShipsTable(size);
 
   const fetchData = useCallback(() => {
     fetch();
@@ -126,11 +127,16 @@ export const ShipTable = () => {
       >
         {!!atlasPrice && (
           <Flex className="space-x-2">
-            <Price value={1} color="white" currency="ATLAS" />
+            <Price color="white" currency="ATLAS" decimals={3} value={1} />
             <Text color="white">=</Text>
-            <Price color="white" value={atlasPrice} />
+            <Price color="white" decimals={3} value={atlasPrice} />
           </Flex>
         )}
+        <ButtonGroup
+          items={shipSizes.map((size) => [size, size])}
+          onAction={(size) => setSize(size as ShipSize)}
+          selectedItem={size}
+        />
         <Table
           columns={cols}
           data={data}

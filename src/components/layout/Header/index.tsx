@@ -1,8 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { InfoRow } from "~/components/common/Info";
+import { Price } from "~/components/common/Price";
 import { Flex } from "~/components/layout/Flex";
 import { Wallet } from "~/components/Wallet";
+import { useGuildTreasury } from "~/hooks/useGuildTreasury";
 
 export const LogoLink = () => {
   return (
@@ -22,14 +25,25 @@ export const LogoLink = () => {
   );
 };
 
-export const Header = () => (
-  <Flex align="center" grow={1} py={4} px={10} justify="center">
-    <Flex className="container" justify="between">
-      <LogoLink />
+export const Header = () => {
+  const { usdcAmount } = useGuildTreasury();
 
-      <Flex className="hidden">
-        <Wallet />
+  return (
+    <Flex align="center" grow={1} py={4} px={10} justify="center">
+      <Flex className="container" justify="between">
+        <LogoLink />
+
+        <Flex className="hidden">
+          <Wallet />
+        </Flex>
+        {!!usdcAmount && (
+          <Flex className="z-40">
+            <InfoRow title="Valore tesoreria">
+              <Price color="white" value={usdcAmount} currency="USDC" />
+            </InfoRow>
+          </Flex>
+        )}
       </Flex>
     </Flex>
-  </Flex>
-);
+  );
+};

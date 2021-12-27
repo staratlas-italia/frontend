@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { useEffect } from "react";
 import { useSortBy, useTable } from "react-table";
 import { Loader } from "~/components/common/Loader";
@@ -36,23 +37,39 @@ export const Table = <T extends object>({
               <th
                 {...column.getHeaderProps({
                   ...column.getSortByToggleProps(),
-                  className: "px-4 py-2",
+                  className: classNames("px-4", "py-2"),
                 })}
               >
                 <Flex align="center">
                   <Flex pr={3}>{column.render("Header")}</Flex>
-                  <span>
+                  <span className="w-5 h-5">
                     {!(column as any)?.sortDisabled ? (
                       column.isSorted ? (
                         column.isSortedDesc ? (
-                          <img src="/images/table/arrow_drop_down_white_24dp.svg" />
+                          <img
+                            className="h-5 w-5"
+                            src="/images/table/arrow_drop_down_white_24dp.svg"
+                          />
                         ) : (
-                          <img src="/images/table/arrow_drop_up_white_24dp.svg" />
+                          <img
+                            className="h-5 w-5"
+                            src="/images/table/arrow_drop_up_white_24dp.svg"
+                          />
                         )
                       ) : (
-                        <Flex as="span" direction="col" className="-space-y-3">
-                          <img src="/images/table/arrow_drop_up_white_24dp.svg" />
-                          <img src="/images/table/arrow_drop_down_white_24dp.svg" />
+                        <Flex
+                          as="span"
+                          direction="col"
+                          className="-space-y-3 w-5 h-5"
+                        >
+                          <img
+                            className="h-5 w-5"
+                            src="/images/table/arrow_drop_up_white_24dp.svg"
+                          />
+                          <img
+                            className="h-5 w-5"
+                            src="/images/table/arrow_drop_down_white_24dp.svg"
+                          />
                         </Flex>
                       )
                     ) : null}
@@ -79,7 +96,9 @@ export const Table = <T extends object>({
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    <td {...cell.getCellProps({ className: "px-2" })}>
+                      {cell.render("Cell")}
+                    </td>
                   );
                 })}
               </tr>

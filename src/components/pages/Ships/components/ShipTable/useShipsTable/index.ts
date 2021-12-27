@@ -1,8 +1,7 @@
 import { useCallback, useState } from "react";
 import { useAtlasPrice } from "~/hooks/useAtlasPrice";
-import { Currency, StarAtlasEntity } from "~/types";
+import { ShipSize } from "~/types";
 import { getEntityVwapPrice } from "~/utils/getEntityVwapPrice";
-import { getMarketLastPrice } from "~/utils/getMarketLastPrice";
 
 type ShipTableRow = {
   id: string;
@@ -20,9 +19,10 @@ type ShipTableRow = {
   vwapPrice: number;
 };
 
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
 export const useShipsTable = (
-  ships: StarAtlasEntity[],
-  currency: Currency = "USDC"
+  size: ShipSize
 ): [
   VoidFunction,
   { data: Partial<ShipTableRow>[]; atlasPrice: number; loading: boolean }
@@ -36,71 +36,38 @@ export const useShipsTable = (
 
     setLoading(true);
 
-    const result = await Promise.all(
-      ships.map(async (ship) => {
-        const usdcMarket = ship.markets.find(
-          (market) => market.quotePair === "USDC"
-        );
+    const result = await fetcher(`/api/ships/full?size=${size}`);
 
-        const atlasMarker = ship.markets.find(
-          (market) => market.quotePair === "ATLAS"
-        );
+    const final = result.map((ship) => {
+      const vwapPrice = getEntityVwapPrice(ship.primarySales);
+      const price = ship.usdc?.bestAskPrice || 0;
+      const atlasMarketPrice = ship.atlas?.bestAskPrice || 0;
+      const bestBidPrice = ship.usdc?.bestBidPrice || 0;
 
-        const vwapPrice =
-          getEntityVwapPrice(ship.primarySales) /
-          (currency === "ATLAS" ? atlasPrice : 1);
+      return {
+        id: ship._id,
+        imageUrl: ship?.media?.thumbnailUrl,
+        name: ship.name,
+        vwapPrice,
+        atlasPrice: atlasMarketPrice,
+        atlasPriceVsPrice: atlasMarketPrice
+          ? (1 - (atlasMarketPrice * atlasPrice) / (price || 1)) * 100
+          : null,
+        atlasPriceVsVwapPrice: atlasMarketPrice
+          ? (1 - (atlasMarketPrice * atlasPrice) / vwapPrice) * 100
+          : null,
+        price,
+        priceVsVwapPrice: (1 - price / vwapPrice) * 100,
+        bestAskPrice: price,
+        bestAskPriceVsVwapPrice: (1 - price / vwapPrice) * 100,
+        bestBidPrice,
+        bestBidPriceVsVwapPrice: (1 - bestBidPrice / vwapPrice) * 100,
+      };
+    });
 
-        let result: Partial<ShipTableRow> = {
-          id: ship._id,
-          imageUrl: ship.media.thumbnailUrl,
-          name: ship.name,
-          vwapPrice,
-        };
-
-        if (usdcMarket) {
-          const price = await getMarketLastPrice(usdcMarket.id);
-          result = {
-            ...result,
-            price,
-            priceVsVwapPrice: (1 - price / vwapPrice) * 100,
-          };
-        }
-
-        if (atlasMarker) {
-          const atlasMarketPrice = await getMarketLastPrice(atlasMarker.id);
-
-          result = {
-            ...result,
-            atlasPrice: atlasMarketPrice,
-            atlasPriceVsPrice:
-              (1 - (atlasMarketPrice * atlasPrice) / (result.price || 1)) * 100,
-            atlasPriceVsVwapPrice:
-              (1 - (atlasMarketPrice * atlasPrice) / vwapPrice) * 100,
-          };
-        }
-
-        const bestPrices = {
-          bestAskPrice: 0,
-          bestBidPrice: result?.price || 0,
-        }; //await getEntityBestPrices(ship.markets, currency);
-
-        if (bestPrices) {
-          const { bestBidPrice, bestAskPrice } = bestPrices;
-          result = {
-            ...result,
-            bestAskPrice,
-            bestAskPriceVsVwapPrice: (1 - bestAskPrice / vwapPrice) * 100,
-            bestBidPrice,
-            bestBidPriceVsVwapPrice: (1 - bestBidPrice / vwapPrice) * 100,
-          };
-        }
-
-        return result;
-      })
-    );
-    setData(result);
+    setData(final);
     setLoading(false);
-  }, [atlasPrice, currency, ships]);
+  }, [atlasPrice, size]);
 
   return [fetch, { data, atlasPrice: atlasPrice || 0, loading }];
 };
