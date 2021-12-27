@@ -40,10 +40,8 @@ export const Header = () => {
         <Flex className="hidden">
           <Wallet />
         </Flex>
-        <Flex className="z-40 space-x-5">
-          <Flex>
-            <AtlasUsdcChange />
-          </Flex>
+        <Flex className="z-40 space-x-7">
+          <AtlasUsdcChange />
           {!!usdcAmount && (
             <InfoRow title={treasuryTranslation}>
               <Price color="white" value={usdcAmount} currency="USDC" />
