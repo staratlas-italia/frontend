@@ -1,13 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { AtlasUsdcChange } from "~/components/AtlasUsdcChange";
-import { InfoRow } from "~/components/common/Info";
-import { Price } from "~/components/common/Price";
 import { Flex } from "~/components/layout/Flex";
+import { AtlasUsdcChange } from "~/components/layout/Header/components/AtlasUsdcChange";
+import { Treasury } from "~/components/layout/Header/components/Treasury";
 import { Wallet } from "~/components/Wallet";
-import { useGuildTreasury } from "~/hooks/useGuildTreasury";
-import { useTranslation } from "~/i18n/useTranslation";
 
 export const LogoLink = () => {
   return (
@@ -27,28 +24,18 @@ export const LogoLink = () => {
   );
 };
 
-export const Header = () => {
-  const { usdcAmount } = useGuildTreasury();
+export const Header = () => (
+  <Flex align="center" grow={1} py={4} px={10} justify="center">
+    <Flex className="container" justify="between">
+      <LogoLink />
 
-  const treasuryTranslation = useTranslation("Layout.Treasury.title");
-
-  return (
-    <Flex align="center" grow={1} py={4} px={10} justify="center">
-      <Flex className="container" justify="between">
-        <LogoLink />
-
-        <Flex className="hidden">
-          <Wallet />
-        </Flex>
-        <Flex className="z-40 space-x-7">
-          <AtlasUsdcChange />
-          {!!usdcAmount && (
-            <InfoRow title={treasuryTranslation}>
-              <Price color="white" value={usdcAmount} currency="USDC" />
-            </InfoRow>
-          )}
-        </Flex>
+      <Flex className="hidden">
+        <Wallet />
+      </Flex>
+      <Flex className="z-40 space-x-7">
+        <AtlasUsdcChange />
+        <Treasury />
       </Flex>
     </Flex>
-  );
-};
+  </Flex>
+);

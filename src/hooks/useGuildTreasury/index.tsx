@@ -6,12 +6,16 @@ type GuildTreasury = {
   usdcAmount?: number;
 };
 
-export const useGuildTreasury = (): GuildTreasury => {
+type UseGuildTreasuryResult = { loading: boolean; treasury: GuildTreasury };
+
+export const useGuildTreasury = (): UseGuildTreasuryResult => {
   const { connection } = useConnection();
+  const [loading, setLoading] = useState(false);
   const [treasury, setTreasury] = useState<GuildTreasury>({});
 
   useEffect(() => {
     const run = async () => {
+      setLoading(true);
       try {
         const tokens = await connection.getParsedTokenAccountsByOwner(
           new PublicKey(process.env.GUILD_TREASURY_ADDR || ""),
@@ -19,12 +23,12 @@ export const useGuildTreasury = (): GuildTreasury => {
             mint: new PublicKey(process.env.USDC_MINT_ADDR || ""),
           }
         );
-
         setTreasury({
           usdcAmount:
             tokens?.value?.[0]?.account?.data?.parsed?.info?.tokenAmount
               ?.uiAmount,
         });
+        setLoading(false);
       } catch (e) {
         console.log(e);
       }
@@ -32,5 +36,5 @@ export const useGuildTreasury = (): GuildTreasury => {
     run();
   }, []);
 
-  return treasury;
+  return { loading, treasury };
 };

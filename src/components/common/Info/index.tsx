@@ -14,7 +14,7 @@ export const InfoRow = ({ loading, title, children }: Props) => {
       <Text size="xl">
         {loading ? (
           <Flex pl={2}>
-            <Loader />
+            <Loader color="white" />
           </Flex>
         ) : (
           children || "-"
