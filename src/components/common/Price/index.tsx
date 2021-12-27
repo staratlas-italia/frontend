@@ -31,8 +31,8 @@ export const Price = ({
         {value ? (
           <FormattedNumber
             value={+value}
-            minimumFractionDigits={2}
-            maximumFractionDigits={2}
+            minimumFractionDigits={decimals}
+            maximumFractionDigits={decimals}
           />
         ) : (
           "-"

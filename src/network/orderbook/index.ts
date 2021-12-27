@@ -1,5 +1,6 @@
 import { Market } from "@project-serum/serum";
 import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
+import { PromiseContent } from "~/types";
 
 let connection = new Connection(
   process.env.MAIN_RPC_ENDPOINT ||
@@ -34,3 +35,5 @@ export const getOrderbook = async (
     bestBidPrice,
   };
 };
+
+export type BestPrices = PromiseContent<ReturnType<typeof getOrderbook>>;

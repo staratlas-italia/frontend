@@ -2,8 +2,6 @@ import { ExternalLinkIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
 import { useIntl } from "react-intl";
-import { Price } from "~/components/common/Price";
-import { Text } from "~/components/common/Text";
 import { ButtonGroup } from "~/components/controls/ButtonGroup";
 import { Flex } from "~/components/layout/Flex";
 import { useShipsTable } from "~/components/pages/Ships/components/ShipTable/useShipsTable";
@@ -118,13 +116,6 @@ export const ShipTable = () => {
         direction="col"
         justify="center"
       >
-        {!!atlasPrice && (
-          <Flex className="space-x-2">
-            <Price color="white" currency="ATLAS" decimals={3} value={1} />
-            <Text color="white">=</Text>
-            <Price color="white" decimals={3} value={atlasPrice} />
-          </Flex>
-        )}
         <ButtonGroup
           items={shipSizes.map((size) => [size, size])}
           onAction={(size) => setSize(size as ShipSize)}

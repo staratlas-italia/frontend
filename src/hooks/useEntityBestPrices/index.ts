@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useShip } from "~/contexts/ShipsContext";
+import { BestPrices } from "~/network/orderbook";
 import { Currency } from "~/types";
-import { BestPrices, getEntityBestPrices } from "~/utils/getEntityBestPrices";
+import { getEntityBestPrices } from "~/utils/getEntityBestPrices";
 
 export const useEntityBestPrices = (currency: Currency = "USDC") => {
   const { markets } = useShip();

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { AtlasUsdcChange } from "~/components/AtlasUsdcChange";
 import { InfoRow } from "~/components/common/Info";
 import { Price } from "~/components/common/Price";
 import { Flex } from "~/components/layout/Flex";
@@ -39,13 +40,16 @@ export const Header = () => {
         <Flex className="hidden">
           <Wallet />
         </Flex>
-        {!!usdcAmount && (
-          <Flex className="z-40">
+        <Flex className="z-40 space-x-5">
+          <Flex>
+            <AtlasUsdcChange />
+          </Flex>
+          {!!usdcAmount && (
             <InfoRow title={treasuryTranslation}>
               <Price color="white" value={usdcAmount} currency="USDC" />
             </InfoRow>
-          </Flex>
-        )}
+          )}
+        </Flex>
       </Flex>
     </Flex>
   );

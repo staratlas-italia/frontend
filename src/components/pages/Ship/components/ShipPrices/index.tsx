@@ -12,12 +12,17 @@ export const ShipPrices = () => {
 
   const { price: atlasUsdcValue } = useAtlasPrice();
 
-  const { bestAskPrice, bestBidPrice, loading, price } = useEntityBestPrices();
+  const {
+    bestAskPrice,
+    bestBidPrice,
+    loading,
+    avgPrice: price,
+  } = useEntityBestPrices();
 
   const {
     bestAskPrice: bestAskPriceAtlas,
     bestBidPrice: bestBidPriceAtlas,
-    price: atlasPrice,
+    avgPrice: atlasPrice,
     loading: atlasLoading,
   } = useEntityBestPrices("ATLAS");
 
