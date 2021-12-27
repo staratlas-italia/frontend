@@ -20,6 +20,10 @@ export type ShipSlot = {
   quantity: number;
 };
 
+export type PromiseContent<PromiseLike> = PromiseLike extends Promise<infer U>
+  ? U
+  : never;
+
 export const shipSizes = [
   "xx-small",
   "x-small",
