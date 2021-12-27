@@ -28,6 +28,10 @@ module.exports = withTM({
     GUILD_TREASURY_ADDR: process.env.GUILD_TREASURY_ADDR,
     USDC_MINT_ADDR: process.env.USDC_MINT_ADDR,
   },
+  i18n: {
+    locales: ["it", "en"],
+    defaultLocale: "it",
+  },
   images: {
     domains: ["storage.googleapis.com"],
   },
