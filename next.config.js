@@ -25,6 +25,8 @@ const withTM = require("next-transpile-modules")([
 module.exports = withTM({
   env: {
     ENVIRONMENT: process.env.ENVIRONMENT,
+    GUILD_TREASURY_ADDR: process.env.GUILD_TREASURY_ADDR,
+    USDC_MINT_ADDR: process.env.USDC_MINT_ADDR,
   },
   images: {
     domains: ["storage.googleapis.com"],
