@@ -88,7 +88,7 @@ export const ShipPage = () => {
                     ?.toLocaleLowerCase()
                     .replace(/ /g, "_")}.description` as TranslationId
                 }
-                default={description}
+                defaultMessage={description}
               />
             </Text>
           </Flex>
