@@ -20,6 +20,19 @@ export type ShipSlot = {
   quantity: number;
 };
 
+export const shipSizes = [
+  "xx-small",
+  "x-small",
+  "small",
+  "medium",
+  "large",
+  "capital",
+  "commander",
+  "titan",
+] as const;
+
+export type ShipSize = typeof shipSizes[number];
+
 type ShipSlots = {
   crewSlots: ShipSlot[];
   componentSlots: ShipSlot[];
