@@ -3,6 +3,9 @@ import { Currency } from "~/types";
 export const ATLAS_USDC_MARKET_ADDR =
   "Di66GTLsV64JgCCYGVcY21RZ173BHkjJVgPyezNN7P1K";
 
+export const STAR_ATLAS_SERUM_PROGRAM_ID =
+  "9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin";
+
 export const DEXLAB_API_URL = "https://api.dexlab.space/v1";
 
 export const availableCurrencies: { id: Currency; name: string }[] = [

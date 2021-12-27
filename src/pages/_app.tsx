@@ -19,9 +19,10 @@ const WalletProvider = dynamic<{ children: ReactNode }>(
   }
 );
 
+const network = WalletAdapterNetwork.Mainnet;
+
 function App({ Component, pageProps }: AppProps) {
-  const network = WalletAdapterNetwork.Devnet;
-  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+  const endpoint = useMemo(() => clusterApiUrl(network), []);
   return (
     <ConnectionProvider endpoint={endpoint}>
       <ModalProvider>

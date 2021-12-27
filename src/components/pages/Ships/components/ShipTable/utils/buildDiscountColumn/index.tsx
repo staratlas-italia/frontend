@@ -24,9 +24,15 @@ export const buildDiscountColumn = ({
         color={cell.value > 0 ? "green-300" : "red-300"}
         className="px-4 py-2"
       >
-        {prefix || null}
-        {Math.abs(cell.value).toFixed(2)}
-        {suffix || null}
+        {cell.value ? (
+          <>
+            {prefix || null}
+            {Math.abs(cell.value).toFixed(2)}
+            {suffix || null}
+          </>
+        ) : (
+          "-"
+        )}
       </Text>
     </Flex>
   ),

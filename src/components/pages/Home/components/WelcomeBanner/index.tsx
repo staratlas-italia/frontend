@@ -39,14 +39,16 @@ export const WelcomeBanner = () => (
       </Text>
       <Flex>
         <Link href="/ships">
-          <Button
-            bgColor="indigo-500"
-            hoverBgColor="indigo-600"
-            iconRight={ArrowRightIcon}
-            textColor="white"
-          >
-            Esplora le navi
-          </Button>
+          <a>
+            <Button
+              bgColor="indigo-500"
+              hoverBgColor="indigo-600"
+              iconRight={ArrowRightIcon}
+              textColor="white"
+            >
+              Esplora le navi
+            </Button>
+          </a>
         </Link>
       </Flex>
     </Flex>
