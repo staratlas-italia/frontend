@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
 import { MaxWidth } from "~/components/layout/MaxWidth";
@@ -23,6 +24,8 @@ const shipColors: { [key: string]: ColorName } = {
 };
 
 export const ShipCard = ({ ship }: Props) => {
+  const intl = useIntl();
+
   return (
     <div className="rounded-3xl relative bg-black overflow-hidden backdrop-filter backdrop-blur-lg bg-opacity-10">
       <Image src={ship?.image} alt={ship?.name} />
@@ -38,7 +41,14 @@ export const ShipCard = ({ ship }: Props) => {
                 subtitle={ship?.attributes?.class}
               />
               <div className="mt-3 sm:mt-5 sm:max-w-xl sm:mx-auto md:mt-5 lg:mx-0">
-                <Description text={ship?.description} />
+                <Description
+                  text={intl.formatMessage({
+                    id: `Ships.Details.${ship.name
+                      ?.toLocaleLowerCase()
+                      .replace(/ /g, "_")}.description`,
+                    defaultMessage: ship?.description,
+                  })}
+                />
               </div>
               <Flex
                 direction="col"
@@ -58,7 +68,10 @@ export const ShipCard = ({ ship }: Props) => {
                     className="w-full lg:w-auto"
                     textColor="white"
                   >
-                    Buy
+                    <FormattedMessage
+                      id={"Ships.List.Card.BuyAction.title"}
+                      defaultMessage={"Compra"}
+                    />
                   </Button>
                 </a>
                 <Flex className="mt-3 lg:ml-3 lg:mt-0 w-full">
@@ -76,7 +89,10 @@ export const ShipCard = ({ ship }: Props) => {
                         className="w-full lg:w-auto"
                         textColor="indigo-700"
                       >
-                        Read more
+                        <FormattedMessage
+                          id={"Ships.List.Card.ReadMore.title"}
+                          defaultMessage={"Scopri di più"}
+                        />
                       </Button>
                     </a>
                   </Link>

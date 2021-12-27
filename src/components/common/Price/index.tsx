@@ -1,3 +1,4 @@
+import { FormattedNumber } from "react-intl";
 import styled from "styled-components";
 import { Text, TextProps } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
@@ -27,11 +28,15 @@ export const Price = ({
   return (
     <Flex as="span" align="center" className="space-x-1">
       <Text {...props}>
-        {value
-          ? (+value)
-              .toFixed(decimals)
-              ?.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
-          : "-"}
+        {value ? (
+          <FormattedNumber
+            value={+value}
+            minimumFractionDigits={2}
+            maximumFractionDigits={2}
+          />
+        ) : (
+          "-"
+        )}
       </Text>
       {!!value && (
         <CurrencyImage

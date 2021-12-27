@@ -1,12 +1,18 @@
 import { ArrowLeftIcon } from "@heroicons/react/solid";
 import Link from "next/link";
+import { useIntl } from "react-intl";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 import { ShipAttributes } from "~/components/pages/Ship/components/ShipAttributes";
 import { ShipPrices } from "~/components/pages/Ship/components/ShipPrices";
 import { useShip } from "~/contexts/ShipsContext";
+import { Translation } from "~/i18n/Translation";
+import { TranslationId } from "~/i18n/translations/types";
+import { useTranslation } from "~/i18n/useTranslation";
 
 export const ShipPage = () => {
+  const intl = useIntl();
+
   const {
     attributes,
     description,
@@ -17,6 +23,12 @@ export const ShipPage = () => {
     saleIsNotBegin,
     slots,
   } = useShip();
+
+  const componentsTranslation = useTranslation(
+    "Ships.Details.Components.title"
+  );
+  const crewTranslation = useTranslation("Ships.Details.Crew.title");
+  const modulesTranslation = useTranslation("Ships.Details.Modules.title");
 
   return (
     <Flex
@@ -50,7 +62,10 @@ export const ShipPage = () => {
         >
           {saleIsNotBegin ? (
             <Text transform="uppercase" weight="medium">
-              Official sale date - {saleDate?.toLocaleString()}
+              <Translation
+                id={"Ships.Details.saleDate"}
+                values={{ date: saleDate?.toLocaleString() || "" }}
+              />
             </Text>
           ) : (
             <ShipPrices />
@@ -67,16 +82,34 @@ export const ShipPage = () => {
               </Text>
             </Flex>
             <Text size="xl" color="gray-100">
-              {description}
+              <Translation
+                id={
+                  `Ships.Details.${name
+                    ?.toLocaleLowerCase()
+                    .replace(/ /g, "_")}.description` as TranslationId
+                }
+                default={description}
+              />
             </Text>
           </Flex>
         </Flex>
         <Flex direction="col" className="col-span-3">
-          <ShipAttributes attrs={slots?.componentSlots} title="Components" />
+          <ShipAttributes
+            attrs={slots?.componentSlots}
+            title={componentsTranslation}
+          />
 
-          <ShipAttributes attrs={slots?.crewSlots} pt={10} title="Crew" />
+          <ShipAttributes
+            attrs={slots?.crewSlots}
+            pt={10}
+            title={crewTranslation}
+          />
 
-          <ShipAttributes attrs={slots?.moduleSlots} pt={10} title="Modules" />
+          <ShipAttributes
+            attrs={slots?.moduleSlots}
+            pt={10}
+            title={modulesTranslation}
+          />
 
           <Flex pt={16} className="grid grid-cols-3">
             {media?.gallery?.map((imageUrl, index) => (

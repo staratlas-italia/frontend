@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { FormattedMessage } from "react-intl";
 import { Text } from "~/components/common/Text";
 import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
@@ -28,25 +30,44 @@ export const EnlistBanner = () => (
         size="4xl"
         mdSize="6xl"
       >
-        Vuoi far parte della gilda?
+        <FormattedMessage
+          id="Home.EnlistBanner.title"
+          defaultMessage="Vuoi far parte della gilda?"
+        />
       </Text>
 
       <Text size="lg" mdSize="xl" color="gray-200">
-        In base all’ammontare investito nella Guild verranno airdroppati 1 o più
-        NFT che rappresenteranno le quote di partecipazione alla Gilda, avendo a
-        tutti gli effetti il potere di decidere su di essa (DAO).
+        <FormattedMessage
+          id="Home.EnlistBanner.description.0"
+          defaultMessage="In base all’ammontare investito nella Guild verranno airdroppati 1 o più
+          NFT che rappresenteranno le quote di partecipazione alla Gilda, avendo a
+          tutti gli effetti il potere di decidere su di essa (DAO)."
+        />
       </Text>
 
       <Text color="white" weight="semibold" size="lg" mdSize="xl">
-        Sei pronto ad affrontare delle incredibili avventure spaziali?
+        <FormattedMessage
+          id="Home.EnlistBanner.description.1"
+          defaultMessage="Sei pronto ad affrontare delle incredibili avventure spaziali?"
+        />
       </Text>
 
       <Flex justify="end" pt={3}>
-        <a href="#">
-          <Button as="span" bgColor="green-100" textColor="green-700">
-            Vuoi arruolati? - Cooming soon
-          </Button>
-        </a>
+        <Link href="https://forms.gle/7VVMXHE5nDVdjcPL8">
+          <a target="_blank">
+            <Button
+              as="span"
+              bgColor="green-100"
+              hoverBgColor="green-200"
+              textColor="green-700"
+            >
+              <FormattedMessage
+                id="Home.EnlistBanner.action.title"
+                defaultMessage="Vuoi arruolati? - Clicca qui"
+              />
+            </Button>
+          </a>
+        </Link>
       </Flex>
     </Flex>
   </Flex>

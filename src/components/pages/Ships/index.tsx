@@ -9,7 +9,7 @@ export const ShipListPage = () => {
   return (
     <>
       <Toolbar />
-      {pathname === "/ships/table" ? <ShipTable /> : <ShipList />}
+      {pathname.includes("/ships/table") ? <ShipTable /> : <ShipList />}
     </>
   );
 };

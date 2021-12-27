@@ -1,6 +1,7 @@
 import { ExternalLinkIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
+import { useIntl } from "react-intl";
 import { Price } from "~/components/common/Price";
 import { Text } from "~/components/common/Text";
 import { ButtonGroup } from "~/components/controls/ButtonGroup";
@@ -22,6 +23,8 @@ export const ShipTable = () => {
 
   const [fetch, { data, atlasPrice, loading }] = useShipsTable(size);
 
+  const intl = useIntl();
+
   const fetchData = useCallback(() => {
     fetch();
   }, [fetch]);
@@ -29,57 +32,58 @@ export const ShipTable = () => {
   const cols = useMemo(
     () => [
       buildNameColumn({
-        name: "Name",
+        name: intl.formatMessage({
+          id: "Ships.Table.Column.name",
+          defaultMessage: "Nome",
+        }),
         accessor: "name",
         imageUrlAccessor: "imageUrl",
       }),
       buildPriceColumn({
-        name: "USDC Price",
+        name: intl.formatMessage({
+          id: "Ships.Table.Column.price",
+          defaultMessage: "Prezzo USDC",
+        }),
         accessor: "price",
         currency: "USDC",
       }),
       buildAtlasPriceColumn({
-        name: "Atlas Price",
+        name: intl.formatMessage({
+          id: "Ships.Table.Column.atlasPrice",
+          defaultMessage: "Prezzo Atlas",
+        }),
         accessor: "atlasPrice",
         atlasValue: atlasPrice,
       }),
-      // buildPriceColumn({
-      //   name: "Best Ask Price",
-      //   accessor: "bestAskPrice",
-      //   currency,
-      // }),
-      // buildPriceColumn({
-      //   name: "Best Bid Price",
-      //   accessor: "bestBidPrice",
-      //   currency,
-      // }),
       buildDiscountColumn({
-        name: "Atlas Price Vs Price",
+        name: intl.formatMessage({
+          id: "Ships.Table.Column.atlasPriceVsPrice",
+          defaultMessage: "Prezzo Atlas vs Prezzo",
+        }),
         accessor: "atlasPriceVsPrice",
         suffix: " %",
       }),
       buildDiscountColumn({
-        name: "Price Vs VWAP",
+        name: intl.formatMessage({
+          id: "Ships.Table.Column.priceVsVwapPrice",
+          defaultMessage: "Prezzo vs VWAP",
+        }),
         accessor: "priceVsVwapPrice",
         suffix: " %",
       }),
       buildDiscountColumn({
-        name: "Atlas Price Vs VWAP",
+        name: intl.formatMessage({
+          id: "Ships.Table.Column.atlasPriceVsVwapPrice",
+          defaultMessage: "Prezzo Atlas vs VWAP",
+        }),
         accessor: "atlasPriceVsVwapPrice",
         suffix: " %",
       }),
-      // buildDiscountColumn({
-      //   name: "Bid Price vs VWAP",
-      //   accessor: "bestBidPriceVsVwapPrice",
-      //   suffix: " %",
-      // }),
-      // buildDiscountColumn({
-      //   name: "Ask Price vs VWAP",
-      //   accessor: "bestAskPriceVsVwapPrice",
-      //   suffix: " %",
-      // }),
       buildPriceColumn({
-        name: "VWAP",
+        name: intl.formatMessage({
+          id: "Ships.Table.Column.vwap",
+          defaultMessage: "VWAP",
+        }),
         accessor: "vwapPrice",
         currency: "USDC",
       }),
@@ -104,19 +108,8 @@ export const ShipTable = () => {
         },
       },
     ],
-    [atlasPrice]
+    [atlasPrice, intl]
   );
-
-  // const notInSaleShipsCols = useMemo(
-  //   () => [
-  //     buildNameColumn({
-  //       name: "Name",
-  //       accessor: "name",
-  //       imageUrlAccessor: "image",
-  //     }),
-  //   ],
-  //   []
-  // );
 
   return (
     <div className="relative p-5 md:p-8 bg-black overflow-hidden backdrop-filter backdrop-blur-lg bg-opacity-20">
@@ -143,12 +136,6 @@ export const ShipTable = () => {
           fetchData={fetchData}
           loading={loading}
         />
-
-        {/* <Table
-          columns={notInSaleShipsCols}
-          data={notAvailableShips}
-          loading={loading}
-        /> */}
       </Flex>
     </div>
   );

@@ -6,6 +6,7 @@ import { Price } from "~/components/common/Price";
 import { Flex } from "~/components/layout/Flex";
 import { Wallet } from "~/components/Wallet";
 import { useGuildTreasury } from "~/hooks/useGuildTreasury";
+import { useTranslation } from "~/i18n/useTranslation";
 
 export const LogoLink = () => {
   return (
@@ -28,6 +29,8 @@ export const LogoLink = () => {
 export const Header = () => {
   const { usdcAmount } = useGuildTreasury();
 
+  const treasuryTranslation = useTranslation("Layout.Treasury.title");
+
   return (
     <Flex align="center" grow={1} py={4} px={10} justify="center">
       <Flex className="container" justify="between">
@@ -38,7 +41,7 @@ export const Header = () => {
         </Flex>
         {!!usdcAmount && (
           <Flex className="z-40">
-            <InfoRow title="Valore tesoreria">
+            <InfoRow title={treasuryTranslation}>
               <Price color="white" value={usdcAmount} currency="USDC" />
             </InfoRow>
           </Flex>
