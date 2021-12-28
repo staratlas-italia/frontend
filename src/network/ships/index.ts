@@ -28,7 +28,10 @@ export const getAllShips = async (
   );
 
   if (size) {
-    ships = ships.filter((s: StarAtlasEntity) => s.attributes.class === size);
+    ships = ships.filter(
+      (s: StarAtlasEntity) =>
+        s.attributes.class.toLocaleLowerCase() === size.toLocaleLowerCase()
+    );
   }
 
   ships.sort(sortForSize);
