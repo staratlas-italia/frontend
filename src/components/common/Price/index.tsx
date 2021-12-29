@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { FormattedNumber } from "react-intl";
 import styled from "styled-components";
 import { Text, TextProps } from "~/components/common/Text";
@@ -5,6 +6,7 @@ import { Flex } from "~/components/layout/Flex";
 import { Currency } from "~/types";
 
 type Props = TextProps & {
+  inverse?: boolean;
   small?: boolean;
   value?: number | string;
   currency?: Currency;
@@ -23,10 +25,18 @@ export const Price = ({
   decimals = 2,
   small,
   value,
+  inverse,
   ...props
 }: Props) => {
   return (
-    <Flex as="span" align="center" className="space-x-1">
+    <Flex
+      direction={inverse ? "row-reverse" : "row"}
+      as="span"
+      align="center"
+      className={classNames("space-x-1", {
+        "space-x-reverse": inverse,
+      })}
+    >
       <Text {...props}>
         {value ? (
           <FormattedNumber
