@@ -6,6 +6,10 @@ export const ATLAS_USDC_MARKET_ADDR =
 export const STAR_ATLAS_SERUM_PROGRAM_ID =
   "9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin";
 
+export const ATLAS_TOKEN_ID = "9VmYq1qE2GQKxPP66sdgLDKF7CrjmpxbSYdxUfN9zjb7";
+export const POLIS_TOKEN_ID = "HesNk1oVYo3L3kGYs5o1tqLWfhSMWLF8eqvztRnTHaoP";
+export const USDC_TOKEN_ID = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
+
 export const DEXLAB_API_URL = "https://api.dexlab.space/v1";
 
 export const USDC_TOKEN_MINT_ID =
