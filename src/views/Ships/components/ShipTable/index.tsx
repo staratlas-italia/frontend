@@ -1,20 +1,22 @@
 import { ExternalLinkIcon } from "@heroicons/react/solid";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useCallback, useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 import { ButtonGroup } from "~/components/controls/ButtonGroup";
+import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
-import { useShipsTable } from "~/components/pages/Ships/components/ShipTable/useShipsTable";
-import { buildDiscountColumn } from "~/components/pages/Ships/components/ShipTable/utils/buildDiscountColumn";
-import { buildNameColumn } from "~/components/pages/Ships/components/ShipTable/utils/buildNameColumn";
-import {
-  buildAtlasPriceColumn,
-  buildPriceColumn,
-} from "~/components/pages/Ships/components/ShipTable/utils/buildPriceColumn";
 import { Table } from "~/components/Table";
 import { ShipSize, shipSizes } from "~/types";
 import { fillUrlParameters } from "~/utils/fillUrlParameters";
 import { getRoute } from "~/utils/getRoute";
+import { useShipsTable } from "~/views/Ships/components/ShipTable/useShipsTable";
+import { buildDiscountColumn } from "~/views/Ships/components/ShipTable/utils/buildDiscountColumn";
+import { buildNameColumn } from "~/views/Ships/components/ShipTable/utils/buildNameColumn";
+import {
+  buildAtlasPriceColumn,
+  buildPriceColumn,
+} from "~/views/Ships/components/ShipTable/utils/buildPriceColumn";
 
 export const ShipTable = () => {
   const [size, setSize] = useState<ShipSize>("medium");
@@ -22,6 +24,8 @@ export const ShipTable = () => {
   const [fetch, { data, atlasPrice, loading }] = useShipsTable(size);
 
   const intl = useIntl();
+
+  const { locale } = useRouter();
 
   const fetchData = useCallback(() => {
     fetch();
@@ -96,6 +100,7 @@ export const ShipTable = () => {
                 href={fillUrlParameters(getRoute("/ships/:shipId"), {
                   shipId: row.original.id,
                 })}
+                locale={locale}
               >
                 <a target="_blank">
                   <ExternalLinkIcon className="h-5 w-5" />
@@ -110,7 +115,7 @@ export const ShipTable = () => {
   );
 
   return (
-    <div className="relative p-5 md:p-8 bg-black overflow-hidden backdrop-filter backdrop-blur-lg bg-opacity-20">
+    <BlurBackground className="relative overflow-hidden" p={5} mdP={8}>
       <Flex
         className="overflow-scroll space-y-5"
         direction="col"
@@ -128,6 +133,6 @@ export const ShipTable = () => {
           loading={loading}
         />
       </Flex>
-    </div>
+    </BlurBackground>
   );
 };

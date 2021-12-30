@@ -1,15 +1,16 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
 import { MaxWidth } from "~/components/layout/MaxWidth";
 import { ColorName } from "~/components/layout/Pane";
-import { Description } from "~/components/pages/Ships/components/Ship/components/Description";
-import { Heading } from "~/components/pages/Ships/components/Ship/components/Heading";
-import { Image } from "~/components/pages/Ships/components/Ship/components/Image";
-import { Polygon } from "~/components/pages/Ships/components/Ship/components/Polygon";
 import { StarAtlasEntity } from "~/types";
+import { Description } from "~/views/Ships/components/Ship/components/Description";
+import { Heading } from "~/views/Ships/components/Ship/components/Heading";
+import { Image } from "~/views/Ships/components/Ship/components/Image";
+import { Polygon } from "~/views/Ships/components/Ship/components/Polygon";
 
 type Props = { ship: StarAtlasEntity };
 
@@ -25,6 +26,7 @@ const shipColors: { [key: string]: ColorName } = {
 
 export const ShipCard = ({ ship }: Props) => {
   const intl = useIntl();
+  const { locale } = useRouter();
 
   return (
     <div className="rounded-3xl relative bg-black overflow-hidden backdrop-filter backdrop-blur-lg bg-opacity-10">
@@ -80,6 +82,7 @@ export const ShipCard = ({ ship }: Props) => {
                       pathname: "/ships/[id]",
                       query: { id: ship?._id },
                     }}
+                    locale={locale}
                   >
                     <a className="w-full lg:w-auto">
                       <Button

@@ -2,8 +2,9 @@ import Link from "next/link";
 import { FormattedMessage } from "react-intl";
 import { Text } from "~/components/common/Text";
 import { Button } from "~/components/controls/Button";
+import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
-import { HumanImage } from "~/components/pages/Home/components/EnlistBanner/HumanImage";
+import { HumanImage } from "~/views/Home/components/EnlistBanner/HumanImage";
 
 export const EnlistBanner = () => (
   <Flex
@@ -16,13 +17,7 @@ export const EnlistBanner = () => (
     <Flex justify="center">
       <HumanImage />
     </Flex>
-    <Flex
-      color="black"
-      className="space-y-5 rounded-3xl backdrop-filter backdrop-blur-xl bg-opacity-20"
-      direction="col"
-      py={5}
-      px={8}
-    >
+    <BlurBackground className="space-y-5" direction="col" py={5} px={8}>
       <Text
         color="white"
         className="tracking-tight "
@@ -69,6 +64,6 @@ export const EnlistBanner = () => (
           </a>
         </Link>
       </Flex>
-    </Flex>
+    </BlurBackground>
   </Flex>
 );

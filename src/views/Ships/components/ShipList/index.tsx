@@ -1,5 +1,5 @@
-import { ShipCard } from "~/components/pages/Ships/components/Ship";
 import { useShips } from "~/contexts/ShipsContext";
+import { ShipCard } from "~/views/Ships/components/Ship";
 
 export const ShipList = () => {
   const { ships } = useShips();

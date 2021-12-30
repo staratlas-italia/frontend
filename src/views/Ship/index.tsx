@@ -1,13 +1,15 @@
 import { ArrowLeftIcon } from "@heroicons/react/solid";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Text } from "~/components/common/Text";
+import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
-import { ShipAttributes } from "~/components/pages/Ship/components/ShipAttributes";
-import { ShipPrices } from "~/components/pages/Ship/components/ShipPrices";
 import { useShip } from "~/contexts/ShipsContext";
 import { Translation } from "~/i18n/Translation";
 import { TranslationId } from "~/i18n/translations/types";
 import { useTranslation } from "~/i18n/useTranslation";
+import { ShipAttributes } from "~/views/Ship/components/ShipAttributes";
+import { ShipPrices } from "~/views/Ship/components/ShipPrices";
 
 export const ShipPage = () => {
   const {
@@ -21,6 +23,8 @@ export const ShipPage = () => {
     slots,
   } = useShip();
 
+  const { locale } = useRouter();
+
   const componentsTranslation = useTranslation(
     "Ships.Details.Components.title"
   );
@@ -28,11 +32,8 @@ export const ShipPage = () => {
   const modulesTranslation = useTranslation("Ships.Details.Modules.title");
 
   return (
-    <Flex
-      direction="col"
-      className="space-y-5 bg-black backdrop-filter backdrop-blur-lg bg-opacity-20 p-5 "
-    >
-      <Link href="/ships">
+    <BlurBackground direction="col" className="space-y-5" p={5}>
+      <Link href="/ships" locale={locale}>
         <a>
           <ArrowLeftIcon className="h-8 w-8 text-white" />
         </a>
@@ -123,6 +124,6 @@ export const ShipPage = () => {
           </Flex>
         </Flex>
       </Flex>
-    </Flex>
+    </BlurBackground>
   );
 };
