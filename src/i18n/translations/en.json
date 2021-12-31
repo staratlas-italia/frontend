@@ -8,6 +8,7 @@
   "Home.WelcomeBanner.description.1": "Are you ready to join the biggest Italia guild?",
   "Home.WelcomeBanner.title": "Welcome!",
   "Layout.Treasury.title": "Treasury value",
+  "Layout.Header.Dashboard.action.title": "Dashboard",
   "Layout.AtlasChange.title": "Atlas value",
   "Layout.Wallet.Connect.title": "Connect Wallet",
   "Layout.Wallet.Disconnect.title": "Disconnect",
@@ -29,5 +30,6 @@
   "Ships.Table.Column.priceVsVwapPrice": "Price vs VWAP",
   "Ships.Table.Column.vwap": "VWAP",
   "Ships.Toolbar.grid": "Show grid",
-  "Ships.Toolbar.table": "Show table"
+  "Ships.Toolbar.table": "Show table",
+  "Wallet.Disconnect.action.title": "Disconnect"
 }

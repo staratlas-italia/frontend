@@ -20,6 +20,7 @@ export type ButtonProps = PropsWithChildren<{
   loading?: boolean;
   onClick?: () => void;
   size?: ButtonSize;
+  round?: boolean;
   textColor?: ColorName;
 }>;
 
@@ -59,6 +60,7 @@ export const Button = ({
   iconRight,
   loading,
   size = "regular",
+  round,
   textColor = "black",
   ...props
 }: ButtonProps) => {
@@ -66,12 +68,13 @@ export const Button = ({
     <Flex
       as={as || "button"}
       align="center"
-      justify="between"
+      justify={"between"}
       className={classNames(className, "group rounded-md", {
         [`hover:bg-${hoverBgColor}`]: hoverBgColor,
+        "w-5 h-5": round,
       })}
       color={bgColor}
-      {...getButtonSize(size)}
+      {...(round ? undefined : getButtonSize(size))}
       {...props}
     >
       {iconLeft && (

@@ -8,6 +8,7 @@
   "Home.WelcomeBanner.description.1": "Sei pronto a unirti alla gilda più grande d'Italia?",
   "Home.WelcomeBanner.title": "Benvenuto!",
   "Layout.AtlasChange.title": "Valore atlas",
+  "Layout.Header.Dashboard.action.title": "Dashboard",
   "Layout.Treasury.title": "Valore tesoreria",
   "Layout.Wallet.Connect.title": "Connetti Wallet",
   "Layout.Wallet.Disconnect.title": "Disconnetti",
@@ -40,5 +41,6 @@
   "Ships.Table.Column.priceVsVwapPrice": "Prezzo vs VWAP",
   "Ships.Table.Column.vwap": "VWAP",
   "Ships.Toolbar.grid": "Mostra griglia",
-  "Ships.Toolbar.table": "Mostra tabella"
+  "Ships.Toolbar.table": "Mostra tabella",
+  "Wallet.Disconnect.action.title": "Disconnetti"
 }

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Text, TextProps } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 import { Currency } from "~/types";
+import { isNullOrUndefined } from "~/utils/isNullOrUndefined";
 
 type Props = TextProps & {
   inverse?: boolean;
@@ -38,7 +39,7 @@ export const Price = ({
       })}
     >
       <Text {...props}>
-        {value ? (
+        {!isNullOrUndefined(value) ? (
           <FormattedNumber
             value={+value}
             minimumFractionDigits={decimals}
@@ -48,7 +49,7 @@ export const Price = ({
           "-"
         )}
       </Text>
-      {!!value && (
+      {!isNullOrUndefined(value) && (
         <CurrencyImage
           small={small}
           src={`/images/currencies/${currency.toLowerCase()}_symbol.png`}

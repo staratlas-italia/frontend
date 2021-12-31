@@ -8,6 +8,7 @@ import { useShip } from "~/contexts/ShipsContext";
 import { Translation } from "~/i18n/Translation";
 import { TranslationId } from "~/i18n/translations/types";
 import { useTranslation } from "~/i18n/useTranslation";
+import { getRoute } from "~/utils/getRoute";
 import { ShipAttributes } from "~/views/Ship/components/ShipAttributes";
 import { ShipPrices } from "~/views/Ship/components/ShipPrices";
 
@@ -33,7 +34,7 @@ export const ShipPage = () => {
 
   return (
     <BlurBackground direction="col" className="space-y-5" p={5}>
-      <Link href="/ships" locale={locale}>
+      <Link href={getRoute("/ships")} locale={locale}>
         <a>
           <ArrowLeftIcon className="h-8 w-8 text-white" />
         </a>

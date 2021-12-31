@@ -8,6 +8,7 @@ export type TranslationId =
   | "Home.WelcomeBanner.description.1"
   | "Home.WelcomeBanner.title"
   | "Layout.AtlasChange.title"
+  | "Layout.Header.Dashboard.action.title"
   | "Layout.Treasury.title"
   | "Layout.Wallet.Connect.title"
   | "Layout.Wallet.Disconnect.title"
@@ -40,7 +41,8 @@ export type TranslationId =
   | "Ships.Table.Column.priceVsVwapPrice"
   | "Ships.Table.Column.vwap"
   | "Ships.Toolbar.grid"
-  | "Ships.Toolbar.table";
+  | "Ships.Toolbar.table"
+  | "Wallet.Disconnect.action.title";
 
 export type TranslationValues = {
   "Ships.Details.saleDate": { date: string };

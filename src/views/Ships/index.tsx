@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { getRoute } from "~/utils/getRoute";
 import { ShipList } from "~/views/Ships/components/ShipList";
 import { ShipTable } from "~/views/Ships/components/ShipTable";
 import { Toolbar } from "~/views/Ships/components/Toolbar";
@@ -9,7 +10,7 @@ export const ShipListPage = () => {
   return (
     <>
       <Toolbar />
-      {pathname.includes("/ships/table") ? <ShipTable /> : <ShipList />}
+      {pathname === getRoute("/ships/table") ? <ShipTable /> : <ShipList />}
     </>
   );
 };

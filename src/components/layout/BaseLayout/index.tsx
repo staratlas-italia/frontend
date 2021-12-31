@@ -8,15 +8,15 @@ const LayoutBackground = styled.div.attrs({
   background-image: url("/images/bg.webp");
 `;
 
+type Props = { hideHeader?: boolean };
+
 export const BaseLayout = React.memo(
-  ({ children }: PropsWithChildren<unknown>) => {
+  ({ children, hideHeader }: PropsWithChildren<Props>) => {
     return (
       <div>
         <LayoutBackground />
-        <Header />
-        <div className="container overflow-auto mx-auto py-10 px-5 md:px-0">
-          {children}
-        </div>
+        {!hideHeader && <Header />}
+        <div className="container overflow-auto mx-auto py-10">{children}</div>
       </div>
     );
   }
