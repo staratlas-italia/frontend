@@ -105,3 +105,15 @@ export type StarAtlasEntity = {
   primarySales: Sale[];
   airdrops: Airdrop[];
 };
+
+export type UsturAvatar = "Ustur_A" | "Ustur_B" | "Ustur_C" | "Ustur_D";
+export type MudAvatar = "MUD_A" | "MUD_B" | "MUD_C" | "MUD_D";
+export type OniAvatar =
+  | "ONI_A"
+  | "ONI_B"
+  | "ONI_C"
+  | "ONI_D"
+  | "ONI_E"
+  | "ONI_F";
+
+export type Avatar = UsturAvatar & MudAvatar & OniAvatar;
