@@ -1,32 +1,32 @@
 import Image from "next/image";
-import Link from "next/link";
 import { InfoRow } from "~/components/common/Info";
 import { Price } from "~/components/common/Price";
 import { Text } from "~/components/common/Text";
+import { Button } from "~/components/controls/Button";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
+import { useModal } from "~/contexts/ModalContext";
 import { usePlayer } from "~/hooks/usePlayer";
 import {
   useAtlasBalance,
   usePolisBalance,
   useUsdcBalance,
 } from "~/hooks/useTokenBalance";
+import { shortenAddress } from "~/utils/shortenAddress";
 
 export const View = () => {
   const { amount: atlasAmount } = useAtlasBalance();
   const { amount: polisAmount } = usePolisBalance();
   const { amount: usdcAmount } = useUsdcBalance();
 
-  const { avatarId, avatarImageUrl } = usePlayer();
+  const { avatarId, avatarImageUrl, balance, publicKey, rank, factionRank } =
+    usePlayer();
+
+  const { setVisible } = useModal("ships-modal");
 
   return (
     <>
       <Flex className="space-y-3" direction="col">
-        {/* <Flex>
-          <BlurBackground px={3} py={2}>
-            <AtlasUsdcChange />
-          </BlurBackground>
-        </Flex> */}
         <Flex className="space-y-3" direction="col">
           <Flex>
             <BlurBackground px={3} py={2} className="space-x-3">
@@ -71,9 +71,18 @@ export const View = () => {
                   />
                 </Flex>
               )}
-              <Flex>
-                <InfoRow title="publicKey">
-                  <Text color="white">{avatarId}</Text>
+              <Flex justify={"between"} className="w-full">
+                <InfoRow color="gray-200" title="addr">
+                  <Text color="white">{shortenAddress(publicKey || "")}</Text>
+                </InfoRow>
+                <InfoRow color="gray-200" title="universal Rank">
+                  <Text color="white">{rank}</Text>
+                </InfoRow>
+                <InfoRow color="gray-200" title="faction rank">
+                  <Text color="white">{factionRank}</Text>
+                </InfoRow>
+                <InfoRow color="gray-200" title="net worth">
+                  <Price color="white" value={balance} />
                 </InfoRow>
               </Flex>
             </Flex>
@@ -89,13 +98,11 @@ export const View = () => {
               <Flex justify="center">
                 <Text color="white" size="lg">
                   No ships found...{" "}
-                  <Link href="#">
-                    <a>
-                      <Text color="pink-300" className="underline">
-                        add a new one
-                      </Text>
-                    </a>
-                  </Link>
+                  <Button onClick={() => setVisible(true)}>
+                    <Text color="pink-300" className="underline">
+                      add a new one
+                    </Text>
+                  </Button>
                 </Text>
               </Flex>
             </Flex>
