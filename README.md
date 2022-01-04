@@ -1,12 +1,12 @@
 🇬🇧 &nbsp; [English](https://github.com/staratlas-italia/candy-machine/blob/main/docs/README_EN.md)
 
-# Candy Machine
+# Frontend
 
 Ciao! La più grande community italiana di [StarAtlas](https://staratlas.com/) ti da il benvenuto!
 
 ## About
 
-Come il nome `candy-machine` suggerisce, l'obiettivo principale di questo sito web/tool è creare delle candy-machine di [Metaplex](https://www.metaplex.com/) per premiare, vendere o pagare i membri della gilda con degli NFTs
+L'obiettivo principale di questo sito web/tool è creare una App web3.0 attorno al metaverso di SA per premiare, vendere o pagare i membri della gilda con degli NFTs
 
 ## Dove iniziare
 
