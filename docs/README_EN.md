@@ -6,7 +6,7 @@ Hi there! The [StarAtlas](https://staratlas.com/) biggest Italian commuty is her
 
 ## About
 
-As the name `candy-machine` suggests, the main gola of this small website is to create a [Metaplex](https://www.metaplex.com/) candy-machine to reward the guild members with NFTs.
+The main goal of this small website is to create a web3.0 App to ship useful tools and rewards the guild members.
 
 ## Getting started
 
