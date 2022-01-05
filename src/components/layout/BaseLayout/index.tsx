@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React, { PropsWithChildren } from "react";
 import styled from "styled-components";
 import { Header } from "~/components/layout/Header";
@@ -8,15 +9,21 @@ const LayoutBackground = styled.div.attrs({
   background-image: url("/images/bg.webp");
 `;
 
-type Props = { hideHeader?: boolean };
+type Props = { fluid?: boolean; hideHeader?: boolean };
 
 export const BaseLayout = React.memo(
-  ({ children, hideHeader }: PropsWithChildren<Props>) => {
+  ({ children, fluid, hideHeader }: PropsWithChildren<Props>) => {
     return (
       <div>
         <LayoutBackground />
         {!hideHeader && <Header />}
-        <div className="container overflow-auto mx-auto py-10">{children}</div>
+        <div
+          className={classNames("overflow-auto mx-auto py-10", {
+            container: !fluid,
+          })}
+        >
+          {children}
+        </div>
       </div>
     );
   }

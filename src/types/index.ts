@@ -1,6 +1,12 @@
 import { BN } from "@project-serum/anchor";
 import { ScoreVarsShipInfo, ShipStakingInfo } from "@staratlas/factory";
 import { ComponentType } from "react";
+import {
+  AMMO_TOKEN_MINT_ID,
+  FOOD_TOKEN_MINT_ID,
+  FUEL_TOKEN_MINT_ID,
+  TOOL_TOKEN_MINT_ID,
+} from "~/common/constants";
 
 type ShipAttributes = {
   itemType: string;
@@ -22,7 +28,7 @@ export type Player = {
   badgeMint: string | null;
   balance: number;
   balances: {
-    mint: string;
+    mint: ResourceMint;
     quantity: number;
     valuePerAsset: number;
   }[];
@@ -58,6 +64,13 @@ export type Currency = "ATLAS" | "POLIS" | "USDC";
 export type iconRenderProp = (props: {
   className: string;
 }) => ComponentType<typeof props> | JSX.Element | null;
+
+export type AmmoMint = typeof AMMO_TOKEN_MINT_ID;
+export type FoodMint = typeof FOOD_TOKEN_MINT_ID;
+export type FuelMint = typeof FUEL_TOKEN_MINT_ID;
+export type ToolMint = typeof TOOL_TOKEN_MINT_ID;
+
+export type ResourceMint = AmmoMint | FoodMint | FuelMint | ToolMint;
 
 export type ShipSlot = {
   type: string;
@@ -161,4 +174,4 @@ export type OniAvatar =
   | "ONI_E"
   | "ONI_F";
 
-export type Avatar = UsturAvatar & MudAvatar & OniAvatar;
+export type Avatar = UsturAvatar | MudAvatar | OniAvatar;

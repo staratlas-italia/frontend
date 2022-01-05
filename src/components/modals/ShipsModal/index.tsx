@@ -20,58 +20,60 @@ export const ShipsModal = () => {
 
   return (
     <BaseModal id="ships-modal">
-      <div className="divide-y p-3">
+      <div className=" p-3">
         <Flex pb={3}>
           <Text size="4xl" weight="semibold">
             Create your fleet
           </Text>
         </Flex>
-        {ships.map((ship) => (
-          <Flex align="center" justify="between" key={ship._id}>
-            <Flex align="center">
-              <Flex>
-                <Image src={ship.media.thumbnailUrl} width={70} height={70} />
+        <Flex direction="col" className="divide-y">
+          {ships.map((ship) => (
+            <Flex align="center" justify="between" key={ship._id}>
+              <Flex align="center">
+                <Flex>
+                  <Image src={ship.media.thumbnailUrl} width={70} height={70} />
+                </Flex>
+                <Flex px={5} direction="col">
+                  <Text size="xl" weight="medium">
+                    {ship.name}
+                  </Text>
+                  <Text size="lg">{ship.attributes.rarity}</Text>
+                </Flex>
               </Flex>
-              <Flex px={5} direction="col">
-                <Text size="xl" weight="medium">
-                  {ship.name}
-                </Text>
-                <Text size="lg">{ship.attributes.rarity}</Text>
+              <Flex align="center" justify="end" className="space-x-5">
+                <Button
+                  round
+                  bgColor="gray-200"
+                  hoverBgColor="gray-300"
+                  onClick={() =>
+                    setFleet({
+                      ...fleet,
+                      [ship._id]: !!fleet?.[ship._id]
+                        ? (fleet?.[ship._id] || 0) - 1
+                        : fleet?.[ship._id],
+                    })
+                  }
+                >
+                  -
+                </Button>
+                <Text size="lg">{fleet?.[ship._id] || 0}</Text>
+                <Button
+                  round
+                  bgColor="gray-200"
+                  hoverBgColor="gray-300"
+                  onClick={() =>
+                    setFleet({
+                      ...fleet,
+                      [ship._id]: (fleet?.[ship._id] || 0) + 1,
+                    })
+                  }
+                >
+                  +
+                </Button>
               </Flex>
             </Flex>
-            <Flex align="center" justify="end" className="space-x-5">
-              <Button
-                round
-                bgColor="gray-200"
-                hoverBgColor="gray-300"
-                onClick={() =>
-                  setFleet({
-                    ...fleet,
-                    [ship._id]: !!fleet?.[ship._id]
-                      ? (fleet?.[ship._id] || 0) - 1
-                      : fleet?.[ship._id],
-                  })
-                }
-              >
-                -
-              </Button>
-              <Text size="lg">{fleet?.[ship._id] || 0}</Text>
-              <Button
-                round
-                bgColor="gray-200"
-                hoverBgColor="gray-300"
-                onClick={() =>
-                  setFleet({
-                    ...fleet,
-                    [ship._id]: (fleet?.[ship._id] || 0) + 1,
-                  })
-                }
-              >
-                +
-              </Button>
-            </Flex>
-          </Flex>
-        ))}
+          ))}
+        </Flex>
         <Flex pt={2}>
           <Button
             bgColor="purple-300"

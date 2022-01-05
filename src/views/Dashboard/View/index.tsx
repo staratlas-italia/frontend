@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { InfoRow } from "~/components/common/Info";
+import { Loader } from "~/components/common/Loader";
 import { Price } from "~/components/common/Price";
 import { Text } from "~/components/common/Text";
 import { Button } from "~/components/controls/Button";
@@ -19,10 +20,15 @@ export const View = () => {
   const { amount: polisAmount } = usePolisBalance();
   const { amount: usdcAmount } = useUsdcBalance();
 
-  const { avatarId, avatarImageUrl, balance, publicKey, rank, factionRank } =
-    usePlayer();
+  const { player, loading, publicKey } = usePlayer();
 
   const { setVisible } = useModal("ships-modal");
+
+  if (!player || loading) {
+    return <Loader />;
+  }
+
+  const { avatarId, avatarImageUrl, balance, rank, factionRank } = player;
 
   return (
     <>
@@ -64,9 +70,10 @@ export const View = () => {
               {avatarImageUrl && (
                 <Flex>
                   <Image
+                    quality={30}
                     src={avatarImageUrl}
-                    width={120}
-                    height={120}
+                    width={200}
+                    height={200}
                     alt={avatarId}
                   />
                 </Flex>
