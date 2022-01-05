@@ -22,7 +22,7 @@ const sortForSize = (shipA: StarAtlasEntity, shipB: StarAtlasEntity) => {
 export const getAllShips = async (
   size?: ShipSize
 ): Promise<StarAtlasEntity[]> => {
-  const response = await axios.get(process.env.STAR_ATLAS_NFTS_URL || "");
+  const response = await axios.get(`${process.env.STAR_ATLAS_API_URL}/nfts`);
   let ships = response.data.filter(
     (ship) => ship.attributes.category === "ship"
   );

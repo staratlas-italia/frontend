@@ -2,10 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
-import { AtlasUsdcChange } from "~/components/layout/Header/components/AtlasUsdcChange";
-import { Treasury } from "~/components/layout/Header/components/Treasury";
 import { Wallet } from "~/components/Wallet";
 
 export const LogoLink = () => {
@@ -34,10 +31,10 @@ export const Header = () => {
       <Flex className="container" justify="between">
         <LogoLink />
 
-        <Flex className="hidden">
+        <Flex className="z-10">
           <Wallet />
         </Flex>
-        <Flex className="z-40 space-x-7">
+        {/* <Flex className="z-40 space-x-7">
           <AtlasUsdcChange />
           <Treasury />
 
@@ -52,7 +49,7 @@ export const Header = () => {
               {locale}
             </Text>
           </Link>
-        </Flex>
+        </Flex> */}
       </Flex>
     </Flex>
   );

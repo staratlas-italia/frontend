@@ -14,9 +14,7 @@ export const BaseLayout = React.memo(
       <div>
         <LayoutBackground />
         <Header />
-        <div className="z-30 container overflow-auto mx-auto py-10">
-          {children}
-        </div>
+        <div className="container overflow-auto mx-auto py-10">{children}</div>
       </div>
     );
   }
