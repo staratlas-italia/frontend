@@ -1,7 +1,8 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import React, { useCallback } from "react";
-import { WalletModal } from "~/components/modals/WalletModal";
+import { Button } from "~/components/controls/Button";
 import { useModal } from "~/contexts/ModalContext";
+import { Translation } from "~/i18n/Translation";
 
 export type ConnectButtonProps = React.RefAttributes<HTMLElement> & {
   onClick?: () => void;
@@ -15,27 +16,26 @@ export const ConnectButton = ({
   onClick,
   ...rest
 }: ConnectButtonProps) => {
+  const { open } = useModal("wallet-modal");
   const { wallet, connect, connected } = useWallet();
-
-  const { setVisible } = useModal("wallet-modal");
-
-  const open = useCallback(() => setVisible(true), [setVisible]);
 
   const handleClick = useCallback(
     () => (wallet ? connect().catch(() => {}) : open()),
     [wallet, connect, open]
   );
 
-  if (!wallet) {
+  if (!wallet || !connected) {
     return (
-      <div className="invisible sm:visible">
-        <button
-          className="px-3 py-2 ring-4 bg-white rounded-lg hover:opacity-90 "
+      <div>
+        <Button
+          size={"small"}
+          className="rounded-xl"
+          bgColor="white"
+          hoverBgColor="gray-100"
           onClick={handleClick}
         >
-          Connect Wallet
-        </button>
-        <WalletModal />
+          <Translation id="Layout.Wallet.Connect.title" />
+        </Button>
       </div>
     );
   }

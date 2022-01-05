@@ -1,20 +1,26 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, PropsWithChildren } from "react";
+import { Flex } from "~/components/layout/Flex";
 import { AvailableModal, useModal } from "../../../contexts/ModalContext";
 
 type Props = PropsWithChildren<{ id: AvailableModal }>;
 
 export const BaseModal = ({ children, id, ...props }: Props) => {
-  const { visible, setVisible } = useModal(id);
+  const { visible, close } = useModal(id);
 
   return (
     <Transition.Root show={visible || false} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-10 inset-0 overflow-y-auto"
-        onClose={setVisible}
+        onClose={close}
       >
-        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <Flex
+          align="center"
+          justify="center"
+          pt={4}
+          className="min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -47,7 +53,7 @@ export const BaseModal = ({ children, id, ...props }: Props) => {
               {children}
             </div>
           </Transition.Child>
-        </div>
+        </Flex>
       </Dialog>
     </Transition.Root>
   );
