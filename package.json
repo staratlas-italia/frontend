@@ -35,7 +35,8 @@
     "sharp": "^0.29.3",
     "styled-components": "^5.3.3",
     "swr": "^1.1.2-beta.0",
-    "yarn": "^1.22.17"
+    "yarn": "^1.22.17",
+    "zustand": "^3.6.8"
   },
   "devDependencies": {
     "@commitlint/cli": "^15.0.0",
