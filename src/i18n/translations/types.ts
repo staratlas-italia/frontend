@@ -9,6 +9,8 @@ export type TranslationId =
   | "Home.WelcomeBanner.title"
   | "Layout.AtlasChange.title"
   | "Layout.Treasury.title"
+  | "Layout.Wallet.Connect.title"
+  | "Layout.Wallet.Disconnect.title"
   | "Ships.Details.calico_compakt_hero.description"
   | "Ships.Details.calico_evac.description"
   | "Ships.Details.Components.title"
