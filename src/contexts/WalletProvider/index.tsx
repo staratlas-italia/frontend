@@ -5,6 +5,7 @@ import {
   getMathWallet,
   getPhantomWallet,
   getSolflareWallet,
+  getSolflareWebWallet,
   getSolletWallet,
   getSolongWallet,
 } from "@solana/wallet-adapter-wallets";
@@ -15,6 +16,7 @@ export const WalletProvider = ({ children }) => {
     () => [
       getPhantomWallet(),
       getSolflareWallet(),
+      getSolflareWebWallet(),
       // getTorusWallet({
       //   options: {
       //     // @FIXME: this should be changed for Metaplex, and by each Metaplex storefront

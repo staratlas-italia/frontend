@@ -2,8 +2,11 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { Wallet } from "@solana/wallet-adapter-wallets";
 import React from "react";
 import styled from "styled-components";
+import { Text } from "~/components/common/Text";
+import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
 import { Identicon } from "~/components/Wallet/components/UserBadge/Identicon";
+import { useModal } from "~/contexts/ModalContext";
 import { shortenAddress } from "~/utils/shortenAddress";
 
 type Props = {
@@ -11,29 +14,14 @@ type Props = {
   showAddress?: boolean;
 };
 
-// const BadgeWrapper = styled(Flex)`
-//   padding-left: 0.7rem;
-//   border-radius: 0.5rem;
-//   display: flex;
-//   align-items: center;
-//   white-space: nowrap;
-// `;
-
-// const KeyWrapper = styled(Button)`
-//   padding: 0.1rem 0.5rem 0.1rem 0.7rem;
-//   margin-left: 0.3rem;
-//   border-radius: 0.5rem;
-//   display: flex;
-//   align-items: center;
-// `;
-
 const Icon = styled(Identicon)<Props>`
   width: ${(iconSize) => `${iconSize}`}px;
   border-radius: 50;
 `;
 
 export const UserBadge = ({ iconSize, showAddress }: Props) => {
-  const { wallet, publicKey, disconnect } = useWallet();
+  const { connected, wallet, publicKey } = useWallet();
+  const { open } = useModal("wallet-modal");
 
   let name = showAddress ? shortenAddress(`${publicKey}`) : "";
 
@@ -43,18 +31,25 @@ export const UserBadge = ({ iconSize, showAddress }: Props) => {
     name = unknownWallet.name;
   }
 
-  if (!wallet || !publicKey) {
+  if (!wallet || !connected || !publicKey) {
     return null;
   }
 
   return (
     <Flex>
-      <button className="bg-white rounded-xl space-x-2 flex px-4 py-2 items-center hover:scale-95">
-        <Icon address={publicKey?.toBase58()} iconSize={iconSize} />
+      <Button
+        size={"small"}
+        className="rounded-xl"
+        bgColor="white"
+        hoverBgColor="gray-100"
+        onClick={open}
+      >
+        <Flex className="space-x-2" align="center">
+          <Icon address={publicKey?.toBase58()} iconSize={iconSize} />
 
-        {name && <span className="font-semibold">{name}</span>}
-      </button>
-      <button onClick={disconnect}>disconnect</button>
+          {name && <Text weight="semibold">{name}</Text>}
+        </Flex>
+      </Button>
     </Flex>
   );
 };

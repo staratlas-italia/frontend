@@ -1,6 +1,5 @@
 import { ArrowLeftIcon } from "@heroicons/react/solid";
 import Link from "next/link";
-import { useIntl } from "react-intl";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 import { ShipAttributes } from "~/components/pages/Ship/components/ShipAttributes";
@@ -11,8 +10,6 @@ import { TranslationId } from "~/i18n/translations/types";
 import { useTranslation } from "~/i18n/useTranslation";
 
 export const ShipPage = () => {
-  const intl = useIntl();
-
   const {
     attributes,
     description,
@@ -86,7 +83,7 @@ export const ShipPage = () => {
                 id={
                   `Ships.Details.${name
                     ?.toLocaleLowerCase()
-                    .replace(/ /g, "_")}.description` as TranslationId
+                    ?.replace(/ /g, "_")}.description` as TranslationId
                 }
                 defaultMessage={description}
               />

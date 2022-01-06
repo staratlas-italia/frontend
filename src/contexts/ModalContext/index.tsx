@@ -16,7 +16,8 @@ export const useModal = (id: AvailableModal) => {
 
   return {
     visible: modals[id],
-    setVisible: (value: boolean) => setVisible(id, value),
+    open: () => setVisible(id, true),
+    close: () => setVisible(id, false),
   };
 };
 

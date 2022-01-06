@@ -3,11 +3,11 @@ import React, { ComponentType, PropsWithChildren } from "react";
 import { Loader } from "~/components/common/Loader";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
+import { PaddingProps } from "~/components/layout/Padding";
 import { ColorName } from "~/components/layout/Pane";
+import { iconRenderProp } from "~/types";
 
-type iconRenderProp = (props: {
-  className: string;
-}) => ComponentType<typeof props> | JSX.Element;
+type ButtonSize = "small" | "regular" | "large";
 
 export type ButtonProps = PropsWithChildren<{
   as?: ComponentType | string;
@@ -19,8 +19,34 @@ export type ButtonProps = PropsWithChildren<{
   iconRight?: iconRenderProp;
   loading?: boolean;
   onClick?: () => void;
+  size?: ButtonSize;
   textColor?: ColorName;
 }>;
+
+const getButtonSize = (size?: ButtonSize): Partial<PaddingProps> => {
+  switch (size) {
+    case "small":
+      return {
+        px: 3,
+        py: 2,
+      };
+    case "regular":
+      return {
+        px: 6,
+        py: 3,
+        mdPy: 4,
+        mdPx: 8,
+      };
+    case "large":
+      return {
+        px: 8,
+        py: 4,
+        mdPy: 5,
+        mdPx: 10,
+      };
+  }
+  return {};
+};
 
 export const Button = ({
   as,
@@ -32,6 +58,7 @@ export const Button = ({
   iconLeft,
   iconRight,
   loading,
+  size = "regular",
   textColor = "black",
   ...props
 }: ButtonProps) => {
@@ -43,11 +70,8 @@ export const Button = ({
       className={classNames(className, "group rounded-md", {
         [`hover:bg-${hoverBgColor}`]: hoverBgColor,
       })}
-      px={8}
-      py={3}
-      mdPy={4}
-      mdPx={10}
       color={bgColor}
+      {...getButtonSize(size)}
       {...props}
     >
       {iconLeft && (
