@@ -5,10 +5,7 @@ import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 import { PaddingProps } from "~/components/layout/Padding";
 import { ColorName } from "~/components/layout/Pane";
-
-type iconRenderProp = (props: {
-  className: string;
-}) => ComponentType<typeof props> | JSX.Element;
+import { iconRenderProp } from "~/types";
 
 type ButtonSize = "small" | "regular" | "large";
 

@@ -1,3 +1,5 @@
+import { ComponentType } from "react";
+
 type ShipAttributes = {
   itemType: string;
   class: string;
@@ -13,6 +15,10 @@ type ShipAttributes = {
 };
 
 export type Currency = "USDC" | "ATLAS";
+
+export type iconRenderProp = (props: {
+  className: string;
+}) => ComponentType<typeof props> | JSX.Element | null;
 
 export type ShipSlot = {
   type: string;
