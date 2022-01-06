@@ -6,6 +6,7 @@ import { Flex } from "~/components/layout/Flex";
 import { List, ListSectons } from "~/components/List";
 import { useModal } from "~/contexts/ModalContext";
 import { Translation } from "~/i18n/Translation";
+import { useTranslation } from "~/i18n/useTranslation";
 import { shortenAddress } from "~/utils/shortenAddress";
 
 export const ConnectedContent = () => {
@@ -13,10 +14,14 @@ export const ConnectedContent = () => {
 
   const { close } = useModal("wallet-modal");
 
+  const connectedWalletTranslation = useTranslation(
+    "Layout.Wallet.Modal.Connected.title"
+  );
+
   const sections: ListSectons = useMemo(
     () => [
       [
-        "Connected wallet",
+        connectedWalletTranslation,
         [
           {
             bordered: true,
@@ -31,7 +36,7 @@ export const ConnectedContent = () => {
         ],
       ],
     ],
-    [wallet, publicKey]
+    [connectedWalletTranslation, publicKey, wallet]
   );
 
   return (

@@ -11,6 +11,8 @@ export type TranslationId =
   | "Layout.Treasury.title"
   | "Layout.Wallet.Connect.title"
   | "Layout.Wallet.Disconnect.title"
+  | "Layout.Wallet.Modal.Connected.title"
+  | "Layout.Wallet.Modal.ConnectedTo.title"
   | "Ships.Details.calico_compakt_hero.description"
   | "Ships.Details.calico_evac.description"
   | "Ships.Details.Components.title"
@@ -42,6 +44,7 @@ export type TranslationId =
 
 export type TranslationValues = {
   "Ships.Details.saleDate": { date: string };
+  "Layout.Wallet.Modal.ConnectedTo.title": { wallet: string };
 };
 
 export type TranslationValuesId = keyof TranslationValues;

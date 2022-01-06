@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
 import { useModal } from "~/contexts/ModalContext";
+import { Translation } from "~/i18n/Translation";
 
 export const DisconnectedContent = () => {
   const { close } = useModal("wallet-modal");
@@ -30,7 +31,10 @@ export const DisconnectedContent = () => {
             setTimeout(() => select(wallet.name), 300);
           }}
         >
-          Connect to {wallet.name}
+          <Translation
+            id="Layout.Wallet.Modal.ConnectedTo.title"
+            values={{ wallet: wallet.name }}
+          />
         </Button>
       ))}
     </Flex>
