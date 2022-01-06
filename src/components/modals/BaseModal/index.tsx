@@ -19,7 +19,7 @@ export const BaseModal = ({ children, id, ...props }: Props) => {
           align="center"
           justify="center"
           pt={4}
-          className="min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+          className="min-h-screen pt-4 px-3 pb-20 text-center sm:block sm:p-0"
         >
           <Transition.Child
             as={Fragment}
