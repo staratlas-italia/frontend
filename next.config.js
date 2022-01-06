@@ -26,7 +26,8 @@ module.exports = withTM({
   env: {
     ENVIRONMENT: process.env.ENVIRONMENT,
     GUILD_TREASURY_ADDR: process.env.GUILD_TREASURY_ADDR,
-    USDC_MINT_ADDR: process.env.USDC_MINT_ADDR,
+    BACKUP_RPC_ENDPOINT: process.env.BACKUP_RPC_ENDPOINT,
+    MAIN_RPC_ENDPOINT: process.env.MAIN_RPC_ENDPOINT,
   },
   i18n: {
     locales: ["it", "en"],
