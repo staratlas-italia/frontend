@@ -16,9 +16,13 @@ export const BaseLayout = React.memo(
     return (
       <div>
         <LayoutBackground />
-        {!hideHeader && <Header />}
+        {!hideHeader && (
+          <div className="fixed w-full">
+            <Header fluid={fluid} />
+          </div>
+        )}
         <div
-          className={classNames("overflow-auto mx-auto py-10", {
+          className={classNames("overflow-auto mx-auto pt-32 pb-10", {
             container: !fluid,
           })}
         >

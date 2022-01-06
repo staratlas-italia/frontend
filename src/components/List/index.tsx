@@ -14,7 +14,7 @@ export const List = ({ sections, spacing = 3 }: Props) => {
   return (
     <Flex direction="col" className={`space-y-${spacing}`}>
       {sections.map(([title, items]) => (
-        <Section title={title}>
+        <Section title={title} key={title}>
           {items.map((item) => (
             <Item {...item} />
           ))}

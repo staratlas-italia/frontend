@@ -1,4 +1,5 @@
 import { useWallet } from "@solana/wallet-adapter-react";
+import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -18,8 +19,8 @@ export const LogoLink = () => {
           <Image
             priority
             src="/images/logo.png"
-            height={72 * 0.7}
-            width={200 * 0.7}
+            height={72 * 0.9}
+            width={200 * 0.9}
             alt={"Start Atlas Italia"}
           />
         </Flex>
@@ -28,39 +29,32 @@ export const LogoLink = () => {
   );
 };
 
-export const Header = () => {
-  const { locale, asPath } = useRouter();
+type Props = { fluid?: boolean };
+
+export const Header = ({ fluid }: Props) => {
+  const { locale } = useRouter();
   const { connected, wallet } = useWallet();
+
   return (
-    <Flex align="center" grow={1} py={4} px={10} justify="center">
-      <Flex className="container" justify="between">
+    <Flex align="center" grow={1} py={5} px={12} justify="center">
+      <Flex
+        className={classNames("z-10 w-full", { container: !fluid })}
+        justify="between"
+      >
         <LogoLink />
 
-        {wallet && connected && (
-          <Link href={getRoute("/dashboard")} locale={locale}>
-            <a>
-              <Text color="white" weight="semibold">
-                <Translation id="Layout.Header.Dashboard.action.title" />
-              </Text>
-            </a>
-          </Link>
-        )}
-        <Flex className="z-10">
+        <Flex align="center" className="space-x-3">
+          {wallet && connected && (
+            <Link href={getRoute("/dashboard")} locale={locale}>
+              <a>
+                <Text color="white" weight="semibold">
+                  <Translation id="Layout.Header.Dashboard.action.title" />
+                </Text>
+              </a>
+            </Link>
+          )}
           <Wallet />
         </Flex>
-
-        {/* <Link href={asPath} locale={locale === "it" ? "en" : "it"}>
-            <Text
-              as="a"
-              color="white"
-              size="5xl"
-              transform="uppercase"
-              weight="semibold"
-            >
-              {locale}
-            </Text>
-          </Link>
-          */}
       </Flex>
     </Flex>
   );

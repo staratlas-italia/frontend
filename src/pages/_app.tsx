@@ -4,11 +4,10 @@ import { clusterApiUrl } from "@solana/web3.js";
 import { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import React, { ReactNode, useMemo } from "react";
+import React, { ReactNode } from "react";
 import { IntlProvider } from "react-intl";
 import "tailwindcss/tailwind.css";
-import { BaseLayout } from "~/components/layout/BaseLayout";
-import { SideBarLayout } from "~/components/layout/SideBarLayout";
+import { MainLayout } from "~/components/layout/MainLayout";
 import { ModalProvider } from "~/contexts/ModalContext";
 import { ShipsProvider } from "~/contexts/ShipsContext";
 import { useTranslations } from "~/i18n/useTranslations";
@@ -25,13 +24,14 @@ const WalletProvider = dynamic<{ children: ReactNode }>(
 
 const network = WalletAdapterNetwork.Mainnet;
 
+const endpoint =
+  process.env.MAIN_RPC_ENDPOINT ||
+  process.env.BACKUP_RPC_ENDPOINT ||
+  clusterApiUrl(network);
+
 function App({ Component, pageProps }: AppProps) {
-  const endpoint = useMemo(() => clusterApiUrl(network), []);
-
   const translations = useTranslations();
-  const { locale, pathname } = useRouter();
-
-  const Layout = pathname === "/dashboard" ? SideBarLayout : BaseLayout;
+  const { locale } = useRouter();
 
   return (
     <ConnectionProvider endpoint={endpoint}>
@@ -43,9 +43,9 @@ function App({ Component, pageProps }: AppProps) {
         <ModalProvider>
           <WalletProvider>
             <ShipsProvider>
-              <Layout>
+              <MainLayout>
                 <Component {...pageProps} />
-              </Layout>
+              </MainLayout>
             </ShipsProvider>
           </WalletProvider>
         </ModalProvider>
