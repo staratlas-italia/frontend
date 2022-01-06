@@ -32,11 +32,11 @@ export const ShipCard = ({ ship }: Props) => {
     <div className="rounded-3xl relative bg-black overflow-hidden backdrop-filter backdrop-blur-lg bg-opacity-10">
       <Image src={ship?.image} alt={ship?.name} />
       <MaxWidth className="mx-auto" size="7xl">
-        <div className="lg:float-right relative pb-8 sm:pb-16 md:pb-20 lg:max-w-lg xl:max-w-2xl lg:w-full">
+        <div className="2xl:float-right relative pb-8 sm:pb-16 md:pb-20 lg:max-w-lg xl:max-w-2xl lg:w-full">
           <Polygon />
 
           <main className="relative z-10 pt-5 mx-auto w-full px-4 sm:pt-12 sm:px-6 md:pt-16 lg:px-8">
-            <div className="xl:pl-28 sm:text-center lg:text-left">
+            <div className="xl:pl-40 sm:text-center lg:text-left">
               <Heading
                 color={shipColors[ship?.attributes?.class?.toLowerCase()]}
                 title={ship?.name}
