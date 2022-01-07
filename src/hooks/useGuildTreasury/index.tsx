@@ -1,6 +1,7 @@
 import { useConnection } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import { useEffect, useState } from "react";
+import { USDC_TOKEN_MINT_ID } from "~/common/constants";
 
 type GuildTreasury = {
   usdcAmount?: number;
@@ -20,7 +21,7 @@ export const useGuildTreasury = (): UseGuildTreasuryResult => {
         const tokens = await connection.getParsedTokenAccountsByOwner(
           new PublicKey(process.env.GUILD_TREASURY_ADDR || ""),
           {
-            mint: new PublicKey(process.env.USDC_MINT_ADDR || ""),
+            mint: new PublicKey(USDC_TOKEN_MINT_ID),
           }
         );
         setTreasury({

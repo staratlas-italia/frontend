@@ -8,6 +8,9 @@ export const STAR_ATLAS_SERUM_PROGRAM_ID =
 
 export const DEXLAB_API_URL = "https://api.dexlab.space/v1";
 
+export const USDC_TOKEN_MINT_ID =
+  "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
+
 export const availableCurrencies: { id: Currency; name: string }[] = [
   {
     id: "USDC",
