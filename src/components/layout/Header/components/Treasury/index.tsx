@@ -1,7 +1,8 @@
-import { InfoRow } from "~/components/common/Info";
 import { Price } from "~/components/common/Price";
+import { Text } from "~/components/common/Text";
+import { Flex } from "~/components/layout/Flex";
 import { useGuildTreasury } from "~/hooks/useGuildTreasury";
-import { useTranslation } from "~/i18n/useTranslation";
+import { Translation } from "~/i18n/Translation";
 
 export const Treasury = () => {
   const {
@@ -9,15 +10,35 @@ export const Treasury = () => {
     treasury: { usdcAmount },
   } = useGuildTreasury();
 
-  const treasuryTranslation = useTranslation("Layout.Treasury.title");
-
   if (!loading && !usdcAmount) {
     return null;
   }
 
   return (
-    <InfoRow loading={loading} title={treasuryTranslation}>
-      <Price color="white" value={usdcAmount} currency="USDC" />
-    </InfoRow>
+    <Flex
+      direction="row"
+      mdDirection="col"
+      align="center"
+      mdAlign="start"
+      justify="between"
+      className="md:space-y-2 w-full"
+    >
+      <Text
+        color="white"
+        className="w-min"
+        size="xl"
+        transform="uppercase"
+        weight="semibold"
+      >
+        <Translation id="Layout.Treasury.title" />
+      </Text>
+      <Price
+        size="4xl"
+        weight="bold"
+        color="white"
+        value={usdcAmount}
+        currency="USDC"
+      />
+    </Flex>
   );
 };
