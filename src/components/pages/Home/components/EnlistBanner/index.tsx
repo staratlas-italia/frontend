@@ -18,7 +18,7 @@ export const EnlistBanner = () => (
     </Flex>
     <Flex
       color="black"
-      className="space-y-5 md:rounded-3xl backdrop-filter backdrop-blur-xl bg-opacity-20"
+      className="space-y-5 rounded-3xl backdrop-filter backdrop-blur-xl bg-opacity-20"
       direction="col"
       py={5}
       px={8}

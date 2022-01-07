@@ -16,7 +16,7 @@ export const WelcomeBanner = () => (
   >
     <Flex
       color="black"
-      className="space-y-5 md:rounded-3xl backdrop-filter backdrop-blur-xl bg-opacity-30"
+      className="space-y-5 rounded-3xl backdrop-filter backdrop-blur-xl bg-opacity-30"
       p={5}
       direction="col"
       justify="center"
