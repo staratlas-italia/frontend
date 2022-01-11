@@ -5,7 +5,8 @@ import { MenuItem } from "~/components/layout/SideBarLayout/components/SideBar/t
 
 const menuItems: MenuItem[] = [
   {
-    name: "Profile",
+    name: "Dashboard",
+    route: "/dashboard",
   },
   {
     name: "Ships",
@@ -13,9 +14,6 @@ const menuItems: MenuItem[] = [
   },
   {
     name: "Fleet",
-  },
-  {
-    name: "Create fleet",
   },
 ];
 
