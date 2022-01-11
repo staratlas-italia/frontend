@@ -23,9 +23,6 @@ export const USDC_TOKEN_MINT_ID =
 
 export const DEXLAB_API_URL = "https://api.dexlab.space/v1";
 
-export const USDC_TOKEN_MINT_ID =
-  "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
-
 export const SA_FLEET_PROGRAM_ID =
   "FLEET1qqzpexyaDpqb2DGsSzE2sDCizewCg9WjrA6DBW";
 

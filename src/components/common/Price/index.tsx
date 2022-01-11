@@ -41,7 +41,7 @@ export const Price = ({
       <Text {...props}>
         {!isNullOrUndefined(value) ? (
           <FormattedNumber
-            value={+value}
+            value={+(value || 0)}
             minimumFractionDigits={decimals}
             maximumFractionDigits={decimals}
           />

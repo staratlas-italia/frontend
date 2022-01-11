@@ -6,6 +6,7 @@ import { Text } from "~/components/common/Text";
 import { Button } from "~/components/controls/Button";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
+import { Translation } from "~/i18n/Translation";
 import { ShipImage } from "~/views/Home/components/WelcomeBanner/ShipImage";
 
 export const WelcomeBanner = () => {
@@ -52,7 +53,7 @@ export const WelcomeBanner = () => {
           />
         </Text>
         <Flex>
-          <Link href="/ships" locale={locale}>
+          <Link href="/dashboard" locale={locale}>
             <a>
               <Button
                 bgColor="indigo-500"
@@ -60,10 +61,7 @@ export const WelcomeBanner = () => {
                 iconRight={ArrowRightIcon}
                 textColor="white"
               >
-                <FormattedMessage
-                  id="Home.WelcomeBanner.action.title"
-                  defaultMessage="Esplora le navi"
-                />
+                <Translation id="Home.WelcomeBanner.action.title" />
               </Button>
             </a>
           </Link>

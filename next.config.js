@@ -36,6 +36,7 @@ module.exports = withTM({
   },
   images: {
     domains: ["storage.googleapis.com"],
+    minimumCacheTTL: 86400,
   },
   reactStrictMode: true,
   trailingSlash: false,

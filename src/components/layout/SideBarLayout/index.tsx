@@ -7,7 +7,7 @@ export const SideBarLayout = React.memo(
     return (
       <>
         <SideBar />
-        <BaseLayout fluid>
+        <BaseLayout headerFixed fluid>
           <div className="container lg:px-5 lg:pl-80 mx-auto">{children}</div>
         </BaseLayout>
       </>

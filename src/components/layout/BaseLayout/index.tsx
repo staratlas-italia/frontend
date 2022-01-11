@@ -9,25 +9,23 @@ const LayoutBackground = styled.div.attrs({
   background-image: url("/images/bg.webp");
 `;
 
-type Props = { fluid?: boolean; hideHeader?: boolean };
+type Props = { fluid?: boolean; headerFixed?: boolean };
 
 export const BaseLayout = React.memo(
-  ({ children, fluid, hideHeader }: PropsWithChildren<Props>) => {
+  ({ children, fluid, headerFixed }: PropsWithChildren<Props>) => {
     return (
       <div>
         <LayoutBackground />
-        {!hideHeader && (
-          <div className="z-10 fixed w-full">
-            <Header fluid={fluid} />
-          </div>
-        )}
+
+        <div className={classNames("z-10 w-full", { fixed: headerFixed })}>
+          <Header fluid={fluid} />
+        </div>
         <div
-          className={classNames(
-            "overflow-auto mx-auto pt-32 pb-10 px-5 sm:px-0",
-            {
-              container: !fluid,
-            }
-          )}
+          className={classNames("overflow-auto mx-auto  pb-10 px-5 sm:px-0", {
+            container: !fluid,
+            "pt-32": headerFixed,
+            "pt-10": !headerFixed,
+          })}
         >
           {children}
         </div>

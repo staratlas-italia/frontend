@@ -1,3 +1,4 @@
+import { BeakerIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
@@ -7,25 +8,44 @@ const menuItems: MenuItem[] = [
   {
     name: "Dashboard",
     route: "/dashboard",
+    icon: (props) => <BeakerIcon {...props} />,
   },
   {
-    name: "Ships",
+    name: "The ships",
     route: "/ships",
+    icon: (props) => <img src={`/images/icons/rocket-solid.svg`} {...props} />,
   },
   {
-    name: "Fleet",
+    name: "Score Tool",
+    icon: (props) => (
+      <img src={`/images/icons/chart-pie-solid.svg`} {...props} />
+    ),
+  },
+  {
+    name: "Resources",
+    icon: (props) => <img src={`/images/icons/book-solid.svg`} {...props} />,
+    route: "https://staratlasitalia.com/la-strada-verso-linfinito/",
+    external: true,
   },
 ];
 
 export const Content = () => (
-  <Flex direction="col" className="space-y-5" pb={20}>
+  <Flex direction="col" className="space-y-6" pb={20} px={8}>
     {menuItems.map((item, index) => (
-      <Flex key={index.toString()} justify="center">
+      <Flex key={index.toString()}>
         <Link href={item.route || ""}>
-          <a>
-            <Text color="white" transform="uppercase" weight="semibold">
-              {item.name}
-            </Text>
+          <a target={item.external ? "_blank" : undefined}>
+            <Flex
+              align="center"
+              px={4}
+              py={2}
+              className="space-x-6 hover:bg-gray-200 hover:bg-opacity-10 rounded-3xl"
+            >
+              {item.icon({ className: "h-5 w-5 text-white" })}
+              <Text color="white" weight="medium">
+                {item.name}
+              </Text>
+            </Flex>
           </a>
         </Link>
       </Flex>
