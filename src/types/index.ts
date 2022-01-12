@@ -1,3 +1,5 @@
+import { BN } from "@project-serum/anchor";
+import { ScoreVarsShipInfo, ShipStakingInfo } from "@staratlas/factory";
 import { ComponentType } from "react";
 
 type ShipAttributes = {
@@ -14,7 +16,44 @@ type ShipAttributes = {
   unitHeight: number;
 };
 
-export type Currency = "USDC" | "ATLAS";
+export type Player = {
+  avatarId: Avatar;
+  avatarImageUrl?: string;
+  badgeMint: string | null;
+  balance: number;
+  balances: {
+    mint: string;
+    quantity: number;
+    valuePerAsset: number;
+  }[];
+  country: string;
+  currencySymbol: Currency;
+  faction: number;
+  factionRank: number;
+  publicKey: string;
+  rank: number;
+  registrationDate: string;
+  updatedAt: string;
+};
+
+export type NormalizedShipStakingInfo = {
+  [key in keyof ShipStakingInfo]: ShipStakingInfo[key] extends infer U
+    ? U extends BN
+      ? number
+      : string
+    : never;
+};
+export type NormalizedScoreVarsShipInfo = {
+  [key in keyof ScoreVarsShipInfo]: ScoreVarsShipInfo[key] extends infer U
+    ? U extends BN
+      ? number
+      : U extends number
+      ? number
+      : string
+    : never;
+};
+
+export type Currency = "ATLAS" | "POLIS" | "USDC";
 
 export type iconRenderProp = (props: {
   className: string;
