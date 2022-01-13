@@ -24,3 +24,15 @@ export const availableCurrencies: { id: Currency; name: string }[] = [
     name: "ATLAS",
   },
 ];
+
+export const FUEL_PRICE: number = 0.0014336;
+
+export const FOOD_PRICE: number = 0.0006144;
+
+export const ARMS_PRICE: number = 0.0021504;
+
+export const TOOLKIT_PRICE: number = 0.0017408;
+
+export const ATLAS_DECIMAL: number = 100_000_000;
+
+export const ONE_DAY_IN_MILLISECONDS: number = 86_400_000;
