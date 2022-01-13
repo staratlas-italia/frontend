@@ -1,3 +1,9 @@
+import { netDailyRewardInAtlas } from './../../../utils/netDailyRewardInAtlas/index';
+import { grossDailyRewardInAtlas } from './../../../utils/grossDailyRewardInAtlas/index';
+import { dailyMaintenanceCostInAtlas } from './../../../utils/dailyMaintenanceCostInAtlas/index';
+import { resDailyCostInAtlas } from './../../../utils/resDailyCostInAtlas/index';
+import { resDailyConsumption } from './../../../utils/resDailyConsumption/index';
+import { FUEL_PRICE, FOOD_PRICE, ARMS_PRICE, TOOLKIT_PRICE } from './../../../common/constants/index';
 import { Connection, PublicKey } from "@solana/web3.js";
 import { getAllFleetsForUserPublicKey } from "@staratlas/factory";
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -34,7 +40,7 @@ export default async (
   );
 
   const shipsVars = await Promise.all(
-    accounts.map(async (account) => {
+    accounts.map((account) => {
       return getScoreVarsShipInfo(
         connection,
         new PublicKey(SA_FLEET_PROGRAM_ID),
@@ -46,45 +52,6 @@ export default async (
   const accountsWithVars = accounts.map((item, i) =>
     Object.assign(item, shipsVars[i])
   );
-
-  const FUEL_PRICE: number = 0.0014336;
-  const FOOD_PRICE: number = 0.0006144;
-  const ARMS_PRICE: number = 0.0021504;
-  const TOOLKIT_PRICE: number = 0.0017408;
-
-  const resDailyConsumption = (burnRate: number) => {
-    return Math.round(86400000 / burnRate);
-  };
-
-  const resDailyCostInAtlas = (resource: number, burnRate: number) => {
-    return Math.round((86400000 / burnRate) * resource * 100000000) / 100000000;
-  };
-
-  const dailyMaintenanceCostInAtlas = (
-    fuel: number,
-    food: number,
-    arms: number,
-    toolkit: number
-  ) => {
-    return Math.round((fuel + food + arms + toolkit) * 100000000) / 100000000;
-  };
-
-  const grossDailyRewardInAtlas = (rewardRatePerSecond: number) => {
-    return (
-      Math.round(rewardRatePerSecond * 0.00000001 * 60 * 60 * 24 * 100000000) /
-      100000000
-    );
-  };
-
-  const netDailyRewardInAtlas = (
-    rewardInAtlas: number,
-    maintenanceCostInAtlas: number
-  ) => {
-    return (
-      Math.round((rewardInAtlas - maintenanceCostInAtlas) * 100000000) /
-      100000000
-    );
-  };
 
   res.status(200).json({
     success: true,
