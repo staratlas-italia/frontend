@@ -6,7 +6,7 @@ import { Footer } from "~/components/layout/SideBarLayout/components/SideBar/com
 
 export const SideBar = () => {
   return (
-    <div className="z-20 invisible lg:visible min-h-screen fixed w-0 lg:w-72">
+    <div className="z-20 invisible lg:visible min-h-screen fixed w-0 lg:w-64">
       <BlurBackground
         className="rounded-none h-screen bg-opacity-10"
         direction="col"

@@ -17,7 +17,7 @@ export const BaseLayout = React.memo(
       <div>
         <LayoutBackground />
 
-        <div className={classNames("z-10 w-full", { fixed: headerFixed })}>
+        <div className={classNames("w-full", { fixed: headerFixed })}>
           <Header fluid={fluid} />
         </div>
         <div
