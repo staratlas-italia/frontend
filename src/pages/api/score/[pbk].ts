@@ -5,13 +5,12 @@ import { resDailyCostInAtlas } from './../../../utils/resDailyCostInAtlas/index'
 import { resDailyConsumption } from './../../../utils/resDailyConsumption/index';
 import { FUEL_PRICE, FOOD_PRICE, ARMS_PRICE, TOOLKIT_PRICE } from './../../../common/constants/index';
 import { Connection, PublicKey } from "@solana/web3.js";
-import { getAllFleetsForUserPublicKey } from "@staratlas/factory";
+import { getAllFleetsForUserPublicKey, getScoreVarsShipInfo } from "@staratlas/factory";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { SA_FLEET_PROGRAM_ID } from "~/common/constants";
 import { ScoreFleetResponse } from "~/types/api";
 import { getConnectionContext } from "~/utils/connection";
 import { isPublicKey } from "~/utils/pubkey";
-import { getScoreVarsShipInfo } from "@staratlas/factory";
 
 const connection = new Connection(
   getConnectionContext("mainnet-beta").endpoint
