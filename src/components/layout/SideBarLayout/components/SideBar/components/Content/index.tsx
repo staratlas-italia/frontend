@@ -22,7 +22,7 @@ const menuItems: MenuItem[] = [
       <img src={`/images/icons/chart-pie-solid.svg`} {...props} />
     ),
     needPbk: true,
-    route: "https://staratlasitalia.bubbleapps.io/version-test/home",
+    route: "https://fleet.staratlasitalia.com",
   },
   {
     name: "Resources",
@@ -35,10 +35,16 @@ const menuItems: MenuItem[] = [
 export const Content = () => {
   const { publicKey } = useWallet();
   return (
-    <Flex direction="col" className="space-y-6" pb={20} px={8}>
+    <Flex
+      lgAlign="center"
+      lgDirection="col"
+      className="lg:space-y-6 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-none"
+      lgPb={20}
+      lgPx={8}
+    >
       {menuItems.map((item, index) =>
         item.needPbk && !publicKey ? null : (
-          <Flex key={index.toString()}>
+          <Flex key={index.toString()} align="center">
             <Link
               href={
                 item.needPbk
@@ -51,7 +57,7 @@ export const Content = () => {
                   align="center"
                   px={4}
                   py={2}
-                  className="space-x-6 hover:bg-gray-200 hover:bg-opacity-10 rounded-3xl"
+                  className="space-x-3 lg:space-x-6 hover:bg-gray-200 hover:bg-opacity-10 rounded-3xl"
                 >
                   {item.icon({ className: "h-5 w-5 text-white" })}
                   <Text color="white" weight="medium">
