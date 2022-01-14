@@ -5,14 +5,11 @@ import { Price } from "~/components/common/Price";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
-import { useModal } from "~/contexts/ModalContext";
 import { usePlayer } from "~/hooks/usePlayer";
 import { shortenAddress } from "~/utils/shortenAddress";
 
 export const Profile = () => {
   const { player, loading, publicKey } = usePlayer();
-
-  const { open } = useModal("ships-modal");
 
   if (!player || loading) {
     return (
@@ -28,22 +25,24 @@ export const Profile = () => {
   const { avatarId, avatarImageUrl, balance, rank, factionRank } = player;
 
   return (
-    <>
-      <Flex className="space-x-5">
+    <Flex>
+      <BlurBackground px={5} py={5} className="space-x-5">
         {avatarImageUrl && (
           <Flex>
             <Image
               quality={30}
               src={avatarImageUrl}
-              width={200}
-              height={200}
+              width={180}
+              height={180}
               alt={avatarId}
             />
           </Flex>
         )}
-        <Flex justify={"between"} className="w-full">
+        <Flex align="center" className="grid grid-cols-2 gap-5">
           <InfoRow color="gray-200" title="addr">
-            <Text color="white">{shortenAddress(publicKey || "")}</Text>
+            <Text color="white" size="4xl">
+              {shortenAddress(publicKey || "")}
+            </Text>
           </InfoRow>
           <InfoRow color="gray-200" title="universal Rank">
             <Text color="white">{rank}</Text>
@@ -55,22 +54,7 @@ export const Profile = () => {
             <Price color="white" value={balance} />
           </InfoRow>
         </Flex>
-      </Flex>
-      {/* <Flex direction="col">
-        <Text color="white" size="4xl" transform="uppercase" weight="semibold">
-          Your resources
-        </Text>
-        <Flex justify="center">
-          <Text color="white" size="lg">
-            No ships found...{" "}
-            <Button onClick={open}>
-              <Text color="pink-300" className="underline">
-                add a new one
-              </Text>
-            </Button>
-          </Text>
-        </Flex>
-      </Flex> */}
-    </>
+      </BlurBackground>
+    </Flex>
   );
 };
