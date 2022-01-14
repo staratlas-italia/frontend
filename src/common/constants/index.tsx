@@ -1,5 +1,3 @@
-import { Currency } from "~/types";
-
 export const ATLAS_USDC_MARKET_ADDR =
   "Di66GTLsV64JgCCYGVcY21RZ173BHkjJVgPyezNN7P1K";
 
@@ -21,30 +19,19 @@ export const ATLAS_TOKEN_MINT_ID =
 export const USDC_TOKEN_MINT_ID =
   "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
 
-export const DEXLAB_API_URL = "https://api.dexlab.space/v1";
-
 export const SA_FLEET_PROGRAM_ID =
   "FLEET1qqzpexyaDpqb2DGsSzE2sDCizewCg9WjrA6DBW";
 
-export const availableCurrencies: { id: Currency; name: string }[] = [
-  {
-    id: "USDC",
-    name: "USDC",
-  },
-  {
-    id: "ATLAS",
-    name: "ATLAS",
-  },
-];
+export const DEXLAB_API_URL = "https://api.dexlab.space/v1";
 
-export const FUEL_PRICE: number = 0.0014336;
+export const FUEL_PRICE = 0.0014336;
 
-export const FOOD_PRICE: number = 0.0006144;
+export const FOOD_PRICE = 0.0006144;
 
-export const ARMS_PRICE: number = 0.0021504;
+export const ARMS_PRICE = 0.0021504;
 
-export const TOOLKIT_PRICE: number = 0.0017408;
+export const TOOLKIT_PRICE = 0.0017408;
 
-export const ATLAS_DECIMAL: number = 100_000_000;
+export const ATLAS_DECIMAL = 100_000_000;
 
-export const ONE_DAY_IN_MILLISECONDS: number = 86_400_000;
+export const ONE_DAY_IN_MILLISECONDS = 86_400_000;

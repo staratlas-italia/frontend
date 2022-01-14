@@ -1,20 +1,39 @@
-import { netDailyRewardInAtlas } from './../../../utils/netDailyRewardInAtlas/index';
-import { grossDailyRewardInAtlas } from './../../../utils/grossDailyRewardInAtlas/index';
-import { dailyMaintenanceCostInAtlas } from './../../../utils/dailyMaintenanceCostInAtlas/index';
-import { resDailyCostInAtlas } from './../../../utils/resDailyCostInAtlas/index';
-import { resDailyConsumption } from './../../../utils/resDailyConsumption/index';
-import { FUEL_PRICE, FOOD_PRICE, ARMS_PRICE, TOOLKIT_PRICE } from './../../../common/constants/index';
 import { Connection, PublicKey } from "@solana/web3.js";
-import { getAllFleetsForUserPublicKey, getScoreVarsShipInfo } from "@staratlas/factory";
+import {
+  getAllFleetsForUserPublicKey,
+  getScoreVarsShipInfo,
+} from "@staratlas/factory";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { SA_FLEET_PROGRAM_ID } from "~/common/constants";
+import {
+  ARMS_PRICE,
+  FOOD_PRICE,
+  FUEL_PRICE,
+  SA_FLEET_PROGRAM_ID,
+  TOOLKIT_PRICE,
+} from "~/common/constants";
 import { ScoreFleetResponse } from "~/types/api";
 import { getConnectionContext } from "~/utils/connection";
+import { dailyMaintenanceCostInAtlas } from "~/utils/dailyMaintenanceCostInAtlas";
+import { grossDailyRewardInAtlas } from "~/utils/grossDailyRewardInAtlas";
+import { netDailyRewardInAtlas } from "~/utils/netDailyRewardInAtlas";
 import { isPublicKey } from "~/utils/pubkey";
+import { resDailyConsumption } from "~/utils/resDailyConsumption";
+import { resDailyCostInAtlas } from "~/utils/resDailyCostInAtlas";
 
 const connection = new Connection(
   getConnectionContext("mainnet-beta").endpoint
 );
+
+// TODO
+// const cors = initMiddleware(
+//   Cors({
+//     origin:
+//       "https://app.staratlasitalia.com, https://fleet.staratlasitalia.com",
+//     methods: ["GET", "OPTIONS"],
+//     preflightContinue: false,
+//     optionsSuccessStatus: 204,
+//   })
+// );
 
 export default async (
   req: NextApiRequest,
