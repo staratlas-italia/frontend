@@ -1,23 +1,7 @@
 import axios from "axios";
 import { getOrderbook } from "~/network/orderbook";
 import { ShipSize, StarAtlasEntity } from "~/types";
-
-const shipSizes = {
-  "xx-small": 0,
-  "x-small": 1,
-  small: 2,
-  medium: 3,
-  large: 4,
-  capital: 5,
-  commander: 6,
-};
-
-const sortForSize = (shipA: StarAtlasEntity, shipB: StarAtlasEntity) => {
-  return (
-    shipSizes[shipA.attributes.class.toLowerCase()] -
-    shipSizes[shipB.attributes.class.toLowerCase()]
-  );
-};
+import { sortShipBySize } from "~/utils/sortShipBySize";
 
 export const getAllShips = async (
   size?: ShipSize
@@ -34,9 +18,7 @@ export const getAllShips = async (
     );
   }
 
-  ships.sort(sortForSize);
-
-  return ships;
+  return sortShipBySize(ships);
 };
 
 type EntityPrices = {
