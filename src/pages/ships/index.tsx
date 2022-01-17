@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React from "react";
-import { ShipListPage } from "~/components/pages/Ships";
+import { ShipListPage } from "~/views/Ships";
 
 const ShipsPage = () => (
   <>

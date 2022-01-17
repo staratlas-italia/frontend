@@ -1,16 +1,18 @@
-import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
-import { ConnectionProvider } from "@solana/wallet-adapter-react";
-import { clusterApiUrl } from "@solana/web3.js";
+import { ConnectionProvider, useWallet } from "@solana/wallet-adapter-react";
+import { Cluster } from "@solana/web3.js";
 import { AppProps } from "next/app";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { ReactNode, useMemo } from "react";
+import React, { ReactNode, useEffect, useMemo } from "react";
 import { IntlProvider } from "react-intl";
-import "tailwindcss/tailwind.css";
-import { BaseLayout } from "~/components/layout/BaseLayout";
+import { MainLayout } from "~/components/layout/MainLayout";
 import { ModalProvider } from "~/contexts/ModalContext";
 import { ShipsProvider } from "~/contexts/ShipsContext";
 import { useTranslations } from "~/i18n/useTranslations";
+import { usePlayerStore } from "~/stores/usePlayerStore";
+import "~/styles/globals.css";
+import { getConnectionContext } from "~/utils/connection";
 
 const WalletProvider = dynamic<{ children: ReactNode }>(
   () =>
@@ -22,13 +24,17 @@ const WalletProvider = dynamic<{ children: ReactNode }>(
   }
 );
 
-const network = WalletAdapterNetwork.Mainnet;
-
-function App({ Component, pageProps }: AppProps) {
-  const endpoint = useMemo(() => clusterApiUrl(network), []);
-
+function App(props: AppProps) {
   const translations = useTranslations();
-  const { locale } = useRouter();
+  const {
+    locale,
+    query: { cluster },
+  } = useRouter();
+
+  const endpoint = useMemo(
+    () => getConnectionContext(cluster as Cluster).endpoint,
+    [cluster]
+  );
 
   return (
     <ConnectionProvider endpoint={endpoint}>
@@ -40,9 +46,9 @@ function App({ Component, pageProps }: AppProps) {
         <ModalProvider>
           <WalletProvider>
             <ShipsProvider>
-              <BaseLayout>
-                <Component {...pageProps} />
-              </BaseLayout>
+              <MainLayout>
+                <Pages {...props} />
+              </MainLayout>
             </ShipsProvider>
           </WalletProvider>
         </ModalProvider>
@@ -50,5 +56,31 @@ function App({ Component, pageProps }: AppProps) {
     </ConnectionProvider>
   );
 }
+
+const Pages = ({ Component, pageProps }: AppProps) => {
+  const { publicKey } = useWallet();
+
+  const fetchPlayer = usePlayerStore((s) => s.fetchPlayer);
+  const fetchFleet = usePlayerStore((s) => s.fetchFleet);
+
+  useEffect(() => {
+    const run = async () => {
+      if (publicKey) {
+        await fetchPlayer(publicKey.toString());
+        await fetchFleet();
+      }
+    };
+    run();
+  }, [publicKey]);
+
+  return (
+    <>
+      <Head>
+        <link rel="shortcut icon" href="/favicon.ico" />
+      </Head>
+      <Component {...pageProps} />
+    </>
+  );
+};
 
 export default App;

@@ -2,6 +2,7 @@ import cx from "classnames";
 import { ComponentType } from "react";
 import styled from "styled-components";
 import { PaneProps } from "~/components/layout/Pane";
+import { isNullOrUndefined } from "~/utils/isNullOrUndefined";
 import { Padding, PaddingProps } from "../Padding";
 
 type Align = "center" | "end" | "start" | "baseline" | "stretch";
@@ -49,10 +50,6 @@ export type FlexProps = { as?: ComponentType | string } & Partial<
 export const Flex = styled(Padding).attrs<FlexProps>(
   ({
     align,
-    as,
-    basis,
-    className,
-    children,
     direction,
     grow,
     justify,
@@ -86,12 +83,17 @@ export const Flex = styled(Padding).attrs<FlexProps>(
       [`lg:flex-${lgDirection}`]: lgDirection,
       [`lg:justify-${lgJustify}`]: lgJustify,
       [`lg:flex-${lgWrap}`]: lgWrap,
-      [grow === 0 ? "flex-grow-0" : "flex-grow"]: grow,
-      [shrink === 0 ? "flex-shrink-0" : "flex-shrink"]: shrink,
-      [mdGrow === 0 ? "md:flex-grow-0" : "md:flex-grow"]: mdGrow,
-      [mdShrink === 0 ? "md:flex-shrink-0" : "md:flex-shrink"]: mdShrink,
-      [lgGrow === 0 ? "lg:flex-grow-0" : "lg:flex-grow"]: lgGrow,
-      [lgShrink === 0 ? "lg:flex-shrink-0" : "lg:flex-shrink"]: lgShrink,
+      [grow === 0 ? "flex-grow-0" : "flex-grow"]: !isNullOrUndefined(grow),
+      [shrink === 0 ? "flex-shrink-0" : "flex-shrink"]:
+        !isNullOrUndefined(shrink),
+      [mdGrow === 0 ? "md:flex-grow-0" : "md:flex-grow"]:
+        !isNullOrUndefined(mdGrow),
+      [mdShrink === 0 ? "md:flex-shrink-0" : "md:flex-shrink"]:
+        !isNullOrUndefined(mdShrink),
+      [lgGrow === 0 ? "lg:flex-grow-0" : "lg:flex-grow"]:
+        !isNullOrUndefined(lgGrow),
+      [lgShrink === 0 ? "lg:flex-shrink-0" : "lg:flex-shrink"]:
+        !isNullOrUndefined(lgShrink),
     }),
   })
 )<FlexProps>``;

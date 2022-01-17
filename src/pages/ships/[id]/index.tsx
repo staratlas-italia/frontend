@@ -1,3 +1,3 @@
-import { ShipPage } from "~/components/pages/Ship";
+import { ShipPage } from "~/views/Ship";
 
 export default ShipPage;

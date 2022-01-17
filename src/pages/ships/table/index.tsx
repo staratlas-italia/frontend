@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
-import { ShipListPage } from "~/components/pages/Ships";
 import { StarAtlasEntity } from "~/types";
+import { ShipListPage } from "~/views/Ships";
 
 type Props = {
   data: StarAtlasEntity[];

@@ -6,7 +6,7 @@ import { Text } from "~/components/common/Text";
 import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
 import { Identicon } from "~/components/Wallet/components/UserBadge/Identicon";
-import { useModal } from "~/contexts/ModalContext";
+import { Settings } from "~/components/Wallet/components/UserBadge/Settings";
 import { shortenAddress } from "~/utils/shortenAddress";
 
 type Props = {
@@ -21,7 +21,6 @@ const Icon = styled(Identicon)<Props>`
 
 export const UserBadge = ({ iconSize, showAddress }: Props) => {
   const { connected, wallet, publicKey } = useWallet();
-  const { open } = useModal("wallet-modal");
 
   let name = showAddress ? shortenAddress(`${publicKey}`) : "";
 
@@ -36,18 +35,22 @@ export const UserBadge = ({ iconSize, showAddress }: Props) => {
   }
 
   return (
-    <Flex>
+    <Flex className="space-x-3">
+      <Settings />
       <Button
         size={"small"}
         className="rounded-xl"
         bgColor="white"
         hoverBgColor="gray-100"
-        onClick={open}
       >
         <Flex className="space-x-2" align="center">
           <Icon address={publicKey?.toBase58()} iconSize={iconSize} />
 
-          {name && <Text weight="semibold">{name}</Text>}
+          {name && (
+            <Text weight="bold" size="base">
+              {name}
+            </Text>
+          )}
         </Flex>
       </Button>
     </Flex>

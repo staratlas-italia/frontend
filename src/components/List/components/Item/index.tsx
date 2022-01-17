@@ -30,12 +30,12 @@ export const Item = ({
     >
       <Flex align="center" className="space-x-3">
         {icon && icon({ className: `h-5 w-5 text-white` })}
-        <Text size="xl" weight="medium">
+        <Text size="xl" weight="semibold">
           {title}
         </Text>
       </Flex>
       {details && (
-        <Text weight="medium" size="xl">
+        <Text weight="semibold" size="xl">
           {details}
         </Text>
       )}

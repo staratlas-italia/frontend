@@ -9,7 +9,10 @@ export const ModalContext = createContext<ModalContextState>(
   {} as ModalContextState
 );
 
-export type AvailableModal = "wallet-modal" | "how-to-buy-modal";
+export type AvailableModal =
+  | "wallet-modal"
+  | "how-to-buy-modal"
+  | "ships-modal";
 
 export const useModal = (id: AvailableModal) => {
   const { modals, setVisible } = useContext(ModalContext);

@@ -1,4 +1,5 @@
-import { ATLAS_DECIMAL } from './../../common/constants/index';
+import { ATLAS_DECIMAL } from "~/common/constants";
+
 export const netDailyRewardInAtlas = (
   rewardInAtlas: number,
   maintenanceCostInAtlas: number

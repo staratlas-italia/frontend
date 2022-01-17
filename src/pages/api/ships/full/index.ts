@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getAllShipsWithPrices } from "~/network/ships";
+import { getAllShipsWithPrices } from "~/network/ships/getAllShipsWithPrices";
 import { ShipSize } from "~/types";
 
 export default async ({ query }: NextApiRequest, res: NextApiResponse) => {

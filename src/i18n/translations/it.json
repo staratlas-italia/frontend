@@ -3,11 +3,19 @@
   "Home.EnlistBanner.description.0": "In base all’ammontare investito nella Guild verranno airdroppati 1 o più NFT che rappresenteranno le quote di partecipazione alla Gilda, avendo a tutti gli effetti il potere di decidere su di essa (DAO).",
   "Home.EnlistBanner.description.1": "Sei pronto ad affrontare delle incredibili avventure spaziali?",
   "Home.EnlistBanner.title": "Vuoi far parte della gilda?",
-  "Home.WelcomeBanner.action.title": "Esplora le navi",
+  "Home.WelcomeBanner.action.title": "Vai alla Dashboard",
   "Home.WelcomeBanner.description.0": "Un cataclisma cosmico ha generato un tesoro di Minerali al centro della galassia. Le tre fazioni in lotta da millenni rivolgono ora le brame di conquista agli immensi tesori di Star Atlas.",
   "Home.WelcomeBanner.description.1": "Sei pronto a unirti alla gilda più grande d'Italia?",
   "Home.WelcomeBanner.title": "Benvenuto!",
   "Layout.AtlasChange.title": "Valore atlas",
+  "Layout.Header.Dashboard.action.title": "Dashboard",
+  "Layout.Loader.title": "Cerco nell'universo...",
+  "Layout.Sidebar.Dashboard.title": "Dashboard",
+  "Layout.Sidebar.Feedback.title": "Suggerisci una modifica",
+  "Layout.Sidebar.FleetSim.title": "Fleet Sim",
+  "Layout.Sidebar.Resources.title": "Risorse",
+  "Layout.Sidebar.ScoreTool.title": "SCORE Tool",
+  "Layout.Sidebar.Ships.title": "Ships",
   "Layout.Treasury.title": "Valore tesoreria",
   "Layout.Wallet.Connect.title": "Connetti Wallet",
   "Layout.Wallet.Disconnect.title": "Disconnetti",
@@ -40,5 +48,6 @@
   "Ships.Table.Column.priceVsVwapPrice": "Prezzo vs VWAP",
   "Ships.Table.Column.vwap": "VWAP",
   "Ships.Toolbar.grid": "Mostra griglia",
-  "Ships.Toolbar.table": "Mostra tabella"
+  "Ships.Toolbar.table": "Mostra tabella",
+  "Wallet.Disconnect.action.title": "Disconnetti"
 }

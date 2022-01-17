@@ -24,9 +24,12 @@ const withTM = require("next-transpile-modules")([
 /** @type {import('next').NextConfig} */
 module.exports = withTM({
   env: {
+    BACKUP_RPC_ENDPOINT: process.env.BACKUP_RPC_ENDPOINT,
+    DEVNET_RPC_ENDPOINT: process.env.DEVNET_RPC_ENDPOINT,
     ENVIRONMENT: process.env.ENVIRONMENT,
     GUILD_TREASURY_ADDR: process.env.GUILD_TREASURY_ADDR,
-    USDC_MINT_ADDR: process.env.USDC_MINT_ADDR,
+    MAIN_RPC_ENDPOINT: process.env.MAIN_RPC_ENDPOINT,
+    STAR_ATLAS_API_URL: process.env.STAR_ATLAS_API_URL,
   },
   i18n: {
     locales: ["it", "en"],
@@ -34,6 +37,7 @@ module.exports = withTM({
   },
   images: {
     domains: ["storage.googleapis.com"],
+    minimumCacheTTL: 86400,
   },
   reactStrictMode: true,
   trailingSlash: false,

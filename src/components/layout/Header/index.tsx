@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -14,8 +15,8 @@ export const LogoLink = () => {
           <Image
             priority
             src="/images/logo.png"
-            height={72 * 0.7}
-            width={200 * 0.7}
+            height={55.8}
+            width={155}
             alt={"Start Atlas Italia"}
           />
         </Flex>
@@ -24,33 +25,21 @@ export const LogoLink = () => {
   );
 };
 
-export const Header = () => {
-  const { locale, asPath } = useRouter();
-  return (
-    <Flex align="center" grow={1} py={4} px={10} justify="center">
-      <Flex className="container" justify="between">
+type Props = { fluid?: boolean };
+
+export const Header = ({ fluid }: Props) => (
+  <Flex align="center" grow={1} py={5} px={5} justify="center">
+    <Flex
+      className={classNames("z-10 w-full", { container: !fluid })}
+      justify="between"
+    >
+      <Flex lgPx={8}>
         <LogoLink />
+      </Flex>
 
-        <Flex className="z-10">
-          <Wallet />
-        </Flex>
-        {/* <Flex className="z-40 space-x-7">
-          <AtlasUsdcChange />
-          <Treasury />
-
-          <Link href={asPath} locale={locale === "it" ? "en" : "it"}>
-            <Text
-              as="a"
-              color="white"
-              size="5xl"
-              transform="uppercase"
-              weight="semibold"
-            >
-              {locale}
-            </Text>
-          </Link>
-        </Flex> */}
+      <Flex align="center" className="space-x-3">
+        <Wallet />
       </Flex>
     </Flex>
-  );
-};
+  </Flex>
+);
