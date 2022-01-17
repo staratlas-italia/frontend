@@ -36,17 +36,6 @@ export const Card = ({ ship, stakeInfo }: Props) => {
       direction="col"
       className="overflow-hidden block flex-0 relative"
     >
-      {/* <div className="absolute z-10 p-3">
-        <Text
-          color="white"
-          className="tracking-tight"
-          mdSize="5xl"
-          size="3xl"
-          weight="extrabold"
-        >
-          {stakingInfo.shipQuantityInEscrow}x
-        </Text>
-      </div> */}
       <Image src={ship?.image} alt={ship?.name} />
 
       <div className="relative pb-8 sm:pb-16 md:pb-20 lg:w-full">

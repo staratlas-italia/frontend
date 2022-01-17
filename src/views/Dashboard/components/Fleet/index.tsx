@@ -28,7 +28,7 @@ export const Fleet = () => {
           <Flex
             justify="center"
             direction="col"
-            className="grid grid-cols-1 xl:grid-cols-2 gap-3"
+            className="grid grid-cols-1 xl:grid-cols-2 gap-5"
           >
             {fleet.map((fleetData) => (
               <Card key={fleetData?.ship?.mint} {...fleetData} />

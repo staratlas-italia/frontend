@@ -12,7 +12,7 @@ type Fleet = {
 };
 
 export const ShipsModal = () => {
-  const { setVisible } = useModal("ships-modal");
+  const { close } = useModal("ships-modal");
 
   const { ships } = useShips();
 
@@ -79,7 +79,7 @@ export const ShipsModal = () => {
             bgColor="purple-300"
             hoverBgColor="purple-400"
             className="w-full"
-            onClick={() => setVisible(false)}
+            onClick={close}
           >
             Done
           </Button>
