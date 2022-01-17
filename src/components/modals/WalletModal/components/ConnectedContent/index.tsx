@@ -1,16 +1,18 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import Image from "next/image";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
 import { List, ListSectons } from "~/components/List";
 import { useModal } from "~/contexts/ModalContext";
 import { Translation } from "~/i18n/Translation";
 import { useTranslation } from "~/i18n/useTranslation";
+import { usePlayerStore } from "~/stores/usePlayerStore";
 import { shortenAddress } from "~/utils/shortenAddress";
 
 export const ConnectedContent = () => {
   const { disconnect, publicKey, wallet } = useWallet();
+  const clear = usePlayerStore((s) => s.clear);
 
   const { close } = useModal("wallet-modal");
 
@@ -39,6 +41,11 @@ export const ConnectedContent = () => {
     [connectedWalletTranslation, publicKey, wallet]
   );
 
+  const onDisconnect = useCallback(() => {
+    clear();
+    disconnect();
+  }, [disconnect]);
+
   return (
     <Flex p={2} direction="col">
       <Flex
@@ -54,7 +61,7 @@ export const ConnectedContent = () => {
           textColor="white"
           onClick={() => {
             close();
-            setTimeout(() => disconnect(), 300);
+            setTimeout(() => onDisconnect(), 300);
           }}
         >
           <Translation id="Layout.Wallet.Disconnect.title" />

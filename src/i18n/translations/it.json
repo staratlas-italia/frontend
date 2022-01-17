@@ -9,6 +9,7 @@
   "Home.WelcomeBanner.title": "Benvenuto!",
   "Layout.AtlasChange.title": "Valore atlas",
   "Layout.Header.Dashboard.action.title": "Dashboard",
+  "Layout.Loader.title": "Cerco nell'universo...",
   "Layout.Treasury.title": "Valore tesoreria",
   "Layout.Wallet.Connect.title": "Connetti Wallet",
   "Layout.Wallet.Disconnect.title": "Disconnetti",

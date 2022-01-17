@@ -1,4 +1,5 @@
 import { NormalizedScoreVarsShipInfo } from "~/types";
+import { ScoreFleetResponse } from "~/types/api";
 
 export const getShipRates = async (mint: string) => {
   const ratesRes = await fetch(`/api/score/rates/${mint}`);
@@ -18,4 +19,12 @@ export const getShipsRates = async (mints: string[]) => {
   }
 
   return result;
+};
+
+export const getPlayerStakeShips = async (pbk: string) => {
+  const ratesRes = await fetch(`/api/score/${pbk}`);
+
+  const ratesInfo: ScoreFleetResponse = await ratesRes.json();
+
+  return ratesInfo;
 };

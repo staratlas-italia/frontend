@@ -49,6 +49,30 @@ export type NormalizedShipStakingInfo = {
       : string
     : never;
 };
+
+export type NormalizedShipStakingInfoExtended = NormalizedShipStakingInfo & {
+  rewardRatePerSecond: number;
+  fuelMaxReserve: number;
+  foodMaxReserve: number;
+  armsMaxReserve: number;
+  toolkitMaxReserve: number;
+  millisecondsToBurnOneFuel: number;
+  millisecondsToBurnOneFood: number;
+  millisecondsToBurnOneArms: number;
+  millisecondsToBurnOneToolkit: number;
+  dailyFuelConsumption: number;
+  dailyFoodConsumption: number;
+  dailyArmsConsumption: number;
+  dailyToolkitConsumption: number;
+  dailyFuelCostInAtlas: number;
+  dailyFoodCostInAtlas: number;
+  dailyArmsCostInAtlas: number;
+  dailyToolkitCostInAtlas: number;
+  dailyMaintenanceCostInAtlas: number;
+  grossDailyRewardInAtlas: number;
+  netDailyRewardInAtlas: number;
+};
+
 export type NormalizedScoreVarsShipInfo = {
   [key in keyof ScoreVarsShipInfo]: ScoreVarsShipInfo[key] extends infer U
     ? U extends BN

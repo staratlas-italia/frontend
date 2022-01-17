@@ -1,15 +1,16 @@
-import { ConnectionProvider } from "@solana/wallet-adapter-react";
+import { ConnectionProvider, useWallet } from "@solana/wallet-adapter-react";
 import { Cluster } from "@solana/web3.js";
 import { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import React, { ReactNode, useMemo } from "react";
+import React, { ReactNode, useEffect, useMemo } from "react";
 import { IntlProvider } from "react-intl";
 import "tailwindcss/tailwind.css";
 import { MainLayout } from "~/components/layout/MainLayout";
 import { ModalProvider } from "~/contexts/ModalContext";
 import { ShipsProvider } from "~/contexts/ShipsContext";
 import { useTranslations } from "~/i18n/useTranslations";
+import { usePlayerStore } from "~/stores/usePlayerStore";
 import { getConnectionContext } from "~/utils/connection";
 
 const WalletProvider = dynamic<{ children: ReactNode }>(
@@ -22,7 +23,7 @@ const WalletProvider = dynamic<{ children: ReactNode }>(
   }
 );
 
-function App({ Component, pageProps }: AppProps) {
+function App(props: AppProps) {
   const translations = useTranslations();
   const {
     locale,
@@ -45,7 +46,7 @@ function App({ Component, pageProps }: AppProps) {
           <WalletProvider>
             <ShipsProvider>
               <MainLayout>
-                <Component {...pageProps} />
+                <Pages {...props} />
               </MainLayout>
             </ShipsProvider>
           </WalletProvider>
@@ -54,5 +55,24 @@ function App({ Component, pageProps }: AppProps) {
     </ConnectionProvider>
   );
 }
+
+const Pages = ({ Component, pageProps }: AppProps) => {
+  const { publicKey } = useWallet();
+
+  const fetchPlayer = usePlayerStore((s) => s.fetchPlayer);
+  const fetchFleet = usePlayerStore((s) => s.fetchFleet);
+
+  useEffect(() => {
+    const run = async () => {
+      if (publicKey) {
+        await fetchPlayer(publicKey.toString());
+        await fetchFleet();
+      }
+    };
+    run();
+  }, [publicKey]);
+
+  return <Component {...pageProps} />;
+};
 
 export default App;

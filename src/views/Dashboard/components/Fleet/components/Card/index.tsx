@@ -2,21 +2,16 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
-import { MaxWidth } from "~/components/layout/MaxWidth";
+import { Flex } from "~/components/layout/Flex";
 import { ColorName } from "~/components/layout/Pane";
-import {
-  NormalizedScoreVarsShipInfo,
-  NormalizedShipStakingInfo,
-  StarAtlasEntity,
-} from "~/types";
-import { Description } from "~/views/Dashboard/components/Fleet/components/Card/components/Description";
+import { Progress } from "~/components/Progress";
+import { NormalizedShipStakingInfoExtended, StarAtlasEntity } from "~/types";
 import { Heading } from "~/views/Dashboard/components/Fleet/components/Card/components/Heading";
 import { Image } from "~/views/Dashboard/components/Fleet/components/Card/components/Image";
 
 type Props = {
   ship?: StarAtlasEntity;
-  stakeInfo?: NormalizedShipStakingInfo;
-  ratesInfo?: NormalizedScoreVarsShipInfo;
+  stakeInfo?: NormalizedShipStakingInfoExtended;
 };
 
 const shipColors: { [key: string]: ColorName } = {
@@ -53,81 +48,65 @@ export const Card = ({ ship, stakeInfo }: Props) => {
         </Text>
       </div> */}
       <Image src={ship?.image} alt={ship?.name} />
-      <MaxWidth className="mx-auto" size="7xl">
-        <div className="relative pb-8 sm:pb-16 md:pb-20 lg:max-w-lg xl:max-w-2xl lg:w-full">
-          <main className="relative z-10 pt-5 mx-auto w-full px-4 sm:pt-12 sm:px-6 md:pt-16 lg:px-8">
-            <div className="sm:text-center lg:text-left">
-              <Heading
-                color={shipColors[ship?.attributes?.class?.toLowerCase()]}
-                title={ship?.name}
-                subtitle={ship?.attributes?.class}
-              />
-              <div className="mt-3 sm:mt-5 sm:max-w-xl sm:mx-auto md:mt-5 lg:mx-0">
-                <Text color="white" weight="semibold">
-                  Owned: {stakeInfo?.shipQuantityInEscrow}
-                </Text>
-                <Description
-                  text={intl.formatMessage({
-                    id: `Ships.Details.${ship.name
-                      ?.toLocaleLowerCase()
-                      .replace(/ /g, "_")}.description`,
-                    defaultMessage: ship?.description,
-                  })}
+
+      <div className="relative pb-8 sm:pb-16 md:pb-20 lg:w-full">
+        <main className="relative z-10 pt-5 mx-auto w-full px-4 sm:pt-12 sm:px-6 md:pt-16 lg:px-8">
+          <div className="sm:text-center lg:text-left">
+            <Heading
+              color={shipColors[ship?.attributes?.class?.toLowerCase()]}
+              title={ship?.name}
+              subtitle={ship?.attributes?.class}
+            />
+            <div className="mt-3 sm:mt-5 sm:mx-auto md:mt-5 lg:mx-0">
+              <Text color="white" weight="semibold" size="xl">
+                Owned: {stakeInfo?.shipQuantityInEscrow}
+              </Text>
+              <Flex py={3} direction="col" className="space-y-4">
+                <Progress
+                  title={"Health"}
+                  max={stakeInfo?.toolkitMaxReserve || 1}
+                  level={
+                    (stakeInfo?.toolkitMaxReserve || 0) -
+                    (new Date().getTime() -
+                      (stakeInfo?.repairedAtTimestamp || 0) * 1000) /
+                      (stakeInfo?.millisecondsToBurnOneToolkit || 1)
+                  }
                 />
-              </div>
-              {/* <Flex
-                direction="col"
-                lgDirection="row"
-                justify="center"
-                lgJustify="start"
-                className="mt-5 sm:mt-10"
-              >
-                <a
-                  href={`https://play.staratlas.com/market/${ship?.markets[0].id}`}
-                  target="_blank"
-                >
-                  <Button
-                    as="span"
-                    bgColor="indigo-600"
-                    hoverBgColor="indigo-700"
-                    className="w-full lg:w-auto"
-                    textColor="white"
-                  >
-                    <FormattedMessage
-                      id={"Ships.List.Card.BuyAction.title"}
-                      defaultMessage={"Compra"}
-                    />
-                  </Button>
-                </a>
-                <Flex className="mt-3 lg:ml-3 lg:mt-0 w-full">
-                  <Link
-                    href={{
-                      pathname: "/ships/[id]",
-                      query: { id: ship?._id },
-                    }}
-                    locale={locale}
-                  >
-                    <a className="w-full lg:w-auto">
-                      <Button
-                        as="span"
-                        bgColor="indigo-100"
-                        hoverBgColor="indigo-200"
-                        className="w-full lg:w-auto"
-                        textColor="indigo-700"
-                      >
-                        <FormattedMessage
-                          id={"Ships.List.Card.ReadMore.title"}
-                          defaultMessage={"Scopri di più"}
-                        />
-                      </Button>
-                    </a>
-                  </Link>
-                </Flex>
-              </Flex> */}
+                <Progress
+                  title={"Fuel"}
+                  max={stakeInfo?.fuelMaxReserve || 1}
+                  level={
+                    (stakeInfo?.fuelMaxReserve || 0) -
+                    (new Date().getTime() -
+                      (stakeInfo?.fueledAtTimestamp || 0) * 1000) /
+                      (stakeInfo?.millisecondsToBurnOneFuel || 1)
+                  }
+                />
+                <Progress
+                  title={"Food"}
+                  max={stakeInfo?.foodMaxReserve || 1}
+                  level={
+                    (stakeInfo?.foodMaxReserve || 0) -
+                    (new Date().getTime() -
+                      (stakeInfo?.fedAtTimestamp || 0) * 1000) /
+                      (stakeInfo?.millisecondsToBurnOneFood || 1)
+                  }
+                />
+                <Progress
+                  title={"Ammo"}
+                  max={stakeInfo?.armsMaxReserve || 1}
+                  level={
+                    (stakeInfo?.armsMaxReserve || 0) -
+                    (new Date().getTime() -
+                      (stakeInfo?.armedAtTimestamp || 0) * 1000) /
+                      (stakeInfo?.millisecondsToBurnOneArms || 1)
+                  }
+                />
+              </Flex>
             </div>
-          </main>
-        </div>
-      </MaxWidth>
+          </div>
+        </main>
+      </div>
     </BlurBackground>
   );
 };

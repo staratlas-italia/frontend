@@ -9,6 +9,7 @@ export type TranslationId =
   | "Home.WelcomeBanner.title"
   | "Layout.AtlasChange.title"
   | "Layout.Header.Dashboard.action.title"
+  | "Layout.Loader.title"
   | "Layout.Treasury.title"
   | "Layout.Wallet.Connect.title"
   | "Layout.Wallet.Disconnect.title"

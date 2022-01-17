@@ -8,7 +8,7 @@ type Props = {
   title: string;
 };
 
-export const Heading = ({ color, subtitle, quantity, title }: Props) => (
+export const Heading = ({ color, subtitle, title }: Props) => (
   <Text
     as="h1"
     color={color}

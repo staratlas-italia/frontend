@@ -1,23 +1,30 @@
 import Image from "next/image";
 import { InfoRow } from "~/components/common/Info";
-import { Loader } from "~/components/common/Loader";
 import { Price } from "~/components/common/Price";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
-import { usePlayer } from "~/hooks/usePlayer";
+import { LoadingView } from "~/components/LoadingView";
+import { usePlayerStore } from "~/stores/usePlayerStore";
 import { shortenAddress } from "~/utils/shortenAddress";
 
 export const Profile = () => {
-  const { player, loading, publicKey } = usePlayer();
+  const player = usePlayerStore((s) => s.current);
+  const isPlayer = usePlayerStore((s) => s.isPlayer);
 
-  if (!player || loading) {
+  if (!player) {
+    return <LoadingView />;
+  }
+  if (isPlayer === false) {
     return (
-      <BlurBackground py={5} justify="center" align="center">
-        <Loader color="white" />
-        <Text size="xl" color="white" weight="medium">
-          Searching in the universe...
-        </Text>
+      <BlurBackground
+        direction="col"
+        lgDirection="row"
+        px={5}
+        py={5}
+        className="space-x-5"
+      >
+        <Text>Not a player</Text>
       </BlurBackground>
     );
   }
@@ -26,22 +33,31 @@ export const Profile = () => {
 
   return (
     <Flex>
-      <BlurBackground px={5} py={5} className="space-x-5">
+      <BlurBackground
+        direction="col"
+        lgDirection="row"
+        px={5}
+        py={5}
+        className="space-y-5 lg:space-x-5"
+      >
         {avatarImageUrl && (
-          <Flex>
+          <Flex
+            justify="center"
+            className="relative w-full h-64 lg:w-64 lg:h-64"
+          >
             <Image
+              className="rounded-xl overflow-hidden"
               quality={30}
               src={avatarImageUrl}
-              width={180}
-              height={180}
+              layout="fill"
               alt={avatarId}
             />
           </Flex>
         )}
         <Flex align="center" className="grid grid-cols-2 gap-5">
           <InfoRow color="gray-200" title="addr">
-            <Text color="white" size="4xl">
-              {shortenAddress(publicKey || "")}
+            <Text color="white" xlSize="4xl">
+              {shortenAddress(player?.publicKey || "")}
             </Text>
           </InfoRow>
           <InfoRow color="gray-200" title="universal Rank">

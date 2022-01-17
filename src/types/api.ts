@@ -1,4 +1,4 @@
-import { NormalizedShipStakingInfo } from "~/types";
+import { NormalizedShipStakingInfoExtended } from "~/types";
 
 export type ScoreFleetResponse =
   | {
@@ -7,5 +7,5 @@ export type ScoreFleetResponse =
     }
   | {
       success: true;
-      data: NormalizedShipStakingInfo[];
+      data: NormalizedShipStakingInfoExtended[];
     };
