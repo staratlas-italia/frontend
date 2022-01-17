@@ -4,28 +4,35 @@ import Link from "next/link";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 import { MenuItem } from "~/components/layout/SideBarLayout/components/SideBar/types";
+import { Translation } from "~/i18n/Translation";
 
 const menuItems: MenuItem[] = [
   {
-    name: "Dashboard",
+    name: "Layout.Sidebar.Dashboard.title",
     route: "/dashboard",
     icon: (props) => <BeakerIcon {...props} />,
   },
   {
-    name: "The ships",
+    name: "Layout.Sidebar.Ships.title",
     route: "/ships",
     icon: (props) => <img src={`/images/icons/rocket-solid.svg`} {...props} />,
   },
   {
-    name: "Score Tool",
+    name: "Layout.Sidebar.FleetSim.title",
+    icon: (props) => <img src={`/images/icons/wrench-solid.svg`} {...props} />,
+    needPbk: true,
+    route: "https://fleet.staratlasitalia.com?view=sim",
+  },
+  {
+    name: "Layout.Sidebar.ScoreTool.title",
     icon: (props) => (
       <img src={`/images/icons/chart-pie-solid.svg`} {...props} />
     ),
     needPbk: true,
-    route: "https://fleet.staratlasitalia.com",
+    route: "https://fleet.staratlasitalia.com?view=score",
   },
   {
-    name: "Resources",
+    name: "Layout.Sidebar.Resources.title",
     icon: (props) => <img src={`/images/icons/book-solid.svg`} {...props} />,
     route: "https://staratlasitalia.com/la-strada-verso-linfinito/",
     external: true,
@@ -39,8 +46,7 @@ export const Content = () => {
       lgAlign="center"
       lgDirection="col"
       className="lg:space-y-6 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-none"
-      lgPb={20}
-      lgPx={8}
+      lgPx={5}
     >
       {menuItems.map((item, index) =>
         item.needPbk && !publicKey ? null : (
@@ -48,7 +54,7 @@ export const Content = () => {
             <Link
               href={
                 item.needPbk
-                  ? item.route + `?pbk=${publicKey?.toString()}`
+                  ? item.route + `&pbk=${publicKey?.toString()}`
                   : item.route || ""
               }
             >
@@ -60,8 +66,8 @@ export const Content = () => {
                   className="space-x-3 lg:space-x-6 hover:bg-gray-200 hover:bg-opacity-10 rounded-3xl"
                 >
                   {item.icon({ className: "h-5 w-5 text-white" })}
-                  <Text color="white" weight="medium">
-                    {item.name}
+                  <Text color="white" size="base" weight="medium">
+                    <Translation id={item.name} />
                   </Text>
                 </Flex>
               </a>

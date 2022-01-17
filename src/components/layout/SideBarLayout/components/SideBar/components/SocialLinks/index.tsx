@@ -1,6 +1,8 @@
+import { Flex } from "~/components/layout/Flex";
+
 export const SocialLinks = () => {
   return (
-    <>
+    <Flex px={8} pb={8} justify={"between"}>
       <a
         target="_blank"
         rel="noopener noreferrer"
@@ -29,6 +31,6 @@ export const SocialLinks = () => {
       >
         <img src="/images/social/medium_logo.svg" className="h-6 w-6" />
       </a>
-    </>
+    </Flex>
   );
 };

@@ -16,7 +16,7 @@ export const EmptyView = ({ image, title }: Props) => (
     className="space-y-3"
   >
     <Image src={image} width={100} height={100} />
-    <Text size="3xl" color="white" weight="medium">
+    <Text size="3xl" color="white" weight="semibold">
       {title}
     </Text>
   </BlurBackground>

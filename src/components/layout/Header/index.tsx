@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import React from "react";
 import { Flex } from "~/components/layout/Flex";
 import { Wallet } from "~/components/Wallet";
-import { Routes } from "~/utils/getRoute";
 
 export const LogoLink = () => {
   const { locale } = useRouter();
@@ -16,8 +15,8 @@ export const LogoLink = () => {
           <Image
             priority
             src="/images/logo.png"
-            height={61.2}
-            width={170}
+            height={55.8}
+            width={155}
             alt={"Start Atlas Italia"}
           />
         </Flex>
@@ -28,28 +27,19 @@ export const LogoLink = () => {
 
 type Props = { fluid?: boolean };
 
-export const Header = ({ fluid }: Props) => {
-  const { pathname } = useRouter();
-  return (
-    <Flex align="center" grow={1} py={5} px={5} justify="center">
-      <Flex
-        className={classNames("z-10 w-full", { container: !fluid })}
-        justify="between"
-      >
-        <Flex>
-          <span
-            className={classNames({
-              "lg:hidden": (pathname as Routes) !== "/",
-            })}
-          >
-            <LogoLink />
-          </span>
-        </Flex>
+export const Header = ({ fluid }: Props) => (
+  <Flex align="center" grow={1} py={5} px={5} justify="center">
+    <Flex
+      className={classNames("z-10 w-full", { container: !fluid })}
+      justify="between"
+    >
+      <Flex lgPx={8}>
+        <LogoLink />
+      </Flex>
 
-        <Flex align="center" className="space-x-3">
-          <Wallet />
-        </Flex>
+      <Flex align="center" className="space-x-3">
+        <Wallet />
       </Flex>
     </Flex>
-  );
-};
+  </Flex>
+);

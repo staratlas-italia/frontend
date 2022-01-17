@@ -1,6 +1,5 @@
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
-import { LogoLink } from "~/components/layout/Header";
 import { Content } from "~/components/layout/SideBarLayout/components/SideBar/components/Content";
 import { Footer } from "~/components/layout/SideBarLayout/components/SideBar/components/Footer";
 
@@ -31,9 +30,7 @@ export const SideBar = () => {
           pt={8}
           justify="between"
         >
-          <Flex justify="center">
-            <LogoLink />
-          </Flex>
+          <Flex />
           <Content />
           <Footer />
         </BlurBackground>
