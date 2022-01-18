@@ -4,10 +4,6 @@ export const ATLAS_USDC_MARKET_ADDR =
 export const STAR_ATLAS_SERUM_PROGRAM_ID =
   "9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin";
 
-export const ATLAS_TOKEN_ID = "9VmYq1qE2GQKxPP66sdgLDKF7CrjmpxbSYdxUfN9zjb7";
-export const POLIS_TOKEN_ID = "HesNk1oVYo3L3kGYs5o1tqLWfhSMWLF8eqvztRnTHaoP";
-export const USDC_TOKEN_ID = "6mjFzKnpRoDeKjnKrZHUPiKQ1HANm2Urap1cedqxuhqj";
-
 export const AMMO_TOKEN_MINT_ID = "ammoK8AkX2wnebQb35cDAZtTkvsXQbi82cGeTnUvvfK";
 export const FOOD_TOKEN_MINT_ID = "foodQJAztMzX1DKpLaiounNe2BDMds5RNuPC6jsNrDG";
 export const TOOL_TOKEN_MINT_ID = "tooLsNYLiVqzg8o4m3L2Uetbn62mvMWRqkog6PQeYKL";
@@ -18,6 +14,9 @@ export const ATLAS_TOKEN_MINT_ID =
 
 export const USDC_TOKEN_MINT_ID =
   "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
+
+export const POLIS_TOKEN_MINT_ID =
+  "poLisWXnNRwC6oBu1vHiuKQzFjGL4XDSu4g9qjz9qVk";
 
 export const SA_FLEET_PROGRAM_ID =
   "FLEET1qqzpexyaDpqb2DGsSzE2sDCizewCg9WjrA6DBW";

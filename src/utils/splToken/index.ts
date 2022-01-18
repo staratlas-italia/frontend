@@ -39,13 +39,49 @@ export const deserializeTokenMint = async (
   return t.getMintInfo();
 };
 
-export const getTokenBalance = async (
+const SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID: PublicKey = new PublicKey(
+  "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+);
+
+export async function findAssociatedTokenAddress(
+  walletAddress: PublicKey,
+  tokenMintAddress: PublicKey
+): Promise<PublicKey> {
+  return (
+    await PublicKey.findProgramAddress(
+      [
+        walletAddress.toBuffer(),
+        TOKEN_PROGRAM_ID.toBuffer(),
+        tokenMintAddress.toBuffer(),
+      ],
+      SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID
+    )
+  )[0];
+}
+
+export const getTokenBalanceByMint = async (
+  connection: Connection,
+  walletPbk: PublicKey,
+  tokenMintPbk: PublicKey
+): Promise<number> => {
+  const associatedTokenPbk = await findAssociatedTokenAddress(
+    walletPbk,
+    tokenMintPbk
+  );
+  return await getTokenBalance(connection, associatedTokenPbk);
+};
+
+const getTokenBalance = async (
   connection: Connection,
   tokenAccountPubkey: PublicKey
 ): Promise<number> => {
-  const balance = await connection.getTokenAccountBalance(tokenAccountPubkey);
-  if (!balance.value.uiAmount) {
+  try {
+    const balance = await connection.getTokenAccountBalance(tokenAccountPubkey);
+    if (!balance.value.uiAmount) {
+      return 0;
+    }
+    return balance.value.uiAmount;
+  } catch (e) {
     return 0;
   }
-  return balance.value.uiAmount;
 };
