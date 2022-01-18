@@ -114,6 +114,8 @@ export type FoodMint = typeof FOOD_TOKEN_MINT_ID;
 export type FuelMint = typeof FUEL_TOKEN_MINT_ID;
 export type ToolMint = typeof TOOL_TOKEN_MINT_ID;
 
+export type ScreenSize = "sm" | "md" | "lg" | "xl" | "2xl";
+
 export type ResourceMint = AmmoMint | FoodMint | FuelMint | ToolMint;
 
 export type ShipSlot = {
