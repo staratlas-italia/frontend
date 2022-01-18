@@ -6,7 +6,7 @@ import { ColorName } from "~/components/layout/Pane";
 type TextAlignment = "center" | "left" | "right" | "justify";
 type TextDecoration = "underline" | "line-through" | "no-underline";
 type TextTransform = "uppercase" | "lowercase" | "capitalize" | "normal-case";
-type TextOverflow = "truncate" | "overflow-clip" | "overflow-ellipsis";
+type TextOverflow = "truncate" | "text-clip" | "text-ellipsis";
 type TextOpacity =
   | 0
   | 5

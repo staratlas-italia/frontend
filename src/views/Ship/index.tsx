@@ -118,7 +118,7 @@ export const ShipPage = () => {
               >
                 <img
                   src={imageUrl}
-                  className="transition duration-500 ease-in-out h-full w-full bg-auto bg-no-repeat bg-center object-cover transform hover:scale-95"
+                  className="transition duration-500 ease-in-out h-full w-full bg-auto bg-no-repeat bg-center object-cover hover:scale-95"
                 />
               </Flex>
             ))}
