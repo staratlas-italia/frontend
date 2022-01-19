@@ -37,6 +37,7 @@ export const Price = ({
       className={classNames("space-x-1", {
         "space-x-reverse": inverse,
       })}
+      px={2}
     >
       <Text {...props}>
         {!isNullOrUndefined(value) ? (
