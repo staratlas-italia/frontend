@@ -2,6 +2,13 @@ import classNames from "classnames";
 import { PropsWithChildren } from "react";
 import styled from "styled-components";
 import { Spacing } from "~/common/spacing";
+import { getPaddingBottomClasses } from "~/components/layout/Padding/utils/getPaddingBottomClasses";
+import { getPaddingClasses } from "~/components/layout/Padding/utils/getPaddingClasses";
+import { getPaddingLeftClasses } from "~/components/layout/Padding/utils/getPaddingLeftClasses";
+import { getPaddingRightClasses } from "~/components/layout/Padding/utils/getPaddingRightClasses";
+import { getPaddingTopClasses } from "~/components/layout/Padding/utils/getPaddingTopClasses";
+import { getPaddingXClasses } from "~/components/layout/Padding/utils/getPaddingXClasses";
+import { getPaddingYClasses } from "~/components/layout/Padding/utils/getPaddingYClasses";
 import { Pane } from "~/components/layout/Pane";
 import { StrictReactNode } from "~/types";
 
@@ -63,28 +70,28 @@ export const Padding = styled(Pane).attrs(
     lgPx,
     lgPy,
   }: PaddingProps) => ({
-    className: classNames({
-      [`p-${p}`]: p,
-      [`pt-${pt}`]: pt,
-      [`pb-${pb}`]: pb,
-      [`pl-${pl}`]: pl,
-      [`pr-${pr}`]: pr,
-      [`px-${px}`]: px,
-      [`py-${py}`]: py,
-      [`md:p-${mdP}`]: mdP,
-      [`md:pt-${mdPt}`]: mdPt,
-      [`md:pb-${mdPb}`]: mdPb,
-      [`md:pl-${mdPl}`]: mdPl,
-      [`md:pr-${mdPr}`]: mdPr,
-      [`md:px-${mdPx}`]: mdPx,
-      [`md:py-${mdPy}`]: mdPy,
-      [`lg:p-${lgP}`]: lgP,
-      [`lg:pt-${lgPt}`]: lgPt,
-      [`lg:pb-${lgPb}`]: lgPb,
-      [`lg:pl-${lgPl}`]: lgPl,
-      [`lg:pr-${lgPr}`]: lgPr,
-      [`lg:px-${lgPx}`]: lgPx,
-      [`lg:py-${lgPy}`]: lgPy,
-    }),
+    className: classNames(
+      getPaddingClasses({ space: p }),
+      getPaddingClasses({ space: mdP, size: "md" }),
+      getPaddingClasses({ space: lgP, size: "lg" }),
+      getPaddingTopClasses({ space: pt }),
+      getPaddingTopClasses({ space: mdPt, size: "md" }),
+      getPaddingTopClasses({ space: lgPt, size: "lg" }),
+      getPaddingRightClasses({ space: pr }),
+      getPaddingRightClasses({ space: mdPr, size: "md" }),
+      getPaddingRightClasses({ space: lgPr, size: "lg" }),
+      getPaddingBottomClasses({ space: pb }),
+      getPaddingBottomClasses({ space: mdPb, size: "md" }),
+      getPaddingBottomClasses({ space: lgPb, size: "lg" }),
+      getPaddingLeftClasses({ space: pl }),
+      getPaddingLeftClasses({ space: mdPl, size: "md" }),
+      getPaddingLeftClasses({ space: lgPl, size: "lg" }),
+      getPaddingXClasses({ space: px }),
+      getPaddingXClasses({ space: mdPx, size: "md" }),
+      getPaddingXClasses({ space: lgPx, size: "lg" }),
+      getPaddingYClasses({ space: py }),
+      getPaddingYClasses({ space: mdPy, size: "md" }),
+      getPaddingYClasses({ space: lgPy, size: "lg" })
+    ),
   })
 )``;
