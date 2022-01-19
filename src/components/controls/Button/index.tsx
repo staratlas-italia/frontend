@@ -2,6 +2,7 @@ import classNames from "classnames";
 import { ComponentType, PropsWithChildren } from "react";
 import { Loader } from "~/components/common/Loader";
 import { Text } from "~/components/common/Text";
+import { TextColor } from "~/components/common/Text/types";
 import { Flex } from "~/components/layout/Flex";
 import { PaddingProps } from "~/components/layout/Padding";
 import { ColorName } from "~/components/layout/Pane";
@@ -21,7 +22,7 @@ export type ButtonProps = PropsWithChildren<{
   onClick?: () => void;
   size?: ButtonSize;
   round?: boolean;
-  textColor?: ColorName;
+  textColor?: TextColor;
 }>;
 
 const getButtonSize = (size?: ButtonSize): Partial<PaddingProps> => {
@@ -61,7 +62,7 @@ export const Button = ({
   loading,
   size = "regular",
   round,
-  textColor = "black",
+  textColor = "text-black",
   ...props
 }: ButtonProps) => {
   return (

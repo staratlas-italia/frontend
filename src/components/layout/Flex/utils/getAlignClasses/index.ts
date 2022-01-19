@@ -15,77 +15,77 @@ export const getAlignClasses = ({ align, size }: Param) => {
     case "baseline":
       switch (size) {
         case "sm":
-          return "sm:align-baseline";
+          return "sm:items-baseline";
         case "md":
-          return "md:align-baseline";
+          return "md:items-baseline";
         case "lg":
-          return "lg:align-baseline";
+          return "lg:items-baseline";
         case "xl":
-          return "xl:align-baseline";
+          return "xl:items-baseline";
         case "2xl":
-          return "2xl:align-baseline";
+          return "2xl:items-baseline";
         default:
-          return "align-baseline";
+          return "items-baseline";
       }
     case "center":
       switch (size) {
         case "sm":
-          return "sm:align-center";
+          return "sm:items-center";
         case "md":
-          return "md:align-center";
+          return "md:items-center";
         case "lg":
-          return "lg:align-center";
+          return "lg:items-center";
         case "xl":
-          return "xl:align-center";
+          return "xl:items-center";
         case "2xl":
-          return "2xl:align-center";
+          return "2xl:items-center";
         default:
-          return "align-center";
+          return "items-center";
       }
     case "end":
       switch (size) {
         case "sm":
-          return "sm:align-end";
+          return "sm:items-end";
         case "md":
-          return "md:align-end";
+          return "md:items-end";
         case "lg":
-          return "lg:align-end";
+          return "lg:items-end";
         case "xl":
-          return "xl:align-end";
+          return "xl:items-end";
         case "2xl":
-          return "2xl:align-end";
+          return "2xl:items-end";
         default:
-          return "align-end";
+          return "items-end";
       }
     case "start":
       switch (size) {
         case "sm":
-          return "sm:align-start";
+          return "sm:items-start";
         case "md":
-          return "md:align-start";
+          return "md:items-start";
         case "lg":
-          return "lg:align-start";
+          return "lg:items-start";
         case "xl":
-          return "xl:align-start";
+          return "xl:items-start";
         case "2xl":
-          return "2xl:align-start";
+          return "2xl:items-start";
         default:
-          return "align-start";
+          return "items-start";
       }
     case "stretch":
       switch (size) {
         case "sm":
-          return "sm:align-stretch";
+          return "sm:items-stretch";
         case "md":
-          return "md:align-stretch";
+          return "md:items-stretch";
         case "lg":
-          return "lg:align-stretch";
+          return "lg:items-stretch";
         case "xl":
-          return "xl:align-stretch";
+          return "xl:items-stretch";
         case "2xl":
-          return "2xl:align-stretch";
+          return "2xl:items-stretch";
         default:
-          return "align-stretch";
+          return "items-stretch";
       }
   }
 };

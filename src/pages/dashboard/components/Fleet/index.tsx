@@ -11,6 +11,7 @@ export const Fleet = () => {
   return (
     <Flex direction="col" className="z-10 space-y-5">
       <Heading title="Fleet.Heading.title" />
+
       {fleet === null ? (
         <LoadingView />
       ) : !fleet?.length ? (

@@ -1,7 +1,12 @@
 import cx from "classnames";
 import { ComponentType } from "react";
 import styled from "styled-components";
-import { Flexbox, LgFlexbox, MdFlexbox } from "~/components/layout/Flex/types";
+import {
+  Flexbox,
+  LgFlexbox,
+  MdFlexbox,
+  XlFlexbox,
+} from "~/components/layout/Flex/types";
 import { getAlignClasses } from "~/components/layout/Flex/utils/getAlignClasses";
 import { getDirectionClasses } from "~/components/layout/Flex/utils/getDirectionClasses";
 import { getGrowClasses } from "~/components/layout/Flex/utils/getGrowClasses";
@@ -36,7 +41,6 @@ export const Flex = styled(Padding).attrs<FlexProps>(
     lgShrink,
     lgWrap,
     xlAlign,
-    xlBasis,
     xlDirection,
     xlGrow,
     xlJustify,
@@ -48,21 +52,27 @@ export const Flex = styled(Padding).attrs<FlexProps>(
       getAlignClasses({ align }),
       getAlignClasses({ align: mdAlign, size: "md" }),
       getAlignClasses({ align: lgAlign, size: "lg" }),
+      getAlignClasses({ align: xlAlign, size: "xl" }),
       getDirectionClasses({ direction }),
       getDirectionClasses({ direction: mdDirection, size: "md" }),
       getDirectionClasses({ direction: lgDirection, size: "lg" }),
+      getDirectionClasses({ direction: xlDirection, size: "xl" }),
       getJustifyClasses({ justify }),
       getJustifyClasses({ justify: mdJustify, size: "md" }),
       getJustifyClasses({ justify: lgJustify, size: "lg" }),
+      getJustifyClasses({ justify: xlJustify, size: "xl" }),
       getWrapClasses({ wrap }),
       getWrapClasses({ wrap: mdWrap, size: "md" }),
       getWrapClasses({ wrap: lgWrap, size: "lg" }),
+      getWrapClasses({ wrap: xlWrap, size: "xl" }),
       getGrowClasses({ grow }),
       getGrowClasses({ grow: mdGrow, size: "md" }),
       getGrowClasses({ grow: lgGrow, size: "lg" }),
+      getGrowClasses({ grow: xlGrow, size: "xl" }),
       getShrinkClasses({ shrink }),
       getShrinkClasses({ shrink: mdShrink, size: "md" }),
-      getShrinkClasses({ shrink: lgShrink, size: "lg" })
+      getShrinkClasses({ shrink: lgShrink, size: "lg" }),
+      getShrinkClasses({ shrink: xlShrink, size: "xl" })
     ),
   })
 )<FlexProps>``;

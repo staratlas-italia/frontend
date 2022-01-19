@@ -13,12 +13,9 @@ export const LoadingView = <T extends TranslationId>({
   values,
 }: Props<T>) => (
   <BlurBackground py={5} justify="center" align="center">
-    <Loader color="white" />
-    <Text size="xl" color="white" weight="semibold">
-      <Translation
-        id={(title as TranslationId) || "Layout.Loader.title"}
-        values={values}
-      />
+    <Loader color="text-white" />
+    <Text size="xl" color="text-white" weight="semibold">
+      <Translation id="Layout.Loader.title" />
     </Text>
   </BlurBackground>
 );

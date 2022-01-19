@@ -16,7 +16,7 @@ export const DisconnectedContent = () => {
           key={wallet.name}
           bgColor="gray-800"
           hoverBgColor="gray-900"
-          textColor="white"
+          textColor="text-white"
           iconLeft={({ className }) => (
             <Image
               src={wallet.icon}

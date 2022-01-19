@@ -41,3 +41,13 @@ export type LgFlexbox = {
   lgShrink: Shrink;
   lgWrap: Wrap;
 };
+
+export type XlFlexbox = {
+  xlAlign: Align;
+  //xlBasis: Basis;
+  xlDirection: Direction;
+  xlGrow: Grow;
+  xlJustify: Justify;
+  xlShrink: Shrink;
+  xlWrap: Wrap;
+};

@@ -58,7 +58,7 @@ export const ConnectedContent = () => {
         <Button
           bgColor="gray-800"
           hoverBgColor="gray-900"
-          textColor="white"
+          textColor="text-white"
           onClick={() => {
             close();
             setTimeout(() => onDisconnect(), 300);

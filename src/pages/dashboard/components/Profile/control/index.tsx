@@ -38,19 +38,19 @@ export const Profile = () => {
           )}
         </Flex>
         <Flex align="center" className="grid grid-cols-2 gap-5">
-          <InfoRow color="gray-200" title="addr">
-            <Text color="white" xlSize="4xl">
+          <InfoRow color="text-gray-200" title="addr">
+            <Text color="text-white" xlSize="4xl">
               {shortenAddress(player?.publicKey || "")}
             </Text>
           </InfoRow>
-          <InfoRow color="gray-200" title="universal Rank">
-            <Text color="white">{rank}</Text>
+          <InfoRow color="text-gray-200" title="universal Rank">
+            <Text color="text-white">{rank}</Text>
           </InfoRow>
-          <InfoRow color="gray-200" title="faction rank">
-            <Text color="white">{factionRank}</Text>
+          <InfoRow color="text-gray-200" title="faction rank">
+            <Text color="text-white">{factionRank}</Text>
           </InfoRow>
-          <InfoRow color="gray-200" title="net worth">
-            <Price color="white" value={balance} />
+          <InfoRow color="text-gray-200" title="net worth">
+            <Price color="text-white" value={balance} />
           </InfoRow>
         </Flex>
       </BlurBackground>

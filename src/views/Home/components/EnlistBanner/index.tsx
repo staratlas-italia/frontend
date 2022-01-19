@@ -19,7 +19,7 @@ export const EnlistBanner = () => (
     </Flex>
     <BlurBackground className="space-y-5" direction="col" py={5} px={8}>
       <Text
-        color="white"
+        color="text-white"
         className="tracking-tight "
         weight="extrabold"
         size="4xl"
@@ -28,11 +28,11 @@ export const EnlistBanner = () => (
         <Translation id="Home.EnlistBanner.title" />
       </Text>
 
-      <Text size="lg" mdSize="xl" color="gray-200">
+      <Text size="lg" mdSize="xl" color="text-gray-200">
         <Translation id="Home.EnlistBanner.description.0" />
       </Text>
 
-      <Text color="white" weight="semibold" size="lg" mdSize="xl">
+      <Text color="text-white" weight="semibold" size="lg" mdSize="xl">
         <Translation id="Home.EnlistBanner.description.1" />
       </Text>
 
@@ -43,7 +43,7 @@ export const EnlistBanner = () => (
               as="span"
               bgColor="green-100"
               hoverBgColor="green-200"
-              textColor="green-700"
+              textColor="text-green-700"
             >
               <Translation id="Home.EnlistBanner.action.title" />
             </Button>

@@ -40,7 +40,7 @@ export const Footer = () => {
       <Flex pb={8} justify="center">
         <Link href="https://forms.gle/UhjNWDnsXq5bDxhE7">
           <a target="_blank">
-            <Text color="white" weight="semibold" size="sm">
+            <Text color="text-white" weight="semibold" size="sm">
               <Translation id="Layout.Sidebar.Feedback.title" />
             </Text>
           </a>

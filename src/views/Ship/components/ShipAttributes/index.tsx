@@ -8,7 +8,7 @@ type Props = FlexProps & { title: string; attrs?: ShipSlot[] };
 export const ShipAttributes = ({ attrs = [], title, ...props }: Props) => (
   <Flex direction="col" {...props}>
     <Text
-      color="white"
+      color="text-white"
       className="col-span-3"
       size="3xl"
       mdSize="5xl"

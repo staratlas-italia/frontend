@@ -78,7 +78,7 @@ export const ShipCard = ({ ship }: Props) => {
                       bgColor="indigo-600"
                       hoverBgColor="indigo-700"
                       className="w-full lg:w-auto"
-                      textColor="white"
+                      textColor="text-white"
                     >
                       <FormattedMessage
                         id={"Ships.List.Card.BuyAction.title"}
@@ -101,7 +101,7 @@ export const ShipCard = ({ ship }: Props) => {
                         bgColor="indigo-100"
                         hoverBgColor="indigo-200"
                         className="w-full lg:w-auto"
-                        textColor="indigo-700"
+                        textColor="text-indigo-700"
                       >
                         <FormattedMessage
                           id={"Ships.List.Card.ReadMore.title"}

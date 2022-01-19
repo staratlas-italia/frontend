@@ -8,7 +8,12 @@ export const Section = ({ children, title }: Props) => {
   return (
     <Flex direction="col">
       <Flex pl={2}>
-        <Text weight="bold" size="sm" color="gray-600" transform="uppercase">
+        <Text
+          weight="bold"
+          size="sm"
+          color="text-gray-600"
+          transform="uppercase"
+        >
           {title}
         </Text>
       </Flex>

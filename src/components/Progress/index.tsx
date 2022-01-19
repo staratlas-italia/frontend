@@ -14,11 +14,14 @@ export const Progress = ({ title, level, max }: Props) => {
   return (
     <Flex direction="col" className="w-full">
       <Flex justify="between">
-        <Text color={"white"} transform="uppercase" weight="semibold">
+        <Text color="text-white" transform="uppercase" weight="semibold">
           {title}
         </Text>
 
-        <Text color={percentage <= 0 ? "red-600" : "white"} weight="semibold">
+        <Text
+          color={percentage <= 0 ? "text-red-600" : "text-white"}
+          weight="semibold"
+        >
           {percentage >= 0 ? percentage : 0}%
         </Text>
       </Flex>
