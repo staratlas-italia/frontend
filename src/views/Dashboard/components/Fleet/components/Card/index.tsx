@@ -38,8 +38,8 @@ export const Card = ({ ship, stakeInfo }: Props) => {
     >
       <Image src={ship?.image} alt={ship?.name} />
 
-      <div className="relative pb-8 sm:pb-16 md:pb-20 lg:w-full">
-        <main className="relative z-10 pt-5 mx-auto w-full px-4 sm:pt-12 sm:px-6 md:pt-16 lg:px-8">
+      <div className="relative pb-8 sm:pb-16 md:pb-10 lg:w-full">
+        <main className="relative z-10 pt-5 mx-auto w-full px-4 sm:pt-12 sm:px-6 md:pt-10 lg:px-8">
           <div className="sm:text-center lg:text-left">
             <Heading
               color={shipColors[ship?.attributes?.class?.toLowerCase()]}
@@ -47,9 +47,14 @@ export const Card = ({ ship, stakeInfo }: Props) => {
               subtitle={ship?.attributes?.class}
             />
             <div className="mt-3 sm:mt-5 sm:mx-auto md:mt-5 lg:mx-0">
-              <Text color="white" weight="semibold" size="xl">
-                Owned: {stakeInfo?.shipQuantityInEscrow}
-              </Text>
+              <Flex direction="row" className="w-full">
+                <Flex justify="start" align="center">
+                  <img src={`/images/icons/rocket-solid.svg`} className="h-5 w-5 text-white" />
+                  <Text color="white" weight="semibold" size="xl" className="ml-2">
+                    {stakeInfo?.shipQuantityInEscrow}
+                  </Text>
+                </Flex>
+              </Flex>
               <Flex py={3} direction="col" className="space-y-4">
                 <Progress
                   title={"Health"}
@@ -60,6 +65,7 @@ export const Card = ({ ship, stakeInfo }: Props) => {
                       (stakeInfo?.repairedAtTimestamp || 0) * 1000) /
                       (stakeInfo?.millisecondsToBurnOneToolkit || 1)
                   }
+                  millisecondsToBurnOne={stakeInfo?.millisecondsToBurnOneToolkit || 0}
                 />
                 <Progress
                   title={"Fuel"}
@@ -70,6 +76,7 @@ export const Card = ({ ship, stakeInfo }: Props) => {
                       (stakeInfo?.fueledAtTimestamp || 0) * 1000) /
                       (stakeInfo?.millisecondsToBurnOneFuel || 1)
                   }
+                  millisecondsToBurnOne={stakeInfo?.millisecondsToBurnOneFuel || 0}
                 />
                 <Progress
                   title={"Food"}
@@ -80,6 +87,7 @@ export const Card = ({ ship, stakeInfo }: Props) => {
                       (stakeInfo?.fedAtTimestamp || 0) * 1000) /
                       (stakeInfo?.millisecondsToBurnOneFood || 1)
                   }
+                  millisecondsToBurnOne={stakeInfo?.millisecondsToBurnOneFood || 0}
                 />
                 <Progress
                   title={"Ammo"}
@@ -90,6 +98,7 @@ export const Card = ({ ship, stakeInfo }: Props) => {
                       (stakeInfo?.armedAtTimestamp || 0) * 1000) /
                       (stakeInfo?.millisecondsToBurnOneArms || 1)
                   }
+                  millisecondsToBurnOne={stakeInfo?.millisecondsToBurnOneArms || 0}
                 />
               </Flex>
             </div>
