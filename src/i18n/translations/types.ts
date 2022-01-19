@@ -41,7 +41,6 @@ export type TranslationId =
   | "Ships.List.Card.BuyAction.title"
   | "Ships.List.Card.ReadMore.title"
   | "Ships.Table.Column.atlasPrice"
-  | "Ships.Table.Column.atlasPriceVsPrice"
   | "Ships.Table.Column.atlasPriceVsVwapPrice"
   | "Ships.Table.Column.name"
   | "Ships.Table.Column.price"

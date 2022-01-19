@@ -57,13 +57,13 @@ export const ShipTable = () => {
         accessor: "atlasPrice",
         atlasValue: atlasPrice,
       }),
-      buildDiscountColumn({
+      buildPriceColumn({
         name: intl.formatMessage({
-          id: "Ships.Table.Column.atlasPriceVsPrice",
-          defaultMessage: "Prezzo Atlas vs Prezzo",
+          id: "Ships.Table.Column.vwap",
+          defaultMessage: "VWAP",
         }),
-        accessor: "atlasPriceVsPrice",
-        suffix: " %",
+        accessor: "vwapPrice",
+        currency: "USDC",
       }),
       buildDiscountColumn({
         name: intl.formatMessage({
@@ -80,14 +80,6 @@ export const ShipTable = () => {
         }),
         accessor: "atlasPriceVsVwapPrice",
         suffix: " %",
-      }),
-      buildPriceColumn({
-        name: intl.formatMessage({
-          id: "Ships.Table.Column.vwap",
-          defaultMessage: "VWAP",
-        }),
-        accessor: "vwapPrice",
-        currency: "USDC",
       }),
       {
         Header: "",
