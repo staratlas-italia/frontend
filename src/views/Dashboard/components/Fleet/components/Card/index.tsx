@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Text } from "~/components/common/Text";
+import { Countdown } from "~/components/Countdown";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
 import { ColorName } from "~/components/layout/Pane";
@@ -49,15 +50,41 @@ export const Card = ({ ship, stakeInfo }: Props) => {
             <div className="mt-3 sm:mt-5 sm:mx-auto md:mt-5 lg:mx-0">
               <Flex direction="row" className="w-full">
                 <Flex justify="start" align="center">
-                  <img src={`/images/icons/rocket-solid.svg`} className="h-5 w-5 text-white" />
-                  <Text color="white" weight="semibold" size="xl" className="ml-2">
+                  <img
+                    src={`/images/icons/rocket-solid.svg`}
+                    className="h-5 w-5 text-white"
+                  />
+                  <Text
+                    color="white"
+                    weight="semibold"
+                    size="xl"
+                    className="ml-2"
+                  >
                     {stakeInfo?.shipQuantityInEscrow}
                   </Text>
                 </Flex>
               </Flex>
               <Flex py={3} direction="col" className="space-y-4">
                 <Progress
-                  title={"Health"}
+                  title={
+                    <>
+                      {"health"} -{" "}
+                      <Countdown
+                        date={
+                          Date.now() +
+                          Math.floor(
+                            (stakeInfo?.millisecondsToBurnOneToolkit || 0) *
+                              ((stakeInfo?.toolkitMaxReserve || 0) -
+                                (new Date().getTime() -
+                                  (stakeInfo?.repairedAtTimestamp || 0) *
+                                    1000) /
+                                  (stakeInfo?.millisecondsToBurnOneToolkit ||
+                                    1))
+                          )
+                        }
+                      />
+                    </>
+                  }
                   max={stakeInfo?.toolkitMaxReserve || 1}
                   level={
                     (stakeInfo?.toolkitMaxReserve || 0) -
@@ -65,10 +92,26 @@ export const Card = ({ ship, stakeInfo }: Props) => {
                       (stakeInfo?.repairedAtTimestamp || 0) * 1000) /
                       (stakeInfo?.millisecondsToBurnOneToolkit || 1)
                   }
-                  millisecondsToBurnOne={stakeInfo?.millisecondsToBurnOneToolkit || 0}
                 />
                 <Progress
-                  title={"Fuel"}
+                  title={
+                    <>
+                      {"fuel"} -{" "}
+                      <Countdown
+                        date={
+                          Date.now() +
+                          Math.floor(
+                            (stakeInfo?.millisecondsToBurnOneFuel || 0) *
+                              ((stakeInfo?.fuelMaxReserve || 0) -
+                                (new Date().getTime() -
+                                  (stakeInfo?.repairedAtTimestamp || 0) *
+                                    1000) /
+                                  (stakeInfo?.millisecondsToBurnOneFuel || 1))
+                          )
+                        }
+                      />
+                    </>
+                  }
                   max={stakeInfo?.fuelMaxReserve || 1}
                   level={
                     (stakeInfo?.fuelMaxReserve || 0) -
@@ -76,10 +119,26 @@ export const Card = ({ ship, stakeInfo }: Props) => {
                       (stakeInfo?.fueledAtTimestamp || 0) * 1000) /
                       (stakeInfo?.millisecondsToBurnOneFuel || 1)
                   }
-                  millisecondsToBurnOne={stakeInfo?.millisecondsToBurnOneFuel || 0}
                 />
                 <Progress
-                  title={"Food"}
+                  title={
+                    <>
+                      {"food"} -{" "}
+                      <Countdown
+                        date={
+                          Date.now() +
+                          Math.floor(
+                            (stakeInfo?.millisecondsToBurnOneFood || 0) *
+                              ((stakeInfo?.foodMaxReserve || 0) -
+                                (new Date().getTime() -
+                                  (stakeInfo?.repairedAtTimestamp || 0) *
+                                    1000) /
+                                  (stakeInfo?.millisecondsToBurnOneFood || 1))
+                          )
+                        }
+                      />
+                    </>
+                  }
                   max={stakeInfo?.foodMaxReserve || 1}
                   level={
                     (stakeInfo?.foodMaxReserve || 0) -
@@ -87,10 +146,26 @@ export const Card = ({ ship, stakeInfo }: Props) => {
                       (stakeInfo?.fedAtTimestamp || 0) * 1000) /
                       (stakeInfo?.millisecondsToBurnOneFood || 1)
                   }
-                  millisecondsToBurnOne={stakeInfo?.millisecondsToBurnOneFood || 0}
                 />
                 <Progress
-                  title={"Ammo"}
+                  title={
+                    <>
+                      {"ammo"} -{" "}
+                      <Countdown
+                        date={
+                          Date.now() +
+                          Math.floor(
+                            (stakeInfo?.millisecondsToBurnOneArms || 0) *
+                              ((stakeInfo?.armsMaxReserve || 0) -
+                                (new Date().getTime() -
+                                  (stakeInfo?.repairedAtTimestamp || 0) *
+                                    1000) /
+                                  (stakeInfo?.millisecondsToBurnOneArms || 1))
+                          )
+                        }
+                      />
+                    </>
+                  }
                   max={stakeInfo?.armsMaxReserve || 1}
                   level={
                     (stakeInfo?.armsMaxReserve || 0) -
@@ -98,7 +173,6 @@ export const Card = ({ ship, stakeInfo }: Props) => {
                       (stakeInfo?.armedAtTimestamp || 0) * 1000) /
                       (stakeInfo?.millisecondsToBurnOneArms || 1)
                   }
-                  millisecondsToBurnOne={stakeInfo?.millisecondsToBurnOneArms || 0}
                 />
               </Flex>
             </div>

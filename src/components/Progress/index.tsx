@@ -1,55 +1,21 @@
 import classNames from "classnames";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
-import Countdown from "react-countdown";
 
-type Time = {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds?: number;
-  completed: boolean;
-};
-
-export const Progress = ({
-  title,
-  level,
-  max,
-  millisecondsToBurnOne,
-}: {
-  title;
+type Props = {
+  title: string | JSX.Element;
   level: number;
   max: number;
-  millisecondsToBurnOne: number;
-}) => {
-  const percentage = Math.floor((level * 100) / max);
+};
 
-  const rendererCountdown = ({ days, hours, minutes, completed }: Time) => {
-    if (completed) {
-      // Render a completed state
-      return "RE-SUPPLY!";
-    } else {
-      // Render a countdown
-      return (
-        <span>
-          {days < 1 ? "" : days + "D:"}
-          {hours < 10 ? "0" + hours : hours}H:
-          {minutes < 10 ? "0" + minutes : minutes}M
-        </span>
-      );
-    }
-  };
+export const Progress = ({ title, level, max }: Props) => {
+  const percentage = Math.floor((level * 100) / max);
 
   return (
     <Flex direction="col" className="w-full">
       <Flex justify="between">
         <Text color={"white"} transform="uppercase" weight="semibold">
-          {title} -{" "}
-          <Countdown
-            daysInHours={true}
-            date={Date.now() + Math.floor(millisecondsToBurnOne * level)}
-            renderer={rendererCountdown}
-          />
+          {title}
         </Text>
 
         <Text color={percentage <= 0 ? "red-600" : "white"} weight="semibold">
