@@ -34,7 +34,7 @@ const menuItems: MenuItem[] = [
   {
     name: "Layout.Sidebar.Resources.title",
     icon: (props) => <img src={`/images/icons/book-solid.svg`} {...props} />,
-    route: "https://staratlasitalia.com/la-strada-verso-linfinito/",
+    route: "https://staratlasitalia.com/rubriche",
     external: true,
   },
 ];
