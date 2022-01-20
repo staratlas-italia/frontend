@@ -30,7 +30,6 @@
   "Ships.List.Card.BuyAction.title": "Buy",
   "Ships.List.Card.ReadMore.title": "Read more",
   "Ships.Table.Column.atlasPrice": "Atlas Price",
-  "Ships.Table.Column.atlasPriceVsPrice": "Atlas Price vs Price",
   "Ships.Table.Column.atlasPriceVsVwapPrice": "Atlas Price vs VWAP",
   "Ships.Table.Column.name": "Name",
   "Ships.Table.Column.price": "USDC Price",

@@ -36,10 +36,12 @@ export const buildAtlasPriceColumn = ({
   Cell: ({ cell }) => (
     <Flex justify="end">
       {cell.value ? (
-        <Flex direction="col" className="space-y-1">
+        <Flex className="space-x-2">
           <Price currency={"ATLAS"} value={cell.value} />
           <Flex>
-            ( <Price currency={"USDC"} value={cell.value * atlasValue} /> )
+            <span>(</span>
+            <Price currency={"USDC"} value={cell.value * atlasValue} />{" "}
+            <span>)</span>
           </Flex>
         </Flex>
       ) : (
