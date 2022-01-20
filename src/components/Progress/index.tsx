@@ -2,16 +2,15 @@ import classNames from "classnames";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 
-export const Progress = ({
-  title,
-  level,
-  max,
-}: {
-  title;
+type Props = {
+  title: string | JSX.Element;
   level: number;
   max: number;
-}) => {
+};
+
+export const Progress = ({ title, level, max }: Props) => {
   const percentage = Math.floor((level * 100) / max);
+
   return (
     <Flex direction="col" className="w-full">
       <Flex justify="between">
