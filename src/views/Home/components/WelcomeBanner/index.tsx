@@ -20,7 +20,7 @@ export const WelcomeBanner = () => {
       justify="center"
     >
       <BlurBackground
-        className="space-y-5  bg-opacity-30"
+        className="space-y-5"
         direction="col"
         p={5}
         justify="center"
