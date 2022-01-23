@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { Heading } from "~/components/common/Heading";
 import { getRoute } from "~/utils/getRoute";
 import { ShipList } from "~/views/Ships/components/ShipList";
 import { ShipsRetriever } from "~/views/Ships/components/ShipsRetriever";
@@ -11,7 +12,10 @@ export const ShipListPage = () => {
   return (
     <ShipsRetriever>
       <Toolbar />
-      {pathname === getRoute("/ships/table") ? <ShipTable /> : <ShipList />}
+      <div className="space-y-5">
+        <Heading title="Ships.Heading.title" />
+        {pathname === getRoute("/ships/table") ? <ShipTable /> : <ShipList />}
+      </div>
     </ShipsRetriever>
   );
 };

@@ -1,6 +1,5 @@
-import { Text } from "~/components/common/Text";
+import { Heading } from "~/components/common/Heading";
 import { EmptyView } from "~/components/EmptyView";
-import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
 import { LoadingView } from "~/components/LoadingView";
 import { usePlayerStore } from "~/stores/usePlayerStore";
@@ -11,11 +10,7 @@ export const Fleet = () => {
 
   return (
     <Flex direction="col" className="z-10 space-y-5">
-      <BlurBackground p={5}>
-        <Text color="white" size="6xl" weight="bold">
-          Your Fleet
-        </Text>
-      </BlurBackground>
+      <Heading title="Fleet.Heading.title" />
       {fleet === null ? (
         <LoadingView />
       ) : !fleet?.length ? (
