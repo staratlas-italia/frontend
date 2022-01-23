@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -7,6 +8,7 @@ import { Flex } from "~/components/layout/Flex";
 import { MaxWidth } from "~/components/layout/MaxWidth";
 import { ColorName } from "~/components/layout/Pane";
 import { StarAtlasEntity } from "~/types";
+import { isFirefox } from "~/utils/isFirefox";
 import { Description } from "~/views/Ships/components/Ship/components/Description";
 import { Heading } from "~/views/Ships/components/Ship/components/Heading";
 import { Image } from "~/views/Ships/components/Ship/components/Image";
@@ -28,8 +30,15 @@ export const ShipCard = ({ ship }: Props) => {
   const intl = useIntl();
   const { locale } = useRouter();
 
+  const isF = isFirefox();
+
   return (
-    <div className="rounded-3xl relative bg-black overflow-hidden backdrop-filter backdrop-blur-lg bg-opacity-10">
+    <div
+      className={classNames("rounded-3xl relative  overflow-hidden ", {
+        "backdrop-filter backdrop-blur-lg bg-opacity-10 bg-black": !isF,
+        "bg-gray-800": isF,
+      })}
+    >
       <Image src={ship?.image} alt={ship?.name} />
       <MaxWidth className="mx-auto" size="7xl">
         <div className="2xl:float-right relative pb-8 sm:pb-16 md:pb-20 lg:max-w-lg xl:max-w-2xl lg:w-full">

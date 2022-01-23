@@ -8,7 +8,7 @@ export const SideBarLayout = React.memo(
       <>
         <SideBar />
         <BaseLayout headerFixed fluid>
-          <div className="container lg:px-5 lg:pl-80 mx-auto pb-32 sm:pb-28 lg:pb-0">
+          <div className="relative container lg:px-5 lg:pl-80 mx-auto pb-32 sm:pb-28 lg:pb-0">
             {children}
           </div>
         </BaseLayout>

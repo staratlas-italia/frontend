@@ -8,10 +8,10 @@ export const SideBar = () => {
     <>
       <Flex
         justify="center"
-        className="z-20 bottom-8 fixed lg:invisible w-full px-5"
+        className="z-30 bottom-8 fixed lg:invisible w-full px-5"
       >
         <BlurBackground
-          className="rounded-3xl bg-opacity-10"
+          className="rounded-3xl"
           disableRound
           px={4}
           py={2}
@@ -23,7 +23,7 @@ export const SideBar = () => {
       </Flex>
       <div className="z-20 invisible lg:visible min-h-screen fixed w-0 lg:w-64">
         <BlurBackground
-          className="rounded-none h-screen bg-opacity-10"
+          className="rounded-none h-screen"
           direction="col"
           disableRound
           px={4}
