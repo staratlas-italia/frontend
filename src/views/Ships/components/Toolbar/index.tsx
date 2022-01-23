@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useCallback } from "react";
-import { FormattedMessage } from "react-intl";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
+import { Translation } from "~/i18n/Translation";
 
 export type ToolbarState = "table" | "grid";
 
@@ -21,24 +21,22 @@ export const Toolbar = () => {
   }, [pathname, push]);
 
   return (
-    <Flex justify="end" px={5}>
-      <Flex as="button" className="relative" pb={5} onClick={handleClick}>
-        {pathname === "/ships" ? (
-          <Text size="xl" color="white" weight="bold">
-            <FormattedMessage
-              id="Ships.Toolbar.table"
-              defaultMessage={"Mostra tabella"}
-            />
-          </Text>
-        ) : (
-          <Text size="xl" color="white" weight="bold">
-            <FormattedMessage
-              id="Ships.Toolbar.grid"
-              defaultMessage={"Mostra griglia"}
-            />
-          </Text>
-        )}
-      </Flex>
+    <Flex
+      as="button"
+      align="center"
+      className="relative"
+      onClick={handleClick}
+      pr={5}
+    >
+      {pathname === "/ships" ? (
+        <Text size="xl" color="white" weight="bold">
+          <Translation id="Ships.Toolbar.table" />
+        </Text>
+      ) : (
+        <Text size="xl" color="white" weight="bold">
+          <Translation id="Ships.Toolbar.grid" />
+        </Text>
+      )}
     </Flex>
   );
 };

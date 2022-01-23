@@ -80,7 +80,7 @@ export const Table = <T extends object>({
           </tr>
         ))}
       </thead>
-      <tbody {...getTableBodyProps({ className: "divide-y-2 divide-white" })}>
+      <tbody {...getTableBodyProps({ className: "divide-y divide-white" })}>
         {loading ? (
           <tr>
             <td colSpan={10000}>
@@ -96,7 +96,7 @@ export const Table = <T extends object>({
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   return (
-                    <td {...cell.getCellProps({ className: "px-2" })}>
+                    <td {...cell.getCellProps({ className: "px-2 py-1" })}>
                       {cell.render("Cell")}
                     </td>
                   );

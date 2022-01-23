@@ -20,9 +20,9 @@ type Param = {
 
 export const columns = ({
   action,
-  locale,
-  formatMessage,
   atlasPrice,
+  formatMessage,
+  locale,
 }: Param) => [
   buildNameColumn({
     name: formatMessage({

@@ -11,9 +11,11 @@ export const ShipListPage = () => {
 
   return (
     <ShipsRetriever>
-      <Toolbar />
       <div className="space-y-5">
-        <Heading title="Ships.Heading.title" />
+        <Heading title="Ships.Heading.title">
+          <Toolbar />
+        </Heading>
+
         {pathname === getRoute("/ships/table") ? <ShipTable /> : <ShipList />}
       </div>
     </ShipsRetriever>
