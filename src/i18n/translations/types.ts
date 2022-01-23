@@ -1,4 +1,5 @@
 export type TranslationId =
+  | "Fleet.Heading.title"
   | "Home.EnlistBanner.action.title"
   | "Home.EnlistBanner.description.0"
   | "Home.EnlistBanner.description.1"
@@ -38,6 +39,7 @@ export type TranslationId =
   | "Ships.Details.tufa_feist.description"
   | "Ships.Details.vzus_ambwe.description"
   | "Ships.Details.vzus_opod.description"
+  | "Ships.Heading.title"
   | "Ships.List.Card.BuyAction.title"
   | "Ships.List.Card.ReadMore.title"
   | "Ships.Table.Column.atlasPrice"

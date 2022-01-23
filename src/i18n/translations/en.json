@@ -1,4 +1,5 @@
 {
+  "Fleet.Heading.title": "Your fleet",
   "Home.EnlistBanner.action.title": "Join us - Click here",
   "Home.EnlistBanner.description.0": "Based on the amount invested in the Guild, 1 or more NFTs will be airdropped, representing the shares of participation in the Guild, having in effect the power to decide on it (DAO).",
   "Home.EnlistBanner.description.1": "Are you ready for some incredible space adventures?",
@@ -27,6 +28,7 @@
   "Ships.Details.Crew.title": "Crew",
   "Ships.Details.Modules.title": "Modules",
   "Ships.Details.saleDate": "Official sale date - {date}",
+  "Ships.Heading.title": "The ships",
   "Ships.List.Card.BuyAction.title": "Buy",
   "Ships.List.Card.ReadMore.title": "Read more",
   "Ships.Table.Column.atlasPrice": "Atlas Price",
