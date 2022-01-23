@@ -1,4 +1,4 @@
-import { useShips } from "~/contexts/ShipsContext";
+import { useShips } from "~/hooks/useShips";
 import { ShipCard } from "~/views/Ships/components/Ship";
 
 export const ShipList = () => {
