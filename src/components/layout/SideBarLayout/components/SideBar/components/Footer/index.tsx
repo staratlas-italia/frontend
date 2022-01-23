@@ -10,18 +10,32 @@ export const Footer = () => {
 
   return (
     <Flex direction="col">
-      {/* <Link href={asPath} locale={locale === "it" ? "en" : "it"}>
-        <a>
-          <Text
-            color="white"
-            size="4xl"
-            transform="uppercase"
-            weight="semibold"
-          >
-            {locale === "it" ? "en" : "it"}
-          </Text>
-        </a>
-      </Link> */}
+      <Flex justify="center" pb={5} className={"space-x-5"}>
+        <Link href={asPath} locale={locale === "it" ? "en" : "it"}>
+          <a>
+            <Text
+              color="white"
+              size="2xl"
+              transform="uppercase"
+              weight={locale === "it" ? "bold" : "medium"}
+            >
+              IT
+            </Text>
+          </a>
+        </Link>
+        <Link href={asPath} locale={locale === "it" ? "en" : "it"}>
+          <a>
+            <Text
+              color="white"
+              size="2xl"
+              transform="uppercase"
+              weight={locale === "en" ? "bold" : "medium"}
+            >
+              EN
+            </Text>
+          </a>
+        </Link>
+      </Flex>
       <Flex pb={8} justify="center">
         <Link href="https://forms.gle/UhjNWDnsXq5bDxhE7">
           <a target="_blank">
