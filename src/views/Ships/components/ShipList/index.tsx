@@ -1,11 +1,11 @@
-import { useShips } from "~/contexts/ShipsContext";
+import { useShips } from "~/hooks/useShips";
 import { ShipCard } from "~/views/Ships/components/Ship";
 
 export const ShipList = () => {
   const { ships } = useShips();
 
   return (
-    <div className="space-y-10 px-5">
+    <div className="space-y-10">
       {ships?.map((ship) => (
         <ShipCard key={ship._id} ship={ship} />
       ))}

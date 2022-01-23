@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
-import { useShip } from "~/contexts/ShipsContext";
+import { useShip } from "~/hooks/useShip";
 import { Translation } from "~/i18n/Translation";
 import { TranslationId } from "~/i18n/translations/types";
 import { useTranslation } from "~/i18n/useTranslation";

@@ -25,6 +25,8 @@
     "cors": "^2.8.5",
     "date-fns": "^2.11.1",
     "gray-matter": "^4.0.2",
+    "invariant": "^2.2.4",
+    "lodash": "^4.17.21",
     "next": "^12.0.1",
     "react": "17.0.2",
     "react-countdown": "^2.3.2",

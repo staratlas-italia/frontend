@@ -1,6 +1,7 @@
 import { BeakerIcon } from "@heroicons/react/solid";
 import { useWallet } from "@solana/wallet-adapter-react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 import { MenuItem } from "~/components/layout/SideBarLayout/components/SideBar/types";
@@ -41,11 +42,16 @@ const menuItems: MenuItem[] = [
 
 export const Content = () => {
   const { publicKey } = useWallet();
+  const { locale } = useRouter();
   return (
     <Flex
-      lgAlign="center"
+      className="lg:space-y-6"
+      wrap="wrap"
+      lgWrap="nowrap"
+      lgAlign="start"
+      justify="center"
+      mdJustify="start"
       lgDirection="col"
-      className="lg:space-y-6 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-none"
       lgPx={5}
     >
       {menuItems.map((item, index) =>
@@ -54,7 +60,7 @@ export const Content = () => {
             <Link
               href={
                 item.needPbk
-                  ? item.route + `&pbk=${publicKey?.toString()}`
+                  ? item.route + `&pbk=${publicKey?.toString()}&lang=${locale}`
                   : item.route || ""
               }
             >

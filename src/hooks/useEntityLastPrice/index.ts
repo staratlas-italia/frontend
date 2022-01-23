@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useShip } from "~/contexts/ShipsContext";
+import { useShip } from "~/hooks/useShip";
 import { Currency } from "~/types";
 import { getMarketLastPrice } from "~/utils/getMarketLastPrice";
 

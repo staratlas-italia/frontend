@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { FormattedMessage } from "react-intl";
 import { Text } from "~/components/common/Text";
 import { Button } from "~/components/controls/Button";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
+import { Translation } from "~/i18n/Translation";
 import { HumanImage } from "~/views/Home/components/EnlistBanner/HumanImage";
 
 export const EnlistBanner = () => (
@@ -25,26 +25,15 @@ export const EnlistBanner = () => (
         size="4xl"
         mdSize="6xl"
       >
-        <FormattedMessage
-          id="Home.EnlistBanner.title"
-          defaultMessage="Vuoi far parte della gilda?"
-        />
+        <Translation id="Home.EnlistBanner.title" />
       </Text>
 
       <Text size="lg" mdSize="xl" color="gray-200">
-        <FormattedMessage
-          id="Home.EnlistBanner.description.0"
-          defaultMessage="In base all’ammontare investito nella Guild verranno airdroppati 1 o più
-          NFT che rappresenteranno le quote di partecipazione alla Gilda, avendo a
-          tutti gli effetti il potere di decidere su di essa (DAO)."
-        />
+        <Translation id="Home.EnlistBanner.description.0" />
       </Text>
 
       <Text color="white" weight="semibold" size="lg" mdSize="xl">
-        <FormattedMessage
-          id="Home.EnlistBanner.description.1"
-          defaultMessage="Sei pronto ad affrontare delle incredibili avventure spaziali?"
-        />
+        <Translation id="Home.EnlistBanner.description.1" />
       </Text>
 
       <Flex justify="end" pt={3}>
@@ -56,10 +45,7 @@ export const EnlistBanner = () => (
               hoverBgColor="green-200"
               textColor="green-700"
             >
-              <FormattedMessage
-                id="Home.EnlistBanner.action.title"
-                defaultMessage="Vuoi arruolati? - Clicca qui"
-              />
+              <Translation id="Home.EnlistBanner.action.title" />
             </Button>
           </a>
         </Link>
