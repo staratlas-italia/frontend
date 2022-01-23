@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useShip } from "~/contexts/ShipsContext";
+import { useShip } from "~/hooks/useShip";
 import { getEntityVwapPrice } from "~/utils/getEntityVwapPrice";
 
 export const useEntityVwapPrice = () => {

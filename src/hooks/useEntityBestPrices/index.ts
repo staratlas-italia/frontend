@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useShip } from "~/contexts/ShipsContext";
+import { useShip } from "~/hooks/useShip";
 import { BestPrices } from "~/network/orderbook";
 import { Currency } from "~/types";
 import { getEntityBestPrices } from "~/utils/getEntityBestPrices";
