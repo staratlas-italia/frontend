@@ -23,6 +23,8 @@ export const Item = ({
     <Flex
       p={2}
       justify="between"
+      direction="col"
+      lgDirection="row"
       className={classNames(" border-gray-300 rounded-xl", {
         "border-2": bordered,
         [`border-${borderColor}`]: bordered && borderColor,

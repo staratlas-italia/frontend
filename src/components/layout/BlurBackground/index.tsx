@@ -16,7 +16,7 @@ export const BlurBackground = ({
       color="black"
       className={classNames(
         className,
-        "z-20 backdrop-filter backdrop-blur-xl",
+        "z-10 backdrop-filter backdrop-blur-xl",
         {
           "rounded-3xl": !disableRound,
           "bg-opacity-20": !isF,

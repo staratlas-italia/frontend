@@ -8,7 +8,7 @@ export const SideBar = () => {
     <>
       <Flex
         justify="center"
-        className="z-20 bottom-8 fixed lg:invisible w-full px-5"
+        className="z-30 bottom-8 fixed lg:invisible w-full px-5"
       >
         <BlurBackground
           className="rounded-3xl"

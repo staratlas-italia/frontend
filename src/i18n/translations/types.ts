@@ -1,4 +1,5 @@
 export type TranslationId =
+  | "Dashboard.Profile.Placeholder.title"
   | "Fleet.Heading.title"
   | "Home.EnlistBanner.action.title"
   | "Home.EnlistBanner.description.0"
