@@ -12,9 +12,9 @@ import {
 } from "~/views/Ships/components/ShipTable/useShipsTable";
 
 export const ShipTable = () => {
-  const [action, setAction] = useState<MarketAction>("buy");
-
   const [fetch, { data, atlasPrice }] = useShipsTable();
+
+  const [action, setAction] = useState<MarketAction>("buy");
 
   const intl = useIntl();
 
@@ -40,18 +40,13 @@ export const ShipTable = () => {
       >
         <ButtonGroup
           items={[
-            ["buy", "I want to buy"],
-            ["sell", "I want to sell"],
+            ["buy", "Ships.Table.Buy.action.title"],
+            ["sell", "Ships.Table.Sell.action.title"],
           ]}
           onAction={(action) => setAction(action as MarketAction)}
           selectedItem={action}
         />
-        <Table
-          columns={cols}
-          data={data}
-          fetchData={fetch}
-          //loading={loading}
-        />
+        <Table columns={cols} data={data} fetchData={fetch} />
       </Flex>
     </BlurBackground>
   );

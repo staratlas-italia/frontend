@@ -1,9 +1,11 @@
 import classNames from "classnames";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
+import { Translation } from "~/i18n/Translation";
+import { TranslationId } from "~/i18n/translations/types";
 
 type Props = {
-  items: [string, string][];
+  items: [string, TranslationId][];
   onAction: (key: string) => void;
   selectedItem?: string;
 };
@@ -28,7 +30,7 @@ export const ButtonGroup = ({ items, onAction, selectedItem }: Props) => {
             )}
           >
             <Text weight={selectedItem === key ? "bold" : "semibold"}>
-              {value}
+              <Translation id={value} />
             </Text>
           </button>
         ))}
