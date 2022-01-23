@@ -1,7 +1,6 @@
 import { ArrowRightIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FormattedMessage } from "react-intl";
 import { Text } from "~/components/common/Text";
 import { Button } from "~/components/controls/Button";
 import { BlurBackground } from "~/components/layout/BlurBackground";
@@ -33,24 +32,13 @@ export const WelcomeBanner = () => {
           size="4xl"
           mdSize="6xl"
         >
-          <FormattedMessage
-            id="Home.WelcomeBanner.title"
-            defaultMessage="Benvenuto!"
-          />
+          <Translation id="Home.WelcomeBanner.title" />
         </Text>
         <Text color="white" size="lg" mdSize="xl" weight="medium">
-          <FormattedMessage
-            id="Home.WelcomeBanner.description.0"
-            defaultMessage="Un cataclisma cosmico ha generato un tesoro di Minerali al centro della
-          galassia. Le tre fazioni in lotta da millenni rivolgono ora le brame di
-          conquista agli immensi tesori di Star Atlas."
-          />
+          <Translation id="Home.WelcomeBanner.description.0" />
         </Text>
         <Text color="white" weight="semibold" size="lg" mdSize="xl">
-          <FormattedMessage
-            id="Home.WelcomeBanner.description.1"
-            defaultMessage="Sei pronto a unirti alla gilda più grande d'Italia?"
-          />
+          <Translation id="Home.WelcomeBanner.description.1" />
         </Text>
         <Flex>
           <Link href="/dashboard" locale={locale}>
