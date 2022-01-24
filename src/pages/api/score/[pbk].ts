@@ -107,51 +107,92 @@ export default async (
       millisecondsToBurnOneToolkit: account.millisecondsToBurnOneToolkit,
       /* Custom values */
       dailyFuelConsumption: resDailyConsumption(
-        account.millisecondsToBurnOneFuel
+        account.millisecondsToBurnOneFuel,
+        account.shipQuantityInEscrow.toNumber()
       ),
       dailyFoodConsumption: resDailyConsumption(
-        account.millisecondsToBurnOneFood
+        account.millisecondsToBurnOneFood,
+        account.shipQuantityInEscrow.toNumber()
       ),
       dailyArmsConsumption: resDailyConsumption(
-        account.millisecondsToBurnOneArms
+        account.millisecondsToBurnOneArms,
+        account.shipQuantityInEscrow.toNumber()
       ),
       dailyToolkitConsumption: resDailyConsumption(
-        account.millisecondsToBurnOneToolkit
+        account.millisecondsToBurnOneToolkit,
+        account.shipQuantityInEscrow.toNumber()
       ),
       dailyFuelCostInAtlas: resDailyCostInAtlas(
         FUEL_PRICE,
-        account.millisecondsToBurnOneFuel
+        account.millisecondsToBurnOneFuel,
+        account.shipQuantityInEscrow.toNumber()
       ),
       dailyFoodCostInAtlas: resDailyCostInAtlas(
         FOOD_PRICE,
-        account.millisecondsToBurnOneFood
+        account.millisecondsToBurnOneFood,
+        account.shipQuantityInEscrow.toNumber()
       ),
       dailyArmsCostInAtlas: resDailyCostInAtlas(
         ARMS_PRICE,
-        account.millisecondsToBurnOneArms
+        account.millisecondsToBurnOneArms,
+        account.shipQuantityInEscrow.toNumber()
       ),
       dailyToolkitCostInAtlas: resDailyCostInAtlas(
         TOOLKIT_PRICE,
-        account.millisecondsToBurnOneToolkit
+        account.millisecondsToBurnOneToolkit,
+        account.shipQuantityInEscrow.toNumber()
       ),
       dailyMaintenanceCostInAtlas: dailyMaintenanceCostInAtlas(
-        resDailyCostInAtlas(FUEL_PRICE, account.millisecondsToBurnOneFuel),
-        resDailyCostInAtlas(FOOD_PRICE, account.millisecondsToBurnOneFood),
-        resDailyCostInAtlas(ARMS_PRICE, account.millisecondsToBurnOneArms),
-        resDailyCostInAtlas(TOOLKIT_PRICE, account.millisecondsToBurnOneToolkit)
+        resDailyCostInAtlas(
+          FUEL_PRICE,
+          account.millisecondsToBurnOneFuel,
+          account.shipQuantityInEscrow.toNumber()
+        ),
+        resDailyCostInAtlas(
+          FOOD_PRICE,
+          account.millisecondsToBurnOneFood,
+          account.shipQuantityInEscrow.toNumber()
+        ),
+        resDailyCostInAtlas(
+          ARMS_PRICE,
+          account.millisecondsToBurnOneArms,
+          account.shipQuantityInEscrow.toNumber()
+        ),
+        resDailyCostInAtlas(
+          TOOLKIT_PRICE,
+          account.millisecondsToBurnOneToolkit,
+          account.shipQuantityInEscrow.toNumber()
+        )
       ),
       grossDailyRewardInAtlas: grossDailyRewardInAtlas(
-        account.rewardRatePerSecond.toNumber()
+        account.rewardRatePerSecond.toNumber(),
+        account.shipQuantityInEscrow.toNumber()
       ),
       netDailyRewardInAtlas: netDailyRewardInAtlas(
-        grossDailyRewardInAtlas(account.rewardRatePerSecond.toNumber()),
+        grossDailyRewardInAtlas(
+          account.rewardRatePerSecond.toNumber(),
+          account.shipQuantityInEscrow.toNumber()
+        ),
         dailyMaintenanceCostInAtlas(
-          resDailyCostInAtlas(FUEL_PRICE, account.millisecondsToBurnOneFuel),
-          resDailyCostInAtlas(FOOD_PRICE, account.millisecondsToBurnOneFood),
-          resDailyCostInAtlas(ARMS_PRICE, account.millisecondsToBurnOneArms),
+          resDailyCostInAtlas(
+            FUEL_PRICE,
+            account.millisecondsToBurnOneFuel,
+            account.shipQuantityInEscrow.toNumber()
+          ),
+          resDailyCostInAtlas(
+            FOOD_PRICE,
+            account.millisecondsToBurnOneFood,
+            account.shipQuantityInEscrow.toNumber()
+          ),
+          resDailyCostInAtlas(
+            ARMS_PRICE,
+            account.millisecondsToBurnOneArms,
+            account.shipQuantityInEscrow.toNumber()
+          ),
           resDailyCostInAtlas(
             TOOLKIT_PRICE,
-            account.millisecondsToBurnOneToolkit
+            account.millisecondsToBurnOneToolkit,
+            account.shipQuantityInEscrow.toNumber()
           )
         )
       ),
