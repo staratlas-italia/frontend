@@ -9,7 +9,7 @@ export type TranslationId =
   | "Home.WelcomeBanner.description.0"
   | "Home.WelcomeBanner.description.1"
   | "Home.WelcomeBanner.title"
-  | "Layout.AtlasChange.title"
+  | "Layout.Footer.Disclaimer.text"
   | "Layout.Header.Dashboard.action.title"
   | "Layout.Loader.title"
   | "Layout.Sidebar.Dashboard.title"
