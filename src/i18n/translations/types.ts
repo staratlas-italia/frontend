@@ -10,6 +10,8 @@ export type TranslationId =
   | "Home.WelcomeBanner.description.1"
   | "Home.WelcomeBanner.title"
   | "Layout.Footer.Disclaimer.text"
+  | "Layout.Footer.PrivacyPolicy.action.title"
+  | "Layout.Footer.TermsAndCondition.action.title"
   | "Layout.Header.Dashboard.action.title"
   | "Layout.Loader.title"
   | "Layout.Sidebar.Dashboard.title"
