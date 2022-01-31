@@ -1,6 +1,8 @@
 import classNames from "classnames";
 import React, { PropsWithChildren } from "react";
 import styled from "styled-components";
+import { Flex } from "~/components/layout/Flex";
+import { Footer } from "~/components/layout/Footer";
 import { Header } from "~/components/layout/Header";
 
 const LayoutBackground = styled.div.attrs({
@@ -17,17 +19,28 @@ export const BaseLayout = React.memo(
       <div>
         <LayoutBackground />
 
-        <div className={classNames("z-50 w-full", { "lg:fixed": headerFixed })}>
-          <Header fluid={fluid} />
-        </div>
-        <div
-          className={classNames("overflow-auto mx-auto  pb-10 px-5 sm:px-0", {
-            container: !fluid,
-            "pt-32": headerFixed,
-            "pt-10": !headerFixed,
-          })}
-        >
-          {children}
+        <div className="relative h-screen">
+          <div
+            className={classNames("z-20 w-full", { "lg:fixed": headerFixed })}
+          >
+            <Header fluid={fluid} />
+          </div>
+          <div
+            className={classNames("mx-auto  overflow-auto pb-10 px-5 sm:px-0", {
+              container: !fluid,
+              "pt-32": headerFixed,
+              "pt-10": !headerFixed,
+            })}
+          >
+            {children}
+          </div>
+          <Flex
+            className={classNames({
+              "lg:pl-80 container mx-auto": headerFixed,
+            })}
+          >
+            <Footer />
+          </Flex>
         </div>
       </div>
     );
