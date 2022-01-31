@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { version } from "~/../package.json";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 import { SocialLinks } from "~/components/layout/SideBarLayout/components/SideBar/components/SocialLinks";
@@ -45,7 +46,14 @@ export const Footer = () => {
           </a>
         </Link>
       </Flex>
+
       <SocialLinks />
+
+      <Flex pb={8} justify="center">
+        <Text color="white" size="xs" weight="semibold">
+          v{version}
+        </Text>
+      </Flex>
     </Flex>
   );
 };

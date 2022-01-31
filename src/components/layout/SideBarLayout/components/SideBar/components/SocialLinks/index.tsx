@@ -2,7 +2,7 @@ import { Flex } from "~/components/layout/Flex";
 
 export const SocialLinks = () => {
   return (
-    <Flex px={8} pb={8} justify={"between"}>
+    <Flex px={8} pb={4} justify={"between"}>
       <a
         target="_blank"
         rel="noopener noreferrer"
