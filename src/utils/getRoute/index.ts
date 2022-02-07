@@ -1,5 +1,6 @@
 export type Routes =
   | "/"
+  | "/admin"
   | "/dashboard"
   | "/ships"
   | "/ships/table"

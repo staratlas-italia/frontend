@@ -5,12 +5,19 @@ import { useRouter } from "next/router";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 import { MenuItem } from "~/components/layout/SideBarLayout/components/SideBar/types";
+import { useAuth } from "~/hooks/useAuth";
 import { Translation } from "~/i18n/Translation";
 
 const menuItems: MenuItem[] = [
   {
     name: "Layout.Sidebar.Dashboard.title",
     route: "/dashboard",
+    icon: (props) => <BeakerIcon {...props} />,
+  },
+  {
+    adminOnly: true,
+    name: "Layout.Sidebar.Dashboard.title",
+    route: "/admin",
     icon: (props) => <BeakerIcon {...props} />,
   },
   {
@@ -43,6 +50,8 @@ const menuItems: MenuItem[] = [
 export const Content = () => {
   const { publicKey } = useWallet();
   const { locale } = useRouter();
+  const { isAdmin } = useAuth();
+
   return (
     <Flex
       className="lg:space-y-6"
@@ -55,7 +64,7 @@ export const Content = () => {
       lgPx={5}
     >
       {menuItems.map((item, index) =>
-        item.needPbk && !publicKey ? null : (
+        (item.needPbk && !publicKey) || (!isAdmin && item.adminOnly) ? null : (
           <Flex key={index.toString()} align="center">
             <Link
               href={
