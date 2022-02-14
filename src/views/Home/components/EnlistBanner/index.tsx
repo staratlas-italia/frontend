@@ -37,7 +37,7 @@ export const EnlistBanner = () => (
       </Text>
 
       <Flex justify="end" pt={3}>
-        <Link href="https://forms.gle/7VVMXHE5nDVdjcPL8">
+        <Link href="https://discord.com/invite/sTRKvKPdE3">
           <a target="_blank">
             <Button
               as="span"
