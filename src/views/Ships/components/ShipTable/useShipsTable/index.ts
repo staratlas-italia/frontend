@@ -1,7 +1,9 @@
 import { useCallback, useState } from "react";
 import { useAtlasPrice } from "~/hooks/useAtlasPrice";
 import { useShips } from "~/hooks/useShips";
+import { appendQueryParams } from "~/utils/appendQueryParams";
 import { getEntityVwapPrice } from "~/utils/getEntityVwapPrice";
+import { getRoute } from "~/utils/getRoute";
 
 type ShipTableRow = {
   id: string;
@@ -57,10 +59,14 @@ export const useShipsTable = (): UseShipsTableResult => {
       const usdcMarket = ship.markets.find((m) => m.quotePair === "USDC");
       const atlasMarket = ship.markets.find((m) => m.quotePair === "ATLAS");
       const usdcOrderBook = await fetcher(
-        `/api/orderbook?marketId=${usdcMarket?.id}`
+        appendQueryParams(getRoute("/api/orderbook"), {
+          marketId: usdcMarket?.id || "",
+        })
       );
       const atlasOrderBook = await fetcher(
-        `/api/orderbook?marketId=${atlasMarket?.id}`
+        appendQueryParams(getRoute("/api/orderbook"), {
+          marketId: atlasMarket?.id || "",
+        })
       );
       const vwapPrice = getEntityVwapPrice(ship.primarySales);
       const buyPrice = usdcOrderBook?.bestAskPrice || 0;
