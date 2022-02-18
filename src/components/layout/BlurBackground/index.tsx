@@ -11,6 +11,7 @@ export const BlurBackground = ({
   ...props
 }: Props) => {
   const isF = isFirefox();
+
   return (
     <Flex
       color="black"
@@ -19,8 +20,8 @@ export const BlurBackground = ({
         "z-10 backdrop-filter backdrop-blur-xl",
         {
           "rounded-3xl": !disableRound,
-          "bg-opacity-20": !isF,
-          "bg-gray-700": isF,
+          "bg-opacity-40": !isF,
+          "bg-gray-600": isF,
         }
       )}
       {...props}
