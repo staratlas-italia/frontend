@@ -41,7 +41,7 @@ type Props = {
 export const SaiPie = ({ chart, unit, title }: Props) => (
   <DataRetriever chart={chart} title={title}>
     {({ data }) => (
-      <BlurBackground direction="col" px={5} py={3}>
+      <BlurBackground direction="col" px={5} py={3} className="h-full">
         <Flex pb={3}>
           <Text
             color="white"

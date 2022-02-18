@@ -37,18 +37,20 @@ export const Stats = () => {
         <Flex className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <SaiPie title="Faction Pie" chart="faction-pie" unit="%" />
           <SaiPie
-            unit="Tiers"
+            unit=" Tiers"
             title="Faction Tiers"
             chart="faction-tiers-pie"
           />
         </Flex>
 
-        <Flex className="grid grid-cols-1 lg:grid-cols-3 gap-3">
-          <div className="lg:col-span-2">
+        <Flex className="grid grid-cols-1 lg:grid-cols-5 gap-3">
+          <div className="lg:col-span-3">
             <SaiBar title="Ships avg quantity" chart="avg-ship-quantity" />
           </div>
 
-          <SaiPie title="Faction Pie" chart="faction-pie" />
+          <div className="lg:col-span-2">
+            <SaiPie title="Faction Pie" chart="faction-pie" />
+          </div>
         </Flex>
       </Flex>
     </Flex>
