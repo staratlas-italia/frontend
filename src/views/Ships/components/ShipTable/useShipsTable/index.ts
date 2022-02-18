@@ -3,7 +3,7 @@ import { useAtlasPrice } from "~/hooks/useAtlasPrice";
 import { useShips } from "~/hooks/useShips";
 import { appendQueryParams } from "~/utils/appendQueryParams";
 import { getEntityVwapPrice } from "~/utils/getEntityVwapPrice";
-import { getRoute } from "~/utils/getRoute";
+import { getApiRoute } from "~/utils/getRoute";
 
 type ShipTableRow = {
   id: string;
@@ -59,12 +59,12 @@ export const useShipsTable = (): UseShipsTableResult => {
       const usdcMarket = ship.markets.find((m) => m.quotePair === "USDC");
       const atlasMarket = ship.markets.find((m) => m.quotePair === "ATLAS");
       const usdcOrderBook = await fetcher(
-        appendQueryParams(getRoute("/api/orderbook"), {
+        appendQueryParams(getApiRoute("/api/orderbook"), {
           marketId: usdcMarket?.id || "",
         })
       );
       const atlasOrderBook = await fetcher(
-        appendQueryParams(getRoute("/api/orderbook"), {
+        appendQueryParams(getApiRoute("/api/orderbook"), {
           marketId: atlasMarket?.id || "",
         })
       );

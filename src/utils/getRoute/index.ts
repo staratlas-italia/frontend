@@ -1,4 +1,4 @@
-export type InternalRoutes =
+export type Routes =
   | "/"
   | "/admin"
   | "/dashboard"
@@ -7,13 +7,18 @@ export type InternalRoutes =
   | "/ships/table"
   | "/ships/:shipId";
 
-export type ApiRoute =
+export type ChartType =
+  | "faction-pie"
+  | "avg-ship-quantity"
+  | "faction-tiers-pie";
+
+export type ApiRoutes =
+  | `/api/charts/${ChartType}`
   | "/api/orderbook"
   | "/api/player"
   | "/api/score/:publicKey"
   | "/api/score/rates/:mint"
   | "/api/ships";
 
-export type Routes = InternalRoutes | ApiRoute;
-
+export const getApiRoute = <Route extends ApiRoutes>(route: Route) => route;
 export const getRoute = <Route extends Routes>(route: Route) => route;

@@ -2,7 +2,7 @@ import axios from "axios";
 import { BestPrices } from "~/network/orderbook";
 import { Currency, Market } from "~/types";
 import { appendQueryParams } from "~/utils/appendQueryParams";
-import { getRoute } from "~/utils/getRoute";
+import { getApiRoute } from "~/utils/getRoute";
 
 export const getEntityBestPrices = async (
   markets: Market[],
@@ -12,7 +12,7 @@ export const getEntityBestPrices = async (
 
   if (market) {
     const result = await axios.get<BestPrices>(
-      appendQueryParams(getRoute("/api/orderbook"), { marketId: market.id })
+      appendQueryParams(getApiRoute("/api/orderbook"), { marketId: market.id })
     );
 
     return result.data;

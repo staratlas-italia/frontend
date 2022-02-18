@@ -1,11 +1,11 @@
 import { NormalizedScoreVarsShipInfo } from "~/types";
 import { ScoreFleetResponse } from "~/types/api";
 import { fillUrlParameters } from "~/utils/fillUrlParameters";
-import { getRoute } from "~/utils/getRoute";
+import { getApiRoute } from "~/utils/getRoute";
 
 export const getShipRates = async (mint: string) => {
   const ratesRes = await fetch(
-    fillUrlParameters(getRoute("/api/score/rates/:mint"), { mint })
+    fillUrlParameters(getApiRoute("/api/score/rates/:mint"), { mint })
   );
 
   const ratesInfo: NormalizedScoreVarsShipInfo = await ratesRes.json();
@@ -27,7 +27,7 @@ export const getShipsRates = async (mints: string[]) => {
 
 export const getPlayerStakeShips = async (publicKey: string) => {
   const ratesRes = await fetch(
-    fillUrlParameters(getRoute("/api/score/:publicKey"), { publicKey })
+    fillUrlParameters(getApiRoute("/api/score/:publicKey"), { publicKey })
   );
 
   const ratesInfo: ScoreFleetResponse = await ratesRes.json();
