@@ -1,5 +1,5 @@
 import { ReactNode, useCallback } from "react";
-import { ChartData, useApiStore } from "~/stores/useApiStore";
+import { ChartData, useChartsStore } from "~/stores/useChartsStore";
 import { ChartType } from "~/utils/getRoute";
 import { ChartLoader } from "~/views/admin/Stats/components/ChartLoader";
 
@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const DataRetriever = ({ chart, children, title }: Props) => {
-  const chartData = useApiStore(
+  const chartData = useChartsStore(
     useCallback((state) => state.charts?.[chart], [chart])
   );
 

@@ -1,7 +1,6 @@
 import axios from "axios";
 import create from "zustand";
 import { devtools } from "zustand/middleware";
-import { Player } from "~/types";
 import { ChartType, getApiRoute } from "~/utils/getRoute";
 
 export type ChartData = {
@@ -10,19 +9,15 @@ export type ChartData = {
 };
 
 type ApiStore = {
-  player: Player | null;
-  score: any;
   charts: Partial<Record<ChartType, ChartData>>;
   fetchChart: (chart: ChartType, force?: boolean) => void;
   refreshChart: () => void;
   clear: () => void;
 };
 
-export const useApiStore = create<ApiStore>(
+export const useChartsStore = create<ApiStore>(
   devtools(
     (set, get) => ({
-      player: null,
-      score: null,
       charts: {},
       fetchChart: async (chart: ChartType, force: boolean = false) => {
         const chartData = get().charts?.[chart];
