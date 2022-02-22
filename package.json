@@ -41,6 +41,7 @@
     "sharp": "^0.29.3",
     "styled-components": "^5.3.3",
     "swr": "^1.1.2-beta.0",
+    "tweetnacl": "^1.0.3",
     "zustand": "^3.6.8"
   },
   "devDependencies": {
@@ -48,6 +49,7 @@
     "@commitlint/config-conventional": "^15.0.0",
     "@formatjs/cli": "^4.5.0",
     "@netlify/plugin-nextjs": "^4.0.0-beta.12",
+    "@types/invariant": "^2.2.35",
     "@types/node": "^16.11.11",
     "@types/react": "^17.0.37",
     "@types/react-table": "^7.7.9",

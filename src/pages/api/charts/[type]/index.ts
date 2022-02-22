@@ -1,4 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { isAdminMiddleware } from "~/middlewares/isAdmin";
+import { isPostMiddleware } from "~/middlewares/isPost";
+import { matchSignatureMiddleware } from "~/middlewares/matchSignature";
 import { getAllShips } from "~/network/ships/getAllShips";
 import { queryAvgShipsQuantity } from "~/queries/queryAvgShipsQuantity";
 import { queryFactionMemebers } from "~/queries/queryFactionMembers";
@@ -27,7 +30,7 @@ const getTierName = (tier: 0 | 1 | 2) => {
   }
 };
 
-export default async ({ query }: NextApiRequest, res: NextApiResponse) => {
+const handler = async ({ query }: NextApiRequest, res: NextApiResponse) => {
   const { type } = query;
 
   const chartType = type as ChartType;
@@ -83,3 +86,7 @@ export default async ({ query }: NextApiRequest, res: NextApiResponse) => {
       res.status(200).json({ message: "Pie type not available" });
   }
 };
+
+export default isPostMiddleware(
+  isAdminMiddleware(matchSignatureMiddleware(handler))
+);

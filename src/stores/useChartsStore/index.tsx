@@ -10,7 +10,12 @@ export type ChartData = {
 
 type ApiStore = {
   charts: Partial<Record<ChartType, ChartData>>;
-  fetchChart: (chart: ChartType, force?: boolean) => void;
+  fetchChart: (
+    chart: ChartType,
+    publicKey: string,
+    signature: string,
+    force?: boolean
+  ) => void;
   refreshChart: () => void;
   clear: () => void;
 };
@@ -19,7 +24,12 @@ export const useChartsStore = create<ApiStore>(
   devtools(
     (set, get) => ({
       charts: {},
-      fetchChart: async (chart: ChartType, force: boolean = false) => {
+      fetchChart: async (
+        chart: ChartType,
+        publicKey: string,
+        signature: string,
+        force: boolean = false
+      ) => {
         const chartData = get().charts?.[chart];
 
         if (!force && chartData) {
@@ -31,7 +41,10 @@ export const useChartsStore = create<ApiStore>(
           charts: { ...state.charts, [chart]: { loading: true } },
         }));
 
-        const respose = await axios.get(getApiRoute(`/api/charts/${chart}`));
+        const respose = await axios.post(getApiRoute(`/api/charts/${chart}`), {
+          publicKey,
+          signature,
+        });
 
         set((state) => ({
           charts: {
