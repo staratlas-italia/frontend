@@ -1,5 +1,6 @@
 export type TranslationId =
   | "Admin.Stats.title"
+  | "Admin.SignatureLoader.title"
   | "Admin.Stats.Refresh.action.title"
   | "Dashboard.Profile.Placeholder.title"
   | "Fleet.Heading.title"

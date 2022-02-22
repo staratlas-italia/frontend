@@ -5,8 +5,8 @@ import { useRouter } from "next/router";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 import { MenuItem } from "~/components/layout/SideBarLayout/components/SideBar/types";
-import { useAuth } from "~/hooks/useAuth";
 import { Translation } from "~/i18n/Translation";
+import { useAuthStore } from "~/stores/useAuthStore";
 
 const menuItems: MenuItem[] = [
   {
@@ -50,7 +50,7 @@ const menuItems: MenuItem[] = [
 export const Content = () => {
   const { publicKey } = useWallet();
   const { locale } = useRouter();
-  const { isAdmin } = useAuth();
+  const isAdmin = useAuthStore((s) => s.isAdmin);
 
   return (
     <Flex
@@ -64,7 +64,8 @@ export const Content = () => {
       lgPx={5}
     >
       {menuItems.map((item, index) =>
-        (item.needPbk && !publicKey) || (!isAdmin && item.adminOnly) ? null : (
+        (item.needPbk && !publicKey) ||
+        (!isAdmin(publicKey) && item.adminOnly) ? null : (
           <Flex key={index.toString()} align="center">
             <Link
               href={

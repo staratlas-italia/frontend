@@ -1,8 +1,10 @@
+import { useWallet } from "@solana/wallet-adapter-react";
 import { useCallback, useEffect } from "react";
 import { Heading } from "~/components/common/Heading";
 import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
 import { Translation } from "~/i18n/Translation";
+import { useAuthStore } from "~/stores/useAuthStore";
 import { useChartsStore } from "~/stores/useChartsStore";
 import { SaiBar } from "./components/SaiBar";
 import { SaiPie } from "./components/SaiPie";
@@ -10,13 +12,19 @@ import { SaiPie } from "./components/SaiPie";
 export const Stats = () => {
   const fetch = useChartsStore((state) => state.fetchChart);
 
+  const { publicKey } = useWallet();
+
+  const signature = useAuthStore((s) => s.signature);
+
   const fetchAllCharts = useCallback(
     (force: boolean = false) => {
-      fetch("avg-ship-quantity", force);
-      fetch("faction-pie", force);
-      fetch("faction-tiers-pie", force);
+      if (publicKey && signature) {
+        fetch("avg-ship-quantity", publicKey.toString(), signature, force);
+        fetch("faction-pie", publicKey.toString(), signature, force);
+        fetch("faction-tiers-pie", publicKey.toString(), signature, force);
+      }
     },
-    [fetch]
+    [fetch, signature]
   );
 
   useEffect(() => {
