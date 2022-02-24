@@ -1,12 +1,30 @@
 import { BN } from "@project-serum/anchor";
 import { ScoreVarsShipInfo, ShipStakingInfo } from "@staratlas/factory";
-import { ComponentType } from "react";
+import { ComponentType, ReactChild, ReactNodeArray, ReactPortal } from "react";
 import {
   AMMO_TOKEN_MINT_ID,
   FOOD_TOKEN_MINT_ID,
   FUEL_TOKEN_MINT_ID,
   TOOL_TOKEN_MINT_ID,
 } from "~/common/constants";
+
+export type StrictReactFragment =
+  | {
+      key?: string | number | null;
+      ref?: null;
+      props?: {
+        children?: StrictReactNode;
+      };
+    }
+  | ReactNodeArray;
+
+export type StrictReactNode =
+  | ReactChild
+  | StrictReactFragment
+  | ReactPortal
+  | boolean
+  | null
+  | undefined;
 
 type ShipAttributes = {
   itemType: string;

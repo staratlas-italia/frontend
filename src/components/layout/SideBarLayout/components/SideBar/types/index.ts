@@ -3,6 +3,7 @@ import { iconRenderProp } from "~/types";
 import { Routes } from "~/utils/getRoute";
 
 export type MenuItem = {
+  adminOnly?: boolean;
   name: TranslationId;
   external?: boolean;
   icon: iconRenderProp;

@@ -24,6 +24,7 @@ const withTM = require("next-transpile-modules")([
 /** @type {import('next').NextConfig} */
 module.exports = withTM({
   env: {
+    ADMINS_PBKS: process.env.ADMINS_PBKS,
     BACKUP_RPC_ENDPOINT: process.env.BACKUP_RPC_ENDPOINT,
     DEVNET_RPC_ENDPOINT: process.env.DEVNET_RPC_ENDPOINT,
     ENVIRONMENT: process.env.ENVIRONMENT,

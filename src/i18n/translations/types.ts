@@ -1,4 +1,7 @@
 export type TranslationId =
+  | "Admin.Stats.title"
+  | "Admin.SignatureLoader.title"
+  | "Admin.Stats.Refresh.action.title"
   | "Dashboard.Profile.Placeholder.title"
   | "Fleet.Heading.title"
   | "Home.EnlistBanner.action.title"
@@ -20,6 +23,7 @@ export type TranslationId =
   | "Layout.Sidebar.Resources.title"
   | "Layout.Sidebar.ScoreTool.title"
   | "Layout.Sidebar.Ships.title"
+  | "Layout.Sidebar.Stats.title"
   | "Layout.Treasury.title"
   | "Layout.Wallet.Connect.title"
   | "Layout.Wallet.Disconnect.title"

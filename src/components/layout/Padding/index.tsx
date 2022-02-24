@@ -1,8 +1,9 @@
 import classNames from "classnames";
-import { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import styled from "styled-components";
 import { Spacing } from "~/common/spacing";
 import { Pane } from "~/components/layout/Pane";
+import { StrictReactNode } from "~/types";
 
 type Padding = {
   p: Spacing;
@@ -35,7 +36,7 @@ type LgPadding = {
 };
 
 export type PaddingProps = PropsWithChildren<
-  Partial<Padding & MdPadding & LgPadding> & { Component?: ReactNode }
+  Partial<Padding & MdPadding & LgPadding> & { Component?: StrictReactNode }
 >;
 
 export const Padding = styled(Pane).attrs(

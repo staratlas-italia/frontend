@@ -1,4 +1,7 @@
 {
+  "Admin.Stats.title": "Statistics",
+  "Admin.SignatureLoader.title": "Waiting for signature...",
+  "Admin.Stats.Refresh.action.title": "Refresh",
   "Dashboard.Profile.Placeholder.title": "Start here. Connect your wallet",
   "Fleet.Heading.title": "Your fleet",
   "Home.EnlistBanner.action.title": "Join us now",
@@ -20,6 +23,7 @@
   "Layout.Sidebar.Resources.title": "Resources",
   "Layout.Sidebar.ScoreTool.title": "SCORE Tool",
   "Layout.Sidebar.Ships.title": "Ships",
+  "Layout.Sidebar.Stats.title": "Stats",
   "Layout.Treasury.title": "Treasury value",
   "Layout.Wallet.Connect.title": "Connect Wallet",
   "Layout.Wallet.Disconnect.title": "Disconnect",

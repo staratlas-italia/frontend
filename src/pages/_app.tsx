@@ -4,7 +4,7 @@ import { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { ReactNode, useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { IntlProvider } from "react-intl";
 import { MainLayout } from "~/components/layout/MainLayout";
 import { ModalProvider } from "~/contexts/ModalContext";
@@ -12,9 +12,10 @@ import { ShipsProvider } from "~/contexts/ShipsContext";
 import { useTranslations } from "~/i18n/useTranslations";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 import "~/styles/globals.css";
+import { StrictReactNode } from "~/types";
 import { getConnectionContext } from "~/utils/connection";
 
-const WalletProvider = dynamic<{ children: ReactNode }>(
+const WalletProvider = dynamic<{ children: StrictReactNode }>(
   () =>
     import("../contexts/WalletProvider").then(
       ({ WalletProvider }) => WalletProvider

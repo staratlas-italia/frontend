@@ -11,6 +11,7 @@ export const MainLayout = ({ children }) => {
 
   const Layout = useMemo(() => {
     switch (route) {
+      case "/admin":
       case "/dashboard":
       case "/ships":
       case "/ships/table":

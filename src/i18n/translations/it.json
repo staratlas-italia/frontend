@@ -1,4 +1,7 @@
 {
+  "Admin.Stats.title": "Statistiche",
+  "Admin.SignatureLoader.title": "In attesa della firma...",
+  "Admin.Stats.Refresh.action.title": "Aggiorna",
   "Dashboard.Profile.Placeholder.title": "Inizia qui. Connetti il tuo wallet",
   "Fleet.Heading.title": "La tua flotta",
   "Home.EnlistBanner.action.title": "Entra nella gilda",
@@ -20,6 +23,7 @@
   "Layout.Sidebar.Resources.title": "Risorse",
   "Layout.Sidebar.ScoreTool.title": "SCORE Tool",
   "Layout.Sidebar.Ships.title": "Ships",
+  "Layout.Sidebar.Stats.title": "Stats",
   "Layout.Treasury.title": "Valore tesoreria",
   "Layout.Wallet.Connect.title": "Connetti Wallet",
   "Layout.Wallet.Disconnect.title": "Disconnetti",

@@ -17,22 +17,34 @@ export const useGuildTreasury = (): UseGuildTreasuryResult => {
   useEffect(() => {
     const run = async () => {
       setLoading(true);
-      try {
-        const tokens = await connection.getParsedTokenAccountsByOwner(
-          new PublicKey(process.env.GUILD_TREASURY_ADDR || ""),
-          {
-            mint: new PublicKey(USDC_TOKEN_MINT_ID),
-          }
-        );
-        setTreasury({
-          usdcAmount:
+
+      const addrs = process.env.GUILD_TREASURY_ADDR?.split(",") || [];
+
+      const usdcAmount = await addrs.reduce(async (sumP, addr) => {
+        let sum = await sumP;
+
+        try {
+          const tokens = await connection.getParsedTokenAccountsByOwner(
+            new PublicKey(addr),
+            {
+              mint: new PublicKey(USDC_TOKEN_MINT_ID),
+            }
+          );
+
+          sum +=
             tokens?.value?.[0]?.account?.data?.parsed?.info?.tokenAmount
-              ?.uiAmount,
-        });
-        setLoading(false);
-      } catch (e) {
-        console.log(e);
-      }
+              ?.uiAmount || 0;
+
+          return sum;
+        } catch (e) {
+          return sum;
+        }
+      }, Promise.resolve(0));
+
+      setTreasury({
+        usdcAmount: usdcAmount || 0,
+      });
+      setLoading(false);
     };
     run();
   }, []);
