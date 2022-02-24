@@ -1,9 +1,6 @@
 import { Label, Pie, PieChart, ResponsiveContainer } from "recharts";
-import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
-
-type Props = { title: string };
 
 const getRandomIntInclusive = (min: number, max: number) => {
   const minInt = Math.ceil(min);
@@ -19,14 +16,14 @@ const getRandomData = () => {
     .map(() => ({ value: getRandomIntInclusive(5, 100) }));
 };
 
-export const ChartLoader = ({ title }: Props) => (
-  <BlurBackground direction="col" px={5} py={3} justify="center">
-    <Flex pb={3}>
-      <Text color="white" size="2xl" transform="uppercase" weight="semibold">
-        {title}
-      </Text>
-    </Flex>
-
+export const CoomingSoonChart = () => (
+  <BlurBackground
+    direction="col"
+    px={5}
+    py={3}
+    justify="center"
+    className="h-full"
+  >
     <Flex justify="center" className="min-h-10">
       <ResponsiveContainer width="100%" height={300}>
         <PieChart width={400} height={300}>
@@ -43,7 +40,7 @@ export const ChartLoader = ({ title }: Props) => (
             stroke="none"
           >
             <Label position="center" fill="rgba(255,255,255,0.8)">
-              Loading...
+              Cooming soon
             </Label>
           </Pie>
         </PieChart>

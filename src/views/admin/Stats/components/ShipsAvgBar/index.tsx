@@ -10,16 +10,14 @@ import {
 import { Text as SaiText } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
-import { ChartType } from "~/utils/getRoute";
 import { DataRetriever } from "~/views/admin/Stats/components/DataRetriever";
 
 type Props = {
   title: string;
-  chart: ChartType;
 };
 
-export const SaiBar = ({ chart, title }: Props) => (
-  <DataRetriever chart={chart} title={title}>
+export const ShipsAvgBar = ({ title }: Props) => (
+  <DataRetriever chart="avg-ship-quantity" title={title}>
     {({ data }) => (
       <BlurBackground direction="col" px={5} py={3} justify="center">
         <Flex pb={3}>

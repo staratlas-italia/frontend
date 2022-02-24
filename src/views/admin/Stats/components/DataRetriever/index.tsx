@@ -1,28 +1,38 @@
-import { ReactNode, useCallback } from "react";
-import { ChartData, useChartsStore } from "~/stores/useChartsStore";
-import { ChartType } from "~/utils/getRoute";
+import { useCallback } from "react";
+import { useChartsStore } from "~/stores/useChartsStore";
+import { StrictReactNode } from "~/types";
+import { ChartResponses, ChartType } from "~/types/api";
 import { ChartLoader } from "~/views/admin/Stats/components/ChartLoader";
 
-type Props = {
-  chart: ChartType;
-  children: (data: ChartData) => ReactNode;
+type Props<C extends ChartType> = {
+  chart: C;
+  children: (data: ChartResponses[C]) => StrictReactNode;
   title: string;
 };
 
-export const DataRetriever = ({ chart, children, title }: Props) => {
+export const DataRetriever = <C extends ChartType>({
+  chart,
+  children,
+  title,
+}: Props<C>) => {
   const chartData = useChartsStore(
-    useCallback((state) => state.charts?.[chart], [chart])
+    useCallback(
+      (state) => (chart in state.charts ? state.charts[chart]! : null),
+      [chart]
+    )
   );
+
+  const isLoading = useChartsStore(
+    useCallback((state) => state.loadingCharts.includes(chart), [chart])
+  );
+
+  if (isLoading) {
+    return <ChartLoader title={title} />;
+  }
 
   if (!chartData) {
     return null;
   }
 
-  const { loading } = chartData;
-
-  if (loading) {
-    return <ChartLoader title={title} />;
-  }
-
-  return <>{children(chartData)}</>;
+  return <>{children(chartData as ChartResponses[C])}</>;
 };

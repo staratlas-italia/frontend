@@ -1,60 +1,54 @@
-import axios from "axios";
 import create from "zustand";
 import { devtools } from "zustand/middleware";
-import { ChartType, getApiRoute } from "~/utils/getRoute";
+import { ChartResponses, ChartType } from "~/types/api";
+import { fetchChart as fetchChartApi } from "./fetchChart";
 
-export type ChartData = {
-  loading: boolean;
-  data: { label: string; value: number }[];
-};
+export type ChartEntries = Partial<ChartResponses>;
 
 type ApiStore = {
-  charts: Partial<Record<ChartType, ChartData>>;
+  charts: ChartEntries;
+  loadingCharts: ChartType[];
   fetchChart: (
     chart: ChartType,
     publicKey: string,
     signature: string,
     force?: boolean
   ) => void;
-  refreshChart: () => void;
-  clear: () => void;
 };
 
 export const useChartsStore = create<ApiStore>(
   devtools(
     (set, get) => ({
       charts: {},
-      fetchChart: async (
-        chart: ChartType,
-        publicKey: string,
-        signature: string,
-        force: boolean = false
-      ) => {
+      loadingCharts: [],
+      fetchChart: async (chart, publicKey, signature, force = false) => {
         const chartData = get().charts?.[chart];
 
         if (!force && chartData) {
           // Skip fetch if data already exists
+          // and force is false
           return;
         }
 
         set((state) => ({
-          charts: { ...state.charts, [chart]: { loading: true } },
+          loadingCharts: [...state.loadingCharts, chart],
         }));
 
-        const respose = await axios.post(getApiRoute(`/api/charts/${chart}`), {
-          publicKey,
-          signature,
+        const response = await fetchChartApi(chart, publicKey, signature);
+
+        set((state) => {
+          const newLoadingCharts = new Set(state.loadingCharts);
+          newLoadingCharts.delete(chart);
+
+          return {
+            loadingCharts: Array.from(newLoadingCharts),
+            charts: {
+              ...state.charts,
+              [chart]: response,
+            },
+          };
         });
-
-        set((state) => ({
-          charts: {
-            ...state.charts,
-            [chart]: { ...respose.data, loading: false },
-          },
-        }));
       },
-      refreshChart: () => {},
-      clear: () => {},
     }),
     { name: "API_STORE" }
   )

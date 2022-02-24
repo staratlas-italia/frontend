@@ -6,8 +6,10 @@ import { Flex } from "~/components/layout/Flex";
 import { Translation } from "~/i18n/Translation";
 import { useAuthStore } from "~/stores/useAuthStore";
 import { useChartsStore } from "~/stores/useChartsStore";
-import { SaiBar } from "./components/SaiBar";
-import { SaiPie } from "./components/SaiPie";
+import { CoomingSoonChart } from "~/views/admin/Stats/components/CoomingSoonChart";
+import { FactionsPie } from "~/views/admin/Stats/components/FactionsPie";
+import { FactionTiersPie } from "~/views/admin/Stats/components/FactionTiersPie";
+import { ShipsAvgBar } from "~/views/admin/Stats/components/ShipsAvgBar";
 
 export const Stats = () => {
   const fetch = useChartsStore((state) => state.fetchChart);
@@ -22,14 +24,15 @@ export const Stats = () => {
         fetch("avg-ship-quantity", publicKey.toString(), signature, force);
         fetch("faction-pie", publicKey.toString(), signature, force);
         fetch("faction-tiers-pie", publicKey.toString(), signature, force);
+        fetch("tiers-pie", publicKey.toString(), signature, force);
       }
     },
-    [fetch, signature]
+    [fetch, publicKey, signature]
   );
 
   useEffect(() => {
     fetchAllCharts();
-  }, []);
+  }, [fetchAllCharts]);
 
   return (
     <Flex className="space-y-3" direction="col">
@@ -43,21 +46,18 @@ export const Stats = () => {
       />
       <Flex className="grid gap-3">
         <Flex className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <SaiPie title="Faction Pie" chart="faction-pie" unit="%" />
-          <SaiPie
-            unit=" Tiers"
-            title="Faction Tiers"
-            chart="faction-tiers-pie"
-          />
+          <FactionsPie title="Faction Pie" unit="%" />
+
+          <FactionTiersPie unit="$" title="Faction Tiers" />
         </Flex>
 
         <Flex className="grid grid-cols-1 lg:grid-cols-5 gap-3">
           <div className="lg:col-span-3">
-            <SaiBar title="Ships avg quantity" chart="avg-ship-quantity" />
+            <ShipsAvgBar title="Ships avg quantity" />
           </div>
 
           <div className="lg:col-span-2">
-            <SaiPie title="Faction Pie" chart="faction-pie" />
+            <CoomingSoonChart />
           </div>
         </Flex>
       </Flex>
