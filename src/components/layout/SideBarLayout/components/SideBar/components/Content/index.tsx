@@ -16,9 +16,9 @@ const menuItems: MenuItem[] = [
   },
   {
     adminOnly: true,
-    name: "Layout.Sidebar.Dashboard.title",
+    name: "Layout.Sidebar.Stats.title",
     route: "/admin",
-    icon: (props) => <BeakerIcon {...props} />,
+    icon: (props) => <img src={`/images/icons/toolbox-solid.svg`} {...props} />,
   },
   {
     name: "Layout.Sidebar.Ships.title",
