@@ -1,12 +1,13 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import bs58 from "bs58";
-import { ReactNode, useEffect } from "react";
+import { useEffect } from "react";
 import { IS_ADMIN_SIGN_MSG } from "~/common/constants";
 import { useAuthStore } from "~/stores/useAuthStore";
+import { StrictReactNode } from "~/types";
 
 type Props = {
-  children: ReactNode;
-  loader?: ReactNode;
+  children: StrictReactNode;
+  loader?: StrictReactNode;
 };
 
 export const AssertAuthenticated = ({ children, loader }: Props) => {
@@ -26,6 +27,7 @@ export const AssertAuthenticated = ({ children, loader }: Props) => {
 
           if (signature && publicKey) {
             const encodedSignature = bs58.encode(signature);
+
             updateSignature(encodedSignature);
           }
         } catch (e) {}
