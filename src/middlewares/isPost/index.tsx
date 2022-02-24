@@ -11,5 +11,5 @@ export const isPostMiddleware =
       return res.status(405).json({ status: 405, error: "Method not allowed" });
     }
 
-    handler(req, res);
+    return handler(req, res);
   };

@@ -61,5 +61,5 @@ export const matchSignatureMiddleware =
         .json({ status: 403, error: "Cannot verify signature" });
     }
 
-    handler(req, res);
+    return handler(req, res);
   };

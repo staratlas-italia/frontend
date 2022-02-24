@@ -32,5 +32,5 @@ export const isAdminMiddleware =
       return res.status(403).json({ status: 403, error: "Not allowed" });
     }
 
-    handler(req, res);
+    return handler(req, res);
   };
