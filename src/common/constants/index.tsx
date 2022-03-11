@@ -21,7 +21,7 @@ export const POLIS_TOKEN_MINT_ID =
 export const SA_FLEET_PROGRAM_ID =
   "FLEET1qqzpexyaDpqb2DGsSzE2sDCizewCg9WjrA6DBW";
 
-export const DEXLAB_API_URL = "https://api.dexlab.space/v1";
+export const DEXLAB_API_URL = "https://open-api.dexlab.space/v1";
 
 export const FUEL_PRICE = 0.0014336;
 
