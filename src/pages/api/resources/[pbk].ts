@@ -3,7 +3,7 @@ import {
   FUEL_TOKEN_MINT_ID,
   AMMO_TOKEN_MINT_ID,
   TOOL_TOKEN_MINT_ID,
-} from "./../../../common/constants/index";
+} from "~/common/constants/index";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Connection, PublicKey } from "@solana/web3.js";
 import { getConnectionContext } from "~/utils/connection";
