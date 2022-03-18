@@ -5,10 +5,6 @@ import {
   ATLAS_TOKEN_MINT_ID,
   POLIS_TOKEN_MINT_ID,
   USDC_TOKEN_MINT_ID,
-  FOOD_TOKEN_MINT_ID,
-  FUEL_TOKEN_MINT_ID,
-  AMMO_TOKEN_MINT_ID,
-  TOOL_TOKEN_MINT_ID,
 } from "~/common/constants";
 import { getTokenBalanceByMint } from "~/utils/splToken";
 
