@@ -15,6 +15,7 @@ export const Profile = () => {
   if (!player) {
     return <LoadingView />;
   }
+
   if (isPlayer === false) {
     return (
       <BlurBackground
