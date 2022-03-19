@@ -1,7 +1,7 @@
 export type TranslationId =
-  | "Admin.Stats.title"
   | "Admin.SignatureLoader.title"
   | "Admin.Stats.Refresh.action.title"
+  | "Admin.Stats.title"
   | "Dashboard.Profile.Placeholder.title"
   | "Fleet.Heading.title"
   | "Home.EnlistBanner.action.title"
@@ -29,6 +29,9 @@ export type TranslationId =
   | "Layout.Wallet.Disconnect.title"
   | "Layout.Wallet.Modal.Connected.title"
   | "Layout.Wallet.Modal.ConnectedTo.title"
+  | "Mint.AccessDenied.text"
+  | "Mint.CheckBadge.text"
+  | "Mint.Hyperspace.text"
   | "Ships.Details.calico_compakt_hero.description"
   | "Ships.Details.calico_evac.description"
   | "Ships.Details.Components.title"
@@ -62,8 +65,9 @@ export type TranslationId =
   | "Wallet.Disconnect.action.title";
 
 export type TranslationValues = {
-  "Ships.Details.saleDate": { date: string };
   "Layout.Wallet.Modal.ConnectedTo.title": { wallet: string };
+  "Mint.Hyperspace.text": { seconds: string };
+  "Ships.Details.saleDate": { date: string };
 };
 
 export type TranslationValuesId = keyof TranslationValues;
