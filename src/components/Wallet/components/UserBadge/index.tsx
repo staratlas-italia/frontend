@@ -35,7 +35,7 @@ export const UserBadge = ({ iconSize, showAddress }: Props) => {
   }
 
   return (
-    <Flex className="space-x-3">
+    <Flex className="space-x-2">
       <Settings />
       <Button
         size={"small"}
@@ -47,7 +47,7 @@ export const UserBadge = ({ iconSize, showAddress }: Props) => {
           <Icon address={publicKey?.toBase58()} iconSize={iconSize} />
 
           {name && (
-            <Text weight="bold" size="base">
+            <Text weight="bold" className="text-xs lg:text-base">
               {name}
             </Text>
           )}

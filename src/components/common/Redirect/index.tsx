@@ -3,13 +3,18 @@ import { useEffect } from "react";
 
 type Props = {
   to: string;
+  replace?: boolean;
 };
 
-export const Redirect = ({ to }: Props) => {
+export const Redirect = ({ to, replace = false }: Props) => {
   const router = useRouter();
 
   useEffect(() => {
-    router.push(to);
+    if (replace) {
+      router.replace(to);
+    } else {
+      router.push(to);
+    }
   }, [to]);
 
   return null;
