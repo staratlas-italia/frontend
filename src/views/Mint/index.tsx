@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { Redirect } from "~/components/common/Redirect";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
+import { Flex } from "~/components/layout/Flex";
 import { LoadingView } from "~/components/LoadingView";
+import { ConnectButton } from "~/components/Wallet/components/ConnectButton";
 import { Translation } from "~/i18n/Translation";
 import { useAirdropToken } from "./useAirdropToken";
 
@@ -25,16 +27,19 @@ export const MintPage = () => {
 
   if (!wallet || !connected) {
     return (
-      <BlurBackground px={3} py={2} justify="center">
-        <Text align="center" color="white" size="4xl">
-          <Translation id="Dashboard.Profile.Placeholder.title" />
-        </Text>
+      <BlurBackground px={5} py={3} justify="center">
+        <Flex direction="col" className="space-y-3" align="center">
+          <Text align="center" color="white" size="4xl">
+            <Translation id="Dashboard.Profile.Placeholder.title" />
+          </Text>
+          <ConnectButton />
+        </Flex>
       </BlurBackground>
     );
   }
 
   if (route) {
-    return <Redirect to={route} />;
+    return <Redirect replace to={route} />;
   }
 
   if (tier) {
