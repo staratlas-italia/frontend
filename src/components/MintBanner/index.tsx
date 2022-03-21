@@ -5,7 +5,7 @@ import { Translation } from "~/i18n/Translation";
 import { getRoute } from "~/utils/getRoute";
 
 export const MintBanner = () => {
-  if (new Date() > new Date("2022-03-21:12:00:00.000Z")) {
+  if (new Date() > new Date("2022-03-30:12:00:00.000Z")) {
     return null;
   }
 
