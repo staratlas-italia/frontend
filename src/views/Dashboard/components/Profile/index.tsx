@@ -12,22 +12,12 @@ export const Profile = () => {
   const player = usePlayerStore((s) => s.current);
   const isPlayer = usePlayerStore((s) => s.isPlayer);
 
-  if (!player) {
-    return <LoadingView />;
+  if (isPlayer === false) {
+    return null;
   }
 
-  if (isPlayer === false) {
-    return (
-      <BlurBackground
-        direction="col"
-        lgDirection="row"
-        px={5}
-        py={5}
-        className="space-x-5"
-      >
-        <Text>Not a player</Text>
-      </BlurBackground>
-    );
+  if (!player) {
+    return <LoadingView />;
   }
 
   const { avatarId, avatarImageUrl, balance, rank, factionRank } = player;

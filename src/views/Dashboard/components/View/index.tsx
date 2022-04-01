@@ -6,6 +6,7 @@ import {
   usePolisBalance,
   useUsdcBalance,
 } from "~/hooks/useTokenBalance";
+import { Badges } from "~/views/Dashboard/components/Badges";
 import { Fleet } from "~/views/Dashboard/components/Fleet";
 import { Profile } from "~/views/Dashboard/components/Profile";
 
@@ -44,6 +45,7 @@ export const View = () => {
         </Flex>
 
         <Profile />
+        <Badges />
         <Fleet />
       </Flex>
     </>
