@@ -4,6 +4,7 @@ export type TranslationId =
   | "Admin.Stats.title"
   | "Dashboard.Profile.Placeholder.title"
   | "Fleet.Heading.title"
+  | "Badges.Heading.title"
   | "Home.EnlistBanner.action.title"
   | "Home.EnlistBanner.description.0"
   | "Home.EnlistBanner.description.1"

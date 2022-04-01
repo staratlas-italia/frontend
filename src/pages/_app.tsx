@@ -63,12 +63,14 @@ const Pages = ({ Component, pageProps }: AppProps) => {
 
   const fetchPlayer = usePlayerStore((s) => s.fetchPlayer);
   const fetchFleet = usePlayerStore((s) => s.fetchFleet);
+  const fetchBadges = usePlayerStore((s) => s.fetchBadges);
 
   useEffect(() => {
     const run = async () => {
       if (publicKey) {
         await fetchPlayer(publicKey.toString());
         await fetchFleet();
+        await fetchBadges();
       }
     };
     run();
