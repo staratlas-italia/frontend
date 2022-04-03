@@ -47,6 +47,7 @@ export const tier2BadgeMints = [
   "EwEwuMKm5MqMmZwEyYNMZFnuoDDbeXDqfdXFZ1B1xRjM",
   "35pfVQhgWpr2h26cLuMzPqBa952vzp7tE9xaGNiKJ7xK",
   "Aa5HAS2GqitdX8JZzre57D4eg4BRWGw6ubKkpKsDUVDY",
+  "JCT63H4KmszjZoJRwedzLR1B4gUMZ7JrYZ88BAd8BMTn",
   "3iMMdREUNVYGAFPAvKjYmhRLR2nDEmqC4gL4rnTMzuEa",
   "12DhmWjyefaBJpGHbk5mxTFBM1vZUGE868LNtJj8cSUy",
   "DzM9HVPP2fL9bgnUX8fExPuaN9VknfeNSDwjG1aqr6Ai",
