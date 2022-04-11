@@ -682,6 +682,13 @@
   resolved "https://registry.yarnpkg.com/@napi-rs/triples/-/triples-1.0.3.tgz#76d6d0c3f4d16013c61e45dfca5ff1e6c31ae53c"
   integrity sha512-jDJTpta+P4p1NZTFVLHJ/TLFVYVcOqv6l8xwOeBKNPMgY/zDYH/YH7SJbvrr/h1RcS9GzbPcLKGzpuK9cV56UA==
 
+"@netlify/functions@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@netlify/functions/-/functions-1.0.0.tgz#5b6c02fafc567033c93b15a080cc021e5f10f254"
+  integrity sha512-7fnJv3vr8uyyyOYPChwoec6MjzsCw1CoRUO2DhQ1BD6bOyJRlD4DUaOOGlMILB2LCT8P24p5LexEGx8AJb7xdA==
+  dependencies:
+    is-promise "^4.0.0"
+
 "@netlify/functions@^0.10.0":
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/@netlify/functions/-/functions-0.10.0.tgz#3856b609df1c1d1c7c21773650d1e5b4f81cfaf2"

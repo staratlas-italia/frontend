@@ -16,6 +16,7 @@
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
     "@metaplex-foundation/mpl-token-metadata": "^2.0.0",
+    "@netlify/functions": "1.0.0",
     "@project-serum/serum": "^0.13.61",
     "@solana/wallet-adapter-base": "^0.7.0",
     "@solana/wallet-adapter-react": "^0.13.1",
