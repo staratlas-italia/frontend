@@ -19,7 +19,7 @@ export const BaseLayout = React.memo(
       <div>
         <LayoutBackground />
 
-        <div className="relative h-screen">
+        <div className="relative min-h-screen">
           <div
             className={classNames("z-20 w-full", { "lg:fixed": headerFixed })}
           >
@@ -34,14 +34,14 @@ export const BaseLayout = React.memo(
           >
             {children}
           </div>
-          <Flex
-            className={classNames({
-              "lg:pl-80 container mx-auto": headerFixed,
-            })}
-          >
-            <Footer />
-          </Flex>
         </div>
+        <Flex
+          className={classNames({
+            "mx-auto lg:pl-64": headerFixed,
+          })}
+        >
+          <Footer />
+        </Flex>
       </div>
     );
   }

@@ -8,14 +8,14 @@ export const Links = () => {
     <Flex className="space-x-3">
       <Link href="https://staratlasitalia.com/termini-condizioni/">
         <a target="_blank">
-          <Text color="white" decoration="underline" size="xs">
+          <Text decoration="underline" size="xs">
             <Translation id="Layout.Footer.TermsAndCondition.action.title" />
           </Text>
         </a>
       </Link>
       <Link href="https://staratlasitalia.com/privacy-policy/">
         <a target="_blank">
-          <Text color="white" decoration="underline" size="xs">
+          <Text decoration="underline" size="xs">
             <Translation id="Layout.Footer.PrivacyPolicy.action.title" />
           </Text>
         </a>
