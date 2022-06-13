@@ -4,6 +4,7 @@ import { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import Script from "next/script";
 import React, { useEffect, useMemo } from "react";
 import { IntlProvider } from "react-intl";
 import { MainLayout } from "~/components/layout/MainLayout";
@@ -78,6 +79,19 @@ const Pages = ({ Component, pageProps }: AppProps) => {
 
   return (
     <>
+      <Script
+        strategy="lazyOnload"
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GOOGLE_ANALYTICS_KEY}`}
+      />
+      <Script strategy="lazyOnload">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', '${process.env.GOOGLE_ANALYTICS_KEY}'); 
+        `}
+      </Script>
       <Head>
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
