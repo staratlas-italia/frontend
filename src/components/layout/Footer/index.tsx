@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import { useRouter } from "next/router";
 import { Flex } from "~/components/layout/Flex";
 import { Disclaimer } from "~/components/layout/Footer/components/Disclaimer";
@@ -13,10 +12,17 @@ export const Footer = () => {
   }
 
   return (
-    <Flex align="center" grow={1} py={5} px={5} justify="center">
+    <Flex
+      align="center"
+      className="z-10 bg-white"
+      grow={1}
+      py={5}
+      px={5}
+      justify="center"
+    >
       <Flex
         align="center"
-        className={classNames("z-10 w-full container")}
+        className=" w-full container space-x-3"
         justify="between"
       >
         <Disclaimer />
