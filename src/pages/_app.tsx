@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Script from "next/script";
-import React, { useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { IntlProvider } from "react-intl";
 import { MainLayout } from "~/components/layout/MainLayout";
 import { ModalProvider } from "~/contexts/ModalContext";
@@ -90,6 +90,19 @@ const Pages = ({ Component, pageProps }: AppProps) => {
           gtag('js', new Date());
 
           gtag('config', '${process.env.GOOGLE_ANALYTICS_KEY}'); 
+        `}
+      </Script>
+
+      <Script strategy="lazyOnload">
+        {`  
+          (function(h,o,t,j,a,r){
+              h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+              h._hjSettings={hjid:3054503,hjsv:6};
+              a=o.getElementsByTagName('head')[0];
+              r=o.createElement('script');r.async=1;
+              r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+              a.appendChild(r);
+          })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
         `}
       </Script>
       <Head>
