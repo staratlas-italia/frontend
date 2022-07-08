@@ -47,4 +47,4 @@ export const ATLAS_DECIMAL = 100_000_000;
 
 export const ONE_DAY_IN_MILLISECONDS = 86_400_000;
 
-export const IS_ADMIN_SIGN_MSG = "Check if admin";
+export const WEBSITE_URL = "https://app.staratlasitalia.com";

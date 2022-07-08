@@ -1,5 +1,18 @@
 import { NormalizedShipStakingInfoExtended } from "~/types";
 
+export type User = {
+  createdAt?: Date;
+  discordId: null;
+  faction?: string;
+  lastRefillAt?: Date;
+  notifications: boolean;
+  players: any[];
+  tier?: 0 | 1 | 2;
+  wallets: string[];
+  referral?: { code: string; createdAt: Date };
+  fromReferral?: string;
+};
+
 export type ScoreFleetResponse =
   | {
       success: false;

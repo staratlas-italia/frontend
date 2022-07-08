@@ -20,6 +20,7 @@ export const Badges = () => {
         <Flex className="space-x-3 overflow-scroll">
           {badges.map((badge) => (
             <BlurBackground
+              key={badge.mint.toString()}
               disableRound
               direction="col"
               className=" rounded-lg max"

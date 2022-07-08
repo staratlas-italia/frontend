@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { Text } from "~/components/common/Text";
 import { Countdown } from "~/components/Countdown";
@@ -7,8 +6,8 @@ import { Flex } from "~/components/layout/Flex";
 import { ColorName } from "~/components/layout/Pane";
 import { Progress } from "~/components/Progress";
 import { NormalizedShipStakingInfoExtended, StarAtlasEntity } from "~/types";
-import { Heading } from "~/views/Dashboard/components/Fleet/components/Card/components/Heading";
-import { Image } from "~/views/Dashboard/components/Fleet/components/Card/components/Image";
+import { Heading } from "./components/Heading";
+import { Image } from "./components/Image";
 
 type Props = {
   ship?: StarAtlasEntity;

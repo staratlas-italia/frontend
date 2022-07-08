@@ -3,7 +3,7 @@ import { EmptyView } from "~/components/EmptyView";
 import { Flex } from "~/components/layout/Flex";
 import { LoadingView } from "~/components/LoadingView";
 import { usePlayerStore } from "~/stores/usePlayerStore";
-import { Card } from "~/views/Dashboard/components/Fleet/components/Card";
+import { Card } from "./components/Card";
 
 export const Fleet = () => {
   const fleet = usePlayerStore((s) => s.fleet);

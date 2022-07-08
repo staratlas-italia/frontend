@@ -1,6 +1,6 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import Head from "next/head";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { Redirect } from "~/components/common/Redirect";
 import { getRoute } from "~/utils/getRoute";
 import { HomePage } from "~/views/Home";

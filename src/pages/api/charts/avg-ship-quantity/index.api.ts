@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { isAdminMiddleware } from "~/middlewares/isAdmin";
-import { isPostMiddleware } from "~/middlewares/isPost";
+
 import { matchSignatureMiddleware } from "~/middlewares/matchSignature";
 import { getAllShips } from "~/network/ships/getAllShips";
 import { queryAvgShipsQuantity } from "~/queries/queryAvgShipsQuantity";
@@ -29,6 +29,7 @@ const handler = async (_: NextApiRequest, res: NextApiResponse) => {
   });
 };
 
-export default isPostMiddleware(
-  isAdminMiddleware(matchSignatureMiddleware(handler))
+export default matchSignatureMiddleware(
+  isAdminMiddleware(matchSignatureMiddleware(handler)),
+  ["POST"]
 );

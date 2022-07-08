@@ -7,6 +7,7 @@ import { Flex } from "~/components/layout/Flex";
 import { LoadingView } from "~/components/LoadingView";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 import { shortenAddress } from "~/utils/shortenAddress";
+import { Referral } from "./Referral";
 
 export const Profile = () => {
   const player = usePlayerStore((s) => s.current);
@@ -23,7 +24,7 @@ export const Profile = () => {
   const { avatarId, avatarImageUrl, balance, rank, factionRank } = player;
 
   return (
-    <Flex>
+    <Flex className="space-x-3">
       <BlurBackground
         direction="col"
         lgDirection="row"
@@ -59,6 +60,9 @@ export const Profile = () => {
           </InfoRow>
           <InfoRow color="gray-200" title="net worth">
             <Price color="white" value={balance} />
+          </InfoRow>
+          <InfoRow color="gray-200" title="Referral">
+            <Referral />
           </InfoRow>
         </Flex>
       </BlurBackground>

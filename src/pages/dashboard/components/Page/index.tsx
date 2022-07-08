@@ -2,9 +2,9 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Translation } from "~/i18n/Translation";
-import { View } from "~/views/Dashboard/components/View";
+import { View } from "../View";
 
-export const DashboardPage = () => {
+export const Page = () => {
   const { wallet, connected } = useWallet();
 
   if (!wallet || !connected) {

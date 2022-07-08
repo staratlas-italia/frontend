@@ -41,6 +41,7 @@ module.exports = withTM({
     domains: ["storage.googleapis.com"],
     minimumCacheTTL: 86400,
   },
+  pageExtensions: ["page.tsx", "page.ts", "api.ts"],
   reactStrictMode: true,
   trailingSlash: false,
 });

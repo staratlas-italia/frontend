@@ -11,7 +11,7 @@ export const HomePage = () => {
       <MintBanner />
 
       <Flex>
-        <BlurBackground px={4} py={3} className=" w-full md:w-72">
+        <BlurBackground px={4} py={3} className="w-full md:w-72">
           <Treasury />
         </BlurBackground>
       </Flex>

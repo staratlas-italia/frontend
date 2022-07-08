@@ -1,9 +1,10 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import bs58 from "bs58";
 import { useEffect } from "react";
-import { IS_ADMIN_SIGN_MSG } from "~/common/constants";
+
 import { useAuthStore } from "~/stores/useAuthStore";
 import { StrictReactNode } from "~/types";
+import { getProofMessage } from "~/utils/getProofMessage";
 
 type Props = {
   children: StrictReactNode;
@@ -20,10 +21,12 @@ export const AssertAuthenticated = ({ children, loader }: Props) => {
   useEffect(() => {
     const run = async () => {
       if (!signature) {
-        const message = new TextEncoder().encode(IS_ADMIN_SIGN_MSG);
+        const message = getProofMessage();
+
+        const messageBytes = new TextEncoder().encode(message);
 
         try {
-          const signature = await signMessage?.(message);
+          const signature = await signMessage?.(messageBytes);
 
           if (signature && publicKey) {
             const encodedSignature = bs58.encode(signature);

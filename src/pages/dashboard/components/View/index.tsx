@@ -6,9 +6,9 @@ import {
   usePolisBalance,
   useUsdcBalance,
 } from "~/hooks/useTokenBalance";
-import { Badges } from "~/views/Dashboard/components/Badges";
-import { Fleet } from "~/views/Dashboard/components/Fleet";
-import { Profile } from "~/views/Dashboard/components/Profile";
+import { Badges } from "../Badges";
+import { Fleet } from "../Fleet";
+import { Profile } from "../Profile";
 
 export const View = () => {
   const { amount: atlasAmount } = useAtlasBalance();
