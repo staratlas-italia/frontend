@@ -1,0 +1,10 @@
+{
+  "aliases": {
+    "~/*": ["src/*"]
+  },
+  "entry": ["src/pages/**"],
+  "extensions": [".ts", ".tsx", ".d.ts"],
+  "ignorePatterns": ["**/__mocks__/**", "**/__tests__/**", "**/mocks/**"],
+  "ignoreUnresolved": ["ts-jest/utils", "react-test-renderer/shallow"],
+  "root": "."
+}
