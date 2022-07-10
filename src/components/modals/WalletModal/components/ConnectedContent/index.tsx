@@ -7,6 +7,7 @@ import { List, ListSectons } from "~/components/List";
 import { useModal } from "~/contexts/ModalContext";
 import { Translation } from "~/i18n/Translation";
 import { useTranslation } from "~/i18n/useTranslation";
+import { useAuthStore } from "~/stores/useAuthStore";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 import { shortenAddress } from "~/utils/shortenAddress";
 
@@ -15,6 +16,7 @@ export const ConnectedContent = () => {
   const clear = usePlayerStore((s) => s.clear);
 
   const { close } = useModal("wallet-modal");
+  const clearAuth = useAuthStore((s) => s.clear);
 
   const connectedWalletTranslation = useTranslation(
     "Layout.Wallet.Modal.Connected.title"
@@ -43,6 +45,7 @@ export const ConnectedContent = () => {
 
   const onDisconnect = useCallback(() => {
     clear();
+    clearAuth();
     disconnect();
   }, [disconnect]);
 

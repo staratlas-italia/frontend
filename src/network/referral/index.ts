@@ -1,3 +1,4 @@
+import { Self } from "~/types/api";
 import { getApiRoute } from "~/utils/getRoute";
 
 type Response =
@@ -30,6 +31,46 @@ export const createReferral = async (
 
     if (response.success) {
       return response.code;
+    }
+
+    return null;
+  } catch (e) {
+    return null;
+  }
+};
+
+type RedeemResponse =
+  | {
+      success: true;
+      user: Self;
+    }
+  | {
+      success: false;
+      error: string;
+    };
+
+export const redeemReferral = async (
+  publicKey: string,
+  signature: string,
+  referralCode: string
+): Promise<Self | null> => {
+  try {
+    const request = await fetch(getApiRoute("/api/referral/redeem"), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        publicKey,
+        signature,
+        referralCode,
+      }),
+    });
+
+    const response = (await request.json()) as RedeemResponse;
+
+    if (response.success) {
+      return response.user;
     }
 
     return null;

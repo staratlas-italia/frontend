@@ -16,12 +16,13 @@ export const AssertAuthenticated = ({ adminOnly, children, loader }: Props) => {
   const isAdmin = useAuthStore((s) => s.isAdmin);
   const signature = useAuthStore((s) => s.signature);
   const updateSignature = useAuthStore((s) => s.updateSignature);
+  const signatueIsValid = useAuthStore((s) => s.isValid());
 
   const { publicKey, signMessage } = useWallet();
 
   useEffect(() => {
     const run = async () => {
-      if (!signature) {
+      if (!signature || !signatueIsValid) {
         const message = getProofMessage();
 
         const messageBytes = new TextEncoder().encode(message);
@@ -39,7 +40,7 @@ export const AssertAuthenticated = ({ adminOnly, children, loader }: Props) => {
     };
 
     run();
-  }, [signature]);
+  }, [signature, signatueIsValid]);
 
   if (adminOnly && !isAdmin(publicKey)) {
     return null;

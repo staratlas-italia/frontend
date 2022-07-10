@@ -15,6 +15,7 @@ export type ApiRoutes =
   | "/api/orderbook"
   | "/api/player"
   | "/api/referral/create"
+  | "/api/referral/redeem"
   | "/api/score/:publicKey"
   | "/api/score/rates/:mint"
   | "/api/self"

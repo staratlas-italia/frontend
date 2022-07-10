@@ -3,9 +3,9 @@ import { Price } from "~/components/common/Price";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
-import { Referral } from "~/pages/dashboard/components/Referral";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 import { shortenAddress } from "~/utils/shortenAddress";
+import { Referral } from "./Referral";
 
 export const Profile = () => {
   const player = usePlayerStore((s) => s.player);
