@@ -14,10 +14,10 @@ export type ApiRoutes =
   | `/api/charts/${ChartType}`
   | "/api/orderbook"
   | "/api/player"
-  | "/api/referral"
   | "/api/referral/create"
   | "/api/score/:publicKey"
   | "/api/score/rates/:mint"
+  | "/api/self"
   | "/api/ships";
 
 export const getApiRoute = <Route extends ApiRoutes>(route: Route) => route;

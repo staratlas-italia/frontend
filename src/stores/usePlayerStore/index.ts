@@ -2,6 +2,7 @@ import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
 import create, { State } from "zustand";
 import { fetchPlayer } from "~/network/player";
 import { getPlayerStakeShips } from "~/network/score";
+import { fetchSelf } from "~/network/self";
 import { getAllShips } from "~/network/ships/getAllShips";
 import {
   Avatar,
@@ -9,6 +10,7 @@ import {
   Player,
   StarAtlasEntity,
 } from "~/types";
+import { Self } from "~/types/api";
 import { getAvatarImageUrl } from "~/utils/getAvatarImageUrl";
 import { getBadgeByMint } from "~/utils/getBadgeByMint";
 import { getNfts, NFT } from "~/utils/splToken";
@@ -19,46 +21,83 @@ type FleetData = {
 };
 
 type PlayerStore = State & {
-  current: Player | null;
+  self: Self | null;
+  player: Player | null;
   fleet: FleetData[] | null;
-  isPlayer: boolean | null;
-  badges: NFT[];
-  fetchBadges: () => void;
-  fetchPlayer: (publicKey: string) => void;
-  fetchFleet: () => void;
+  badges: NFT[] | null;
+  fetching: {
+    badges: boolean;
+    fleets: boolean;
+    self: boolean;
+  };
   clear: () => void;
+  fetchBadges: (pk?: string) => void;
+  fetchFleet: (pk?: string) => void;
+  fetchSelf: (publicKey: string) => void;
 };
 
 export const usePlayerStore = create<PlayerStore>((set, get) => ({
-  current: null,
+  self: null,
+  player: null,
   fleet: null,
-  isPlayer: null,
-  badges: [],
-  fetchPlayer: async (pubkey) => {
-    const player = await fetchPlayer(pubkey);
+  badges: null,
+  isFetching: null,
+  fetching: {
+    badges: false,
+    fleets: false,
+    self: false,
+  },
+  fetchSelf: async (publicKey) => {
+    set((state) => ({
+      self: null,
+      fetching: { ...state.fetching, self: true },
+    }));
 
-    if (player) {
-      const current = {
-        ...player,
-        avatarImageUrl: getAvatarImageUrl(player?.avatarId as Avatar),
+    const [currentPlayer, self] = await Promise.all([
+      fetchPlayer(publicKey),
+      fetchSelf(publicKey),
+    ]);
+
+    if (currentPlayer) {
+      const player = {
+        ...currentPlayer,
+        avatarImageUrl: getAvatarImageUrl(currentPlayer?.avatarId as Avatar),
       };
-      set({ current, isPlayer: true });
+
+      set((state) => ({
+        player,
+        self,
+        fetching: { ...state.fetching, self: false },
+      }));
       return;
     }
 
-    set({ current: { publicKey: pubkey } as Player, isPlayer: false });
+    set((state) => ({
+      self,
+      fetching: {
+        ...state.fetching,
+        self: false,
+      },
+    }));
+
+    await get().fetchBadges(publicKey);
+    await get().fetchFleet(publicKey);
   },
-  fetchFleet: async () => {
-    set({ fleet: null });
+  fetchFleet: async (pk) => {
+    set((state) => ({
+      fleet: null,
+      fetching: { ...state.fetching, fleet: true },
+    }));
 
-    const current = get().current;
+    const publicKey = pk || get().player?.publicKey;
 
-    if (current?.publicKey) {
-      const response = await getPlayerStakeShips(current.publicKey);
+    if (publicKey) {
+      const response = await getPlayerStakeShips(publicKey);
 
       if (response.success) {
         const { data: playerFleet } = response;
         const ships = await getAllShips();
+
         const mints = playerFleet.map((i) => i.shipMint);
         const fleetShips = ships.filter((item) => mints.includes(item.mint));
 
@@ -67,21 +106,43 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
           stakeInfo: playerFleet.find((item) => item.shipMint === ship.mint),
         }));
 
-        set({ fleet });
+        set((state) => ({
+          fleet,
+          fetching: { ...state.fetching, fleet: false },
+        }));
         return;
       }
     }
-    set({ fleet: [] });
-  },
-  fetchBadges: async () => {
-    const current = get().current;
 
-    if (current?.publicKey) {
+    set((state) => ({
+      fleet: [],
+      fetching: { ...state.fetching, fleet: false },
+    }));
+  },
+  fetchBadges: async (pk) => {
+    set((state) => ({
+      badges: null,
+      fetching: { ...state.fetching, badges: true },
+    }));
+
+    const publicKey = pk || get().player?.publicKey;
+
+    if (publicKey) {
       const connection = new Connection(clusterApiUrl("mainnet-beta"));
-      const nfts = await getNfts(connection, new PublicKey(current.publicKey));
+      const nfts = await getNfts(connection, new PublicKey(publicKey));
 
-      set({ badges: nfts.filter((nft) => getBadgeByMint(nft.mint)) });
+      set((state) => ({
+        badges: nfts.filter((nft) => getBadgeByMint(nft.mint)),
+        fetching: { ...state.fetching, badges: false },
+      }));
+      return;
     }
+
+    set((state) => ({
+      badges: [],
+      fetching: { ...state.fetching, badges: false },
+    }));
   },
-  clear: () => set({ current: null, fleet: [], isPlayer: null }),
+
+  clear: () => set({ self: null, player: null, fleet: [] }),
 }));

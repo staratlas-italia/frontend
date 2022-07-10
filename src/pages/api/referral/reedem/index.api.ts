@@ -3,7 +3,7 @@ import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 
 import { matchSignatureMiddleware } from "~/middlewares/matchSignature";
 import { mongoClient } from "~/pages/api/mongodb";
-import { User } from "~/types/api";
+import { Self } from "~/types/api";
 
 const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
   const { referralCode, publicKey } = body;
@@ -25,7 +25,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 
   const db = mongoClient.db("app-db");
 
-  const userCollection = db.collection<User>("users");
+  const userCollection = db.collection<Self>("users");
 
   const userWhoSendsReferral = await userCollection.findOne({
     "referral.code": referralCode,
@@ -48,6 +48,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
           wallets: [publicKey],
           discordId: null,
           notifications: false,
+          // TODO
           players: [],
         },
       },

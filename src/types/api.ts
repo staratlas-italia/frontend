@@ -1,12 +1,12 @@
-import { NormalizedShipStakingInfoExtended } from "~/types";
+import { NormalizedShipStakingInfoExtended, Player } from "~/types";
 
-export type User = {
+export type Self = {
   createdAt?: Date;
   discordId: null;
   faction?: string;
   lastRefillAt?: Date;
   notifications: boolean;
-  players: any[];
+  players: Player[];
   tier?: 0 | 1 | 2;
   wallets: string[];
   referral?: { code: string; createdAt: Date };

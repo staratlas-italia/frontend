@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 import { mongoClient } from "~/pages/api/mongodb";
-import { User } from "~/types/api";
+import { Self } from "~/types/api";
 
 const handler = async ({ query }: NextApiRequest, res: NextApiResponse) => {
   const { publicKey } = query;
@@ -24,7 +24,7 @@ const handler = async ({ query }: NextApiRequest, res: NextApiResponse) => {
 
   const db = mongoClient.db("app-db");
 
-  const userCollection = db.collection<User>("users");
+  const userCollection = db.collection<Self>("users");
 
   const user = await userCollection.findOne({
     wallets: { $in: [publicKey] },
@@ -40,7 +40,7 @@ const handler = async ({ query }: NextApiRequest, res: NextApiResponse) => {
 
   res.status(200).json({
     success: true,
-    code: user.referral?.code || null,
+    user,
   });
 };
 
