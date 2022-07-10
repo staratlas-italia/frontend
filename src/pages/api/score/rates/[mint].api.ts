@@ -28,8 +28,6 @@ export default async (
     query: { mint },
   } = req;
 
-  console.log(req.headers.origin);
-
   if (!isPublicKey(mint as string)) {
     res.status(200).json({
       success: false,

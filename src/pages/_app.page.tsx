@@ -27,11 +27,7 @@ const WalletProvider = dynamic<{ children: StrictReactNode }>(
   }
 );
 
-const growthbook = new GrowthBook({
-  trackingCallback: (experiment, result) => {
-    console.log("Viewed Experiment", experiment, result);
-  },
-});
+const growthbook = new GrowthBook();
 
 function App({ router, ...props }: AppProps) {
   const translations = useTranslations();

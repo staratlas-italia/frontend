@@ -25,8 +25,6 @@ export const matchSignatureMiddleware =
 
     const realPublicKey = tryParsePublicKey(publicKey);
 
-    console.log(publicKey, realPublicKey, signature);
-
     if (!publicKey || !realPublicKey || !signature) {
       return res
         .status(400)
