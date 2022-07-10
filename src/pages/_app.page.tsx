@@ -1,3 +1,4 @@
+import { GrowthBook, GrowthBookProvider } from "@growthbook/growthbook-react";
 import { ConnectionProvider } from "@solana/wallet-adapter-react";
 import { Cluster } from "@solana/web3.js";
 import { AppProps } from "next/app";
@@ -5,7 +6,7 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Script from "next/script";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { IntlProvider } from "react-intl";
 import { MainLayout } from "~/components/layout/MainLayout";
 import { PreloadResources } from "~/components/PreloadResources";
@@ -26,8 +27,15 @@ const WalletProvider = dynamic<{ children: StrictReactNode }>(
   }
 );
 
-function App(props: AppProps) {
+const growthbook = new GrowthBook({
+  trackingCallback: (experiment, result) => {
+    console.log("Viewed Experiment", experiment, result);
+  },
+});
+
+function App({ router, ...props }: AppProps) {
   const translations = useTranslations();
+
   const {
     locale,
     query: { cluster },
@@ -38,28 +46,42 @@ function App(props: AppProps) {
     [cluster]
   );
 
+  useEffect(() => {
+    if (!process.env.FEATURES_ENDPOINT) {
+      return;
+    }
+
+    fetch(process.env.FEATURES_ENDPOINT)
+      .then((res) => res.json())
+      .then((json) => {
+        growthbook.setFeatures(json.features);
+      });
+  }, []);
+
   return (
-    <ConnectionProvider endpoint={endpoint}>
-      <IntlProvider
-        messages={translations}
-        locale={locale || "it"}
-        defaultLocale="it"
-      >
-        <ModalProvider>
-          <WalletProvider>
-            <ShipsProvider>
-              <MainLayout>
-                <Pages {...props} />
-              </MainLayout>
-            </ShipsProvider>
-          </WalletProvider>
-        </ModalProvider>
-      </IntlProvider>
-    </ConnectionProvider>
+    <GrowthBookProvider growthbook={growthbook}>
+      <ConnectionProvider endpoint={endpoint}>
+        <IntlProvider
+          messages={translations}
+          locale={locale || "it"}
+          defaultLocale="it"
+        >
+          <ModalProvider>
+            <WalletProvider>
+              <ShipsProvider>
+                <MainLayout>
+                  <Pages {...props} />
+                </MainLayout>
+              </ShipsProvider>
+            </WalletProvider>
+          </ModalProvider>
+        </IntlProvider>
+      </ConnectionProvider>
+    </GrowthBookProvider>
   );
 }
 
-const Pages = ({ Component, pageProps }: AppProps) => {
+const Pages = ({ Component, pageProps }: Omit<AppProps, "router">) => {
   // const { publicKey } = useWallet();
 
   // const fetchPlayer = usePlayerStore((s) => s.fetchPlayer);

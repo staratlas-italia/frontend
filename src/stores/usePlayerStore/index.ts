@@ -36,6 +36,8 @@ type PlayerStore = State & {
   fetchSelf: (publicKey: string) => void;
 };
 
+let ongoingRequest: Promise<[Player | null, Self | null]> | null = null;
+
 export const usePlayerStore = create<PlayerStore>((set, get) => ({
   self: null,
   player: null,
@@ -48,15 +50,21 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     self: false,
   },
   fetchSelf: async (publicKey) => {
+    if (ongoingRequest) {
+      return;
+    }
+
     set((state) => ({
       self: null,
       fetching: { ...state.fetching, self: true },
     }));
 
-    const [currentPlayer, self] = await Promise.all([
+    ongoingRequest = Promise.all([
       fetchPlayer(publicKey),
       fetchSelf(publicKey),
     ]);
+
+    const [currentPlayer, self] = await ongoingRequest;
 
     if (currentPlayer) {
       const player = {
@@ -69,16 +77,17 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
         self,
         fetching: { ...state.fetching, self: false },
       }));
-      return;
+    } else {
+      set((state) => ({
+        self,
+        fetching: {
+          ...state.fetching,
+          self: false,
+        },
+      }));
     }
 
-    set((state) => ({
-      self,
-      fetching: {
-        ...state.fetching,
-        self: false,
-      },
-    }));
+    ongoingRequest = null;
 
     await get().fetchBadges(publicKey);
     await get().fetchFleet(publicKey);

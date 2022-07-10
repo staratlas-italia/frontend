@@ -17,7 +17,11 @@ export const Profile = () => {
   const { avatarId, avatarImageUrl, balance, rank, factionRank } = player;
 
   return (
-    <Flex className="space-x-5">
+    <Flex
+      className="xl:space-x-5 space-y-5 xl:space-y-0"
+      direction="col"
+      xlDirection="row"
+    >
       <BlurBackground
         direction="col"
         lgDirection="row"

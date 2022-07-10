@@ -20,11 +20,9 @@ export const useNullableSelf = () => {
         return;
       }
 
-      console.log("[dd] fetching", self);
-
       fetchSelf(publicKey.toString());
     }
-  }, [publicKey]);
+  }, [publicKey, isFetching]);
 
   return {
     isFetching: self === null,

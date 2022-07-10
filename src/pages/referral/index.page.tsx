@@ -1,3 +1,4 @@
+import { useFeature } from "@growthbook/growthbook-react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useRouter } from "next/router";
 import { AssertAuthenticated } from "~/components/auth/AssertAuthenticated";
@@ -10,10 +11,18 @@ import { Translation } from "~/i18n/Translation";
 import { getRoute } from "~/utils/getRoute";
 
 const ReferralCodePage = () => {
+  const isReferralSystemDisabled = useFeature(
+    "sai-frontend-enabled-referral-system"
+  ).off;
+
   const { code } = useRouter().query;
   const { wallet, connected } = useWallet();
 
   const { redeem, user } = useReferral();
+
+  if (isReferralSystemDisabled) {
+    return <Redirect to={getRoute("/dashboard")} />;
+  }
 
   if (!wallet || !connected) {
     return (

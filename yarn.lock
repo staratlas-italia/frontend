@@ -546,6 +546,18 @@
   resolved "https://registry.yarnpkg.com/@google-cloud/promisify/-/promisify-2.0.4.tgz#9d8705ecb2baa41b6b2673f3a8e9b7b7e1abc52a"
   integrity sha512-j8yRSSqswWi1QqUGKVEKOG03Q7qOoZP6/h2zN2YO+F5h2+DHU0bSrHCK9Y7lo2DI9fBd8qGAw795sf+3Jva4yA==
 
+"@growthbook/growthbook-react@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@growthbook/growthbook-react/-/growthbook-react-0.9.0.tgz#c0f3b71349addb04225fa5524a8a2fce3059bfb1"
+  integrity sha512-8WJ6ckj5Wzg+pDos3/DNF2BJNL7S8NeFu+LLTtv/p+hGW1Epkl2et0N1goMQRfnyIhtLerOgTBR9eZoy9AxK2Q==
+  dependencies:
+    "@growthbook/growthbook" "^0.18.0"
+
+"@growthbook/growthbook@^0.18.0":
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/@growthbook/growthbook/-/growthbook-0.18.0.tgz#7ce599a6d9eaacaef1fdc5340aeeb8730345b25c"
+  integrity sha512-Z7ydUgVdYN9Qcu3KIfmkcL2CnnIMyscd4EuFaDJ7oi/TJ+v3VrJer0pZzZ9MZlUaQU+j4Z7MDOCB2NBKENXLkQ==
+
 "@hapi/accept@5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@hapi/accept/-/accept-5.0.2.tgz#ab7043b037e68b722f93f376afb05e85c0699523"
@@ -1713,6 +1725,11 @@ acorn@^8.4.1:
   version "8.6.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.6.0.tgz#e3692ba0eb1a0c83eaa4f37f5fa7368dd7142895"
   integrity sha512-U1riIR+lBSNi3IbxtaHOIKdH8sLFv3NYfNv8sg7ZsNhcfl4HF2++BfqqrNAxoCLQW1iiylOj76ecnaUxz+z9yw==
+
+add@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/add/-/add-2.0.6.tgz#248f0a9f6e5a528ef2295dbeec30532130ae2235"
+  integrity sha512-j5QzrmsokwWWp6kUcJQySpbG+xfOBqqKnup3OIk1pz+kB/80SLorZ9V8zHFLO92Lcd+hbvq8bT+zOGoPkmBV0Q==
 
 agent-base@6:
   version "6.0.2"
@@ -8007,6 +8024,11 @@ yargs@^17.0.0:
     string-width "^4.2.3"
     y18n "^5.0.5"
     yargs-parser "^21.0.0"
+
+yarn@^1.22.19:
+  version "1.22.19"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.19.tgz#4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
+  integrity sha512-/0V5q0WbslqnwP91tirOvldvYISzaqhClxzyUKXYxs07yUILIs5jx/k6CFe8bvKSkds5w+eiOqta39Wk3WxdcQ==
 
 yn@3.1.1:
   version "3.1.1"
