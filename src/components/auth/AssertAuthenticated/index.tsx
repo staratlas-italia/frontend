@@ -7,11 +7,12 @@ import { StrictReactNode } from "~/types";
 import { getProofMessage } from "~/utils/getProofMessage";
 
 type Props = {
+  adminOnly?: boolean;
   children: StrictReactNode;
   loader?: StrictReactNode;
 };
 
-export const AssertAuthenticated = ({ children, loader }: Props) => {
+export const AssertAuthenticated = ({ adminOnly, children, loader }: Props) => {
   const isAdmin = useAuthStore((s) => s.isAdmin);
   const signature = useAuthStore((s) => s.signature);
   const updateSignature = useAuthStore((s) => s.updateSignature);
@@ -26,10 +27,10 @@ export const AssertAuthenticated = ({ children, loader }: Props) => {
         const messageBytes = new TextEncoder().encode(message);
 
         try {
-          const signature = await signMessage?.(messageBytes);
+          const newSignature = await signMessage?.(messageBytes);
 
-          if (signature && publicKey) {
-            const encodedSignature = bs58.encode(signature);
+          if (newSignature && publicKey) {
+            const encodedSignature = bs58.encode(newSignature);
 
             updateSignature(encodedSignature);
           }
@@ -40,7 +41,11 @@ export const AssertAuthenticated = ({ children, loader }: Props) => {
     run();
   }, [signature]);
 
-  if (publicKey && !isAdmin(publicKey)) {
+  if (adminOnly && !isAdmin(publicKey)) {
+    return null;
+  }
+
+  if (!publicKey) {
     return null;
   }
 

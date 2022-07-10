@@ -4,6 +4,7 @@ import { Stats } from "~/views/admin/Stats";
 
 const Admin = () => (
   <AssertAuthenticated
+    adminOnly
     loader={<LoadingView title="Admin.SignatureLoader.title" />}
   >
     <Stats />

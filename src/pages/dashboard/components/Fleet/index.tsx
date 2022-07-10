@@ -2,11 +2,11 @@ import { Heading } from "~/components/common/Heading";
 import { EmptyView } from "~/components/EmptyView";
 import { Flex } from "~/components/layout/Flex";
 import { LoadingView } from "~/components/LoadingView";
-import { usePlayerStore } from "~/stores/usePlayerStore";
+import { useNullableFleet } from "~/hooks/useNullableFleet";
 import { Card } from "./components/Card";
 
 export const Fleet = () => {
-  const fleet = usePlayerStore((s) => s.fleet);
+  const { isFetching, fleet } = useNullableFleet();
 
   return (
     <Flex direction="col" className="z-10 space-y-5">

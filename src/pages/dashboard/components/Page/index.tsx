@@ -1,6 +1,7 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
+import { SelfRetriever } from "~/components/SelfRetriever";
 import { Translation } from "~/i18n/Translation";
 import { View } from "../View";
 
@@ -17,5 +18,9 @@ export const Page = () => {
     );
   }
 
-  return <View />;
+  return (
+    <SelfRetriever>
+      <View />
+    </SelfRetriever>
+  );
 };

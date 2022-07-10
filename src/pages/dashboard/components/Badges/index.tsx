@@ -3,12 +3,12 @@ import { Heading } from "~/components/common/Heading";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
-import { usePlayerStore } from "~/stores/usePlayerStore";
+import { useNullableBadges } from "~/hooks/useNullableBadges";
 
 export const Badges = () => {
-  const badges = usePlayerStore((s) => s.badges);
+  const { badges } = useNullableBadges();
 
-  if (!badges.length) {
+  if (!badges || !badges?.length) {
     return null;
   }
 

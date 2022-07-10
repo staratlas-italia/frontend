@@ -1,30 +1,23 @@
-import Image from "next/image";
 import { InfoRow } from "~/components/common/Info";
 import { Price } from "~/components/common/Price";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
-import { LoadingView } from "~/components/LoadingView";
+import { Referral } from "~/pages/dashboard/components/Referral";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 import { shortenAddress } from "~/utils/shortenAddress";
-import { Referral } from "./Referral";
 
 export const Profile = () => {
-  const player = usePlayerStore((s) => s.current);
-  const isPlayer = usePlayerStore((s) => s.isPlayer);
+  const player = usePlayerStore((s) => s.player);
 
-  if (isPlayer === false) {
+  if (player === null) {
     return null;
-  }
-
-  if (!player) {
-    return <LoadingView />;
   }
 
   const { avatarId, avatarImageUrl, balance, rank, factionRank } = player;
 
   return (
-    <Flex className="space-x-3">
+    <Flex className="space-x-5">
       <BlurBackground
         direction="col"
         lgDirection="row"
@@ -32,20 +25,19 @@ export const Profile = () => {
         py={5}
         className="space-y-5 lg:space-x-5"
       >
-        {avatarImageUrl && (
-          <Flex
-            justify="center"
-            className="relative w-full h-64 lg:w-64 lg:h-64"
-          >
-            <Image
-              className="rounded-xl overflow-hidden"
-              quality={30}
+        <Flex
+          justify="center"
+          lgJustify="start"
+          className="w-full lg:w-64 max-w-sm"
+        >
+          {avatarImageUrl && (
+            <img
+              className="rounded-xl overflow-hidden w-full lg:w-64 lg:h-64"
               src={avatarImageUrl}
-              layout="fill"
               alt={avatarId}
             />
-          </Flex>
-        )}
+          )}
+        </Flex>
         <Flex align="center" className="grid grid-cols-2 gap-5">
           <InfoRow color="gray-200" title="addr">
             <Text color="white" xlSize="4xl">
@@ -61,11 +53,10 @@ export const Profile = () => {
           <InfoRow color="gray-200" title="net worth">
             <Price color="white" value={balance} />
           </InfoRow>
-          <InfoRow color="gray-200" title="Referral">
-            <Referral />
-          </InfoRow>
         </Flex>
       </BlurBackground>
+
+      <Referral />
     </Flex>
   );
 };

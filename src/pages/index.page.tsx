@@ -19,6 +19,7 @@ const Home = () => {
       <Head>
         <title>Home - StarAtlasItalia</title>
       </Head>
+
       <HomePage />
     </>
   );

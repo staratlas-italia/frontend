@@ -1,17 +1,17 @@
-import { ConnectionProvider, useWallet } from "@solana/wallet-adapter-react";
+import { ConnectionProvider } from "@solana/wallet-adapter-react";
 import { Cluster } from "@solana/web3.js";
 import { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Script from "next/script";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { IntlProvider } from "react-intl";
 import { MainLayout } from "~/components/layout/MainLayout";
+import { PreloadResources } from "~/components/PreloadResources";
 import { ModalProvider } from "~/contexts/ModalContext";
 import { ShipsProvider } from "~/contexts/ShipsContext";
 import { useTranslations } from "~/i18n/useTranslations";
-import { usePlayerStore } from "~/stores/usePlayerStore";
 import "~/styles/globals.css";
 import { StrictReactNode } from "~/types";
 import { getConnectionContext } from "~/utils/connection";
@@ -60,22 +60,22 @@ function App(props: AppProps) {
 }
 
 const Pages = ({ Component, pageProps }: AppProps) => {
-  const { publicKey } = useWallet();
+  // const { publicKey } = useWallet();
 
-  const fetchPlayer = usePlayerStore((s) => s.fetchPlayer);
-  const fetchFleet = usePlayerStore((s) => s.fetchFleet);
-  const fetchBadges = usePlayerStore((s) => s.fetchBadges);
+  // const fetchPlayer = usePlayerStore((s) => s.fetchPlayer);
+  // const fetchFleet = usePlayerStore((s) => s.fetchFleet);
+  // const fetchBadges = usePlayerStore((s) => s.fetchBadges);
 
-  useEffect(() => {
-    const run = async () => {
-      if (publicKey) {
-        await fetchPlayer(publicKey.toString());
-        await fetchFleet();
-        await fetchBadges();
-      }
-    };
-    run();
-  }, [publicKey]);
+  // useEffect(() => {
+  //   const run = async () => {
+  //     if (publicKey) {
+  //       await fetchPlayer(publicKey.toString());
+  //       await fetchFleet();
+  //       await fetchBadges();
+  //     }
+  //   };
+  //   run();
+  // }, [publicKey]);
 
   return (
     <>
@@ -108,6 +108,8 @@ const Pages = ({ Component, pageProps }: AppProps) => {
       <Head>
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
+      <PreloadResources />
+
       <Component {...pageProps} />
     </>
   );
