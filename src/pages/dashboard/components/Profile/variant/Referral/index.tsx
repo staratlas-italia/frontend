@@ -1,18 +1,9 @@
-import { useFeature } from "@growthbook/growthbook-react";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
 import { Code } from "./Code";
 
 export const Referral = () => {
-  const isReferralSystemDisabled = useFeature(
-    "sai-frontend-enabled-referral-system"
-  ).off;
-
-  if (isReferralSystemDisabled) {
-    return null;
-  }
-
   return (
     <Flex>
       <BlurBackground p={5} className="max-w-xs">
