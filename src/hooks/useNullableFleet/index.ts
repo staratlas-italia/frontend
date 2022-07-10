@@ -1,22 +1,18 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useEffect } from "react";
 import { useSelf } from "~/hooks/useNullableSelf";
-import { usePlayerStore } from "~/stores/usePlayerStore";
+import { useFleetStore } from "~/stores/useFleetStore";
 
 export const useNullableFleet = () => {
   const { publicKey } = useWallet();
 
   const self = useSelf();
 
-  const fleet = usePlayerStore((state) => state.fleet);
-  const fetchFleet = usePlayerStore((state) => state.fetchFleet);
-  const isFetching = usePlayerStore((state) => state.fetching.fleets);
+  const fleet = useFleetStore((state) => state.fleet);
+  const fetchFleet = useFleetStore((state) => state.fetchFleet);
+  const isFetching = useFleetStore((state) => state.isFetching);
 
   useEffect(() => {
-    if (isFetching) {
-      return;
-    }
-
     if (fleet && publicKey && self.wallets.includes(publicKey.toString())) {
       return;
     }

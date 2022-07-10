@@ -8,13 +8,9 @@ export const useNullableSelf = () => {
 
   const self = usePlayerStore((state) => state.self);
   const fetchSelf = usePlayerStore((state) => state.fetchSelf);
-  const isFetching = usePlayerStore((state) => state.fetching.self);
+  const isFetching = usePlayerStore((state) => state.isFetching);
 
   useEffect(() => {
-    if (isFetching) {
-      return;
-    }
-
     if (publicKey) {
       if (self && self.wallets?.includes(publicKey.toString())) {
         return;
@@ -22,7 +18,7 @@ export const useNullableSelf = () => {
 
       fetchSelf(publicKey.toString());
     }
-  }, [publicKey, isFetching]);
+  }, [publicKey]);
 
   return {
     isFetching: self === null,
