@@ -5,18 +5,16 @@ import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
 import { List, ListSectons } from "~/components/List";
 import { useModal } from "~/contexts/ModalContext";
+import { useClearAllStores } from "~/hooks/useClearAllStores";
 import { Translation } from "~/i18n/Translation";
 import { useTranslation } from "~/i18n/useTranslation";
-import { useAuthStore } from "~/stores/useAuthStore";
-import { usePlayerStore } from "~/stores/usePlayerStore";
 import { shortenAddress } from "~/utils/shortenAddress";
 
 export const ConnectedContent = () => {
   const { disconnect, publicKey, wallet } = useWallet();
-  const clear = usePlayerStore((s) => s.clear);
 
   const { close } = useModal("wallet-modal");
-  const clearAuth = useAuthStore((s) => s.clear);
+  const clear = useClearAllStores();
 
   const connectedWalletTranslation = useTranslation(
     "Layout.Wallet.Modal.Connected.title"
@@ -45,7 +43,6 @@ export const ConnectedContent = () => {
 
   const onDisconnect = useCallback(() => {
     clear();
-    clearAuth();
     disconnect();
   }, [disconnect]);
 
