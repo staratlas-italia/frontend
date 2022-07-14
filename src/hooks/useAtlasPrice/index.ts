@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { ATLAS_USDC_MARKET_ADDR } from "~/common/constants";
-import { getMarketLastPrice } from "~/utils/getMarketLastPrice";
+import { getAtlasMarketPrice } from "~/utils/getAtlasMarketPrice";
 
 export const useAtlasPrice = () => {
   const [price, setPrice] = useState<number>();
@@ -10,7 +9,7 @@ export const useAtlasPrice = () => {
     const run = async () => {
       setLoading(true);
 
-      const price = await getMarketLastPrice(ATLAS_USDC_MARKET_ADDR);
+      const price = await getAtlasMarketPrice();
 
       setLoading(false);
       setPrice(price);
