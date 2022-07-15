@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { ComponentType, PropsWithChildren } from "react";
+import { ComponentType, PropsWithChildren } from "react";
 import { Loader } from "~/components/common/Loader";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";

@@ -1,0 +1,16 @@
+{
+  "aliases": {
+    "~/*": ["src/*"]
+  },
+  "entry": ["src/pages/**"],
+  "extensions": [".ts", ".tsx", ".d.ts"],
+  "ignorePatterns": ["**/__mocks__/**", "**/__tests__/**", "**/mocks/**"],
+  "ignoreUnresolved": [
+    "react-test-renderer/shallow",
+    "src/i18n/translations/en.json",
+    "src/i18n/translations/it.json"
+  ],
+  "root": ".",
+  "ignoreUnused": ["next", "react", "react-dom"],
+  "ignoreUnimported": ["src/types/react-table-config.d.ts"]
+}

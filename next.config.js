@@ -32,6 +32,7 @@ module.exports = withTM({
     GUILD_TREASURY_ADDR: process.env.GUILD_TREASURY_ADDR,
     MAIN_RPC_ENDPOINT: process.env.MAIN_RPC_ENDPOINT,
     STAR_ATLAS_API_URL: process.env.STAR_ATLAS_API_URL,
+    FEATURES_ENDPOINT: process.env.FEATURES_ENDPOINT,
   },
   i18n: {
     locales: ["it", "en"],
@@ -41,6 +42,7 @@ module.exports = withTM({
     domains: ["storage.googleapis.com"],
     minimumCacheTTL: 86400,
   },
+  pageExtensions: ["page.tsx", "page.ts", "api.ts"],
   reactStrictMode: true,
   trailingSlash: false,
 });

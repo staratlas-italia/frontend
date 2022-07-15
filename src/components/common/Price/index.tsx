@@ -9,7 +9,7 @@ import { isNullOrUndefined } from "~/utils/isNullOrUndefined";
 type Props = TextProps & {
   inverse?: boolean;
   small?: boolean;
-  value?: number | string;
+  value?: number | string | null;
   currency?: Currency;
   decimals?: number;
 };

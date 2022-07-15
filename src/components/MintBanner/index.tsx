@@ -1,3 +1,4 @@
+import { useFeature } from "@growthbook/growthbook-react";
 import Link from "next/link";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
@@ -5,7 +6,11 @@ import { Translation } from "~/i18n/Translation";
 import { getRoute } from "~/utils/getRoute";
 
 export const MintBanner = () => {
-  if (new Date() > new Date("2022-04-10:12:00:00.000Z")) {
+  const isMintBannerDisabled = useFeature(
+    "sai-frontend-enable-mint-banner"
+  ).off;
+
+  if (isMintBannerDisabled) {
     return null;
   }
 

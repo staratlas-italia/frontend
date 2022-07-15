@@ -12,24 +12,26 @@ type Props = PropsWithChildren<{
 
 export const InfoRow = ({ color, loading, title, children }: Props) => {
   return (
-    <Flex direction="col">
-      <Text size="xl">
-        {loading ? (
-          <Flex pl={2}>
-            <Loader color="white" />
-          </Flex>
-        ) : (
-          children || "-"
-        )}
-      </Text>
-      <Text
-        weight="bold"
-        transform="uppercase"
-        size="sm"
-        color={color || "gray-300"}
-      >
-        {title}
-      </Text>
+    <Flex>
+      <Flex direction="col">
+        <Text size="xl">
+          {loading ? (
+            <Flex pl={2}>
+              <Loader color="white" />
+            </Flex>
+          ) : (
+            children || "-"
+          )}
+        </Text>
+        <Text
+          weight="bold"
+          transform="uppercase"
+          size="sm"
+          color={color || "gray-300"}
+        >
+          {title}
+        </Text>
+      </Flex>
     </Flex>
   );
 };

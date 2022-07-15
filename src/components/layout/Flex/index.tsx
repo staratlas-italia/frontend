@@ -43,8 +43,18 @@ type LgFlexbox = {
   lgWrap: Wrap;
 };
 
+type XlFlexbox = {
+  xlAlign: Align;
+  xlBasis: Basis;
+  xlDirection: Direction;
+  xlGrow: Grow;
+  xlJustify: Justify;
+  xlShrink: Shrink;
+  xlWrap: Wrap;
+};
+
 export type FlexProps = { as?: ComponentType | string } & Partial<
-  PaddingProps & Flexbox & MdFlexbox & LgFlexbox & PaneProps
+  PaddingProps & Flexbox & MdFlexbox & LgFlexbox & XlFlexbox & PaneProps
 >;
 
 export const Flex = styled(Padding).attrs<FlexProps>(
@@ -69,6 +79,13 @@ export const Flex = styled(Padding).attrs<FlexProps>(
     lgJustify,
     lgShrink,
     lgWrap,
+    xlAlign,
+    xlBasis,
+    xlDirection,
+    xlGrow,
+    xlJustify,
+    xlShrink,
+    xlWrap,
   }) => ({
     className: cx("flex", {
       [`items-${align}`]: align,
@@ -83,6 +100,10 @@ export const Flex = styled(Padding).attrs<FlexProps>(
       [`lg:flex-${lgDirection}`]: lgDirection,
       [`lg:justify-${lgJustify}`]: lgJustify,
       [`lg:flex-${lgWrap}`]: lgWrap,
+      [`xl:items-${xlAlign}`]: xlAlign,
+      [`xl:flex-${xlDirection}`]: xlDirection,
+      [`xl:justify-${xlJustify}`]: xlJustify,
+      [`xl:flex-${xlWrap}`]: xlWrap,
       [grow === 0 ? "flex-grow-0" : "flex-grow"]: !isNullOrUndefined(grow),
       [shrink === 0 ? "flex-shrink-0" : "flex-shrink"]:
         !isNullOrUndefined(shrink),
@@ -94,6 +115,10 @@ export const Flex = styled(Padding).attrs<FlexProps>(
         !isNullOrUndefined(lgGrow),
       [lgShrink === 0 ? "lg:flex-shrink-0" : "lg:flex-shrink"]:
         !isNullOrUndefined(lgShrink),
+      [xlGrow === 0 ? "xl:flex-grow-0" : "xl:flex-grow"]:
+        !isNullOrUndefined(xlGrow),
+      [xlShrink === 0 ? "xl:flex-shrink-0" : "xl:flex-shrink"]:
+        !isNullOrUndefined(xlShrink),
     }),
   })
 )<FlexProps>``;

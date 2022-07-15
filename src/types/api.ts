@@ -1,4 +1,17 @@
-import { NormalizedShipStakingInfoExtended } from "~/types";
+import { NormalizedShipStakingInfoExtended, Player } from "~/types";
+
+export type Self = {
+  createdAt?: Date;
+  discordId: null;
+  faction?: string;
+  lastRefillAt?: Date;
+  notifications: boolean;
+  players: Player[];
+  tier?: 0 | 1 | 2;
+  wallets: string[];
+  referral?: { code: string; createdAt: Date };
+  fromReferral?: string;
+};
 
 export type ScoreFleetResponse =
   | {
