@@ -66,7 +66,9 @@ export type TranslationId =
   | "Ships.Table.Sell.action.title"
   | "Ships.Toolbar.grid"
   | "Ships.Toolbar.table"
-  | "Wallet.Disconnect.action.title";
+  | "Wallet.Disconnect.action.title"
+  | "Referral.Banner.title"
+  | "Referral.Banner.description";
 
 export type TranslationValues = {
   "Layout.Wallet.Modal.ConnectedTo.title": { wallet: string };
