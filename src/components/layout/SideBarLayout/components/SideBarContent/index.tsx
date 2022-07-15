@@ -47,7 +47,7 @@ const menuItems: MenuItem[] = [
   },
 ];
 
-export const Content = () => {
+export const SideBarContent = () => {
   const { publicKey } = useWallet();
   const { locale } = useRouter();
   const isAdmin = useAuthStore((s) => s.isAdmin);
