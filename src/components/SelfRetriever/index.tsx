@@ -1,12 +1,16 @@
 import { ReactNode } from "react";
-import { LoadingView } from "~/components/LoadingView";
 import { useNullableSelf } from "~/hooks/useNullableSelf";
 
-export const SelfRetriever = ({ children }: { children: ReactNode }) => {
+type Props = {
+  loader?: ReactNode;
+  children: ReactNode;
+};
+
+export const SelfRetriever = ({ children, loader }: Props) => {
   const { isFetching, self } = useNullableSelf();
 
-  if (isFetching) {
-    return <LoadingView />;
+  if (isFetching && loader) {
+    return <>{loader}</>;
   }
 
   if (!self) {
