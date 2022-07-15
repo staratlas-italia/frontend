@@ -1,21 +1,17 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import React, { PropsWithChildren } from "react";
-import { Price } from "~/components/common/Price";
 import { BaseLayout } from "~/components/layout/BaseLayout";
-import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
 import { MintBanner } from "~/components/MintBanner";
-import { usePlayerStore } from "~/stores/usePlayerStore";
+import { SelfRetriever } from "~/components/SelfRetriever";
 import { Provider } from "./components/Provider";
 import { SideBar } from "./components/SideBar";
 import { SidebarToggle } from "./components/SidebarToggle";
+import { TokenAmounts } from "./components/TokenAmounts";
 
 export const SideBarLayout = React.memo(
   ({ children }: PropsWithChildren<unknown>) => {
     const { connected } = useWallet();
-    const [atlasAmount, polisAmount, usdcAmount] = usePlayerStore(
-      (s) => s.amounts
-    );
 
     return (
       <Provider>
@@ -29,29 +25,9 @@ export const SideBarLayout = React.memo(
               <SidebarToggle />
 
               {connected && (
-                <BlurBackground px={3} py={2} className="space-x-3">
-                  <Price
-                    color="white"
-                    currency="ATLAS"
-                    inverse
-                    size="xl"
-                    value={atlasAmount}
-                  />
-                  <Price
-                    color="white"
-                    currency="POLIS"
-                    inverse
-                    size="xl"
-                    value={polisAmount}
-                  />
-                  <Price
-                    color="white"
-                    currency="USDC"
-                    inverse
-                    size="xl"
-                    value={usdcAmount}
-                  />
-                </BlurBackground>
+                <SelfRetriever>
+                  <TokenAmounts />
+                </SelfRetriever>
               )}
             </Flex>
 
