@@ -77,42 +77,24 @@ function App({ router, ...props }: AppProps) {
   );
 }
 
-const Pages = ({ Component, pageProps }: Omit<AppProps, "router">) => {
-  // const { publicKey } = useWallet();
-
-  // const fetchPlayer = usePlayerStore((s) => s.fetchPlayer);
-  // const fetchFleet = usePlayerStore((s) => s.fetchFleet);
-  // const fetchBadges = usePlayerStore((s) => s.fetchBadges);
-
-  // useEffect(() => {
-  //   const run = async () => {
-  //     if (publicKey) {
-  //       await fetchPlayer(publicKey.toString());
-  //       await fetchFleet();
-  //       await fetchBadges();
-  //     }
-  //   };
-  //   run();
-  // }, [publicKey]);
-
-  return (
-    <>
-      <Script
-        strategy="lazyOnload"
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GOOGLE_ANALYTICS_KEY}`}
-      />
-      <Script strategy="lazyOnload">
-        {`
+const Pages = ({ Component, pageProps }: Omit<AppProps, "router">) => (
+  <>
+    <Script
+      strategy="lazyOnload"
+      src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GOOGLE_ANALYTICS_KEY}`}
+    />
+    <Script strategy="lazyOnload">
+      {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
           gtag('config', '${process.env.GOOGLE_ANALYTICS_KEY}'); 
         `}
-      </Script>
+    </Script>
 
-      <Script strategy="lazyOnload">
-        {`  
+    <Script strategy="lazyOnload">
+      {`  
           (function(h,o,t,j,a,r){
               h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
               h._hjSettings={hjid:3054503,hjsv:6};
@@ -122,15 +104,14 @@ const Pages = ({ Component, pageProps }: Omit<AppProps, "router">) => {
               a.appendChild(r);
           })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
         `}
-      </Script>
-      <Head>
-        <link rel="shortcut icon" href="/favicon.ico" />
-      </Head>
-      <PreloadResources />
+    </Script>
+    <Head>
+      <link rel="shortcut icon" href="/favicon.ico" />
+    </Head>
 
-      <Component {...pageProps} />
-    </>
-  );
-};
+    <PreloadResources />
+    <Component {...pageProps} />
+  </>
+);
 
 export default App;

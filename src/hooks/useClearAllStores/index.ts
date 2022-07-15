@@ -15,5 +15,5 @@ export const useClearAllStores = () => {
     clearBadges();
     clearFleet();
     clearSelf();
-  }, [clearAuth, clearBadges, clearFleet, clearSelf]);
+  }, [clearAuth, clearBadges, clearFleet]);
 };

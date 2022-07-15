@@ -18,7 +18,7 @@ const ReferralCodePage = () => {
   const { code } = useRouter().query;
   const { wallet, connected } = useWallet();
 
-  const { redeem, user } = useReferral();
+  const { redeem, redeemingUser } = useReferral();
 
   if (isReferralSystemDisabled) {
     return <Redirect to={getRoute("/dashboard")} />;
@@ -34,7 +34,7 @@ const ReferralCodePage = () => {
     );
   }
 
-  if (!user) {
+  if (!redeemingUser) {
     return (
       <AssertAuthenticated>
         <BlurBackground>

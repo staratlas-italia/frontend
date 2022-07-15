@@ -6,7 +6,7 @@ import { Self } from "~/types/api";
 
 export const useReferral = () => {
   const [code, setCode] = useState<string | null>(null);
-  const [user, setUser] = useState<Self | null>(null);
+  const [redeemingUser, setRedeemingUser] = useState<Self | null>(null);
 
   const { publicKey } = useWallet();
   const signature = useAuthStore((s) => s.signature);
@@ -28,11 +28,11 @@ export const useReferral = () => {
           referralCode
         );
 
-        setUser(user);
+        setRedeemingUser(user);
       }
     },
     [publicKey, signature]
   );
 
-  return { code, user, create, redeem };
+  return { code, redeemingUser, create, redeem };
 };
