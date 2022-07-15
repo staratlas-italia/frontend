@@ -18,14 +18,17 @@ export const useTokenBalance = (tokenMint: string) => {
     if (publicKey) {
       const run = async () => {
         setLoading(true);
+
         const amount = await getTokenBalanceByMint(
           connection,
           publicKey,
           new PublicKey(tokenMint)
         );
         setAmount(amount);
+
         setLoading(false);
       };
+
       run();
     }
   }, [publicKey]);

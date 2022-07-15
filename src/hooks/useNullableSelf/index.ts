@@ -1,10 +1,11 @@
-import { useWallet } from "@solana/wallet-adapter-react";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import invariant from "invariant";
 import { useEffect } from "react";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 
 export const useNullableSelf = () => {
   const { publicKey } = useWallet();
+  const { connection } = useConnection();
 
   const self = usePlayerStore((state) => state.self);
   const fetchSelf = usePlayerStore((state) => state.fetchSelf);
@@ -15,7 +16,7 @@ export const useNullableSelf = () => {
         return;
       }
 
-      fetchSelf(publicKey.toString());
+      fetchSelf(connection, publicKey.toString());
     }
   }, [publicKey]);
 
