@@ -27,9 +27,9 @@ export const SocialLinks = () => {
       <a
         target="_blank"
         rel="noopener noreferrer"
-        href="https://staratlasitalia.medium.com"
+        href="https://github.com/staratlas-italia"
       >
-        <img src="/images/social/medium_logo.svg" className="h-6 w-6" />
+        <img src="/images/social/github_logo.svg" className="h-6 w-6" />
       </a>
     </Flex>
   );

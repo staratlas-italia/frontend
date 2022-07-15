@@ -11,7 +11,7 @@ export const SideBar = () => {
           className="rounded-none h-screen"
           direction="col"
           disableRound
-          px={4}
+          px={2}
           pt={8}
           justify="between"
         >

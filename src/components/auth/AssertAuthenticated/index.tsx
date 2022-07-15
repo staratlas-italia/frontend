@@ -1,7 +1,6 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import bs58 from "bs58";
 import { useEffect } from "react";
-
 import { useAuthStore } from "~/stores/useAuthStore";
 import { StrictReactNode } from "~/types";
 import { getProofMessage } from "~/utils/getProofMessage";
