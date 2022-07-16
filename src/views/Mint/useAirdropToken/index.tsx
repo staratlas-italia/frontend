@@ -6,7 +6,7 @@ import {
   TIER3_TOKEN_MINT_ID,
 } from "~/common/constants";
 import { Tier } from "~/types";
-import { getTokenBalanceByMint } from "~/utils/splToken";
+import { getTokenBalanceByMint } from "~/utils/getTokenBalanceByMint";
 
 export const useAirdropToken = () => {
   const { connection } = useConnection();

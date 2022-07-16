@@ -12,7 +12,7 @@ import { useFleetStore } from "~/stores/useFleetStore";
 import { Avatar, Player } from "~/types";
 import { Self } from "~/types/api";
 import { getAvatarImageUrl } from "~/utils/getAvatarImageUrl";
-import { getTokenBalanceByMint } from "~/utils/splToken";
+import { getTokenBalanceByMint } from "~/utils/getTokenBalanceByMint";
 import { toTuple } from "~/utils/toTuple";
 
 type PlayerStore = State & {
