@@ -6,8 +6,7 @@ export type Routes =
   | "/dashboard"
   | "/mint"
   | "/ships"
-  | "/ships/table"
-  | "/ships/table"
+  | "/ships/deals"
   | "/ships/:shipId";
 
 export type ApiRoutes =

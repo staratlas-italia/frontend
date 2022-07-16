@@ -8,7 +8,7 @@ export const TokenAmounts = () => {
   );
 
   return (
-    <BlurBackground px={3} py={2} className="space-x-3">
+    <BlurBackground wrap="wrap" px={3} py={2} className="lg:space-x-3">
       <Price
         color="white"
         currency="ATLAS"

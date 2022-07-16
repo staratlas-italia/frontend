@@ -1,5 +1,5 @@
 import { useShips } from "~/hooks/useShips";
-import { ShipCard } from "~/views/Ships/components/Ship";
+import { ShipCard } from "../Ship";
 
 export const ShipList = () => {
   const { ships } = useShips();

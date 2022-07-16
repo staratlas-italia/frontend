@@ -1,15 +1,21 @@
 import Head from "next/head";
-import React from "react";
-import { ShipListPage } from "~/views/Ships";
+import { Heading } from "~/components/common/Heading";
+import { ShipsRetriever } from "~/components/ShipsRetriever";
+import { ShipList } from "./components/ShipList";
 
-const ShipsPage = () => (
+const ShipsDealsPage = () => (
   <>
     <Head>
       <title>Ships - StarAtlasItalia</title>
     </Head>
 
-    <ShipListPage />
+    <ShipsRetriever>
+      <div className="space-y-5">
+        <Heading title="Ships.Heading.title" />
+        <ShipList />
+      </div>
+    </ShipsRetriever>
   </>
 );
 
-export default ShipsPage;
+export default ShipsDealsPage;

@@ -1,10 +1,12 @@
-import { useWallet } from "@solana/wallet-adapter-react";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useEffect } from "react";
 import { useSelf } from "~/hooks/useNullableSelf";
 import { useBadgesStore } from "~/stores/useBadgesStore";
 
 export const useNullableBadges = () => {
+  const { connection } = useConnection();
   const { publicKey } = useWallet();
+
   const self = useSelf();
 
   const badges = useBadgesStore((state) => state.badges);
@@ -16,7 +18,7 @@ export const useNullableBadges = () => {
       return;
     }
 
-    fetchBadges();
+    fetchBadges(connection);
   }, [self]);
 
   return {

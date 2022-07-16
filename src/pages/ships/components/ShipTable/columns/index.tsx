@@ -3,13 +3,13 @@ import Link from "next/link";
 import { Flex } from "~/components/layout/Flex";
 import { fillUrlParameters } from "~/utils/fillUrlParameters";
 import { getRoute } from "~/utils/getRoute";
-import { MarketAction } from "~/views/Ships/components/ShipTable/useShipsTable";
-import { buildDiscountColumn } from "~/views/Ships/components/ShipTable/utils/buildDiscountColumn";
-import { buildNameColumn } from "~/views/Ships/components/ShipTable/utils/buildNameColumn";
+import { MarketAction } from "..";
+import { buildDiscountColumn } from "../utils/buildDiscountColumn";
+import { buildNameColumn } from "../utils/buildNameColumn";
 import {
   buildAtlasPriceColumn,
   buildPriceColumn,
-} from "~/views/Ships/components/ShipTable/utils/buildPriceColumn";
+} from "../utils/buildPriceColumn";
 
 type Param = {
   action: MarketAction;
