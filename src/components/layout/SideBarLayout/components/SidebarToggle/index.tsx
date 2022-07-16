@@ -8,7 +8,7 @@ export const SidebarToggle = () => {
   const { toggle, isOpen } = useNavigation();
 
   return (
-    <Flex className="lg:hidden cursor-pointer relative" onClick={toggle}>
+    <Flex className="lg:hidden cursor-pointer" onClick={toggle}>
       <BlurBackground
         className="w-16 h-16 rounded-full"
         align="center"
@@ -18,13 +18,13 @@ export const SidebarToggle = () => {
       </BlurBackground>
 
       {isOpen && (
-        <Flex className="absolute z-20">
-          <BlurBackground className="w-96">
+        <Flex className="absolute z-20 ">
+          <BlurBackground>
             <Flex className="absolute top-4 left-4">
               <MenuIcon className="w-8 h-8 text-white" />
             </Flex>
 
-            <Flex pl={16} p={5}>
+            <Flex pl={12} p={5}>
               <SideBarContent />
             </Flex>
           </BlurBackground>

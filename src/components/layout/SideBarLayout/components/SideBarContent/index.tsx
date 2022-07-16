@@ -1,4 +1,4 @@
-import { BeakerIcon } from "@heroicons/react/solid";
+import { BeakerIcon, ChartPieIcon } from "@heroicons/react/solid";
 import { useWallet } from "@solana/wallet-adapter-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -24,6 +24,11 @@ const menuItems: MenuItem[] = [
     name: "Layout.Sidebar.Ships.title",
     route: "/ships",
     icon: (props) => <img src={`/images/icons/rocket-solid.svg`} {...props} />,
+  },
+  {
+    name: "Layout.Sidebar.ShipsDeals.title",
+    route: "/ships/deals",
+    icon: (props) => <ChartPieIcon {...props} />,
   },
   {
     name: "Layout.Sidebar.FleetSim.title",
@@ -54,9 +59,7 @@ export const SideBarContent = () => {
 
   return (
     <Flex
-      className="lg:space-y-6"
-      wrap="wrap"
-      lgWrap="nowrap"
+      className="lg:space-y-6 grid grid-cols-2 lg:grid-cols-none"
       lgAlign="start"
       justify="center"
       mdJustify="start"
