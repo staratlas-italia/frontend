@@ -24,6 +24,7 @@ export type TranslationId =
   | "Layout.Sidebar.Resources.title"
   | "Layout.Sidebar.ScoreTool.title"
   | "Layout.Sidebar.Ships.title"
+  | "Layout.Sidebar.ShipsDeals.title"
   | "Layout.Sidebar.Stats.title"
   | "Layout.Treasury.title"
   | "Layout.Wallet.Connect.title"

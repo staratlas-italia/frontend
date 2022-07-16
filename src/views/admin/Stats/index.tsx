@@ -38,7 +38,7 @@ export const Stats = () => {
     <Flex className="space-y-3" direction="col">
       <Heading
         title="Admin.Stats.title"
-        RightContent={
+        rightContent={
           <Button textColor="white" onClick={() => fetchAllCharts(true)}>
             <Translation id="Admin.Stats.Refresh.action.title" />
           </Button>

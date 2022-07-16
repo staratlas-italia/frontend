@@ -14,7 +14,7 @@ export const MainLayout = ({ children }) => {
       case "/admin":
       case "/dashboard":
       case "/ships":
-      case "/ships/table":
+      case "/ships/deals":
         return SideBarLayout;
       default:
         return BaseLayout;
