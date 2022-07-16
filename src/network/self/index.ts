@@ -2,6 +2,13 @@ import { Self } from "~/types/api";
 import { appendQueryParams } from "~/utils/appendQueryParams";
 import { getApiRoute } from "~/utils/getRoute";
 
+const buildDefaultSelf = (publicKey: string) => ({
+  discordId: null,
+  wallets: [publicKey],
+  notifications: false,
+  players: [],
+});
+
 export const fetchSelf = async (publicKey: string): Promise<Self | null> => {
   try {
     const res = await fetch(
@@ -13,8 +20,8 @@ export const fetchSelf = async (publicKey: string): Promise<Self | null> => {
       return response.user;
     }
 
-    return null;
+    return buildDefaultSelf(publicKey);
   } catch (e) {
-    return null;
+    return buildDefaultSelf(publicKey);
   }
 };

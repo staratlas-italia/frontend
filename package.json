@@ -1,7 +1,7 @@
 {
   "name": "@staratlas-italia/frontend",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "scripts": {
     "build": "next build",
     "check:unused-files": "unimported",
