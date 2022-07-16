@@ -18,9 +18,9 @@ export const Badges = () => {
         <Heading title="Badges.Heading.title" />
 
         <Flex className="space-x-3 overflow-scroll">
-          {badges.map((badge) => (
+          {badges.map(([badge, metadata]) => (
             <BlurBackground
-              key={badge.mint.toString()}
+              key={badge.mintAddress.toString()}
               disableRound
               direction="col"
               className=" rounded-lg max"
@@ -28,18 +28,18 @@ export const Badges = () => {
               shrink={1}
             >
               <Flex
-                key={badge.mint.toString()}
+                key={badge.mintAddress.toString()}
                 className="w-44 h-44 rounded-lg overflow-hidden"
               >
-                <img src={badge.metadataExternal?.image} />
+                <img src={metadata?.image} />
               </Flex>
               <Flex justify="center" shrink={1} py={2} px={1}>
                 <Link
-                  href={`https://solscan.io/account/${badge.mint.toString()}`}
+                  href={`https://solscan.io/account/${badge.mintAddress.toString()}`}
                 >
                   <a target="_blank">
                     <Text align="center" color="white" decoration="underline">
-                      {badge.metadataExternal?.name}
+                      {badge.name}
                     </Text>
                   </a>
                 </Link>
