@@ -2537,10 +2537,10 @@
   resolved "https://registry.yarnpkg.com/@metaplex-foundation/cusper/-/cusper-0.0.2.tgz#dc2032a452d6c269e25f016aa4dd63600e2af975"
   integrity sha512-S9RulC2fFCFOQraz61bij+5YCHhSO9llJegK8c8Y6731fSi6snUSQJdCUqYS8AIgR0TKbQvdvgSyIIdbDFZbBA==
 
-"@metaplex-foundation/js@^0.12.0":
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/@metaplex-foundation/js/-/js-0.12.0.tgz#e16528ec306abe0fa194840b7f3d734cb28ebb15"
-  integrity sha512-qi4v0NcDz5VLL2GEOC9AU8GSywcuZAgyfvQ/V43EWZuYRfEEHuh+qcn7/EvP/pjC4HyCRIXIRct5R84vBaQipQ==
+"@metaplex-foundation/js@^0.12.1":
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/@metaplex-foundation/js/-/js-0.12.1.tgz#7fdd6761b77b4a0b666a72928789c855ffa22bc0"
+  integrity sha512-Q/Wg8JQqn+wOd/AwynURPj2mUJuvXWF4ymps/ncGvj4U+hTx/566Pyd96PXAb+X3lyw5JJUyHPiCoFN0fcEjXA==
   dependencies:
     "@aws-sdk/client-s3" "^3.54.1"
     "@bundlr-network/client" "^0.7.14"
@@ -2586,15 +2586,6 @@
     "@metaplex-foundation/mpl-core" "^0.6.1"
     "@solana/web3.js" "^1.35.1"
 
-"@metaplex-foundation/mpl-core@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@metaplex-foundation/mpl-core/-/mpl-core-0.0.5.tgz#0504ad49b6d2e6d2321700edf549804f343c86c6"
-  integrity sha512-3nVRxcwju/A9oU3VtBfrH9kLECUdp6Y+xmZ6ADOOLFSQ2FDxeESTrlcBJNPi582vEROEUyE4efXD6EvO4EZZyA==
-  dependencies:
-    "@solana/spl-token" "^0.1.8"
-    "@solana/web3.js" "^1.35.1"
-    bs58 "^4.0.1"
-
 "@metaplex-foundation/mpl-core@^0.6.1":
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/@metaplex-foundation/mpl-core/-/mpl-core-0.6.1.tgz#bdc76a8b447a2ef310693973bf430e5ecec6ef0b"
@@ -2602,20 +2593,6 @@
   dependencies:
     "@solana/web3.js" "^1.35.1"
     bs58 "^4.0.1"
-
-"@metaplex-foundation/mpl-token-metadata@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@metaplex-foundation/mpl-token-metadata/-/mpl-token-metadata-2.0.0.tgz#70fb740871325122044e343614a1310f13d7ddb0"
-  integrity sha512-7eg72QzZZCuC+r+6trUPDNbTiBoFytWWV2MVTOdusBeIt9LJjHKODmspyAsJdkzTZQwv3dP9WAfvTYw5t0jgEA==
-  dependencies:
-    "@metaplex-foundation/beet" "^0.1.0"
-    "@metaplex-foundation/beet-solana" "^0.1.1"
-    "@metaplex-foundation/cusper" "^0.0.2"
-    "@metaplex-foundation/mpl-core" "^0.0.5"
-    "@solana/spl-token" "^0.2.0"
-    "@solana/web3.js" "^1.35.1"
-    bn.js "^5.2.0"
-    debug "^4.3.3"
 
 "@metaplex-foundation/mpl-token-metadata@^2.1.2":
   version "2.2.2"
