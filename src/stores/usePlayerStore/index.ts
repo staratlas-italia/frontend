@@ -79,7 +79,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       });
     }
 
-    useBadgesStore.getState().fetchBadges(publicKey);
+    useBadgesStore.getState().fetchBadges(connection, publicKey);
     useFleetStore.getState().fetchFleet(publicKey);
   },
   clear: () => set({ self: null, player: null }),

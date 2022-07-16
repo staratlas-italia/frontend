@@ -29,7 +29,7 @@ export const useBadgesStore = create<BadgesStore>((set, get) => ({
     if (publicKey) {
       const nfts = await metaplex
         .nfts()
-        .findAllByOwner(publicKey as unknown as PublicKey)
+        .findAllByOwner(new PublicKey(publicKey))
         .run();
 
       console.log(nfts);
