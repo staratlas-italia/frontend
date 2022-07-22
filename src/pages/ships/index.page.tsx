@@ -12,6 +12,7 @@ const ShipsDealsPage = () => (
     <ShipsRetriever>
       <div className="space-y-5">
         <Heading title="Ships.Heading.title" />
+
         <ShipList />
       </div>
     </ShipsRetriever>
