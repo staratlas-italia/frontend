@@ -31,6 +31,10 @@ export const ShipCard = ({ ship }: Props) => {
 
   const isF = isFirefox();
 
+  const url = ship.markets.length
+    ? `https://play.staratlas.com/market/${ship?.markets[0].id}`
+    : null;
+
   return (
     <div
       className={classNames("rounded-3xl relative  overflow-hidden ", {
@@ -67,23 +71,22 @@ export const ShipCard = ({ ship }: Props) => {
                 lgJustify="start"
                 className="mt-5 sm:mt-10"
               >
-                <a
-                  href={`https://play.staratlas.com/market/${ship?.markets[0].id}`}
-                  target="_blank"
-                >
-                  <Button
-                    as="span"
-                    bgColor="indigo-600"
-                    hoverBgColor="indigo-700"
-                    className="w-full lg:w-auto"
-                    textColor="white"
-                  >
-                    <FormattedMessage
-                      id={"Ships.List.Card.BuyAction.title"}
-                      defaultMessage={"Compra"}
-                    />
-                  </Button>
-                </a>
+                {url && (
+                  <a href={url} target="_blank">
+                    <Button
+                      as="span"
+                      bgColor="indigo-600"
+                      hoverBgColor="indigo-700"
+                      className="w-full lg:w-auto"
+                      textColor="white"
+                    >
+                      <FormattedMessage
+                        id={"Ships.List.Card.BuyAction.title"}
+                        defaultMessage={"Compra"}
+                      />
+                    </Button>
+                  </a>
+                )}
                 <Flex className="mt-3 lg:ml-3 lg:mt-0 w-full">
                   <Link
                     href={{
