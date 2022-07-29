@@ -1,4 +1,4 @@
-import { Connection, PublicKey } from "@solana/web3.js";
+import { Cluster, clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
 import { NextApiRequest, NextApiResponse } from "next";
 import {
   AMMO_TOKEN_MINT_ID,
@@ -6,18 +6,16 @@ import {
   FUEL_TOKEN_MINT_ID,
   TOOL_TOKEN_MINT_ID,
 } from "~/common/constants/index";
-import { getConnectionContext } from "~/utils/connection";
+import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { getTokenBalanceByMint } from "~/utils/getTokenBalanceByMint";
 import { isPublicKey } from "~/utils/pubkey";
 
-const connection = new Connection(
-  getConnectionContext("mainnet-beta").endpoint
-);
-
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
-    query: { pbk },
+    query: { cluster, pbk },
   } = req;
+
+  const connection = new Connection(clusterApiUrl(cluster as Cluster));
 
   if (!isPublicKey(pbk as string)) {
     res.status(200).json({
@@ -62,4 +60,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   });
 };
 
-export default handler;
+export default attachClusterMiddleware(handler);

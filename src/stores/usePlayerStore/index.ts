@@ -1,9 +1,9 @@
-import { Connection, PublicKey } from "@solana/web3.js";
+import { Cluster, clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
 import create, { State } from "zustand";
 import {
-  ATLAS_TOKEN_MINT_ID,
-  POLIS_TOKEN_MINT_ID,
-  USDC_TOKEN_MINT_ID,
+  ATLAS_TOKEN_MINT,
+  POLIS_TOKEN_MINT,
+  USDC_TOKEN_MINT,
 } from "~/common/constants";
 import { fetchPlayer } from "~/network/player";
 import { fetchSelf } from "~/network/self";
@@ -21,7 +21,7 @@ type PlayerStore = State & {
   isFetching: boolean;
   amounts: [number | null, number | null, number | null];
   clear: () => void;
-  fetchSelf: (connection: Connection, publicKey: string) => void;
+  fetchSelf: (cluster: Cluster, publicKey: string) => void;
 };
 
 export const usePlayerStore = create<PlayerStore>((set, get) => ({
@@ -29,10 +29,12 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
   player: null,
   isFetching: false,
   amounts: [null, null, null],
-  fetchSelf: async (connection, publicKey) => {
+  fetchSelf: async (cluster, publicKey) => {
     if (get().isFetching) {
       return;
     }
+
+    const connection = new Connection(clusterApiUrl(cluster));
 
     set({ isFetching: true });
 
@@ -43,17 +45,17 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
         getTokenBalanceByMint(
           connection,
           new PublicKey(publicKey),
-          new PublicKey(ATLAS_TOKEN_MINT_ID)
+          ATLAS_TOKEN_MINT
         ).catch(() => null),
         getTokenBalanceByMint(
           connection,
           new PublicKey(publicKey),
-          new PublicKey(POLIS_TOKEN_MINT_ID)
+          POLIS_TOKEN_MINT
         ).catch(() => null),
         getTokenBalanceByMint(
           connection,
           new PublicKey(publicKey),
-          new PublicKey(USDC_TOKEN_MINT_ID)
+          USDC_TOKEN_MINT
         ).catch(() => null),
       ]);
 
@@ -80,7 +82,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     }
 
     useBadgesStore.getState().fetchBadges(connection, publicKey);
-    useFleetStore.getState().fetchFleet(publicKey);
+    useFleetStore.getState().fetchFleet(cluster, publicKey);
   },
   clear: () => set({ self: null, player: null }),
 }));

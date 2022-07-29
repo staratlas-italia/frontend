@@ -1,5 +1,5 @@
 import { LazyNft, Metaplex, Nft } from "@metaplex-foundation/js";
-import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
+import { Connection, PublicKey } from "@solana/web3.js";
 import create from "zustand";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 import { getBadgeByMint } from "~/utils/getBadgeByMint";
@@ -11,8 +11,6 @@ type BadgesStore = {
   clear: () => void;
   fetchBadges: (connection: Connection, pk?: string) => void;
 };
-const connection = new Connection(clusterApiUrl("mainnet-beta"));
-const metaplex = Metaplex.make(connection, { cluster: "mainnet-beta" });
 
 export const useBadgesStore = create<BadgesStore>((set, get) => ({
   badges: null,
@@ -27,6 +25,8 @@ export const useBadgesStore = create<BadgesStore>((set, get) => ({
     const publicKey = pk || usePlayerStore.getState().player?.publicKey;
 
     if (publicKey) {
+      const metaplex = Metaplex.make(connection, { cluster: "mainnet-beta" });
+
       const nfts = await metaplex
         .nfts()
         .findAllByOwner(new PublicKey(publicKey))

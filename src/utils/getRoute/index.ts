@@ -3,6 +3,10 @@ import { ChartType } from "~/types/api";
 export type Routes =
   | "/"
   | "/admin"
+  | "/citizenship"
+  | "/citizenship/confirmed"
+  | "/citizenship/error"
+  | "/citizenship/invalid"
   | "/dashboard"
   | "/mint"
   | "/ships"
@@ -13,6 +17,7 @@ export type ApiRoutes =
   | `/api/charts/${ChartType}`
   | "/api/menu"
   | "/api/player"
+  | "/api/payment/confirm"
   | "/api/referral/create"
   | "/api/referral/redeem"
   | "/api/score/:publicKey"

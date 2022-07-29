@@ -13,6 +13,16 @@ export type Self = {
   fromReferral?: string;
 };
 
+export type ConfirmPaymentResponse =
+  | {
+      success: true;
+      verified: boolean;
+    }
+  | {
+      success: false;
+      error: string;
+    };
+
 export type ScoreFleetResponse =
   | {
       success: false;

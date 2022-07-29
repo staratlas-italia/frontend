@@ -7,6 +7,7 @@ const Mint = () => {
       <Head>
         <title>Founder Mint - StarAtlasItalia</title>
       </Head>
+
       <MintPage />
     </>
   );

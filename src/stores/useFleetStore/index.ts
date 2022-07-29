@@ -1,5 +1,6 @@
+import { Cluster } from "@solana/web3.js";
 import create from "zustand";
-import { getPlayerStakeShips } from "~/network/score";
+import { fetchPlayerStakeShips } from "~/network/score";
 import { getAllShips } from "~/network/ships/getAllShips";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 import { NormalizedShipStakingInfoExtended, StarAtlasEntity } from "~/types";
@@ -13,13 +14,13 @@ type FleetStore = {
   fleet: FleetData[] | null;
   isFetching: boolean;
   clear: () => void;
-  fetchFleet: (pk?: string) => void;
+  fetchFleet: (cluster: Cluster, pk?: string) => void;
 };
 
 export const useFleetStore = create<FleetStore>((set, get) => ({
   fleet: null,
   isFetching: false,
-  fetchFleet: async (pk) => {
+  fetchFleet: async (cluster, pk) => {
     if (get().isFetching) {
       return;
     }
@@ -29,7 +30,8 @@ export const useFleetStore = create<FleetStore>((set, get) => ({
     const publicKey = pk || usePlayerStore.getState().player?.publicKey;
 
     if (publicKey) {
-      const response = await getPlayerStakeShips(publicKey);
+      console.log("[dd] cluster", cluster);
+      const response = await fetchPlayerStakeShips(cluster, publicKey);
 
       if (response.success) {
         const { data: playerFleet } = response;
