@@ -7,6 +7,7 @@ import { Flex } from "~/components/layout/Flex";
 import { MenuItem } from "~/components/layout/SideBarLayout/components/SideBar/types";
 import { Translation } from "~/i18n/Translation";
 import { useAuthStore } from "~/stores/useAuthStore";
+import { appendQueryParams } from "~/utils/appendQueryParams";
 
 const menuItems: MenuItem[] = [
   {
@@ -54,7 +55,7 @@ const menuItems: MenuItem[] = [
 
 export const SideBarContent = () => {
   const { publicKey } = useWallet();
-  const { locale } = useRouter();
+  const { locale, query } = useRouter();
   const isAdmin = useAuthStore((s) => s.isAdmin);
 
   return (
@@ -73,8 +74,15 @@ export const SideBarContent = () => {
             <Link
               href={
                 item.needPbk
-                  ? item.route + `&pbk=${publicKey?.toString()}&lang=${locale}`
-                  : item.route || ""
+                  ? appendQueryParams(item.route, {
+                      ...query,
+                      pbk: publicKey?.toString() || "",
+                      lang: locale || "",
+                    })
+                  : appendQueryParams(
+                      item.route,
+                      query as Record<string, string | number>
+                    )
               }
             >
               <a target={item.external ? "_blank" : undefined}>

@@ -1,3 +1,4 @@
+import { Connection } from "@solana/web3.js";
 import { getOrderbook } from "~/network/orderbook";
 import { getAllShips } from "~/network/ships/getAllShips";
 import { ShipSize, StarAtlasEntity } from "~/types";
@@ -14,6 +15,7 @@ type StarAtlasEntityExtended = StarAtlasEntity & {
 };
 
 export const getAllShipsWithPrices = async (
+  connection: Connection,
   size?: ShipSize,
   progressCb?: (index: number) => void
 ): Promise<StarAtlasEntityExtended[]> => {
@@ -31,6 +33,7 @@ export const getAllShipsWithPrices = async (
 
     if (usdcMarket) {
       const usdcOrderbook = await getOrderbook(
+        connection,
         usdcMarket.id,
         usdcMarket.serumProgramId
       );
@@ -43,6 +46,7 @@ export const getAllShipsWithPrices = async (
 
     if (atlasMarket) {
       const atlasOrderbook = await getOrderbook(
+        connection,
         atlasMarket.id,
         atlasMarket.serumProgramId
       );

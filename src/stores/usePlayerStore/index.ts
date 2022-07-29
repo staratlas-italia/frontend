@@ -1,9 +1,9 @@
 import { Connection, PublicKey } from "@solana/web3.js";
 import create, { State } from "zustand";
 import {
-  ATLAS_TOKEN_MINT_ID,
-  POLIS_TOKEN_MINT_ID,
-  USDC_TOKEN_MINT_ID,
+  ATLAS_TOKEN_MINT,
+  POLIS_TOKEN_MINT,
+  USDC_TOKEN_MINT,
 } from "~/common/constants";
 import { fetchPlayer } from "~/network/player";
 import { fetchSelf } from "~/network/self";
@@ -43,17 +43,17 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
         getTokenBalanceByMint(
           connection,
           new PublicKey(publicKey),
-          new PublicKey(ATLAS_TOKEN_MINT_ID)
+          ATLAS_TOKEN_MINT
         ).catch(() => null),
         getTokenBalanceByMint(
           connection,
           new PublicKey(publicKey),
-          new PublicKey(POLIS_TOKEN_MINT_ID)
+          POLIS_TOKEN_MINT
         ).catch(() => null),
         getTokenBalanceByMint(
           connection,
           new PublicKey(publicKey),
-          new PublicKey(USDC_TOKEN_MINT_ID)
+          USDC_TOKEN_MINT
         ).catch(() => null),
       ]);
 

@@ -8,5 +8,5 @@ export type MenuItem = {
   external?: boolean;
   icon: iconRenderProp;
   needPbk?: boolean;
-  route?: Routes | string;
+  route: Routes | string;
 };

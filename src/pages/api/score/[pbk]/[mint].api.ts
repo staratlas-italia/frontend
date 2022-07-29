@@ -1,9 +1,9 @@
-import { Connection, PublicKey } from "@solana/web3.js";
+import { Cluster, clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
 import { getShipStakingAccountInfo } from "@staratlas/factory";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { SA_FLEET_PROGRAM_ID } from "~/common/constants";
+import { SA_FLEET_PROGRAM } from "~/common/constants";
+import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { NormalizedShipStakingInfo } from "~/types";
-import { getConnectionContext } from "~/utils/connection";
 import { isPublicKey } from "~/utils/pubkey";
 
 export type ResponseData =
@@ -16,16 +16,12 @@ export type ResponseData =
       data: NormalizedShipStakingInfo;
     };
 
-const connection = new Connection(
-  getConnectionContext("mainnet-beta").endpoint
-);
-
-export default async (
+const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) => {
   const {
-    query: { pbk, mint },
+    query: { pbk, mint, cluster },
   } = req;
 
   if (!isPublicKey(pbk as string)) {
@@ -44,9 +40,11 @@ export default async (
     return;
   }
 
+  const connection = new Connection(clusterApiUrl(cluster as Cluster));
+
   const account = await getShipStakingAccountInfo(
     connection,
-    new PublicKey(SA_FLEET_PROGRAM_ID),
+    SA_FLEET_PROGRAM,
     new PublicKey(mint),
     new PublicKey(pbk)
   );
@@ -78,3 +76,5 @@ export default async (
     },
   });
 };
+
+export default attachClusterMiddleware(handler);

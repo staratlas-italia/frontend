@@ -21,17 +21,25 @@ export const TIER3_TOKEN_MINT_ID = new PublicKey(
   "tr3Z8EqLMeNf2gHSpCsu9uP2o5DzoQ8QNFmueKjHQ95"
 );
 
-export const ATLAS_TOKEN_MINT_ID =
-  "ATLASXmbPQxBUYbxPsV97usA3fPQYEqzQBUHgiFCUsXx";
+export const ATLAS_TOKEN_MINT = new PublicKey(
+  "ATLASXmbPQxBUYbxPsV97usA3fPQYEqzQBUHgiFCUsXx"
+);
 
-export const USDC_TOKEN_MINT_ID =
-  "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
+export const USDC_TOKEN_MINT = new PublicKey(
+  "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+);
 
-export const POLIS_TOKEN_MINT_ID =
-  "poLisWXnNRwC6oBu1vHiuKQzFjGL4XDSu4g9qjz9qVk";
+export const DEVNET_USDC_TOKEN_MINT = new PublicKey(
+  "Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr"
+);
 
-export const SA_FLEET_PROGRAM_ID =
-  "FLEET1qqzpexyaDpqb2DGsSzE2sDCizewCg9WjrA6DBW";
+export const POLIS_TOKEN_MINT = new PublicKey(
+  "poLisWXnNRwC6oBu1vHiuKQzFjGL4XDSu4g9qjz9qVk"
+);
+
+export const SA_FLEET_PROGRAM = new PublicKey(
+  "FLEET1qqzpexyaDpqb2DGsSzE2sDCizewCg9WjrA6DBW"
+);
 
 export const DEXLAB_API_URL = "https://open-api.dexlab.space/v1";
 
@@ -48,3 +56,7 @@ export const ATLAS_DECIMAL = 100_000_000;
 export const ONE_DAY_IN_MILLISECONDS = 86_400_000;
 
 export const WEBSITE_URL = "https://app.staratlasitalia.com";
+
+export const SAI_CITIZEN_WALLET_DESTINATION = new PublicKey(
+  "7rQrcmvXPMPV2eYUbisJhiqwpJKj1KDzhvnz2DEgot14"
+);

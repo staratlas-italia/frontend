@@ -1,9 +1,9 @@
-import { Connection, PublicKey } from "@solana/web3.js";
+import { Cluster, clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
 import { getScoreVarsShipInfo } from "@staratlas/factory";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { SA_FLEET_PROGRAM_ID } from "~/common/constants";
+import { SA_FLEET_PROGRAM } from "~/common/constants";
+import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { NormalizedScoreVarsShipInfo } from "~/types";
-import { getConnectionContext } from "~/utils/connection";
 import { isPublicKey } from "~/utils/pubkey";
 
 export type ResponseData =
@@ -16,17 +16,15 @@ export type ResponseData =
       data: NormalizedScoreVarsShipInfo;
     };
 
-const connection = new Connection(
-  getConnectionContext("mainnet-beta").endpoint
-);
-
-export default async (
+const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) => {
   const {
-    query: { mint },
+    query: { cluster, mint },
   } = req;
+
+  const connection = new Connection(clusterApiUrl(cluster as Cluster));
 
   if (!isPublicKey(mint as string)) {
     res.status(200).json({
@@ -38,7 +36,7 @@ export default async (
 
   const account = await getScoreVarsShipInfo(
     connection,
-    new PublicKey(SA_FLEET_PROGRAM_ID),
+    SA_FLEET_PROGRAM,
     new PublicKey(mint)
   );
 
@@ -58,3 +56,5 @@ export default async (
     },
   });
 };
+
+export default attachClusterMiddleware(handler);

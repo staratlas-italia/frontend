@@ -1,15 +1,9 @@
 import { Market } from "@project-serum/serum";
-import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
+import { Connection, PublicKey } from "@solana/web3.js";
 import { PromiseContent } from "~/types";
 
-let connection = new Connection(
-  process.env.MAIN_RPC_ENDPOINT ||
-    process.env.BACKUP_RPC_ENDPOINT ||
-    clusterApiUrl("mainnet-beta"),
-  "confirmed"
-);
-
 export const getOrderbook = async (
+  connection: Connection,
   marketId: string,
   serumProgramId: string
 ) => {
