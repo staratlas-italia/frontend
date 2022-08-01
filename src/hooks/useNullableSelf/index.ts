@@ -1,11 +1,12 @@
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { useWallet } from "@solana/wallet-adapter-react";
 import invariant from "invariant";
 import { useEffect } from "react";
+import { useCluster } from "~/components/ClusterProvider";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 
 export const useNullableSelf = () => {
   const { publicKey } = useWallet();
-  const { connection } = useConnection();
+  const endpoint = useCluster();
 
   const self = usePlayerStore((state) => state.self);
   const fetchSelf = usePlayerStore((state) => state.fetchSelf);
@@ -16,7 +17,7 @@ export const useNullableSelf = () => {
         return;
       }
 
-      fetchSelf(connection, publicKey.toString());
+      fetchSelf(endpoint.cluster, publicKey.toString());
     }
   }, [publicKey]);
 
