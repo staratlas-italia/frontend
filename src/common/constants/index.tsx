@@ -1,5 +1,4 @@
 import { PublicKey } from "@solana/web3.js";
-import { GmClientService } from "@staratlas/factory";
 
 export const ATLAS_USDC_MARKET_ADDR =
   "Di66GTLsV64JgCCYGVcY21RZ173BHkjJVgPyezNN7P1K";
@@ -57,15 +56,13 @@ export const ATLAS_DECIMAL = 100_000_000;
 
 export const ONE_DAY_IN_MILLISECONDS = 86_400_000;
 
+export const SAI_CITIZEN_WALLET_DESTINATION = new PublicKey(
+  "7rQrcmvXPMPV2eYUbisJhiqwpJKj1KDzhvnz2DEgot14"
+);
+
 export const WEBSITE_URL =
   process.env.ENVIRONMENT === "development"
     ? ""
     : "https://app.staratlasitalia.com";
 
 export const FLEET_WEBSITE_URL = "https://fleet.staratlasitalia.com";
-
-export const SAI_CITIZEN_WALLET_DESTINATION = new PublicKey(
-  "7rQrcmvXPMPV2eYUbisJhiqwpJKj1KDzhvnz2DEgot14"
-);
-
-export const gmClientService = new GmClientService();
