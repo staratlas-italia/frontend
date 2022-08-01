@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
-import { Translation } from "~/i18n/Translation";
+import { appendQueryParams } from "~/utils/appendQueryParams";
 import { MenuItem } from "../SideBar/types";
 import { getMenuItems } from "./getMenuItems";
 
@@ -51,7 +51,7 @@ export const SideBarContent = () => {
                 <img src={item.icon} className="h-5 w-5 text-white" />
 
                 <Text color="white" size="base" weight="medium">
-                  <Translation id={item.name} />
+                  {item.name}
                 </Text>
               </Flex>
             </a>
