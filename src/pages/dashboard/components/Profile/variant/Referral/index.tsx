@@ -9,13 +9,13 @@ export const Referral = () => {
     <Flex>
       <BlurBackground p={5} className="max-w-xs">
         <Flex direction="col" className="space-y-5 overflow-auto">
-          <Text color="white" size="2xl" transform="uppercase">
+          <Text color="text-white" size="2xl" transform="uppercase">
             <Translation id="Referral.Banner.title" />
           </Text>
 
           <Code />
 
-          <Text color="white" size="xs">
+          <Text color="text-white" size="xs">
             <Translation id="Referral.Banner.description" />
           </Text>
 

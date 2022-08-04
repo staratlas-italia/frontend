@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async ({ query }: NextApiRequest, res: NextApiResponse) => {
+const handler = async ({ query }: NextApiRequest, res: NextApiResponse) => {
   const { pubkey } = query;
 
   if (!pubkey) {
@@ -17,3 +17,5 @@ export default async ({ query }: NextApiRequest, res: NextApiResponse) => {
 
   res.status(200).json(data);
 };
+
+export default handler;

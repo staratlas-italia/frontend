@@ -83,7 +83,7 @@ const Pages = ({ Component, pageProps }: Omit<AppProps, "router">) => (
       strategy="lazyOnload"
       src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GOOGLE_ANALYTICS_KEY}`}
     />
-    <Script strategy="lazyOnload">
+    <Script strategy="lazyOnload" id="tagmanager">
       {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
@@ -93,7 +93,7 @@ const Pages = ({ Component, pageProps }: Omit<AppProps, "router">) => (
         `}
     </Script>
 
-    <Script strategy="lazyOnload">
+    <Script strategy="lazyOnload" id="hotjar">
       {`  
           (function(h,o,t,j,a,r){
               h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};

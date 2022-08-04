@@ -25,7 +25,9 @@ export const Code = () => {
         className="rounded-xl border border-white space-x-3"
       >
         <Flex className="overflow-hidden h-5">
-          <Text color="gray-400">{shortenAddress(referralCode || "", 10)}</Text>
+          <Text color="text-gray-400">
+            {shortenAddress(referralCode || "", 10)}
+          </Text>
         </Flex>
         <Flex
           className="cursor-pointer"
@@ -41,7 +43,7 @@ export const Code = () => {
 
   return (
     <AssertAuthenticated>
-      <Button textColor="white" iconLeft={PlusIcon} onClick={create}>
+      <Button textColor="text-white" iconLeft={PlusIcon} onClick={create}>
         Generate referral
       </Button>
     </AssertAuthenticated>

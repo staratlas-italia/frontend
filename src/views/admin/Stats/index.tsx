@@ -39,7 +39,7 @@ export const Stats = () => {
       <Heading
         title="Admin.Stats.title"
         rightContent={
-          <Button textColor="white" onClick={() => fetchAllCharts(true)}>
+          <Button textColor="text-white" onClick={() => fetchAllCharts(true)}>
             <Translation id="Admin.Stats.Refresh.action.title" />
           </Button>
         }

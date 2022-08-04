@@ -46,3 +46,5 @@ export const BaseLayout = React.memo(
     );
   }
 );
+
+BaseLayout.displayName = "BaseLayout";

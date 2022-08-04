@@ -12,7 +12,7 @@ const Refresh = () => {
   const fetch = useShipsDealsStore((s) => s.fetch);
 
   return (
-    <Button textColor="white" onClick={() => fetch(ships, true)}>
+    <Button textColor="text-white" onClick={() => fetch(ships, true)}>
       <Translation id="Admin.Stats.Refresh.action.title" />
     </Button>
   );

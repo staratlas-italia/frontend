@@ -2,10 +2,10 @@ import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FormattedMessage, useIntl } from "react-intl";
+import { TextColor } from "~/components/common/Text/types";
 import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
 import { MaxWidth } from "~/components/layout/MaxWidth";
-import { ColorName } from "~/components/layout/Pane";
 import { StarAtlasEntity } from "~/types";
 import { isFirefox } from "~/utils/isFirefox";
 import { Description } from "./components/Description";
@@ -15,14 +15,14 @@ import { Polygon } from "./components/Polygon";
 
 type Props = { ship: StarAtlasEntity };
 
-const shipColors: { [key: string]: ColorName } = {
-  "xx-small": "white",
-  "x-small": "indigo-300",
-  small: "yellow-500",
-  medium: "green-500",
-  large: "pink-600",
-  capital: "purple-400",
-  commander: "red-600",
+const shipColors: { [key: string]: TextColor } = {
+  "xx-small": "text-white",
+  "x-small": "text-indigo-300",
+  small: "text-yellow-500",
+  medium: "text-green-500",
+  large: "text-pink-600",
+  capital: "text-purple-400",
+  commander: "text-red-600",
 };
 
 export const ShipCard = ({ ship }: Props) => {
@@ -72,7 +72,7 @@ export const ShipCard = ({ ship }: Props) => {
                 className="mt-5 sm:mt-10"
               >
                 {url && (
-                  <a href={url} target="_blank">
+                  <a href={url} target="_blank" rel="noreferrer">
                     <Button
                       as="span"
                       bgColor="indigo-600"

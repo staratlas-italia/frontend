@@ -44,7 +44,7 @@ export const ConnectedContent = () => {
   const onDisconnect = useCallback(() => {
     clear();
     disconnect();
-  }, [disconnect]);
+  }, [clear, disconnect]);
 
   return (
     <Flex p={2} direction="col">

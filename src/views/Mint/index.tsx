@@ -29,7 +29,7 @@ export const MintPage = () => {
     return (
       <BlurBackground px={5} py={3} justify="center">
         <Flex direction="col" className="space-y-3" align="center">
-          <Text align="center" color="white" size="4xl">
+          <Text align="center" color="text-white" size="4xl">
             <Translation id="Dashboard.Profile.Placeholder.title" />
           </Text>
           <ConnectButton />
@@ -54,7 +54,7 @@ export const MintPage = () => {
   if (!loading && !tier) {
     return (
       <BlurBackground px={3} py={2} justify="center">
-        <Text align="center" color="white" size="4xl">
+        <Text align="center" color="text-white" size="4xl">
           <Translation id="Mint.AccessDenied.text" />
         </Text>
       </BlurBackground>
