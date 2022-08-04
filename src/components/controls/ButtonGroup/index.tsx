@@ -14,8 +14,7 @@ export const ButtonGroup = ({ items, onAction, selectedItem }: Props) => {
   return (
     <Flex>
       <Flex
-        className="rounded-xl shadow-sm space-x-2 bg-opacity-20"
-        color="white"
+        className="bg-white rounded-xl shadow-sm space-x-2 bg-opacity-20"
         px={3}
         py={2}
       >

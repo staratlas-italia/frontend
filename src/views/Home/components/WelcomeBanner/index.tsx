@@ -44,10 +44,9 @@ export const WelcomeBanner = () => {
           <Link href="/dashboard" locale={locale}>
             <a>
               <Button
-                bgColor="indigo-500"
-                hoverBgColor="indigo-600"
                 iconRight={ArrowRightIcon}
                 textColor="text-white"
+                className="bg-indigo-500 hover:bg-indigo-600"
               >
                 <Translation id="Home.WelcomeBanner.action.title" />
               </Button>

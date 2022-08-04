@@ -41,9 +41,8 @@ export const EnlistBanner = () => (
           <a target="_blank">
             <Button
               as="span"
-              bgColor="green-100"
-              hoverBgColor="green-200"
               textColor="text-green-700"
+              className="bg-green-100 hover:bg-green-200"
             >
               <Translation id="Home.EnlistBanner.action.title" />
             </Button>

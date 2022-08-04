@@ -56,8 +56,7 @@ export const ConnectedContent = () => {
       >
         <List sections={sections} />
         <Button
-          bgColor="gray-800"
-          hoverBgColor="gray-900"
+          className="bg-gray-800 hover:bg-gray-900"
           textColor="text-white"
           onClick={() => {
             close();

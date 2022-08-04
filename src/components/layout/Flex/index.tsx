@@ -13,11 +13,10 @@ import { getGrowClasses } from "~/components/layout/Flex/utils/getGrowClasses";
 import { getJustifyClasses } from "~/components/layout/Flex/utils/getJustifyClasses";
 import { getShrinkClasses } from "~/components/layout/Flex/utils/getShrinkClasses";
 import { getWrapClasses } from "~/components/layout/Flex/utils/getWrapClasses";
-import { PaneProps } from "~/components/layout/Pane";
 import { Padding, PaddingProps } from "../Padding";
 
 export type FlexProps = { as?: ComponentType | string } & Partial<
-  PaddingProps & Flexbox & MdFlexbox & LgFlexbox & XlFlexbox & PaneProps
+  PaddingProps & Flexbox & MdFlexbox & LgFlexbox & XlFlexbox
 >;
 
 export const Flex = styled(Padding).attrs<FlexProps>(

@@ -21,7 +21,7 @@ export const Text = styled.span.attrs(
     align,
     color,
     decoration,
-    hoverColor,
+    hover,
     mdAlign,
     mdOpacity,
     mdSize,
@@ -62,7 +62,7 @@ export const Text = styled.span.attrs(
       getOpacityClasses({ opacity: mdOpacity, size: "md" }),
       getOpacityClasses({ opacity: xlOpacity, size: "xl" }),
       {
-        [`group-hover:text-${hoverColor}`]: hoverColor,
+        [`group-hover:opacity-90`]: hover,
       }
     ),
   })

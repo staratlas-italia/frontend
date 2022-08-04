@@ -6,7 +6,7 @@ export const Settings = () => {
   const { open } = useModal("wallet-modal");
 
   return (
-    <Button size="small" bgColor="white" className="rounded-xl" onClick={open}>
+    <Button size="small" className="bg-white rounded-xl" onClick={open}>
       <CogIcon className="h-5 w-5" />
     </Button>
   );

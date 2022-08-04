@@ -1,6 +1,5 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import { Wallet } from "@solana/wallet-adapter-wallets";
-import React from "react";
 import styled from "styled-components";
 import { Text } from "~/components/common/Text";
 import { Button } from "~/components/controls/Button";
@@ -37,12 +36,7 @@ export const UserBadge = ({ iconSize, showAddress }: Props) => {
   return (
     <Flex className="space-x-2">
       <Settings />
-      <Button
-        size={"small"}
-        className="rounded-xl"
-        bgColor="white"
-        hoverBgColor="gray-100"
-      >
+      <Button size="small" className="bg-white hover:bg-gray-100 rounded-xl">
         <Flex className="space-x-2" align="center">
           <Icon address={publicKey?.toBase58()} iconSize={iconSize} />
 

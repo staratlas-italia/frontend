@@ -9,7 +9,6 @@ import { getPaddingRightClasses } from "~/components/layout/Padding/utils/getPad
 import { getPaddingTopClasses } from "~/components/layout/Padding/utils/getPaddingTopClasses";
 import { getPaddingXClasses } from "~/components/layout/Padding/utils/getPaddingXClasses";
 import { getPaddingYClasses } from "~/components/layout/Padding/utils/getPaddingYClasses";
-import { Pane } from "~/components/layout/Pane";
 import { StrictReactNode } from "~/types";
 
 type Padding = {
@@ -46,7 +45,7 @@ export type PaddingProps = PropsWithChildren<
   Partial<Padding & MdPadding & LgPadding> & { Component?: StrictReactNode }
 >;
 
-export const Padding = styled(Pane).attrs(
+export const Padding = styled.div.attrs(
   ({
     p,
     pt,

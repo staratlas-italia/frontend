@@ -28,10 +28,8 @@ export const ConnectButton = ({
     return (
       <div>
         <Button
-          size={"small"}
-          className="rounded-xl"
-          bgColor="white"
-          hoverBgColor="gray-100"
+          size="small"
+          className="bg-white hover:bg-gray-100 rounded-xl"
           onClick={handleClick}
         >
           <Translation id="Layout.Wallet.Connect.title" />

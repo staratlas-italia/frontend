@@ -55,7 +55,7 @@ export type TextColor = `text-${ColorName}`;
 export type XsTextProps = {
   align: TextAlignment;
   color: TextColor;
-  hoverColor: ColorName;
+  hover: boolean;
   decoration: TextDecoration;
   opacity: TextOpacity;
   overflow: TextOverflow;

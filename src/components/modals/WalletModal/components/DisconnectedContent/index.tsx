@@ -14,8 +14,6 @@ export const DisconnectedContent = () => {
       {wallets.map((wallet) => (
         <Button
           key={wallet.name}
-          bgColor="gray-800"
-          hoverBgColor="gray-900"
           textColor="text-white"
           iconLeft={({ className }) => (
             <Image
@@ -25,7 +23,7 @@ export const DisconnectedContent = () => {
               className={className}
             />
           )}
-          className="phantom-button metaplex-button"
+          className="bg-gray-800 hover:bg-gray-900 phantom-button metaplex-button"
           onClick={() => {
             close();
             setTimeout(() => select(wallet.name), 300);

@@ -75,9 +75,7 @@ export const ShipCard = ({ ship }: Props) => {
                   <a href={url} target="_blank" rel="noreferrer">
                     <Button
                       as="span"
-                      bgColor="indigo-600"
-                      hoverBgColor="indigo-700"
-                      className="w-full lg:w-auto"
+                      className="bg-indigo-600 hover:bg-indigo-700 w-full lg:w-auto"
                       textColor="text-white"
                     >
                       <FormattedMessage
@@ -98,9 +96,7 @@ export const ShipCard = ({ ship }: Props) => {
                     <a className="w-full lg:w-auto">
                       <Button
                         as="span"
-                        bgColor="indigo-100"
-                        hoverBgColor="indigo-200"
-                        className="w-full lg:w-auto"
+                        className="bg-indigo-100 hover:bg-indigo-200 w-full lg:w-auto"
                         textColor="text-indigo-700"
                       >
                         <FormattedMessage

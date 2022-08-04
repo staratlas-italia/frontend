@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import React, { Fragment, PropsWithChildren } from "react";
+import { Fragment, PropsWithChildren } from "react";
 import { Flex } from "~/components/layout/Flex";
 import { AvailableModal, useModal } from "../../../contexts/ModalContext";
 
@@ -21,7 +21,7 @@ export const BaseModal = ({ children, id, ...props }: Props) => {
           pt={4}
           className="min-h-screen pt-4 px-3 pb-20 text-center sm:block sm:p-0"
         >
-          <Transition.Child
+          {/* <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
             enterFrom="opacity-0"
@@ -34,7 +34,7 @@ export const BaseModal = ({ children, id, ...props }: Props) => {
               className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
               onClick={close}
             />
-          </Transition.Child>
+          </Transition.Child> */}
 
           {/* This element is to trick the browser into centering the modal contents. */}
           <span
