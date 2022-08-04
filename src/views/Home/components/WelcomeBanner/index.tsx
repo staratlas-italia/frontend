@@ -43,13 +43,9 @@ export const WelcomeBanner = () => {
         <Flex>
           <Link href="/dashboard" locale={locale}>
             <a>
-              <Button
-                iconRight={ArrowRightIcon}
-                textColor="text-white"
-                className="bg-indigo-500 hover:bg-indigo-600"
-              >
+              <Button.Primary iconRight={ArrowRightIcon}>
                 <Translation id="Home.WelcomeBanner.action.title" />
-              </Button>
+              </Button.Primary>
             </a>
           </Link>
         </Flex>

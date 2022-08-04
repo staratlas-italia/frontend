@@ -55,16 +55,14 @@ export const ConnectedContent = () => {
         className="border-2 border-gray-300 rounded space-y-8"
       >
         <List sections={sections} />
-        <Button
-          className="bg-gray-800 hover:bg-gray-900"
-          textColor="text-white"
+        <Button.Dark
           onClick={() => {
             close();
             setTimeout(() => onDisconnect(), 300);
           }}
         >
           <Translation id="Layout.Wallet.Disconnect.title" />
-        </Button>
+        </Button.Dark>
       </Flex>
     </Flex>
   );

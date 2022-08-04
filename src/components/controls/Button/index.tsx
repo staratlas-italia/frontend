@@ -92,3 +92,63 @@ export const Button = ({
     </Flex>
   );
 };
+
+const Dark = ({ className, ...props }: ButtonProps) => (
+  <Button
+    {...props}
+    className={classNames(className, "bg-gray-800", "hover:bg-gray-900")}
+    textColor="text-white"
+  />
+);
+
+Dark.displayName = "DarkButton";
+
+const Primary = ({ className, ...props }: ButtonProps) => (
+  <Button
+    {...props}
+    className={classNames(className, "bg-indigo-500", "hover:bg-indigo-600")}
+    textColor="text-white"
+  />
+);
+
+Primary.displayName = "PrimaryButton";
+
+const Secondary = ({ className, ...props }: ButtonProps) => (
+  <Button
+    {...props}
+    className={classNames(className, "bg-green-100", "hover:bg-green-200")}
+    textColor="text-green-700"
+  />
+);
+
+Secondary.displayName = "SecondaryButton";
+
+const Tertiary = ({ className, ...props }: ButtonProps) => (
+  <Button
+    {...props}
+    className={classNames(className, "bg-indigo-100", "hover:bg-indigo-200")}
+    textColor="text-indigo-700"
+  />
+);
+
+Tertiary.displayName = "TertiaryButton";
+
+const Neutral = ({ className, ...props }: ButtonProps) => (
+  <Button
+    {...props}
+    className={classNames(
+      className,
+      "bg-white",
+      "hover:bg-gray-100",
+      "rounded-xl"
+    )}
+  />
+);
+
+Neutral.displayName = "NeutralButton";
+
+Button.Dark = Dark;
+Button.Primary = Primary;
+Button.Secondary = Secondary;
+Button.Tertiary = Tertiary;
+Button.Neutral = Neutral;

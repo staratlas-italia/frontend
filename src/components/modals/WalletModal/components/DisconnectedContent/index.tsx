@@ -12,9 +12,8 @@ export const DisconnectedContent = () => {
   return (
     <Flex direction="col" className="space-y-3" p={3}>
       {wallets.map((wallet) => (
-        <Button
+        <Button.Dark
           key={wallet.name}
-          textColor="text-white"
           iconLeft={({ className }) => (
             <Image
               src={wallet.icon}
@@ -23,7 +22,6 @@ export const DisconnectedContent = () => {
               className={className}
             />
           )}
-          className="bg-gray-800 hover:bg-gray-900 phantom-button metaplex-button"
           onClick={() => {
             close();
             setTimeout(() => select(wallet.name), 300);
@@ -33,7 +31,7 @@ export const DisconnectedContent = () => {
             id="Layout.Wallet.Modal.ConnectedTo.title"
             values={{ wallet: wallet.name }}
           />
-        </Button>
+        </Button.Dark>
       ))}
     </Flex>
   );

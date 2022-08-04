@@ -1,11 +1,12 @@
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { TextColor } from "~/components/common/Text/types";
 import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
 import { MaxWidth } from "~/components/layout/MaxWidth";
+import { Translation } from "~/i18n/Translation";
 import { StarAtlasEntity } from "~/types";
 import { isFirefox } from "~/utils/isFirefox";
 import { Description } from "./components/Description";
@@ -73,16 +74,9 @@ export const ShipCard = ({ ship }: Props) => {
               >
                 {url && (
                   <a href={url} target="_blank" rel="noreferrer">
-                    <Button
-                      as="span"
-                      className="bg-indigo-600 hover:bg-indigo-700 w-full lg:w-auto"
-                      textColor="text-white"
-                    >
-                      <FormattedMessage
-                        id={"Ships.List.Card.BuyAction.title"}
-                        defaultMessage={"Compra"}
-                      />
-                    </Button>
+                    <Button.Primary as="span" className="w-full lg:w-auto">
+                      <Translation id="Ships.List.Card.BuyAction.title" />
+                    </Button.Primary>
                   </a>
                 )}
                 <Flex className="mt-3 lg:ml-3 lg:mt-0 w-full">
@@ -94,16 +88,9 @@ export const ShipCard = ({ ship }: Props) => {
                     locale={locale}
                   >
                     <a className="w-full lg:w-auto">
-                      <Button
-                        as="span"
-                        className="bg-indigo-100 hover:bg-indigo-200 w-full lg:w-auto"
-                        textColor="text-indigo-700"
-                      >
-                        <FormattedMessage
-                          id={"Ships.List.Card.ReadMore.title"}
-                          defaultMessage={"Scopri di più"}
-                        />
-                      </Button>
+                      <Button.Tertiary as="span">
+                        <Translation id="Ships.List.Card.ReadMore.title" />
+                      </Button.Tertiary>
                     </a>
                   </Link>
                 </Flex>

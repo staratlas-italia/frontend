@@ -6,8 +6,8 @@ export const Settings = () => {
   const { open } = useModal("wallet-modal");
 
   return (
-    <Button size="small" className="bg-white rounded-xl" onClick={open}>
+    <Button.Neutral size="small" onClick={open}>
       <CogIcon className="h-5 w-5" />
-    </Button>
+    </Button.Neutral>
   );
 };
