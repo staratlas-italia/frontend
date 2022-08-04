@@ -32,8 +32,6 @@ export const useBadgesStore = create<BadgesStore>((set, get) => ({
         .findAllByOwner(new PublicKey(publicKey))
         .run();
 
-      console.log(nfts);
-
       const oweNfts = await Promise.all(
         nfts
           .filter((nft) => getBadgeByMint(nft.mintAddress))
@@ -48,8 +46,6 @@ export const useBadgesStore = create<BadgesStore>((set, get) => ({
               : Promise.resolve(toTuple([nft, {}]))
           )
       );
-
-      console.log(oweNfts);
 
       set({
         badges: oweNfts,
