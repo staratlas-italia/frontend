@@ -24,7 +24,7 @@ export const Treasury = () => {
       className="md:space-y-2 w-full"
     >
       <Text
-        color="white"
+        color="text-white"
         className="w-min"
         size="xl"
         transform="uppercase"
@@ -35,7 +35,7 @@ export const Treasury = () => {
       <Price
         size="4xl"
         weight="bold"
-        color="white"
+        color="text-white"
         value={usdcAmount}
         currency="USDC"
       />

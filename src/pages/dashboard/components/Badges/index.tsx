@@ -38,7 +38,11 @@ export const Badges = () => {
                   href={`https://solscan.io/account/${badge.mintAddress.toString()}`}
                 >
                   <a target="_blank">
-                    <Text align="center" color="white" decoration="underline">
+                    <Text
+                      align="center"
+                      color="text-white"
+                      decoration="underline"
+                    >
                       {badge.name}
                     </Text>
                   </a>

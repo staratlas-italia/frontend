@@ -41,7 +41,7 @@ export const ShipPage = () => {
       </Link>
 
       <Text
-        color="white"
+        color="text-white"
         className="col-span-3"
         size="4xl"
         mdSize="6xl"
@@ -80,7 +80,7 @@ export const ShipPage = () => {
                 {attributes?.spec} - {attributes?.rarity}
               </Text>
             </Flex>
-            <Text size="xl" color="gray-100">
+            <Text size="xl" color="text-gray-100">
               <Translation
                 id={
                   `Ships.Details.${name
@@ -118,7 +118,7 @@ export const ShipPage = () => {
               >
                 <img
                   src={imageUrl}
-                  className="transition duration-500 ease-in-out h-full w-full bg-auto bg-no-repeat bg-center object-cover transform hover:scale-95"
+                  className="transition duration-500 ease-in-out h-full w-full bg-auto bg-no-repeat bg-center object-cover hover:scale-95"
                 />
               </Flex>
             ))}

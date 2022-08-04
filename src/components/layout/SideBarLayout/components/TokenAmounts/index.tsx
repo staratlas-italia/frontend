@@ -10,21 +10,21 @@ export const TokenAmounts = () => {
   return (
     <BlurBackground wrap="wrap" px={3} py={2} className="lg:space-x-3">
       <Price
-        color="white"
+        color="text-white"
         currency="ATLAS"
         inverse
         size="xl"
         value={atlasAmount}
       />
       <Price
-        color="white"
+        color="text-white"
         currency="POLIS"
         inverse
         size="xl"
         value={polisAmount}
       />
       <Price
-        color="white"
+        color="text-white"
         currency="USDC"
         inverse
         size="xl"

@@ -18,12 +18,11 @@ export const MintBanner = () => {
     <Flex justify="center" pb={5}>
       <Flex
         align="center"
+        className="bg-white rounded-lg w-full xl:max-w-2xl space-x-2"
+        direction="col"
         px={5}
         py={3}
-        color="white"
-        className="rounded-lg w-full xl:max-w-2xl space-x-2"
         justify="between"
-        direction="col"
         mdDirection="row"
       >
         <Flex direction="col">

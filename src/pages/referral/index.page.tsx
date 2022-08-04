@@ -27,7 +27,7 @@ const ReferralCodePage = () => {
   if (!wallet || !connected) {
     return (
       <BlurBackground px={3} py={2} justify="center">
-        <Text align="center" color="white" size="4xl">
+        <Text align="center" color="text-white" size="4xl">
           <Translation id="Dashboard.Profile.Placeholder.title" />
         </Text>
       </BlurBackground>
@@ -39,7 +39,7 @@ const ReferralCodePage = () => {
       <AssertAuthenticated>
         <BlurBackground>
           <Button
-            textColor="white"
+            textColor="text-white"
             onClick={() => (code ? redeem(code as string) : null)}
           >
             Redeem

@@ -35,10 +35,10 @@ export const ShipTable = () => {
         atlasPrice,
         formatMessage: intl.formatMessage,
       }),
-    [action, atlasPrice, intl]
+    [action, atlasPrice, intl.formatMessage, locale]
   );
 
-  const fetch = useCallback(() => fetchPrices(ships), [ships]);
+  const fetch = useCallback(() => fetchPrices(ships), [fetchPrices, ships]);
 
   return (
     <BlurBackground className="relative overflow-hidden" p={5} mdP={8}>

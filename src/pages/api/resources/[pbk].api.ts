@@ -14,7 +14,7 @@ const connection = new Connection(
   getConnectionContext("mainnet-beta").endpoint
 );
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     query: { pbk },
   } = req;
@@ -61,3 +61,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     },
   });
 };
+
+export default handler;

@@ -8,6 +8,7 @@ import { HomePage } from "~/views/Home";
 const Home = () => {
   const { connected } = useWallet();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const initiallyConnected = useMemo(() => connected, []);
 
   if (initiallyConnected) {

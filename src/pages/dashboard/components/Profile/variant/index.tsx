@@ -45,21 +45,21 @@ export const Profile = () => {
         </Flex>
         <Flex direction="col">
           <Flex align="center">
-            <InfoRow color="gray-200" title="addr">
-              <Text color="white" size="4xl">
+            <InfoRow color="text-gray-200" title="addr">
+              <Text color="text-white" size="4xl">
                 {shortenAddress(player?.publicKey || "")}
               </Text>
             </InfoRow>
           </Flex>
           <Flex align="center" pt={5} className="grid grid-cols-2 gap-5">
-            <InfoRow color="gray-200" title="universal Rank">
-              <Text color="white">{rank}</Text>
+            <InfoRow color="text-gray-200" title="universal Rank">
+              <Text color="text-white">{rank}</Text>
             </InfoRow>
-            <InfoRow color="gray-200" title="faction rank">
-              <Text color="white">{factionRank}</Text>
+            <InfoRow color="text-gray-200" title="faction rank">
+              <Text color="text-white">{factionRank}</Text>
             </InfoRow>
-            <InfoRow color="gray-200" title="net worth">
-              <Price color="white" value={balance} />
+            <InfoRow color="text-gray-200" title="net worth">
+              <Price color="text-white" value={balance} />
             </InfoRow>
           </Flex>
         </Flex>

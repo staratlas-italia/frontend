@@ -20,7 +20,7 @@ const connection = new Connection(
   getConnectionContext("mainnet-beta").endpoint
 );
 
-export default async (
+const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) => {
@@ -58,3 +58,5 @@ export default async (
     },
   });
 };
+
+export default handler;

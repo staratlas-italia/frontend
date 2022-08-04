@@ -1,8 +1,8 @@
 import { Text } from "~/components/common/Text";
-import { ColorName } from "~/components/layout/Pane";
+import { TextColor } from "~/components/common/Text/types";
 
 type Props = {
-  color?: ColorName;
+  color?: TextColor;
 };
 
 export const Loader = ({ color }: Props) => {

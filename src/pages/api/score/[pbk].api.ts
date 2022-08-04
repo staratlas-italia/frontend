@@ -35,7 +35,7 @@ const connection = new Connection(
 //   })
 // );
 
-export default async (
+const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<ScoreFleetResponse>
 ) => {
@@ -199,3 +199,5 @@ export default async (
     })),
   });
 };
+
+export default handler;

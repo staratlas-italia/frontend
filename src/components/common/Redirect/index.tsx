@@ -15,7 +15,7 @@ export const Redirect = ({ to, replace = false }: Props) => {
     } else {
       router.push(to);
     }
-  }, [to]);
+  }, [replace, router, to]);
 
   return null;
 };

@@ -44,7 +44,7 @@ export const ConnectedContent = () => {
   const onDisconnect = useCallback(() => {
     clear();
     disconnect();
-  }, [disconnect]);
+  }, [clear, disconnect]);
 
   return (
     <Flex p={2} direction="col">
@@ -55,17 +55,14 @@ export const ConnectedContent = () => {
         className="border-2 border-gray-300 rounded space-y-8"
       >
         <List sections={sections} />
-        <Button
-          bgColor="gray-800"
-          hoverBgColor="gray-900"
-          textColor="white"
+        <Button.Dark
           onClick={() => {
             close();
             setTimeout(() => onDisconnect(), 300);
           }}
         >
           <Translation id="Layout.Wallet.Disconnect.title" />
-        </Button>
+        </Button.Dark>
       </Flex>
     </Flex>
   );

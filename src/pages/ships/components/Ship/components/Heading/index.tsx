@@ -1,9 +1,9 @@
 import cx from "classnames";
 import { Text } from "~/components/common/Text";
-import { ColorName } from "~/components/layout/Pane";
+import { TextColor } from "~/components/common/Text/types";
 
 type Props = {
-  color: ColorName;
+  color: TextColor;
   subtitle: string;
   title: string;
 };
@@ -18,7 +18,7 @@ export const Heading = ({ color, subtitle, title }: Props) => (
   >
     <span className={cx(`block xl:inline`)}>{title}</span>
     <Text
-      color="gray-200"
+      color="text-gray-200"
       className="mt-2 block"
       size="3xl"
       transform="uppercase"

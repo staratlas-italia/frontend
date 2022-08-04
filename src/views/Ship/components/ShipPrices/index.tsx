@@ -61,7 +61,7 @@ export const ShipPrices = () => {
         {priceVsVwapDiscount && (
           <Text
             as="span"
-            color={priceVsVwapDiscount > 0 ? "green-300" : "red-300"}
+            color={priceVsVwapDiscount > 0 ? "text-green-300" : "text-red-300"}
           >
             {Math.abs(priceVsVwapDiscount).toFixed(2)}%{" "}
             {priceVsVwapDiscount > 0 ? "Discount" : "Premium"}
@@ -84,7 +84,7 @@ export const ShipPrices = () => {
         {priceVsAtlasDiscount && (
           <Text
             as="span"
-            color={priceVsAtlasDiscount > 0 ? "green-300" : "red-300"}
+            color={priceVsAtlasDiscount > 0 ? "text-green-300" : "text-red-300"}
           >
             {Math.abs(priceVsAtlasDiscount).toFixed(2)}%{" "}
             {priceVsAtlasDiscount > 0 ? "Discount" : "Premium"}

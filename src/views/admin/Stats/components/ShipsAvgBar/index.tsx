@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Bar,
   BarChart,
@@ -22,7 +21,7 @@ export const ShipsAvgBar = ({ title }: Props) => (
       <BlurBackground direction="col" px={5} py={3} justify="center">
         <Flex pb={3}>
           <SaiText
-            color="white"
+            color="text-white"
             size="2xl"
             transform="uppercase"
             weight="semibold"

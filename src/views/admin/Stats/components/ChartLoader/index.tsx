@@ -22,7 +22,12 @@ const getRandomData = () => {
 export const ChartLoader = ({ title }: Props) => (
   <BlurBackground direction="col" px={5} py={3} justify="center">
     <Flex pb={3}>
-      <Text color="white" size="2xl" transform="uppercase" weight="semibold">
+      <Text
+        color="text-white"
+        size="2xl"
+        transform="uppercase"
+        weight="semibold"
+      >
         {title}
       </Text>
     </Flex>

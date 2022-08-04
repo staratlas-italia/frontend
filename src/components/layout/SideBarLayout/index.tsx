@@ -38,3 +38,5 @@ export const SideBarLayout = React.memo(
     );
   }
 );
+
+SideBarLayout.displayName = "SideBarLayout";

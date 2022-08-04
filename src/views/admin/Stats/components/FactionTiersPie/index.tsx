@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { Cell, Pie, PieChart, ResponsiveContainer, Sector } from "recharts";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
@@ -33,7 +33,7 @@ export const FactionTiersPie = ({ unit, title }: Props) => {
         <BlurBackground direction="col" px={5} py={3} className="h-full">
           <Flex pb={3}>
             <Text
-              color="white"
+              color="text-white"
               size="2xl"
               transform="uppercase"
               weight="semibold"

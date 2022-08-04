@@ -1,11 +1,12 @@
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
+import { TextColor } from "~/components/common/Text/types";
 import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
 import { MaxWidth } from "~/components/layout/MaxWidth";
-import { ColorName } from "~/components/layout/Pane";
+import { Translation } from "~/i18n/Translation";
 import { StarAtlasEntity } from "~/types";
 import { isFirefox } from "~/utils/isFirefox";
 import { Description } from "./components/Description";
@@ -15,14 +16,14 @@ import { Polygon } from "./components/Polygon";
 
 type Props = { ship: StarAtlasEntity };
 
-const shipColors: { [key: string]: ColorName } = {
-  "xx-small": "white",
-  "x-small": "indigo-300",
-  small: "yellow-500",
-  medium: "green-500",
-  large: "pink-600",
-  capital: "purple-400",
-  commander: "red-600",
+const shipColors: { [key: string]: TextColor } = {
+  "xx-small": "text-white",
+  "x-small": "text-indigo-300",
+  small: "text-yellow-500",
+  medium: "text-green-500",
+  large: "text-pink-600",
+  capital: "text-purple-400",
+  commander: "text-red-600",
 };
 
 export const ShipCard = ({ ship }: Props) => {
@@ -72,19 +73,10 @@ export const ShipCard = ({ ship }: Props) => {
                 className="mt-5 sm:mt-10"
               >
                 {url && (
-                  <a href={url} target="_blank">
-                    <Button
-                      as="span"
-                      bgColor="indigo-600"
-                      hoverBgColor="indigo-700"
-                      className="w-full lg:w-auto"
-                      textColor="white"
-                    >
-                      <FormattedMessage
-                        id={"Ships.List.Card.BuyAction.title"}
-                        defaultMessage={"Compra"}
-                      />
-                    </Button>
+                  <a href={url} target="_blank" rel="noreferrer">
+                    <Button.Primary as="span" className="w-full lg:w-auto">
+                      <Translation id="Ships.List.Card.BuyAction.title" />
+                    </Button.Primary>
                   </a>
                 )}
                 <Flex className="mt-3 lg:ml-3 lg:mt-0 w-full">
@@ -96,18 +88,9 @@ export const ShipCard = ({ ship }: Props) => {
                     locale={locale}
                   >
                     <a className="w-full lg:w-auto">
-                      <Button
-                        as="span"
-                        bgColor="indigo-100"
-                        hoverBgColor="indigo-200"
-                        className="w-full lg:w-auto"
-                        textColor="indigo-700"
-                      >
-                        <FormattedMessage
-                          id={"Ships.List.Card.ReadMore.title"}
-                          defaultMessage={"Scopri di più"}
-                        />
-                      </Button>
+                      <Button.Tertiary as="span">
+                        <Translation id="Ships.List.Card.ReadMore.title" />
+                      </Button.Tertiary>
                     </a>
                   </Link>
                 </Flex>

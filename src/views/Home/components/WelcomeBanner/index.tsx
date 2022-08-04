@@ -26,7 +26,7 @@ export const WelcomeBanner = () => {
         justify="center"
       >
         <Text
-          color="white"
+          color="text-white"
           className="tracking-tight0"
           weight="extrabold"
           size="4xl"
@@ -34,23 +34,18 @@ export const WelcomeBanner = () => {
         >
           <Translation id="Home.WelcomeBanner.title" />
         </Text>
-        <Text color="white" size="lg" mdSize="xl" weight="medium">
+        <Text color="text-white" size="lg" mdSize="xl" weight="medium">
           <Translation id="Home.WelcomeBanner.description.0" />
         </Text>
-        <Text color="white" weight="semibold" size="lg" mdSize="xl">
+        <Text color="text-white" weight="semibold" size="lg" mdSize="xl">
           <Translation id="Home.WelcomeBanner.description.1" />
         </Text>
         <Flex>
           <Link href="/dashboard" locale={locale}>
             <a>
-              <Button
-                bgColor="indigo-500"
-                hoverBgColor="indigo-600"
-                iconRight={ArrowRightIcon}
-                textColor="white"
-              >
+              <Button.Primary iconRight={ArrowRightIcon}>
                 <Translation id="Home.WelcomeBanner.action.title" />
-              </Button>
+              </Button.Primary>
             </a>
           </Link>
         </Flex>

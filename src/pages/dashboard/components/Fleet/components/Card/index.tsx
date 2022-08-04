@@ -1,9 +1,9 @@
 import { useIntl } from "react-intl";
 import { Text } from "~/components/common/Text";
+import type { TextColor } from "~/components/common/Text/types";
 import { Countdown } from "~/components/Countdown";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
-import { ColorName } from "~/components/layout/Pane";
 import { Progress } from "~/components/Progress";
 import { NormalizedShipStakingInfoExtended, StarAtlasEntity } from "~/types";
 import { Heading } from "./components/Heading";
@@ -14,14 +14,14 @@ type Props = {
   stakeInfo?: NormalizedShipStakingInfoExtended;
 };
 
-const shipColors: { [key: string]: ColorName } = {
-  "xx-small": "white",
-  "x-small": "indigo-300",
-  small: "yellow-500",
-  medium: "green-500",
-  large: "pink-600",
-  capital: "purple-400",
-  commander: "red-600",
+const shipColors: Record<string, TextColor> = {
+  "xx-small": "text-white",
+  "x-small": "text-indigo-300",
+  small: "text-yellow-500",
+  medium: "text-green-500",
+  large: "text-pink-600",
+  capital: "text-purple-400",
+  commander: "text-red-600",
 };
 
 export const Card = ({ ship, stakeInfo }: Props) => {
@@ -54,7 +54,7 @@ export const Card = ({ ship, stakeInfo }: Props) => {
                     className="h-5 w-5 text-white"
                   />
                   <Text
-                    color="white"
+                    color="text-white"
                     weight="semibold"
                     size="xl"
                     className="ml-2"

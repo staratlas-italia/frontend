@@ -27,15 +27,9 @@ export const ConnectButton = ({
   if (!wallet || !connected) {
     return (
       <div>
-        <Button
-          size={"small"}
-          className="rounded-xl"
-          bgColor="white"
-          hoverBgColor="gray-100"
-          onClick={handleClick}
-        >
+        <Button.Neutral size="small" onClick={handleClick}>
           <Translation id="Layout.Wallet.Connect.title" />
-        </Button>
+        </Button.Neutral>
       </div>
     );
   }

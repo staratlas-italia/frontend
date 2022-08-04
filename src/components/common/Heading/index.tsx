@@ -9,7 +9,7 @@ type Props = { title: TranslationId; rightContent?: StrictReactNode };
 
 export const Heading = ({ title, rightContent = null }: Props) => (
   <BlurBackground p={5} justify="between">
-    <Text color="white" size="4xl" xlSize="5xl" weight="bold">
+    <Text color="text-white" size="4xl" xlSize="5xl" weight="bold">
       <Translation id={title} />
     </Text>
     <Flex align="center">

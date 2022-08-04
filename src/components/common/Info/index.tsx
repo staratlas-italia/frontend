@@ -1,11 +1,11 @@
 import { PropsWithChildren } from "react";
 import { Loader } from "~/components/common/Loader";
 import { Text } from "~/components/common/Text";
+import { TextColor } from "~/components/common/Text/types";
 import { Flex } from "~/components/layout/Flex";
-import { ColorName } from "~/components/layout/Pane";
 
 type Props = PropsWithChildren<{
-  color?: ColorName;
+  color?: TextColor;
   loading?: boolean;
   title?: string;
 }>;
@@ -17,7 +17,7 @@ export const InfoRow = ({ color, loading, title, children }: Props) => {
         <Text size="xl">
           {loading ? (
             <Flex pl={2}>
-              <Loader color="white" />
+              <Loader color="text-white" />
             </Flex>
           ) : (
             children || "-"
@@ -27,7 +27,7 @@ export const InfoRow = ({ color, loading, title, children }: Props) => {
           weight="bold"
           transform="uppercase"
           size="sm"
-          color={color || "gray-300"}
+          color={color || "text-gray-300"}
         >
           {title}
         </Text>

@@ -50,7 +50,7 @@ export const SideBarContent = () => {
               >
                 <img src={item.icon} className="h-5 w-5 text-white" />
 
-                <Text color="white" size="base" weight="medium">
+                <Text color="text-white" size="base" weight="medium">
                   {item.name}
                 </Text>
               </Flex>

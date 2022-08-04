@@ -11,11 +11,11 @@ export const Footer = () => {
 
   return (
     <Flex direction="col">
-      <Flex justify="center" pb={5} className={"space-x-5"}>
+      <Flex justify="center" pb={5} className="space-x-5">
         <Link href={asPath} locale={locale === "it" ? "en" : "it"}>
           <a>
             <Text
-              color="white"
+              color="text-white"
               size="2xl"
               transform="uppercase"
               weight={locale === "it" ? "bold" : "medium"}
@@ -27,7 +27,7 @@ export const Footer = () => {
         <Link href={asPath} locale={locale === "it" ? "en" : "it"}>
           <a>
             <Text
-              color="white"
+              color="text-white"
               size="2xl"
               transform="uppercase"
               weight={locale === "en" ? "bold" : "medium"}
@@ -40,7 +40,7 @@ export const Footer = () => {
       <Flex pb={8} justify="center">
         <Link href="https://forms.gle/UhjNWDnsXq5bDxhE7">
           <a target="_blank">
-            <Text color="white" weight="semibold" size="sm">
+            <Text color="text-white" weight="semibold" size="sm">
               <Translation id="Layout.Sidebar.Feedback.title" />
             </Text>
           </a>
@@ -50,7 +50,7 @@ export const Footer = () => {
       <SocialLinks />
 
       <Flex pb={8} justify="center">
-        <Text color="white" size="xs" weight="semibold">
+        <Text color="text-white" size="xs" weight="semibold">
           v{version}
         </Text>
       </Flex>
