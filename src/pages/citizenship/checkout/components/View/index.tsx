@@ -6,8 +6,11 @@ import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Container } from "~/components/layout/Container";
 import { Flex } from "~/components/layout/Flex";
 import { Logo } from "~/components/layout/Header";
+import { SelfRetriever } from "~/components/SelfRetriever";
 import { Wallet } from "~/components/Wallet";
 import { useFaction } from "../../../FactionGuard";
+import { ReferenceRetriever } from "../ReferenceRetriever";
+import { QrCode } from "./QrCode";
 
 const LoaderContainer = styled(Flex)`
   width: 250px;
@@ -86,12 +89,11 @@ export const View = () => (
           </Flex>
 
           <Flex pt={5} justify="center">
-            <Loader />
-            {/* <SelfRetriever loader={<Loader />}>
+            <SelfRetriever loader={<Loader />}>
               <ReferenceRetriever loader={<Loader />}>
                 <QrCode />
               </ReferenceRetriever>
-            </SelfRetriever> */}
+            </SelfRetriever>
           </Flex>
 
           <Flex

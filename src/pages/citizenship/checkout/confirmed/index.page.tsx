@@ -65,12 +65,13 @@ const CitizenshipConfirmedComponent = () => {
 
                 <ImageContainer>
                   <img
+                    className="rotate-12"
                     alt="citizen-card"
                     src={`/images/cards/card-${faction}.webp`}
                   />
                 </ImageContainer>
 
-                <div className="absolute top-14 right-14">
+                <div className="absolute top-8 right-16">
                   <CheckCircleIcon className="h-16 w-16 text-emerald-400" />
                 </div>
               </Flex>
