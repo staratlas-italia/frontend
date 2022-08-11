@@ -1,4 +1,3 @@
-import React from "react";
 import { Flex } from "~/components/layout/Flex";
 import { WalletModal } from "~/components/modals/WalletModal";
 import { ConnectButton } from "~/components/Wallet/components/ConnectButton";

@@ -227,3 +227,9 @@ export type BestPrices = {
   bestAskPrice: number;
   bestBidPrice: number;
 };
+
+export const factions = ["ONI", "MUD", "USTUR"] as const;
+
+export type Faction = typeof factions[number];
+
+export type FactionWithNone = Faction | "NONE";

@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { ComponentType, PropsWithChildren } from "react";
+import styled from "styled-components";
 import { Loader } from "~/components/common/Loader";
 import { Text } from "~/components/common/Text";
 import { TextColor } from "~/components/common/Text/types";
@@ -10,8 +11,9 @@ import { iconRenderProp } from "~/types";
 type ButtonSize = "small" | "regular" | "large";
 
 export type ButtonProps = PropsWithChildren<{
-  as?: ComponentType | string;
+  as?: keyof JSX.IntrinsicElements | ComponentType<any>;
   className?: string;
+  disabled?: boolean;
   iconLeft?: iconRenderProp;
   iconRight?: iconRenderProp;
   loading?: boolean;
@@ -46,10 +48,17 @@ const getButtonSize = (size?: ButtonSize): Partial<PaddingProps> => {
   return {};
 };
 
+const Wrapper = styled.button.withConfig({
+  shouldForwardProp: (prop, defaultShouldForwardProp) =>
+    !["size", "loading", "round"].includes(prop) &&
+    defaultShouldForwardProp(prop),
+})``;
+
 export const Button = ({
-  as,
+  as = "button",
   children,
   className,
+  disabled,
   iconLeft,
   iconRight,
   loading,
@@ -59,37 +68,43 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   return (
-    <Flex
-      as={as || "button"}
-      align="center"
-      justify={"between"}
+    <Wrapper
+      as={as}
+      disabled={disabled}
       className={classNames(className, "group rounded-md", {
         "w-5 h-5": round,
+        "opacity-60": disabled,
       })}
-      {...(round ? undefined : getButtonSize(size))}
-      {...props}
     >
-      {iconLeft && (
-        <Flex pr={5}>{iconLeft({ className: `h-5 w-5 ${textColor}` })}</Flex>
-      )}
-
-      <Text
-        hover
-        size="base"
+      <Flex
         align="center"
-        mdSize="lg"
-        weight="semibold"
-        className="w-full"
-        color={textColor}
+        justify="between"
+        {...(round ? undefined : getButtonSize(size))}
+        {...props}
       >
-        {children}
-      </Text>
-      {loading && <Loader />}
+        {iconLeft && (
+          <Flex pr={5}>{iconLeft({ className: `h-5 w-5 ${textColor}` })}</Flex>
+        )}
 
-      {iconRight && (
-        <Flex pl={5}>{iconRight({ className: `h-5 w-5 ${textColor}` })}</Flex>
-      )}
-    </Flex>
+        <Text
+          hover
+          size="base"
+          align="center"
+          mdSize="lg"
+          weight="semibold"
+          className="w-full"
+          color={textColor}
+        >
+          {children}
+        </Text>
+
+        {loading && <Loader />}
+
+        {iconRight && (
+          <Flex pl={5}>{iconRight({ className: `h-5 w-5 ${textColor}` })}</Flex>
+        )}
+      </Flex>
+    </Wrapper>
   );
 };
 

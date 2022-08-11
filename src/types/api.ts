@@ -1,16 +1,44 @@
-import { NormalizedShipStakingInfoExtended, Player } from "~/types";
+import { ObjectId, WithId } from "mongodb";
+import { FactionWithNone, NormalizedShipStakingInfoExtended } from "~/types";
 
-export type Self = {
+export type Self = WithId<{
   createdAt?: Date;
   discordId: null;
-  faction?: string;
+  faction?: FactionWithNone;
   lastRefillAt?: Date;
   notifications: boolean;
-  players: Player[];
+  players: {
+    country: string | null;
+    faction: FactionWithNone;
+    publicKey: string;
+    registrationDate: Date;
+  }[];
   tier?: 0 | 1 | 2;
   wallets: string[];
   referral?: { code: string; createdAt: Date };
   fromReferral?: string;
+}>;
+
+export type PaymentReferenceResponse =
+  | {
+      success: false;
+      error: string;
+    }
+  | { success: true; reference: string };
+
+export type TransactionStatus =
+  | "ACCEPTED"
+  | "ACCEPTED_WITHOUT_RETURN"
+  | "PENDING"
+  | "REJECTED";
+
+export type Transaction = {
+  amount: number;
+  createdAt: Date;
+  description: string;
+  userId: ObjectId;
+  reference: string;
+  status: TransactionStatus;
 };
 
 export type ConfirmPaymentResponse =

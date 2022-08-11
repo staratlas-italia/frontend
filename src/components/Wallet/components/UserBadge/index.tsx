@@ -37,7 +37,7 @@ export const UserBadge = ({ iconSize, showAddress }: Props) => {
     <Flex className="space-x-2">
       <Settings />
       <Button.Neutral size="small">
-        <Flex className="space-x-2" align="center">
+        <Flex className="space-x-2 h-7" align="center">
           <Icon address={publicKey?.toBase58()} iconSize={iconSize} />
 
           {name && (
