@@ -11,7 +11,7 @@ export const HomePage = () => {
     <>
       <Header fluid />
 
-      <div className="space-y-10 px-5">
+      <div className="space-y-10 px-5 pb-5">
         <MintBanner />
 
         <Flex>
@@ -21,6 +21,7 @@ export const HomePage = () => {
         </Flex>
 
         <WelcomeBanner />
+
         <EnlistBanner />
       </div>
     </>

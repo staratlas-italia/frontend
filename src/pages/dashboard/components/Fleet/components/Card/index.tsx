@@ -18,7 +18,7 @@ const shipColors: Record<string, TextColor> = {
   "xx-small": "text-white",
   "x-small": "text-indigo-300",
   small: "text-yellow-500",
-  medium: "text-green-500",
+  medium: "text-emerald-500",
   large: "text-pink-600",
   capital: "text-purple-400",
   commander: "text-red-600",

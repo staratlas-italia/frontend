@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React from "react";
 import styled from "styled-components";
 import { Flex } from "~/components/layout/Flex";
 
@@ -8,7 +7,7 @@ export const Container = styled(Flex)`
 `;
 
 const Human = styled(Image).attrs({
-  src: "/images/human.png",
+  src: "/images/human.webp",
 })`
   overflow: hidden;
   max-width: 450px;

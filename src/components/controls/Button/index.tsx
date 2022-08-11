@@ -131,8 +131,8 @@ Primary.displayName = "PrimaryButton";
 const Secondary = ({ className, ...props }: ButtonProps) => (
   <Button
     {...props}
-    className={classNames(className, "bg-green-100", "hover:bg-green-200")}
-    textColor="text-green-700"
+    className={classNames(className, "bg-emerald-100", "hover:bg-emerald-200")}
+    textColor="text-emerald-700"
   />
 );
 

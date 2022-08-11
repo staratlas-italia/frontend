@@ -17,6 +17,7 @@ export const EnlistBanner = () => (
     <Flex justify="center">
       <HumanImage />
     </Flex>
+
     <BlurBackground className="space-y-5" direction="col" py={5} px={8}>
       <Text
         color="text-white"
@@ -38,11 +39,9 @@ export const EnlistBanner = () => (
 
       <Flex justify="end" pt={3}>
         <Link href="https://discord.com/invite/sTRKvKPdE3">
-          <a target="_blank">
-            <Button.Secondary as="span">
-              <Translation id="Home.EnlistBanner.action.title" />
-            </Button.Secondary>
-          </a>
+          <Button.Secondary as="a">
+            <Translation id="Home.EnlistBanner.action.title" />
+          </Button.Secondary>
         </Link>
       </Flex>
     </BlurBackground>

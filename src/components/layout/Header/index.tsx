@@ -8,7 +8,7 @@ import { Wallet } from "~/components/Wallet";
 export const Logo = () => (
   <Image
     priority
-    src="/images/logo.png"
+    src="/images/logo.webp"
     height={55.8}
     width={155}
     alt={"Start Atlas Italia"}

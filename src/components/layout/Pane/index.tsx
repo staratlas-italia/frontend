@@ -4,7 +4,7 @@ const colors = [
   "gray",
   "red",
   "yellow",
-  "green",
+  "emerald",
   "blue",
   "indigo",
   "purple",

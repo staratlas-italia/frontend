@@ -64,10 +64,14 @@ const CitizenshipConfirmedComponent = () => {
                 </div>
 
                 <ImageContainer>
-                  <img alt="citizen-card" src="/images/cards/card-oni.png" />
+                  <img
+                    alt="citizen-card"
+                    src={`/images/cards/card-${faction}.webp`}
+                  />
                 </ImageContainer>
+
                 <div className="absolute top-14 right-14">
-                  <CheckCircleIcon className="h-16 w-16 text-green-400" />
+                  <CheckCircleIcon className="h-16 w-16 text-emerald-400" />
                 </div>
               </Flex>
               <Text
@@ -85,7 +89,7 @@ const CitizenshipConfirmedComponent = () => {
                 Se non dovessi ricevere il badge entro le prossime 2 ore,
                 contattaci a{" "}
                 <a
-                  className="text-green-500"
+                  className="text-emerald-500"
                   href={`mailto:dev@staratlasitalia.com?subject=Reference ${reference}`}
                   rel="noreferrer"
                   target="_blank"

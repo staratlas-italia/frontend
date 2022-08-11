@@ -28,7 +28,7 @@ export const Progress = ({ title, level, max }: Props) => {
       <div className="w-full bg-gray-100 h-1.5">
         <div
           className={classNames("transition-all  h-1.5", {
-            "bg-green-500": percentage > 50,
+            "bg-emerald-500": percentage > 50,
             "bg-yellow-300": percentage > 25 && percentage <= 50,
             "bg-red-600": percentage <= 25,
           })}
