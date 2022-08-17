@@ -16,7 +16,7 @@
   "dependencies": {
     "@google-cloud/bigquery": "^5.11.0",
     "@growthbook/growthbook-react": "^0.9.0",
-    "@headlessui/react": "^1.4.2",
+    "@headlessui/react": "^1.6.6",
     "@heroicons/react": "^1.0.5",
     "@metaplex-foundation/js": "^0.12.1",
     "@solana/pay": "^0.2.0",

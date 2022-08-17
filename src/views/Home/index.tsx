@@ -8,7 +8,7 @@ import { WelcomeBanner } from "~/views/Home/components/WelcomeBanner";
 
 export const HomePage = () => {
   return (
-    <>
+    <div className="container mx-auto">
       <Header fluid />
 
       <div className="space-y-10 px-5 pb-5">
@@ -24,6 +24,6 @@ export const HomePage = () => {
 
         <EnlistBanner />
       </div>
-    </>
+    </div>
   );
 };
