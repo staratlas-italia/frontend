@@ -21,7 +21,7 @@ const ImageContainer = styled.div`
   max-width: 280px;
 `;
 
-const Citizenship = () => {
+const CitizenshipComponent = () => {
   const { connected } = useWallet();
   const query = useRouter().query;
   const faction = useFaction();
@@ -32,69 +32,77 @@ const Citizenship = () => {
         <title>Citizenship - StarAtlasItalia</title>
       </Head>
 
-      <FactionGuard>
-        <Container>
-          <Flex direction="col" align="center" justify="center" pt={52}>
-            <BlurBackground p={8} className="max-w-screen-md" direction="col">
-              <Flex pb={5}>
-                <Logo />
-              </Flex>
-              <Flex direction="col-reverse" mdDirection="row">
-                <Flex>
-                  <Flex
-                    direction="col"
-                    className="space-y-4 mr-5 lg:mr-5"
-                    pt={10}
-                    lgPt={0}
-                  >
-                    <Text size="4xl" weight="bold" color="text-white">
-                      Round Cittadino
-                    </Text>
-                    <Text color="text-gray-200">
-                      L’acquisizione del badge di cittadino ti permette di
-                      ottenere l’accesso a tutti i servizi, le attività e i
-                      vantaggi in-game relativi alla possibilità di
-                      intraprendere un percorso di gioco che include una
-                      carriera nella DAO.
-                    </Text>
-                    <Text color="text-gray-200" weight="bold">
-                      Connetti il tuo wallet per iniziare.
-                    </Text>
-                  </Flex>
-                </Flex>
-
-                <Flex align="center" justify="center">
-                  <ImageContainer>
-                    <img
-                      className="rotate-12"
-                      alt="Citizenship card"
-                      src={`/images/cards/card-${faction}.webp`}
-                    />
-                  </ImageContainer>
-                </Flex>
-              </Flex>
-
-              <Flex pt={5} className="space-x-3">
-                <Wallet />
-
-                <Link
-                  href={appendQueryParams(
-                    getRoute("/citizenship/checkout"),
-                    (query || {}) as Record<string, any>
-                  )}
-                  passHref
+      <Container>
+        <Flex direction="col" align="center" justify="center" pt={52}>
+          <BlurBackground p={8} className="max-w-screen-md" direction="col">
+            <Flex pb={5}>
+              <Logo />
+            </Flex>
+            <Flex direction="col-reverse" mdDirection="row">
+              <Flex>
+                <Flex
+                  direction="col"
+                  className="space-y-4 mr-5 lg:mr-5"
+                  pt={10}
+                  lgPt={0}
                 >
-                  <Button.Neutral as="a" disabled={!connected} size="small">
-                    Next
-                  </Button.Neutral>
-                </Link>
+                  <Text size="4xl" weight="bold" color="text-white">
+                    Round Cittadino
+                  </Text>
+                  <Text color="text-gray-200">
+                    L’acquisizione del badge di cittadino ti permette di
+                    ottenere l’accesso a tutti i servizi, le attività e i
+                    vantaggi in-game relativi alla possibilità di intraprendere
+                    un percorso di gioco che include una carriera nella DAO.
+                  </Text>
+                  <Text color="text-gray-200" weight="bold">
+                    Connetti il tuo wallet per iniziare.
+                  </Text>
+                </Flex>
               </Flex>
-            </BlurBackground>
-          </Flex>
-        </Container>
-      </FactionGuard>
+
+              <Flex align="center" justify="center">
+                <ImageContainer>
+                  <img
+                    className="rotate-12"
+                    alt="Citizenship card"
+                    src={`/images/cards/card-${faction}.webp`}
+                  />
+                </ImageContainer>
+              </Flex>
+            </Flex>
+
+            <Flex pt={5} className="space-x-3">
+              <Wallet />
+
+              <Link
+                href={appendQueryParams(
+                  getRoute("/citizenship/checkout"),
+                  (query || {}) as Record<string, any>
+                )}
+                passHref
+              >
+                <Button.Neutral
+                  as="a"
+                  className="cursor-pointer"
+                  disabled={!connected}
+                  size="small"
+                >
+                  Next
+                </Button.Neutral>
+              </Link>
+            </Flex>
+          </BlurBackground>
+        </Flex>
+      </Container>
     </>
   );
 };
+
+const Citizenship = () => (
+  <FactionGuard>
+    <CitizenshipComponent />
+  </FactionGuard>
+);
 
 export default Citizenship;

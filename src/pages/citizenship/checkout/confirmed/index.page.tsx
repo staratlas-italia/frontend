@@ -28,6 +28,7 @@ const confettiConfig = {
 const ImageContainer = styled.div`
   min-width: 250px;
   width: 100%;
+  padding: 24px;
 `;
 
 const CitizenshipConfirmedComponent = () => {
