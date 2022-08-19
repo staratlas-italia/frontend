@@ -6,7 +6,7 @@ import { useNullableFleet } from "~/hooks/useNullableFleet";
 import { Card } from "./components/Card";
 
 export const Fleet = () => {
-  const { isFetching, fleet } = useNullableFleet();
+  const { fleet } = useNullableFleet();
 
   return (
     <Flex direction="col" className="z-10 space-y-5">
@@ -15,10 +15,7 @@ export const Fleet = () => {
       {fleet === null ? (
         <LoadingView />
       ) : !fleet?.length ? (
-        <EmptyView
-          image="/images/icons/rocket-solid.svg"
-          title="No ships found"
-        />
+        <EmptyView title="No ships found" />
       ) : (
         <>
           <Flex

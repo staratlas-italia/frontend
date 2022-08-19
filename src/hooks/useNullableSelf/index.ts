@@ -19,6 +19,7 @@ export const useNullableSelf = () => {
 
       fetchSelf(endpoint.cluster, publicKey.toString());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publicKey]);
 
   return {
