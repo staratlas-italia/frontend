@@ -3,16 +3,17 @@ import { FactionWithNone, NormalizedShipStakingInfoExtended } from "~/types";
 
 export type Self = WithId<{
   createdAt?: Date;
+  updatedAt?: Date;
   discordId: null;
   faction?: FactionWithNone;
   lastRefillAt?: Date;
   notifications: boolean;
-  players: {
+  players: ({
     country: string | null;
     faction: FactionWithNone;
     publicKey: string;
     registrationDate: Date;
-  }[];
+  } | null)[];
   tier?: 0 | 1 | 2;
   wallets: string[];
   referral?: { code: string; createdAt: Date };

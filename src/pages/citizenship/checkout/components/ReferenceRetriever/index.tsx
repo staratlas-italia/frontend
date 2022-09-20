@@ -1,3 +1,5 @@
+import { Cluster } from "@solana/web3.js";
+import { useRouter } from "next/router";
 import { PropsWithChildren, ReactNode, useEffect } from "react";
 import { usePaymentStore } from "~/stores/usePaymentStore";
 
@@ -14,9 +16,13 @@ export const ReferenceRetriever = ({
     s.fetchReference,
   ]);
 
+  const { cluster } = useRouter().query;
+
   useEffect(() => {
-    fetchReference();
-  }, [reference, fetchReference]);
+    if (!reference) {
+      fetchReference(cluster as Cluster);
+    }
+  }, [reference, fetchReference, cluster]);
 
   if (reference === null && loader) {
     return <>{loader}</>;

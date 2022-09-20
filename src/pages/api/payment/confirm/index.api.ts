@@ -4,7 +4,7 @@ import {
   validateTransfer,
   ValidateTransferError,
 } from "@solana/pay";
-import { Cluster, clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
+import { Cluster, Connection, PublicKey } from "@solana/web3.js";
 import BigNumber from "bignumber.js";
 import { pipe } from "fp-ts/function";
 import { ObjectId } from "mongodb";
@@ -17,8 +17,10 @@ import {
 import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 import { useMongoMiddleware } from "~/middlewares/useMongo";
-import { mongoClient } from "~/pages/api/mongodb";
+import { getMongoDatabase } from "~/pages/api/mongodb";
 import { Transaction } from "~/types/api";
+import { getConnectionClusterUrl } from "~/utils/connection";
+import { isValidFaction } from "~/utils/isFaction";
 
 const sendTokens = async () => Promise.resolve(true);
 //   const usersCollection = db.collection<Transaction>("users");
@@ -40,11 +42,12 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
   const {
     amount: amountParam,
     cluster: clusterParam,
+    faction,
     reference: referenceParam,
     userId,
   } = body;
 
-  if (!amountParam || !userId || !referenceParam) {
+  if (!amountParam || !userId || !referenceParam || !isValidFaction(faction)) {
     res.status(400).json({
       success: false,
       error: "Invalid parameters supplied.",
@@ -56,10 +59,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 
   const reference = new PublicKey(referenceParam);
   const amount = new BigNumber(Number(amountParam as string));
-  const connection = new Connection(clusterApiUrl(cluster));
-
-  const db = mongoClient.db("app-db");
-  const transactionsCollection = db.collection<Transaction>("transactions");
+  const connection = new Connection(getConnectionClusterUrl(cluster));
 
   try {
     const signatureInfo = await findReference(connection, reference, {
@@ -107,6 +107,10 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
+  const db = getMongoDatabase(cluster);
+
+  const transactionsCollection = db.collection<Transaction>("transactions");
+
   await transactionsCollection.findOneAndUpdate(
     {
       userId: new ObjectId(userId),
@@ -133,7 +137,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
   await transactionsCollection.findOneAndUpdate(
     {
       userId: new ObjectId(userId),
-      status: "PENDING",
+      status: "ACCEPTED_WITHOUT_RETURN",
     },
     {
       $set: {

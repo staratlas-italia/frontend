@@ -1,9 +1,10 @@
-import { Cluster, clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
+import { Cluster, Connection, PublicKey } from "@solana/web3.js";
 import { getShipStakingAccountInfo } from "@staratlas/factory";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { SA_FLEET_PROGRAM } from "~/common/constants";
 import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { NormalizedShipStakingInfo } from "~/types";
+import { getConnectionClusterUrl } from "~/utils/connection";
 import { isPublicKey } from "~/utils/pubkey";
 
 export type ResponseData =
@@ -40,13 +41,15 @@ const handler = async (
     return;
   }
 
-  const connection = new Connection(clusterApiUrl(cluster as Cluster));
+  const connection = new Connection(
+    getConnectionClusterUrl(cluster as Cluster)
+  );
 
   const account = await getShipStakingAccountInfo(
     connection,
     SA_FLEET_PROGRAM,
-    new PublicKey(mint),
-    new PublicKey(pbk)
+    new PublicKey(mint as string),
+    new PublicKey(pbk as string)
   );
 
   res.status(200).json({

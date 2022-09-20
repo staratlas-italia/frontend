@@ -1,4 +1,4 @@
-import { Cluster, clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
+import { Cluster, Connection, PublicKey } from "@solana/web3.js";
 import create, { State } from "zustand";
 import {
   ATLAS_TOKEN_MINT,
@@ -6,11 +6,12 @@ import {
   USDC_TOKEN_MINT,
 } from "~/common/constants";
 import { fetchPlayer } from "~/network/player";
-import { fetchSelf } from "~/network/self";
+import { fetchOrCreateSelf } from "~/network/self";
 import { useBadgesStore } from "~/stores/useBadgesStore";
 import { useFleetStore } from "~/stores/useFleetStore";
 import { Avatar, Player } from "~/types";
 import { Self } from "~/types/api";
+import { getConnectionClusterUrl } from "~/utils/connection";
 import { getAvatarImageUrl } from "~/utils/getAvatarImageUrl";
 import { getTokenBalanceByMint } from "~/utils/getTokenBalanceByMint";
 import { toTuple } from "~/utils/toTuple";
@@ -34,14 +35,14 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       return;
     }
 
-    const connection = new Connection(clusterApiUrl(cluster));
-
     set({ isFetching: true });
+
+    const connection = new Connection(getConnectionClusterUrl(cluster));
 
     const [currentPlayer, self, atlasAmount, polisAmount, usdcAmount] =
       await Promise.all([
         fetchPlayer(publicKey),
-        fetchSelf(publicKey),
+        fetchOrCreateSelf({ publicKey, cluster }),
         getTokenBalanceByMint(
           connection,
           new PublicKey(publicKey),

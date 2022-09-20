@@ -1,47 +1,84 @@
+import { Cluster } from "@solana/web3.js";
+import { pipe } from "fp-ts/function";
 import { NextApiRequest, NextApiResponse } from "next";
+import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
-import { mongoClient } from "~/pages/api/mongodb";
+import { useMongoMiddleware } from "~/middlewares/useMongo";
+import { getMongoDatabase } from "~/pages/api/mongodb";
 import { Self } from "~/types/api";
 
-const handler = async ({ query }: NextApiRequest, res: NextApiResponse) => {
-  const { publicKey } = query;
+// eslint-disable-next-line react-hooks/rules-of-hooks
+const postHandler = useMongoMiddleware(
+  async ({ body }: NextApiRequest, res: NextApiResponse) => {
+    const { cluster, self } = body;
 
-  if (!publicKey) {
-    res.status(400).json({
-      error: "Invalid public key",
+    if (!self) {
+      res.status(400).json({
+        error: "Invalid public key",
+      });
+      return;
+    }
+
+    const db = getMongoDatabase(cluster as Cluster);
+
+    const userCollection = db.collection<Self>("users");
+
+    const result = await userCollection.insertOne(self);
+
+    res.json({
+      success: true,
+      self: {
+        _id: result.insertedId.toString(),
+        ...self,
+      },
     });
-    return;
   }
+);
 
-  try {
-    await mongoClient.connect();
-  } catch (e) {
-    console.log("Cannot connect to mongo...", JSON.stringify(e));
-    res.status(500).json({
-      error: "Cannot connect to DB.",
+// eslint-disable-next-line react-hooks/rules-of-hooks
+const getHandler = useMongoMiddleware(
+  async ({ query }: NextApiRequest, res: NextApiResponse) => {
+    const { cluster, publicKey } = query;
+
+    if (!publicKey) {
+      res.status(400).json({
+        error: "Invalid public key",
+      });
+      return;
+    }
+
+    const db = getMongoDatabase(cluster as Cluster);
+
+    const userCollection = db.collection<Self>("users");
+
+    const user = await userCollection.findOne({
+      wallets: { $in: [publicKey] },
     });
-  }
 
-  const db = mongoClient.db("app-db");
+    if (!user) {
+      res.status(200).json({
+        success: false,
+        error: "User not found.",
+      });
+      return;
+    }
 
-  const userCollection = db.collection<Self>("users");
-
-  const user = await userCollection.findOne({
-    wallets: { $in: [publicKey] },
-  });
-
-  if (!user) {
     res.status(200).json({
-      success: false,
-      error: "User not found.",
+      success: true,
+      user,
     });
-    return;
+  }
+);
+
+const handler = (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method === "GET") {
+    return getHandler(req, res);
   }
 
-  res.status(200).json({
-    success: true,
-    user,
-  });
+  return postHandler(req, res);
 };
 
-export default matchMethodMiddleware(handler, ["GET"]);
+export default pipe(
+  matchMethodMiddleware(handler, ["GET", "POST"]),
+  attachClusterMiddleware
+);

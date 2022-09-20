@@ -2,6 +2,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { Text } from "~/components/common/Text";
 import { Button } from "~/components/controls/Button";
@@ -10,9 +11,11 @@ import { Container } from "~/components/layout/Container";
 import { Flex } from "~/components/layout/Flex";
 import { Logo } from "~/components/layout/Header";
 import { Wallet } from "~/components/Wallet";
+import { usePaymentStore } from "~/stores/usePaymentStore";
+import { Faction } from "~/types";
 import { appendQueryParams } from "~/utils/appendQueryParams";
 import { getRoute } from "~/utils/getRoute";
-import { FactionGuard, useFaction } from "./FactionGuard";
+import { isValidFaction } from "~/utils/isFaction";
 
 const ImageContainer = styled.div`
   width: 100%;
@@ -21,10 +24,23 @@ const ImageContainer = styled.div`
   max-width: 280px;
 `;
 
-const CitizenshipComponent = () => {
+const Citizenship = () => {
   const { connected } = useWallet();
-  const query = useRouter().query;
-  const faction = useFaction();
+
+  const router = useRouter();
+
+  const { faction, cluster } = router.query;
+
+  const setCurrentFaction = usePaymentStore((s) => s.setCurrentFaction);
+
+  useEffect(() => {
+    if (!isValidFaction(faction as string)) {
+      router.push("/not-found");
+      return;
+    }
+
+    setCurrentFaction(faction as Faction);
+  }, [faction, router, setCurrentFaction]);
 
   return (
     <>
@@ -78,18 +94,20 @@ const CitizenshipComponent = () => {
               <Link
                 href={appendQueryParams(
                   getRoute("/citizenship/checkout"),
-                  (query || {}) as Record<string, any>
+                  (cluster ? { cluster } : {}) as Record<string, any>
                 )}
                 passHref
               >
-                <Button.Neutral
-                  as="a"
-                  className="cursor-pointer"
-                  disabled={!connected}
-                  size="small"
-                >
-                  Next
-                </Button.Neutral>
+                <a>
+                  <Button.Neutral
+                    as="div"
+                    className="cursor-pointer"
+                    disabled={!connected}
+                    size="small"
+                  >
+                    Next
+                  </Button.Neutral>
+                </a>
               </Link>
             </Flex>
           </BlurBackground>
@@ -98,11 +116,5 @@ const CitizenshipComponent = () => {
     </>
   );
 };
-
-const Citizenship = () => (
-  <FactionGuard>
-    <CitizenshipComponent />
-  </FactionGuard>
-);
 
 export default Citizenship;

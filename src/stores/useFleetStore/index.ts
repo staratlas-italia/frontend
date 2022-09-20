@@ -30,7 +30,6 @@ export const useFleetStore = create<FleetStore>((set, get) => ({
     const publicKey = pk || usePlayerStore.getState().player?.publicKey;
 
     if (publicKey) {
-      console.log("[dd] cluster", cluster);
       const response = await fetchPlayerStakeShips(cluster, publicKey);
 
       if (response.success) {

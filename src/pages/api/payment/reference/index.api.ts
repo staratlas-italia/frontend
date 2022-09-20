@@ -2,13 +2,14 @@ import { Keypair } from "@solana/web3.js";
 import { pipe } from "fp-ts/function";
 import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
+import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 import { useMongoMiddleware } from "~/middlewares/useMongo";
-import { mongoClient } from "~/pages/api/mongodb";
+import { getMongoDatabase, mongoClient } from "~/pages/api/mongodb";
 import { Self, Transaction } from "~/types/api";
 
 const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
-  const { userId } = body;
+  const { userId, cluster } = body;
 
   if (!userId) {
     res.status(400).json({
@@ -18,7 +19,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const db = mongoClient.db("app-db");
+  const db = getMongoDatabase(cluster);
 
   const transactionsCollection = db.collection<Transaction>("transactions");
   const usersCollection = db.collection<Self>("users");
@@ -78,5 +79,6 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 
 export default pipe(
   matchMethodMiddleware(handler, ["POST"]),
-  useMongoMiddleware
+  useMongoMiddleware,
+  attachClusterMiddleware
 );

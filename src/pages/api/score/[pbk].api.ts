@@ -1,4 +1,4 @@
-import { Cluster, clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
+import { Cluster, Connection, PublicKey } from "@solana/web3.js";
 import {
   getAllFleetsForUserPublicKey,
   getScoreVarsShipInfo,
@@ -13,6 +13,7 @@ import {
 } from "~/common/constants";
 import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { ScoreFleetResponse } from "~/types/api";
+import { getConnectionClusterUrl } from "~/utils/connection";
 import { dailyMaintenanceCostInAtlas } from "~/utils/dailyMaintenanceCostInAtlas";
 import { grossDailyRewardInAtlas } from "~/utils/grossDailyRewardInAtlas";
 import { netDailyRewardInAtlas } from "~/utils/netDailyRewardInAtlas";
@@ -28,7 +29,9 @@ const handler = async (
     query: { cluster, pbk },
   } = req;
 
-  const connection = new Connection(clusterApiUrl(cluster as Cluster));
+  const connection = new Connection(
+    getConnectionClusterUrl(cluster as Cluster)
+  );
 
   if (!isPublicKey(pbk as string)) {
     res.status(200).json({

@@ -24,9 +24,13 @@ export const clusterEndpoints: EndpointInfo[] = [
   },
 ];
 
-export function getConnectionContext(cluster: Cluster): EndpointInfo {
+export function getConnectionContext(cluster?: Cluster): EndpointInfo {
   const endpoint =
     clusterEndpoints.find((e) => e.cluster === cluster) || clusterEndpoints[0];
 
   return endpoint;
 }
+
+export const getConnectionClusterUrl = (cluster?: Cluster) => {
+  return getConnectionContext(cluster).url;
+};

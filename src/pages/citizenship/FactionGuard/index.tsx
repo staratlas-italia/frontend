@@ -1,12 +1,12 @@
 import invariant from "invariant";
-import { useRouter } from "next/router";
 import { PropsWithChildren } from "react";
 import { Redirect } from "~/components/common/Redirect";
+import { usePaymentStore } from "~/stores/usePaymentStore";
 import { Faction } from "~/types";
 import { isValidFaction } from "~/utils/isFaction";
 
 export const FactionGuard = ({ children }: PropsWithChildren<unknown>) => {
-  const { faction } = useRouter().query;
+  const faction = usePaymentStore((s) => s.faction);
 
   if (!isValidFaction(faction as string)) {
     return <Redirect to="/not-found" />;
@@ -16,7 +16,7 @@ export const FactionGuard = ({ children }: PropsWithChildren<unknown>) => {
 };
 
 export const useFaction = () => {
-  const { faction } = useRouter().query;
+  const faction = usePaymentStore((s) => s.faction);
 
   invariant(
     faction,

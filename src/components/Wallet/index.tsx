@@ -3,10 +3,14 @@ import { WalletModal } from "~/components/modals/WalletModal";
 import { ConnectButton } from "~/components/Wallet/components/ConnectButton";
 import { UserBadge } from "~/components/Wallet/components/UserBadge";
 
-export const Wallet = () => (
+type Props = {
+  hideSettings?: boolean;
+};
+
+export const Wallet = ({ hideSettings }: Props) => (
   <Flex align="center">
     <ConnectButton allowWalletChange />
-    <UserBadge showAddress />
+    <UserBadge showAddress hideSettings={hideSettings} />
     <WalletModal />
   </Flex>
 );

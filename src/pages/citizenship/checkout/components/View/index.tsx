@@ -10,6 +10,7 @@ import { SelfRetriever } from "~/components/SelfRetriever";
 import { Wallet } from "~/components/Wallet";
 import { useFaction } from "../../../FactionGuard";
 import { ReferenceRetriever } from "../ReferenceRetriever";
+import { DirectlyPay } from "./DirectlyPay";
 import { QrCode } from "./QrCode";
 
 const LoaderContainer = styled(Flex)`
@@ -57,7 +58,7 @@ const CartItem = () => {
 export const View = () => (
   <>
     <Container>
-      <Flex direction="col" align="center" justify="center" pt={52}>
+      <Flex direction="col" align="center" justify="center" pt={24} pb={52}>
         <BlurBackground p={8} direction="col" className="max-w-lg">
           <Flex direction="col" className="space-y-5 ">
             <Flex justify="between">
@@ -65,7 +66,7 @@ export const View = () => (
                 <Logo />
               </Flex>
               <Flex>
-                <Wallet />
+                <Wallet hideSettings />
               </Flex>
             </Flex>
             <Text color="text-white" weight="bold" size="4xl">
@@ -96,29 +97,40 @@ export const View = () => (
             </SelfRetriever>
           </Flex>
 
-          <Flex
-            className="space-y-3"
-            direction="col"
-            pt={5}
-            lgPx={8}
-            justify="center"
-          >
-            <Text
+          <Flex className="space-y-5" direction="col" pt={5} justify="center">
+            <Flex
               align="center"
-              color="text-gray-200"
-              size="xl"
-              weight="semibold"
+              className="space-y-3"
+              direction="col"
+              pt={5}
+              lgPx={8}
+              justify="center"
             >
-              Scansiona questo codice con il tuo Wallet Mobile
-            </Text>
+              <Text
+                align="center"
+                color="text-gray-200"
+                size="xl"
+                weight="semibold"
+              >
+                Scansiona questo codice con il tuo Wallet Mobile
+              </Text>
 
-            <Flex align="center" className="space-x-2">
-              <ShieldCheckIcon className="w-6 h-6 text-gray-300" />
+              <Flex align="center" className="space-x-2">
+                <ShieldCheckIcon className="w-6 h-6 text-gray-300" />
 
-              <Text align="center" color="text-gray-300">
-                Ti verrà chiesto di approvare la transazione
+                <Text size="sm" align="center" color="text-gray-300">
+                  Ti verrà chiesto di approvare la transazione
+                </Text>
+              </Flex>
+            </Flex>
+
+            <Flex justify="center">
+              <Text size="xs" color="text-gray-200">
+                Oppure
               </Text>
             </Flex>
+
+            <DirectlyPay />
           </Flex>
         </BlurBackground>
       </Flex>
