@@ -1,22 +1,35 @@
-import axios from "axios";
-import { BestPrices } from "~/network/orderbook";
-import { Currency, Market } from "~/types";
-import { appendQueryParams } from "~/utils/appendQueryParams";
-import { getApiRoute } from "~/utils/getRoute";
+import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
+import { gmClientService } from "~/common/constants";
+import { BestPrices, Currency } from "~/types";
+import { getAssetOrderBook } from "~/utils/getAssetOrderbook";
 
 export const getEntityBestPrices = async (
-  markets: Market[],
-  currency: Currency = "USDC"
+  mint: string,
+  currency: Exclude<Currency, "POLIS"> = "USDC"
 ): Promise<BestPrices | undefined> => {
-  const market = markets.find((market) => market.quotePair === currency);
+  const connection = new Connection(
+    process.env.MAIN_RPC_ENDPOINT || clusterApiUrl("mainnet-beta")
+  );
 
-  if (market) {
-    const result = await axios.get<BestPrices>(
-      appendQueryParams(getApiRoute("/api/orderbook"), { marketId: market.id })
-    );
+  const result = await getAssetOrderBook(
+    gmClientService,
+    connection,
+    new PublicKey(mint)
+  );
 
-    return result.data;
-  }
+  const currencyKey = currency.toLowerCase() as Lowercase<typeof currency>;
 
-  return Promise.resolve(undefined);
+  const bestAskPrice = Math.min(
+    ...result[currencyKey].sell.map((o) => o.uiPrice)
+  );
+
+  const bestBidPrice = Math.max(
+    ...result[currencyKey].buy.map((o) => o.uiPrice)
+  );
+
+  return {
+    avgPrice: (bestAskPrice + bestBidPrice) / 2,
+    bestAskPrice,
+    bestBidPrice,
+  };
 };

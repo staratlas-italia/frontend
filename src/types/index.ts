@@ -221,3 +221,9 @@ export type OniAvatar =
   | "ONI_F";
 
 export type Avatar = UsturAvatar | MudAvatar | OniAvatar;
+
+export type BestPrices = {
+  avgPrice: number;
+  bestAskPrice: number;
+  bestBidPrice: number;
+};

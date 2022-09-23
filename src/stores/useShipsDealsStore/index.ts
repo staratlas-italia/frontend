@@ -1,9 +1,10 @@
+import { clusterApiUrl, Connection } from "@solana/web3.js";
 import create from "zustand";
+import { gmClientService } from "~/common/constants";
 import { StarAtlasEntity } from "~/types";
-import { appendQueryParams } from "~/utils/appendQueryParams";
 import { getAtlasMarketPrice } from "~/utils/getAtlasMarketPrice";
 import { getEntityVwapPrice } from "~/utils/getEntityVwapPrice";
-import { getApiRoute } from "~/utils/getRoute";
+import { getOrderBooks } from "~/utils/getOrderbooks";
 
 type ShipTableRow = {
   id: string;
@@ -21,96 +22,78 @@ type ShipTableRow = {
 };
 
 type ShipsDealsStore = {
-  finalized: boolean;
   isFetching: boolean;
   atlasPrice: number;
-  data: Record<string, Partial<ShipTableRow>>;
+  data: Partial<ShipTableRow>[];
   fetch: (ships: StarAtlasEntity[], force?: boolean) => void;
 };
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
-
 export const useShipsDealsStore = create<ShipsDealsStore>((set, get) => ({
   atlasPrice: 0,
-  data: {},
-  finalized: false,
+  data: [],
   isFetching: false,
   fetch: async (ships, force) => {
-    if (get().finalized && !force) {
+    if (get().isFetching) {
       return;
     }
 
-    const atlasValue = await getAtlasMarketPrice();
+    if (get().data.length && !force) {
+      return;
+    }
 
-    set({
-      atlasPrice: atlasValue,
-      data: Object.fromEntries(
-        ships.map((ship) => {
-          const vwapPrice = getEntityVwapPrice(ship.primarySales);
+    set({ isFetching: true });
 
-          return [
-            ship.mint,
-            {
-              id: ship._id,
-              imageUrl: ship?.media?.thumbnailUrl,
-              name: ship.name,
-              vwapPrice,
-            },
-          ];
-        })
-      ),
-    });
-
-    await Promise.all(
-      ships.map(async (ship) => {
-        const usdcMarket = ship.markets.find((m) => m.quotePair === "USDC");
-        const atlasMarket = ship.markets.find((m) => m.quotePair === "ATLAS");
-        const usdcOrderBook = await fetcher(
-          appendQueryParams(getApiRoute("/api/orderbook"), {
-            marketId: usdcMarket?.id || "",
-          })
-        );
-        const atlasOrderBook = await fetcher(
-          appendQueryParams(getApiRoute("/api/orderbook"), {
-            marketId: atlasMarket?.id || "",
-          })
-        );
-        const vwapPrice = getEntityVwapPrice(ship.primarySales);
-        const buyPrice = usdcOrderBook?.bestAskPrice || 0;
-        const sellPrice = usdcOrderBook?.bestBidPrice || 0;
-        const atlasBuyPrice = atlasOrderBook?.bestAskPrice || 0;
-        const atlasSellPrice = atlasOrderBook?.bestBidPrice || 0;
-
-        set(({ data }) => ({
-          data: {
-            ...data,
-            [ship.mint]: {
-              id: ship._id,
-              imageUrl: ship?.media?.thumbnailUrl,
-              name: ship.name,
-              vwapPrice,
-              atlasBuyPrice,
-              buyPriceVsVwapPrice: buyPrice
-                ? (1 - buyPrice / vwapPrice) * 100
-                : undefined,
-              atlasBuyPriceVsVwapPrice: atlasBuyPrice
-                ? (1 - (atlasBuyPrice * atlasValue) / vwapPrice) * 100
-                : undefined,
-              buyPrice,
-              atlasSellPrice,
-              sellPriceVsVwapPrice: sellPrice
-                ? (1 - sellPrice / vwapPrice) * 100 * -1
-                : undefined,
-              atlasSellPriceVsVwapPrice: atlasSellPrice
-                ? (1 - (atlasSellPrice * atlasValue) / vwapPrice) * 100 * -1
-                : undefined,
-              sellPrice,
-            },
-          },
-        }));
-      })
+    const connection = new Connection(
+      process.env.MAIN_RPC_ENDPOINT || clusterApiUrl("mainnet-beta")
     );
 
-    set({ finalized: true });
+    const orderbooks = await getOrderBooks(gmClientService, connection);
+
+    const atlasPrice = await getAtlasMarketPrice();
+
+    const data = ships.map((ship) => {
+      const vwapPrice = getEntityVwapPrice(ship.primarySales);
+
+      const buyPrice = Math.min(
+        ...(orderbooks.usdc.sell[ship.mint]?.map((o) => o.uiPrice) || [0])
+      );
+
+      const sellPrice = Math.max(
+        ...(orderbooks.usdc.buy[ship.mint]?.map((o) => o.uiPrice) || [0])
+      );
+
+      const atlasBuyPrice = Math.min(
+        ...(orderbooks.atlas.sell[ship.mint]?.map((o) => o.uiPrice) || [0])
+      );
+
+      const atlasSellPrice = Math.max(
+        ...(orderbooks.atlas.buy[ship.mint]?.map((o) => o.uiPrice) || [0])
+      );
+
+      return {
+        id: ship._id,
+        imageUrl: ship?.media?.thumbnailUrl,
+        name: ship.name,
+        vwapPrice,
+        atlasBuyPrice,
+        buyPriceVsVwapPrice: buyPrice
+          ? (1 - buyPrice / vwapPrice) * 100
+          : undefined,
+        atlasBuyPriceVsVwapPrice: atlasBuyPrice
+          ? (1 - (atlasBuyPrice * atlasPrice) / vwapPrice) * 100
+          : undefined,
+        buyPrice,
+        atlasSellPrice,
+        sellPriceVsVwapPrice: sellPrice
+          ? (1 - sellPrice / vwapPrice) * 100 * -1
+          : undefined,
+        atlasSellPriceVsVwapPrice: atlasSellPrice
+          ? (1 - (atlasSellPrice * atlasPrice) / vwapPrice) * 100 * -1
+          : undefined,
+        sellPrice,
+      };
+    });
+
+    set({ atlasPrice, data, isFetching: false });
   },
 }));

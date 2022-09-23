@@ -42,21 +42,22 @@ export const ShipPrices = () => {
 
   return (
     <Flex className="grid grid-cols-2 lg:grid-cols-5  gap-5">
-      <InfoRow loading={loading} title="USDC Price">
+      <InfoRow loading={loading} title="USDC AVG Price">
         <Price value={price} />
-      </InfoRow>
-
-      <InfoRow loading={loading} title="USDC Best Bid Price">
-        <Price value={bestBidPrice} />
       </InfoRow>
 
       <InfoRow loading={loading} title="USDC Best Ask Price">
         <Price value={bestAskPrice} />
       </InfoRow>
 
+      <InfoRow loading={loading} title="USDC Best Bid Price">
+        <Price value={bestBidPrice} />
+      </InfoRow>
+
       <InfoRow title="VWAP Price">
         <Price value={vwap} />
       </InfoRow>
+
       <InfoRow title="VWAP vs Price">
         {priceVsVwapDiscount && (
           <Text
@@ -69,17 +70,18 @@ export const ShipPrices = () => {
         )}
       </InfoRow>
 
-      <InfoRow loading={atlasLoading} title="ATLAS Price">
+      <InfoRow loading={atlasLoading} title="ATLAS AVG Price">
         <Price currency="ATLAS" value={atlasPrice} />
+      </InfoRow>
+
+      <InfoRow loading={atlasLoading} title="ATLAS Best Ask Price">
+        <Price currency="ATLAS" value={bestAskPriceAtlas} />
       </InfoRow>
 
       <InfoRow loading={atlasLoading} title="ATLAS Best Bid Price">
         <Price currency="ATLAS" value={bestBidPriceAtlas} />
       </InfoRow>
 
-      <InfoRow loading={atlasLoading} title="ATLAS Best Ask Price">
-        <Price currency="ATLAS" value={bestAskPriceAtlas} />
-      </InfoRow>
       <InfoRow title="Atlas Price vs Price">
         {priceVsAtlasDiscount && (
           <Text
