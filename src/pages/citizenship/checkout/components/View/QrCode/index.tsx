@@ -3,25 +3,24 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import BigNumber from "bignumber.js";
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import {
   DEVNET_USDC_TOKEN_MINT,
   SAI_CITIZEN_WALLET_DESTINATION,
   USDC_TOKEN_MINT,
 } from "~/common/constants";
+import { useCluster } from "~/components/ClusterProvider";
 import { Flex } from "~/components/layout/Flex";
-import { useSelf } from "~/hooks/useNullableSelf";
-import { ConfirmPaymentResponse } from "~/types/api";
-import { getApiRoute, getRoute } from "~/utils/getRoute";
+import { confirmPayment } from "~/network/payments/confirm";
+import { getRoute } from "~/utils/getRoute";
 import { useFaction } from "../../../../FactionGuard";
 import { usePaymentReference } from "../usePaymentReference";
 
 const amount = new BigNumber(25);
 
 export const QrCode = () => {
-  const self = useSelf();
   const router = useRouter();
-  const { cluster } = router.query;
+  const { cluster } = useCluster();
 
   const faction = useFaction();
   const { publicKey } = useWallet();
@@ -50,40 +49,34 @@ export const QrCode = () => {
     }
   });
 
-  useEffect(() => {
+  const recusiveConfirm = useCallback(async () => {
     if (!publicKey) {
       return;
     }
 
-    const interval = setInterval(async () => {
-      const response = await fetch(getApiRoute("/api/payment/confirm"), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: "25",
-          cluster,
-          faction,
-          userId: self._id.toString(),
-          reference,
-        }),
-      }).then((res) => res.json() as Promise<ConfirmPaymentResponse>);
+    const response = await confirmPayment({
+      cluster,
+      faction,
+      publicKey: publicKey.toString(),
+      reference,
+    });
 
-      if (!response.success) {
-        router.push(getRoute("/citizenship/error"));
-        return;
-      }
+    if (!response.success) {
+      router.push(getRoute("/citizenship/error"));
+      return;
+    }
 
-      if (response.verified) {
-        router.push(getRoute("/citizenship/checkout/confirmed"));
-      }
-    }, 3000);
+    if (response.verified) {
+      router.push(getRoute("/citizenship/checkout/confirmed"));
+      return;
+    }
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [cluster, faction, publicKey, reference, router, self._id]);
+    setTimeout(() => recusiveConfirm(), 500);
+  }, [cluster, faction, publicKey, reference, router]);
+
+  useEffect(() => {
+    recusiveConfirm();
+  }, [publicKey, recusiveConfirm]);
 
   return (
     <Flex className="bg-white rounded-lg">

@@ -66,3 +66,6 @@ export const FLEET_WEBSITE_URL = "https://fleet.staratlasitalia.com";
 export const SAI_CITIZEN_WALLET_DESTINATION = new PublicKey(
   "7rQrcmvXPMPV2eYUbisJhiqwpJKj1KDzhvnz2DEgot14"
 );
+
+export const MAIN_PRIVATE_KEY =
+  process.env.MAIN_PRIVATE_KEY || "Missing private key";

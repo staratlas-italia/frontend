@@ -7,7 +7,6 @@ import {
 import { Cluster, Connection, PublicKey } from "@solana/web3.js";
 import BigNumber from "bignumber.js";
 import { pipe } from "fp-ts/function";
-import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 import {
   DEVNET_USDC_TOKEN_MINT,
@@ -21,33 +20,41 @@ import { getMongoDatabase } from "~/pages/api/mongodb";
 import { Transaction } from "~/types/api";
 import { getConnectionClusterUrl } from "~/utils/connection";
 import { isValidFaction } from "~/utils/isFaction";
+import { isPublicKey } from "~/utils/pubkey";
+import { transferTo } from "./transferTo";
 
-const sendTokens = async () => Promise.resolve(true);
-//   const usersCollection = db.collection<Transaction>("users");
-//   const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
-//   if (!user) {
-//     await mongoClient.close();
-//     res.status(404).json({
-//       success: false,
-//       error: "User not found.",
-//     });
-//     return;
-//   }
-//   const pendingTransaction = await transactionsCollection.findOne({
-//     userId: userId,
-//     status: "PENDING",
-//   });
+const sendTokens = async ({
+  connection,
+  recipient,
+}: {
+  connection: Connection;
+  recipient: string;
+}) => {
+  const mint = new PublicKey("67D3p1VhvZbTVD26koiNkqCDDYFtgbnYmf6rUiVSiAuV");
+
+  try {
+    await transferTo({ connection, mint, recipient: new PublicKey(recipient) });
+
+    console.log("[dd] payment success");
+    return true;
+  } catch (e) {
+    console.log("[dd] payment error", e);
+
+    return false;
+  }
+};
+
+const amount = new BigNumber(25);
 
 const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
   const {
-    amount: amountParam,
     cluster: clusterParam,
     faction,
     reference: referenceParam,
-    userId,
+    publicKey,
   } = body;
 
-  if (!amountParam || !userId || !referenceParam || !isValidFaction(faction)) {
+  if (!referenceParam || !isValidFaction(faction) || !isPublicKey(publicKey)) {
     res.status(400).json({
       success: false,
       error: "Invalid parameters supplied.",
@@ -58,7 +65,6 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
   const cluster = clusterParam as Cluster;
 
   const reference = new PublicKey(referenceParam);
-  const amount = new BigNumber(Number(amountParam as string));
   const connection = new Connection(getConnectionClusterUrl(cluster));
 
   try {
@@ -113,7 +119,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 
   await transactionsCollection.findOneAndUpdate(
     {
-      userId: new ObjectId(userId),
+      reference: referenceParam,
       status: "PENDING",
     },
     {
@@ -123,7 +129,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     }
   );
 
-  const status = await sendTokens();
+  const status = await sendTokens({ connection, recipient: publicKey });
 
   if (!status) {
     res.status(200).json({
@@ -136,7 +142,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 
   await transactionsCollection.findOneAndUpdate(
     {
-      userId: new ObjectId(userId),
+      reference: referenceParam,
       status: "ACCEPTED_WITHOUT_RETURN",
     },
     {

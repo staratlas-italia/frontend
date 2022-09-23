@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { version } from "~/../package.json";
+import packageJson from "~/../package.json";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 import { SocialLinks } from "~/components/layout/SideBarLayout/components/SideBar/components/SocialLinks";
@@ -51,7 +51,7 @@ export const Footer = () => {
 
       <Flex pb={8} justify="center">
         <Text color="text-white" size="xs" weight="semibold">
-          v{version}
+          v{packageJson.version}
         </Text>
       </Flex>
     </Flex>
