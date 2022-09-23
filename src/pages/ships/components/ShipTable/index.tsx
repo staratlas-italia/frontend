@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import { useCallback, useMemo, useState } from "react";
 import { useIntl } from "react-intl";
-import shallow from "zustand/shallow";
 import { ButtonGroup } from "~/components/controls/ButtonGroup";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
+import { LoadingView } from "~/components/LoadingView";
 import { Table } from "~/components/Table";
 import { useShips } from "~/hooks/useShips";
 import { useShipsDealsStore } from "~/stores/useShipsDealsStore";
@@ -16,10 +16,7 @@ export const ShipTable = () => {
   const { ships } = useShips();
   const fetchPrices = useShipsDealsStore((s) => s.fetch);
 
-  const { data, atlasPrice } = useShipsDealsStore(
-    (s) => ({ data: Object.values(s.data), atlasPrice: s.atlasPrice }),
-    shallow
-  );
+  const { data, atlasPrice, isFetching } = useShipsDealsStore();
 
   const [action, setAction] = useState<MarketAction>("buy");
 
@@ -38,7 +35,13 @@ export const ShipTable = () => {
     [action, atlasPrice, intl.formatMessage, locale]
   );
 
-  const fetch = useCallback(() => fetchPrices(ships), [fetchPrices, ships]);
+  const fetch = useCallback(() => {
+    fetchPrices(ships);
+  }, [fetchPrices, ships]);
+
+  if (isFetching) {
+    return <LoadingView />;
+  }
 
   return (
     <BlurBackground className="relative overflow-hidden" p={5} mdP={8}>

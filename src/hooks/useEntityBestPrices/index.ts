@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useShip } from "~/hooks/useShip";
-import { BestPrices } from "~/network/orderbook";
-import { Currency } from "~/types";
+import { BestPrices, Currency } from "~/types";
 import { getEntityBestPrices } from "~/utils/getEntityBestPrices";
 
-export const useEntityBestPrices = (currency: Currency = "USDC") => {
-  const { markets } = useShip();
+export const useEntityBestPrices = (
+  currency: Exclude<Currency, "POLIS"> = "USDC"
+) => {
+  const { mint } = useShip();
   const [data, setData] = useState<BestPrices>();
   const [loading, setLoading] = useState(false);
 
@@ -13,14 +14,14 @@ export const useEntityBestPrices = (currency: Currency = "USDC") => {
     const run = async () => {
       setLoading(true);
 
-      const result = await getEntityBestPrices(markets || [], currency);
+      const result = await getEntityBestPrices(mint || "", currency);
 
       setLoading(false);
       setData(result);
     };
 
     run();
-  }, [markets, setLoading]);
+  }, [currency, mint, setLoading]);
 
   return {
     ...data,

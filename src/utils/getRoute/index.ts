@@ -12,7 +12,6 @@ export type Routes =
 export type ApiRoutes =
   | `/api/charts/${ChartType}`
   | "/api/menu"
-  | "/api/orderbook"
   | "/api/player"
   | "/api/referral/create"
   | "/api/referral/redeem"

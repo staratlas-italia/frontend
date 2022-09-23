@@ -1,10 +1,9 @@
 import { PublicKey } from "@solana/web3.js";
+import { GmClientService } from "@staratlas/factory";
+import { Currency } from "~/types";
 
 export const ATLAS_USDC_MARKET_ADDR =
   "Di66GTLsV64JgCCYGVcY21RZ173BHkjJVgPyezNN7P1K";
-
-export const STAR_ATLAS_SERUM_PROGRAM_ID =
-  "9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin";
 
 export const AMMO_TOKEN_MINT_ID = "ammoK8AkX2wnebQb35cDAZtTkvsXQbi82cGeTnUvvfK";
 export const FOOD_TOKEN_MINT_ID = "foodQJAztMzX1DKpLaiounNe2BDMds5RNuPC6jsNrDG";
@@ -30,6 +29,10 @@ export const USDC_TOKEN_MINT_ID =
 export const POLIS_TOKEN_MINT_ID =
   "poLisWXnNRwC6oBu1vHiuKQzFjGL4XDSu4g9qjz9qVk";
 
+export const SA_MARKETPLACE_PROGRAM_ID = new PublicKey(
+  "traderDnaR5w6Tcoi3NFm53i48FTDNbGjBSZwWXDRrg"
+);
+
 export const SA_FLEET_PROGRAM_ID =
   "FLEET1qqzpexyaDpqb2DGsSzE2sDCizewCg9WjrA6DBW";
 
@@ -52,3 +55,11 @@ export const WEBSITE_URL =
     ? ""
     : "https://app.staratlasitalia.com";
 export const FLEET_WEBSITE_URL = "https://fleet.staratlasitalia.com";
+
+export const gmClientService = new GmClientService();
+
+export const currencyToMint: Record<Currency, string> = {
+  ATLAS: ATLAS_TOKEN_MINT_ID,
+  POLIS: POLIS_TOKEN_MINT_ID,
+  USDC: USDC_TOKEN_MINT_ID,
+};
