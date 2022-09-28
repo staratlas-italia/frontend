@@ -1,4 +1,5 @@
 import { useWallet } from "@solana/wallet-adapter-react";
+import classNames from "classnames";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -92,13 +93,19 @@ const Citizenship = () => {
               <Wallet />
 
               <Link
-                href={appendQueryParams(
-                  getRoute("/citizenship/checkout"),
-                  (cluster ? { cluster } : {}) as Record<string, any>
-                )}
+                href={
+                  connected
+                    ? appendQueryParams(
+                        getRoute("/citizenship/checkout"),
+                        (cluster ? { cluster } : {}) as Record<string, any>
+                      )
+                    : "#"
+                }
                 passHref
               >
-                <a>
+                <a
+                  className={classNames({ "pointer-events-none": !connected })}
+                >
                   <Button.Neutral
                     as="div"
                     className="cursor-pointer"

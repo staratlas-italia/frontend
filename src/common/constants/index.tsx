@@ -1,4 +1,5 @@
 import { PublicKey } from "@solana/web3.js";
+import { Faction } from "~/types";
 
 export const ATLAS_USDC_MARKET_ADDR =
   "Di66GTLsV64JgCCYGVcY21RZ173BHkjJVgPyezNN7P1K";
@@ -69,3 +70,11 @@ export const SAI_CITIZEN_WALLET_DESTINATION = new PublicKey(
 
 export const MAIN_PRIVATE_KEY =
   process.env.MAIN_PRIVATE_KEY || "Missing private key";
+
+export const TOKEN_MINT_PER_FACTION: Record<Lowercase<Faction>, PublicKey> = {
+  mud: new PublicKey("mudS4YjsuhGAgoihdhT64762iGTYaqKZN92bwhcGAGr"),
+  oni: new PublicKey("oniMqPYgTypbvTJqu8mL94pQM5QDdMF2fXcyweNJePQ"),
+  ustur: new PublicKey("ustuRPvoFHcmoonK7on8tc6MaUQeuzUxx2ioFeuXLyn"),
+};
+
+export const DEV_EMAIL = "dev@staratlasitalia.com";

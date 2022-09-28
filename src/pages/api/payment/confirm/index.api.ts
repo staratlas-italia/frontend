@@ -11,12 +11,14 @@ import { NextApiRequest, NextApiResponse } from "next";
 import {
   DEVNET_USDC_TOKEN_MINT,
   SAI_CITIZEN_WALLET_DESTINATION,
+  TOKEN_MINT_PER_FACTION,
   USDC_TOKEN_MINT,
 } from "~/common/constants";
 import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 import { useMongoMiddleware } from "~/middlewares/useMongo";
 import { getMongoDatabase } from "~/pages/api/mongodb";
+import { Faction } from "~/types";
 import { Transaction } from "~/types/api";
 import { getConnectionClusterUrl } from "~/utils/connection";
 import { isValidFaction } from "~/utils/isFaction";
@@ -25,21 +27,20 @@ import { transferTo } from "./transferTo";
 
 const sendTokens = async ({
   connection,
+  faction,
   recipient,
 }: {
   connection: Connection;
+  faction: Faction;
   recipient: string;
 }) => {
-  const mint = new PublicKey("67D3p1VhvZbTVD26koiNkqCDDYFtgbnYmf6rUiVSiAuV");
+  const mint = TOKEN_MINT_PER_FACTION[faction.toLowerCase()];
 
   try {
     await transferTo({ connection, mint, recipient: new PublicKey(recipient) });
 
-    console.log("[dd] payment success");
     return true;
   } catch (e) {
-    console.log("[dd] payment error", e);
-
     return false;
   }
 };

@@ -12,8 +12,6 @@ type Param = {
 export const transferTo = async ({ connection, mint, recipient }: Param) => {
   const payer = Keypair.fromSecretKey(base58.decode(MAIN_PRIVATE_KEY));
 
-  console.log(payer.publicKey.toString());
-
   const numberTokens = 1;
 
   const account = await getOrCreateAssociatedTokenAccount(
