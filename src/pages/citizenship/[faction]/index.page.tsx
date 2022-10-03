@@ -32,16 +32,15 @@ const Citizenship = () => {
 
   const { faction, cluster } = router.query;
 
-  const setCurrentFaction = usePaymentStore((s) => s.setCurrentFaction);
-
   useEffect(() => {
     if (!isValidFaction(faction as string)) {
-      router.push("/not-found");
+      router.replace(getRoute("/citizenship"));
+
       return;
     }
 
-    setCurrentFaction(faction as Faction);
-  }, [faction, router, setCurrentFaction]);
+    usePaymentStore.setState({ faction: faction as Faction });
+  }, [faction, router]);
 
   return (
     <>

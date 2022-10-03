@@ -34,9 +34,8 @@ export type TransactionStatus =
   | "REJECTED";
 
 export type Transaction = {
-  amount: number;
+  meta: Record<string, string | number>;
   createdAt: Date;
-  description: string;
   userId: ObjectId;
   reference: string;
   status: TransactionStatus;

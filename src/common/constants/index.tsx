@@ -1,3 +1,4 @@
+import { GrowthBook } from "@growthbook/growthbook-react";
 import { PublicKey } from "@solana/web3.js";
 import { Faction } from "~/types";
 
@@ -65,16 +66,34 @@ export const WEBSITE_URL =
 export const FLEET_WEBSITE_URL = "https://fleet.staratlasitalia.com";
 
 export const SAI_CITIZEN_WALLET_DESTINATION = new PublicKey(
-  "7rQrcmvXPMPV2eYUbisJhiqwpJKj1KDzhvnz2DEgot14"
+  "saiQr2S4nVMfhsaJYmTMSdVwaB1PbqjYsCDX1FnDJon"
 );
 
-export const MAIN_PRIVATE_KEY =
-  process.env.MAIN_PRIVATE_KEY || "Missing private key";
-
-export const TOKEN_MINT_PER_FACTION: Record<Lowercase<Faction>, PublicKey> = {
+export const CITIZEN_TOKEN_MINT_PER_FACTION: Record<
+  Lowercase<Faction>,
+  PublicKey
+> = {
   mud: new PublicKey("mudS4YjsuhGAgoihdhT64762iGTYaqKZN92bwhcGAGr"),
   oni: new PublicKey("oniMqPYgTypbvTJqu8mL94pQM5QDdMF2fXcyweNJePQ"),
   ustur: new PublicKey("ustuRPvoFHcmoonK7on8tc6MaUQeuzUxx2ioFeuXLyn"),
 };
 
+export const DEVNET_CITIZEN_TOKEN_MINT_PER_FACTION: Record<
+  Lowercase<Faction>,
+  PublicKey
+> = {
+  mud: new PublicKey("67D3p1VhvZbTVD26koiNkqCDDYFtgbnYmf6rUiVSiAuV"),
+  oni: new PublicKey("67D3p1VhvZbTVD26koiNkqCDDYFtgbnYmf6rUiVSiAuV"),
+  ustur: new PublicKey("67D3p1VhvZbTVD26koiNkqCDDYFtgbnYmf6rUiVSiAuV"),
+};
+
 export const DEV_EMAIL = "dev@staratlasitalia.com";
+
+export const CITIZEN_MINT_USDC_PRICE = 25;
+
+export const growthbook = new GrowthBook();
+
+export const FEATURES_ENDPOINT =
+  process.env.ENVIRONMENT === "production"
+    ? process.env.FEATURES_ENDPOINT
+    : process.env.DEV_FEATURES_ENDPOINT;

@@ -27,15 +27,16 @@ export const MintBanner = () => {
       >
         <Flex direction="col">
           <Text weight="semibold">
-            <Translation id="MintBanner.title" />
+            <Translation id="citizenBanner.title" />
           </Text>
           <Text>
-            <Translation id="MintBanner.subtitle" />
+            <Translation id="citizenBanner.subtitle" />
           </Text>
         </Flex>
-        <Link href={getRoute("/mint")}>
+
+        <Link href={getRoute("/citizenship")}>
           <a className="underline cursor-pointer text-right">
-            <Translation id="MintBanner.action.title" />
+            <Translation id="citizenBanner.action.title" />
           </a>
         </Link>
       </Flex>

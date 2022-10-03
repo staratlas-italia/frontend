@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { PropsWithChildren } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import {
   MdTextProps,
   SmTextProps,
@@ -13,7 +13,9 @@ import { getSizeClasses } from "~/components/common/Text/utils/getSizeClasses";
 import { getWeightClasses } from "~/components/common/Text/utils/getWeightClasses";
 
 export type TextProps = PropsWithChildren<
-  Partial<XsTextProps & SmTextProps & MdTextProps & XlTextProps>
+  { shadow?: boolean } & Partial<
+    XsTextProps & SmTextProps & MdTextProps & XlTextProps
+  >
 >;
 
 export const Text = styled.span.attrs(
@@ -66,4 +68,10 @@ export const Text = styled.span.attrs(
       }
     ),
   })
-)<TextProps>``;
+)<TextProps>`
+  ${({ shadow }) =>
+    shadow &&
+    css`
+      text-shadow: 0 0 8px #5c5c5c;
+    `}
+`;

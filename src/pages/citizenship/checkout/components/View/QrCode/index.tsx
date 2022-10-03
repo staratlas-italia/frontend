@@ -3,24 +3,26 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import BigNumber from "bignumber.js";
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef } from "react";
 import {
+  CITIZEN_MINT_USDC_PRICE,
   DEVNET_USDC_TOKEN_MINT,
   SAI_CITIZEN_WALLET_DESTINATION,
   USDC_TOKEN_MINT,
 } from "~/common/constants";
 import { useCluster } from "~/components/ClusterProvider";
 import { Flex } from "~/components/layout/Flex";
-import { confirmPayment } from "~/network/payments/confirm";
-import { getRoute } from "~/utils/getRoute";
+
+import { usePaymentStore } from "~/stores/usePaymentStore";
 import { useFaction } from "../../../../FactionGuard";
 import { usePaymentReference } from "../usePaymentReference";
 
-const amount = new BigNumber(25);
+const amount = new BigNumber(CITIZEN_MINT_USDC_PRICE);
 
-export const QrCode = () => {
+export const QrCode = memo(() => {
   const router = useRouter();
   const { cluster } = useCluster();
+  const confirmPayment = usePaymentStore((s) => s.confirm);
 
   const faction = useFaction();
   const { publicKey } = useWallet();
@@ -54,28 +56,26 @@ export const QrCode = () => {
       return;
     }
 
-    const response = await confirmPayment({
+    const redirectUri = await confirmPayment({
       cluster,
       faction,
       publicKey: publicKey.toString(),
       reference,
     });
 
-    if (!response.success) {
-      router.push(getRoute("/citizenship/error"));
+    if (redirectUri) {
+      router.push(redirectUri);
+
       return;
     }
 
-    if (response.verified) {
-      router.push(getRoute("/citizenship/checkout/confirmed"));
-      return;
-    }
-
-    setTimeout(() => recusiveConfirm(), 500);
-  }, [cluster, faction, publicKey, reference, router]);
+    return setTimeout(() => recusiveConfirm(), 2000);
+  }, [cluster, confirmPayment, faction, publicKey, reference, router]);
 
   useEffect(() => {
-    recusiveConfirm();
+    const timeout = recusiveConfirm();
+
+    return () => clearTimeout(timeout);
   }, [publicKey, recusiveConfirm]);
 
   return (
@@ -83,4 +83,6 @@ export const QrCode = () => {
       <div ref={qrRef} />
     </Flex>
   );
-};
+});
+
+QrCode.displayName = "QrCode";

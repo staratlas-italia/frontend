@@ -1,3 +1,4 @@
+import { CITIZEN_MINT_USDC_PRICE } from "~/common/constants";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 
@@ -18,7 +19,7 @@ export const TransactionDetails = () => {
       </Text>
       <Flex direction="col" className="bg-gray-500 rounded-xl" p={6}>
         <Item title="Data" value={"-"} />
-        <Item title="Importo" value="-25 USDC" />
+        <Item title="Importo" value={`-${CITIZEN_MINT_USDC_PRICE} USDC`} />
         <Item title="Stato" value="Completed" />
         <Item title="Fee" value="0.00005 SOL" />
       </Flex>

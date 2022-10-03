@@ -6,6 +6,7 @@ import BigNumber from "bignumber.js";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import {
+  CITIZEN_MINT_USDC_PRICE,
   DEVNET_USDC_TOKEN_MINT,
   SAI_CITIZEN_WALLET_DESTINATION,
   USDC_TOKEN_MINT,
@@ -16,7 +17,7 @@ import { getConnectionClusterUrl } from "~/utils/connection";
 import { ReferenceRetriever } from "../../ReferenceRetriever";
 import { usePaymentReference } from "../usePaymentReference";
 
-const amount = new BigNumber(25.0);
+const amount = new BigNumber(CITIZEN_MINT_USDC_PRICE);
 
 export const DirectlyPayComponent = () => {
   const { publicKey, signTransaction } = useWallet();

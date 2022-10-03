@@ -1,4 +1,4 @@
-import { GrowthBook, GrowthBookProvider } from "@growthbook/growthbook-react";
+import { GrowthBookProvider, useFeature } from "@growthbook/growthbook-react";
 import { ConnectionProvider } from "@solana/wallet-adapter-react";
 import { AppProps } from "next/app";
 import dynamic from "next/dynamic";
@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import Script from "next/script";
 import { useEffect } from "react";
 import { IntlProvider } from "react-intl";
+import { FEATURES_ENDPOINT, growthbook } from "~/common/constants";
 import { ClusterProvider, useCluster } from "~/components/ClusterProvider";
 import { MainLayout } from "~/components/layout/MainLayout";
 import { PreloadResources } from "~/components/PreloadResources";
@@ -15,6 +16,7 @@ import { ShipsProvider } from "~/contexts/ShipsContext";
 import { useTranslations } from "~/i18n/useTranslations";
 import "~/styles/globals.css";
 import { StrictReactNode } from "~/types";
+import { getRoute } from "~/utils/getRoute";
 
 const WalletProvider = dynamic<{ children: StrictReactNode }>(
   () =>
@@ -26,22 +28,25 @@ const WalletProvider = dynamic<{ children: StrictReactNode }>(
   }
 );
 
-const growthbook = new GrowthBook();
-
 function App({ router, ...props }: AppProps) {
   const translations = useTranslations();
 
   const { locale } = useRouter();
 
   useEffect(() => {
-    if (!process.env.FEATURES_ENDPOINT) {
+    if (!FEATURES_ENDPOINT) {
       return;
     }
 
-    fetch(process.env.FEATURES_ENDPOINT)
+    fetch(FEATURES_ENDPOINT)
       .then((res) => res.json())
       .then((json) => {
         growthbook.setFeatures(json.features);
+
+        growthbook.setAttributes({
+          url: window.location.href,
+          userAgent: navigator.userAgent,
+        });
       });
   }, []);
 
@@ -70,6 +75,21 @@ function App({ router, ...props }: AppProps) {
 
 const Pages = ({ Component, pageProps }: Omit<AppProps, "router">) => {
   const endpoint = useCluster();
+
+  const { replace, pathname } = useRouter();
+
+  const saiFrontendEnabledCitizenshipPurchase = useFeature(
+    "sai-frontend-enabled-citizenship-purchase"
+  ).off;
+
+  useEffect(() => {
+    if (
+      saiFrontendEnabledCitizenshipPurchase &&
+      pathname.includes("citizenship")
+    ) {
+      replace(getRoute("/dashboard"));
+    }
+  }, [saiFrontendEnabledCitizenshipPurchase, pathname, replace]);
 
   return (
     <ConnectionProvider endpoint={endpoint.url}>

@@ -9,7 +9,7 @@ type Props = {
 
 export const Wallet = ({ hideSettings }: Props) => (
   <Flex align="center">
-    <ConnectButton allowWalletChange />
+    <ConnectButton />
     <UserBadge showAddress hideSettings={hideSettings} />
     <WalletModal />
   </Flex>

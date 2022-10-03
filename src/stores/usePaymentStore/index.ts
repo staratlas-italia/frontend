@@ -1,29 +1,65 @@
 import { Cluster } from "@solana/web3.js";
 import invariant from "invariant";
 import create from "zustand";
+import { confirmPayment } from "~/network/payments/confirm";
 import { fetchPaymentReference } from "~/network/payments/reference";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 import { Faction } from "~/types";
+import { getRoute } from "~/utils/getRoute";
 
 type PaymentStore = {
   faction: Faction | null;
   reference: string | null;
-  isFetching: boolean;
+  isConfirming: boolean;
+  isFetchingReference: boolean;
+  confirm: (_: {
+    cluster: Cluster;
+    faction: Faction;
+    publicKey: string;
+    reference: string;
+  }) => Promise<string | null>;
   fetchReference: (cluster?: Cluster) => void;
-  setCurrentFaction: (faction: Faction) => void;
 };
 
 export const usePaymentStore = create<PaymentStore>((set, get) => ({
   faction: null,
   reference: null,
-  isFetching: false,
-  setCurrentFaction: (faction) => set({ faction }),
+  isConfirming: false,
+  isFetchingReference: false,
+  confirm: async ({ cluster, faction, publicKey, reference }) => {
+    if (get().isConfirming) {
+      return null;
+    }
+
+    set({ isConfirming: true });
+
+    const response = await confirmPayment({
+      cluster,
+      faction,
+      publicKey: publicKey.toString(),
+      reference,
+    });
+
+    if (!response.success) {
+      console.log(response);
+
+      return getRoute("/citizenship/checkout/error");
+    }
+
+    if (response.verified) {
+      return getRoute("/citizenship/checkout/confirmed");
+    }
+
+    set({ isConfirming: false });
+
+    return null;
+  },
   fetchReference: async (cluster) => {
-    if (get().isFetching) {
+    if (get().isFetchingReference) {
       return;
     }
 
-    set({ isFetching: true });
+    set({ isFetchingReference: true });
 
     const self = usePlayerStore.getState().self;
 
@@ -37,6 +73,6 @@ export const usePaymentStore = create<PaymentStore>((set, get) => ({
       userId: self._id.toString(),
     });
 
-    set({ isFetching: false, reference });
+    set({ isFetchingReference: false, reference });
   },
 }));

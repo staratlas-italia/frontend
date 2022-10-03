@@ -1,4 +1,4 @@
-import { LazyNft, Metaplex, Nft } from "@metaplex-foundation/js";
+import { Metadata, Metaplex } from "@metaplex-foundation/js";
 import { Connection, PublicKey } from "@solana/web3.js";
 import create from "zustand";
 import { usePlayerStore } from "~/stores/usePlayerStore";
@@ -6,7 +6,7 @@ import { getBadgeByMint } from "~/utils/getBadgeByMint";
 import { toTuple } from "~/utils/toTuple";
 
 type BadgesStore = {
-  badges: [Nft | LazyNft, any][] | null;
+  badges: [Metadata, any][] | null;
   isFetching: boolean;
   clear: () => void;
   fetchBadges: (connection: Connection, pk?: string) => void;
@@ -29,14 +29,17 @@ export const useBadgesStore = create<BadgesStore>((set, get) => ({
 
       const nfts = await metaplex
         .nfts()
-        .findAllByOwner(new PublicKey(publicKey))
+        .findAllByOwner({
+          owner: new PublicKey(publicKey),
+          commitment: "confirmed",
+        })
         .run();
 
       const oweNfts = await Promise.all(
-        nfts
+        (nfts as Metadata[])
           .filter((nft) => getBadgeByMint(nft.mintAddress))
           .map(async (nft) =>
-            nft.lazy
+            nft
               ? toTuple([
                   nft,
                   await fetch(nft.uri)

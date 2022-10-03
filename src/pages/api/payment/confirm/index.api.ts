@@ -9,9 +9,11 @@ import BigNumber from "bignumber.js";
 import { pipe } from "fp-ts/function";
 import { NextApiRequest, NextApiResponse } from "next";
 import {
+  CITIZEN_MINT_USDC_PRICE,
+  CITIZEN_TOKEN_MINT_PER_FACTION,
+  DEVNET_CITIZEN_TOKEN_MINT_PER_FACTION,
   DEVNET_USDC_TOKEN_MINT,
   SAI_CITIZEN_WALLET_DESTINATION,
-  TOKEN_MINT_PER_FACTION,
   USDC_TOKEN_MINT,
 } from "~/common/constants";
 import { attachClusterMiddleware } from "~/middlewares/attachCluster";
@@ -27,25 +29,38 @@ import { transferTo } from "./transferTo";
 
 const sendTokens = async ({
   connection,
+  cluster,
   faction,
   recipient,
 }: {
   connection: Connection;
+  cluster: Cluster;
   faction: Faction;
   recipient: string;
 }) => {
-  const mint = TOKEN_MINT_PER_FACTION[faction.toLowerCase()];
+  const mint = (
+    cluster === "devnet"
+      ? DEVNET_CITIZEN_TOKEN_MINT_PER_FACTION
+      : CITIZEN_TOKEN_MINT_PER_FACTION
+  )[faction.toLowerCase()];
 
   try {
-    await transferTo({ connection, mint, recipient: new PublicKey(recipient) });
+    await transferTo({
+      connection,
+      cluster,
+      mint,
+      recipient: new PublicKey(recipient),
+    });
 
     return true;
   } catch (e) {
+    console.log(e);
+
     return false;
   }
 };
 
-const amount = new BigNumber(25);
+const amount = new BigNumber(CITIZEN_MINT_USDC_PRICE);
 
 const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
   const {
@@ -130,7 +145,12 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     }
   );
 
-  const status = await sendTokens({ connection, recipient: publicKey });
+  const status = await sendTokens({
+    connection,
+    cluster,
+    faction,
+    recipient: publicKey,
+  });
 
   if (!status) {
     res.status(200).json({

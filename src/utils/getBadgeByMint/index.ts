@@ -1,4 +1,6 @@
 import { PublicKey } from "@solana/web3.js";
+import { values } from "lodash";
+import { CITIZEN_TOKEN_MINT_PER_FACTION } from "~/common/constants";
 import { tier1BadgeMints } from "~/utils/getBadgeByMint/tier1";
 import { tier2BadgeMints } from "~/utils/getBadgeByMint/tier2";
 import { tier3BadgeMints } from "~/utils/getBadgeByMint/tier3";
@@ -14,6 +16,14 @@ export const getBadgeByMint = (badgeMint: PublicKey) => {
 
   if (tier3BadgeMints.includes(badgeMint.toString())) {
     return "tier3";
+  }
+
+  if (
+    values(CITIZEN_TOKEN_MINT_PER_FACTION)
+      .map((s) => s.toString())
+      .includes(badgeMint.toString())
+  ) {
+    return "citizenship";
   }
 
   return null;

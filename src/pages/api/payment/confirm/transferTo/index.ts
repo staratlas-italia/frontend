@@ -1,16 +1,27 @@
 import { getOrCreateAssociatedTokenAccount, mintTo } from "@solana/spl-token";
-import { Connection, Keypair, PublicKey } from "@solana/web3.js";
+import { Cluster, Connection, Keypair, PublicKey } from "@solana/web3.js";
 import * as base58 from "bs58";
-import { MAIN_PRIVATE_KEY } from "~/common/constants";
 
 type Param = {
   connection: Connection;
+  cluster: Cluster;
   mint: PublicKey;
   recipient: PublicKey;
 };
 
-export const transferTo = async ({ connection, mint, recipient }: Param) => {
-  const payer = Keypair.fromSecretKey(base58.decode(MAIN_PRIVATE_KEY));
+export const transferTo = async ({
+  connection,
+  cluster,
+  mint,
+  recipient,
+}: Param) => {
+  const payer = Keypair.fromSecretKey(
+    base58.decode(
+      (cluster === "mainnet-beta"
+        ? process.env.MAIN_PRIVATE_KEY
+        : process.env.DEVNET_PRIVATE_KEY) || ""
+    )
+  );
 
   const numberTokens = 1;
 

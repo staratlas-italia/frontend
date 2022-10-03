@@ -2,6 +2,7 @@ import { Keypair } from "@solana/web3.js";
 import { pipe } from "fp-ts/function";
 import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
+import { CITIZEN_MINT_USDC_PRICE } from "~/common/constants";
 import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 import { useMongoMiddleware } from "~/middlewares/useMongo";
@@ -54,8 +55,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
   const reference = Keypair.generate().publicKey.toString();
 
   const insertResult = await transactionsCollection.insertOne({
-    amount: 25,
-    description: "CITIZENSHIP_CARD",
+    meta: { amount: CITIZEN_MINT_USDC_PRICE, name: "CITIZENSHIP_CARD" },
     status: "PENDING",
     userId: new ObjectId(userId),
     reference,

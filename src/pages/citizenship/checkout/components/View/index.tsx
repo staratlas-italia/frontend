@@ -1,5 +1,6 @@
 import { ShieldCheckIcon } from "@heroicons/react/outline";
 import styled from "styled-components";
+import { CITIZEN_MINT_USDC_PRICE } from "~/common/constants";
 import { Loader as CLoader } from "~/components/common/Loader";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
@@ -8,8 +9,10 @@ import { Flex } from "~/components/layout/Flex";
 import { Logo } from "~/components/layout/Header";
 import { SelfRetriever } from "~/components/SelfRetriever";
 import { Wallet } from "~/components/Wallet";
+import { usePaymentStore } from "~/stores/usePaymentStore";
 import { useFaction } from "../../../FactionGuard";
 import { ReferenceRetriever } from "../ReferenceRetriever";
+import { ConfirmLoader } from "./ConfirmLoader";
 import { DirectlyPay } from "./DirectlyPay";
 import { QrCode } from "./QrCode";
 
@@ -49,91 +52,99 @@ const CartItem = () => {
         </Text>
       </Flex>
       <Flex align="center">
-        <Text color="text-white">25 USDC</Text>
+        <Text color="text-white">{CITIZEN_MINT_USDC_PRICE} USDC</Text>
       </Flex>
     </Flex>
   );
 };
 
-export const View = () => (
-  <>
-    <Container>
-      <Flex direction="col" align="center" justify="center" pt={24} pb={52}>
-        <BlurBackground p={8} direction="col" className="max-w-lg">
-          <Flex direction="col" className="space-y-5 ">
-            <Flex justify="between">
-              <Flex>
-                <Logo />
+export const View = () => {
+  const isConfirming = usePaymentStore((s) => s.isConfirming);
+
+  return (
+    <>
+      <Container>
+        <Flex direction="col" align="center" justify="center" pt={24} pb={52}>
+          <BlurBackground p={8} direction="col" className="max-w-lg">
+            <Flex direction="col" className="space-y-5 ">
+              <Flex justify="between">
+                <Flex>
+                  <Logo />
+                </Flex>
+                <Flex>
+                  <Wallet hideSettings />
+                </Flex>
               </Flex>
-              <Flex>
-                <Wallet hideSettings />
+              <Flex align="center" justify="between">
+                <Text color="text-white" weight="bold" size="4xl">
+                  Checkout
+                </Text>
+
+                {isConfirming && <ConfirmLoader />}
+              </Flex>
+              <Text color="text-gray-200">
+                Completa il pagamento con Solana Pay per ottenere il tuo badge.
+              </Text>
+
+              <Flex direction="col" className="space-y-5 divide-y-2">
+                <CartItem />
+                <Flex pt={5} justify="between">
+                  <Text color="text-white" weight="semibold">
+                    Totale
+                  </Text>
+                  <Text color="text-white" weight="semibold">
+                    {CITIZEN_MINT_USDC_PRICE} USD
+                  </Text>
+                </Flex>
               </Flex>
             </Flex>
-            <Text color="text-white" weight="bold" size="4xl">
-              Checkout
-            </Text>
-            <Text color="text-gray-200">
-              Completa il pagamento con Solana Pay per ottenere il tuo badge.
-            </Text>
 
-            <Flex direction="col" className="space-y-5 divide-y-2">
-              <CartItem />
-              <Flex pt={5} justify="between">
-                <Text color="text-white" weight="semibold">
-                  Totale
-                </Text>
-                <Text color="text-white" weight="semibold">
-                  25 USD
-                </Text>
-              </Flex>
+            <Flex pt={5} justify="center">
+              <SelfRetriever loader={<Loader />}>
+                <ReferenceRetriever loader={<Loader />}>
+                  <QrCode />
+                </ReferenceRetriever>
+              </SelfRetriever>
             </Flex>
-          </Flex>
 
-          <Flex pt={5} justify="center">
-            <SelfRetriever loader={<Loader />}>
-              <ReferenceRetriever loader={<Loader />}>
-                <QrCode />
-              </ReferenceRetriever>
-            </SelfRetriever>
-          </Flex>
-
-          <Flex className="space-y-5" direction="col" pt={5} justify="center">
-            <Flex
-              align="center"
-              className="space-y-3"
-              direction="col"
-              pt={5}
-              lgPx={8}
-              justify="center"
-            >
-              <Text
+            <Flex className="space-y-5" direction="col" pt={5} justify="center">
+              <Flex
                 align="center"
-                color="text-gray-200"
-                size="xl"
-                weight="semibold"
+                className="space-y-3"
+                direction="col"
+                pt={5}
+                lgPx={8}
+                justify="center"
               >
-                Scansiona questo codice con il tuo Wallet Mobile
-              </Text>
+                <Text
+                  align="center"
+                  color="text-gray-200"
+                  size="xl"
+                  weight="semibold"
+                >
+                  Scansiona questo codice con il tuo Wallet Mobile
+                </Text>
 
-              <Flex align="center" className="space-x-2">
-                <ShieldCheckIcon className="w-6 h-6 text-gray-300" />
+                <Flex align="center" className="space-x-2">
+                  <ShieldCheckIcon className="w-6 h-6 text-gray-300" />
 
-                <Text size="sm" align="center" color="text-gray-300">
-                  Ti verrà chiesto di approvare la transazione
+                  <Text size="sm" align="center" color="text-gray-300">
+                    Ti verrà chiesto di approvare la transazione
+                  </Text>
+                </Flex>
+              </Flex>
+
+              <Flex justify="center">
+                <Text size="xs" color="text-gray-200">
+                  Oppure
                 </Text>
               </Flex>
-            </Flex>
 
-            <Flex justify="center">
-              <Text size="xs" color="text-gray-200">
-                Oppure
-              </Text>
+              <DirectlyPay />
             </Flex>
-
-            <DirectlyPay />
-          </Flex>
-        </BlurBackground>
-      </Flex>
-    </Container>
-  </>
-);
+          </BlurBackground>
+        </Flex>
+      </Container>
+    </>
+  );
+};
