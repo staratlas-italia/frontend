@@ -20,7 +20,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     getConnectionClusterUrl(cluster as Cluster)
   );
 
-  if (!isPublicKey(pbk as string)) {
+  if (!pbk || !isPublicKey(pbk as string)) {
     res.status(200).json({
       success: false,
       error: "Invalid pubkey",

@@ -29,7 +29,7 @@ const handler = async (
     getConnectionClusterUrl(cluster as Cluster)
   );
 
-  if (!isPublicKey(mint as string)) {
+  if (!mint || !isPublicKey(mint as string)) {
     res.status(200).json({
       success: false,
       error: "Invalid mint pubkey",

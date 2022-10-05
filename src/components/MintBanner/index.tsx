@@ -5,12 +5,16 @@ import { Flex } from "~/components/layout/Flex";
 import { Translation } from "~/i18n/Translation";
 import { getRoute } from "~/utils/getRoute";
 
-export const MintBanner = () => {
-  const isMintBannerDisabled = useFeature(
+export const CitizenInfoBanner = () => {
+  const isCitizenInfoBannerDisabled = useFeature(
     "sai-frontend-enable-mint-banner"
   ).off;
 
-  if (isMintBannerDisabled) {
+  const isEnabledCitizenshipPurchase = useFeature(
+    "sai-frontend-enabled-citizenship-purchase"
+  ).off;
+
+  if (isCitizenInfoBannerDisabled) {
     return null;
   }
 
@@ -34,11 +38,13 @@ export const MintBanner = () => {
           </Text>
         </Flex>
 
-        <Link href={getRoute("/citizenship")}>
-          <a className="underline cursor-pointer text-right">
-            <Translation id="citizenBanner.action.title" />
-          </a>
-        </Link>
+        {isEnabledCitizenshipPurchase && (
+          <Link href={getRoute("/citizenship")}>
+            <a className="underline cursor-pointer text-right">
+              <Translation id="citizenBanner.action.title" />
+            </a>
+          </Link>
+        )}
       </Flex>
     </Flex>
   );

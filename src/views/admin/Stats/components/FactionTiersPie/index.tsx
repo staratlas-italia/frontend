@@ -98,7 +98,8 @@ export const FactionTiersPie = ({ unit, title }: Props) => {
   );
 };
 
-const renderActiveShape = (double: boolean) => (props) => {
+// eslint-disable-next-line react/display-name
+const renderActiveShape = (double: boolean) => (props: any) => {
   const RADIAN = Math.PI / 180;
   const {
     cx,

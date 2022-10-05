@@ -1,5 +1,6 @@
 import { GrowthBook } from "@growthbook/growthbook-react";
 import { PublicKey } from "@solana/web3.js";
+import { GmClientService } from "@staratlas/factory";
 import { Faction } from "~/types";
 
 export const ATLAS_USDC_MARKET_ADDR =
@@ -90,6 +91,8 @@ export const DEVNET_CITIZEN_TOKEN_MINT_PER_FACTION: Record<
 export const DEV_EMAIL = "dev@staratlasitalia.com";
 
 export const growthbook = new GrowthBook();
+
+export const gmClientService = new GmClientService();
 
 export const FEATURES_ENDPOINT =
   process.env.ENVIRONMENT === "production"

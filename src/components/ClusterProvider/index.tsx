@@ -2,9 +2,9 @@ import { Cluster } from "@solana/web3.js";
 import invariant from "invariant";
 import { useRouter } from "next/router";
 import { createContext, PropsWithChildren, useContext, useMemo } from "react";
-import { ConnectionContext, getConnectionContext } from "~/utils/connection";
+import { EndpointInfo, getConnectionContext } from "~/utils/connection";
 
-const Context = createContext<ConnectionContext | null>(null);
+const Context = createContext<EndpointInfo | null>(null);
 
 export const ClusterProvider = ({ children }: PropsWithChildren<unknown>) => {
   const { cluster } = useRouter().query;
