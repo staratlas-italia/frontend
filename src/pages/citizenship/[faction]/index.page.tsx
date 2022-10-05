@@ -11,7 +11,9 @@ import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Container } from "~/components/layout/Container";
 import { Flex } from "~/components/layout/Flex";
 import { Logo } from "~/components/layout/Header";
+import { LocaleSelector } from "~/components/LocaleSelector";
 import { Wallet } from "~/components/Wallet";
+import { Translation } from "~/i18n/Translation";
 import { usePaymentStore } from "~/stores/usePaymentStore";
 import { Faction } from "~/types";
 import { appendQueryParams } from "~/utils/appendQueryParams";
@@ -51,8 +53,12 @@ const Citizenship = () => {
       <Container>
         <Flex direction="col" align="center" justify="center" pt={52}>
           <BlurBackground p={8} className="max-w-screen-md" direction="col">
-            <Flex pb={5}>
-              <Logo />
+            <Flex align="center" pb={5} justify="between">
+              <Flex>
+                <Logo />
+              </Flex>
+
+              <LocaleSelector />
             </Flex>
             <Flex direction="col-reverse" mdDirection="row">
               <Flex>
@@ -63,16 +69,13 @@ const Citizenship = () => {
                   lgPt={0}
                 >
                   <Text size="4xl" weight="bold" color="text-white">
-                    Round Cittadino
+                    <Translation id="citizenship.intro.title" />
                   </Text>
                   <Text color="text-gray-200">
-                    L’acquisizione del badge di cittadino ti permette di
-                    ottenere l’accesso a tutti i servizi, le attività e i
-                    vantaggi in-game relativi alla possibilità di intraprendere
-                    un percorso di gioco che include una carriera nella DAO.
+                    <Translation id="citizenship.intro.description" />
                   </Text>
                   <Text color="text-gray-200" weight="bold">
-                    Connetti il tuo wallet per iniziare.
+                    <Translation id="citizenship.intro.hint" />
                   </Text>
                 </Flex>
               </Flex>
@@ -111,7 +114,7 @@ const Citizenship = () => {
                     disabled={!connected}
                     size="small"
                   >
-                    Next
+                    <Translation id="generic.next" />
                   </Button.Neutral>
                 </a>
               </Link>

@@ -89,8 +89,6 @@ export const DEVNET_CITIZEN_TOKEN_MINT_PER_FACTION: Record<
 
 export const DEV_EMAIL = "dev@staratlasitalia.com";
 
-export const CITIZEN_MINT_USDC_PRICE = 25;
-
 export const growthbook = new GrowthBook();
 
 export const FEATURES_ENDPOINT =

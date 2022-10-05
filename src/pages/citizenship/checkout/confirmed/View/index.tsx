@@ -1,15 +1,19 @@
 import { CheckCircleIcon } from "@heroicons/react/solid";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import Confetti from "react-dom-confetti";
 import styled from "styled-components";
 import { DEV_EMAIL } from "~/common/constants";
 import { Text } from "~/components/common/Text";
+import { Button } from "~/components/controls/Button";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Container } from "~/components/layout/Container";
 import { Flex } from "~/components/layout/Flex";
 import { Logo } from "~/components/layout/Header";
+import { Translation } from "~/i18n/Translation";
 import { usePaymentReference } from "~/pages/citizenship/checkout/components/View/usePaymentReference";
 import { useFaction } from "~/pages/citizenship/FactionGuard";
+import { getRoute } from "~/utils/getRoute";
 import { TransactionDetails } from "./TransactionDetails";
 
 const confettiConfig = {
@@ -83,16 +87,16 @@ export const View = () => {
                 weight="semibold"
                 size="xl"
               >
-                Congratulazioni! L’acquisto è stato completato con successo.
+                <Translation id="citizenship.checkout.confirmed.title" />
               </Text>
 
               <Text align="center" color="text-gray-200">
-                Ecco il tuo badge, a breve lo vedrai nel tuo wallet.
+                <Translation id="citizenship.checkout.confirmed.subtitle" />
               </Text>
 
               <Text align="center" color="text-gray-300" size="xs">
-                Se non dovessi ricevere il badge entro le prossime 2 ore,
-                contattaci a{" "}
+                <Translation id="citizenship.checkout.confirmed.description.0" />
+
                 <a
                   className="text-emerald-500"
                   href={`mailto:dev@staratlasitalia.com?subject=Reference ${reference}`}
@@ -101,9 +105,8 @@ export const View = () => {
                 >
                   {DEV_EMAIL}
                 </a>
-                . Ti consigliamo di memorizzare temporanemanete il codice
-                seguente, in caso di errori ci aiuterà a sistemare il problema
-                più in fretta.
+
+                <Translation id="citizenship.checkout.confirmed.description.1" />
               </Text>
 
               <Flex direction="col">
@@ -113,7 +116,7 @@ export const View = () => {
                   size="xs"
                   weight="bold"
                 >
-                  Reference Code
+                  <Translation id="citizenship.checkout.confirmed.reference.label" />
                 </Text>
 
                 <Text align="center" color="text-gray-300" size="xs">
@@ -124,6 +127,16 @@ export const View = () => {
 
             <Flex direction="col" pt={10}>
               <TransactionDetails />
+            </Flex>
+
+            <Flex direction="col" pt={5}>
+              <Link href={getRoute("/dashboard")}>
+                <a>
+                  <Button.Neutral as="div">
+                    <Translation id="citizenship.checkout.confirmed.back.action.title" />
+                  </Button.Neutral>
+                </a>
+              </Link>
             </Flex>
           </BlurBackground>
         </Flex>

@@ -1,3 +1,4 @@
+import { GrowthBook } from "@growthbook/growthbook-react";
 import {
   findReference,
   FindReferenceError,
@@ -9,13 +10,14 @@ import BigNumber from "bignumber.js";
 import { pipe } from "fp-ts/function";
 import { NextApiRequest, NextApiResponse } from "next";
 import {
-  CITIZEN_MINT_USDC_PRICE,
   CITIZEN_TOKEN_MINT_PER_FACTION,
   DEVNET_CITIZEN_TOKEN_MINT_PER_FACTION,
   DEVNET_USDC_TOKEN_MINT,
+  FEATURES_ENDPOINT,
   SAI_CITIZEN_WALLET_DESTINATION,
   USDC_TOKEN_MINT,
 } from "~/common/constants";
+import { getSftPrice } from "~/hooks/useSftPrice";
 import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 import { useMongoMiddleware } from "~/middlewares/useMongo";
@@ -60,9 +62,17 @@ const sendTokens = async ({
   }
 };
 
-const amount = new BigNumber(CITIZEN_MINT_USDC_PRICE);
+const growthbook = new GrowthBook();
 
 const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
+  if (FEATURES_ENDPOINT) {
+    const json = await fetch(FEATURES_ENDPOINT).then((res) => res.json());
+
+    growthbook.setFeatures(json.features);
+  }
+
+  const amount = new BigNumber(getSftPrice(growthbook));
+  console.log(amount);
   const {
     cluster: clusterParam,
     faction,

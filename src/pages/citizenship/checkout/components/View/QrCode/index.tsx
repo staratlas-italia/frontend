@@ -5,22 +5,21 @@ import BigNumber from "bignumber.js";
 import { useRouter } from "next/router";
 import { memo, useCallback, useEffect, useMemo, useRef } from "react";
 import {
-  CITIZEN_MINT_USDC_PRICE,
   DEVNET_USDC_TOKEN_MINT,
   SAI_CITIZEN_WALLET_DESTINATION,
   USDC_TOKEN_MINT,
 } from "~/common/constants";
 import { useCluster } from "~/components/ClusterProvider";
 import { Flex } from "~/components/layout/Flex";
+import { useSftPrice } from "~/hooks/useSftPrice";
 
 import { usePaymentStore } from "~/stores/usePaymentStore";
 import { useFaction } from "../../../../FactionGuard";
 import { usePaymentReference } from "../usePaymentReference";
 
-const amount = new BigNumber(CITIZEN_MINT_USDC_PRICE);
-
 export const QrCode = memo(() => {
   const router = useRouter();
+  const amount = useSftPrice();
   const { cluster } = useCluster();
   const confirmPayment = usePaymentStore((s) => s.confirm);
 
@@ -31,21 +30,21 @@ export const QrCode = memo(() => {
 
   const url = useMemo(() => {
     const params: TransferRequestURLFields = {
-      recipient: SAI_CITIZEN_WALLET_DESTINATION,
-      splToken: cluster === "devnet" ? DEVNET_USDC_TOKEN_MINT : USDC_TOKEN_MINT,
-      amount,
-      reference: new PublicKey(reference),
+      amount: new BigNumber(amount),
       label: "StarAtlasItalia Citizenship",
       message: "Thanks for your order!",
+      recipient: SAI_CITIZEN_WALLET_DESTINATION,
+      reference: new PublicKey(reference),
+      splToken: cluster === "devnet" ? DEVNET_USDC_TOKEN_MINT : USDC_TOKEN_MINT,
     };
 
     return encodeURL(params);
-  }, [cluster, reference]);
+  }, [amount, cluster, reference]);
 
   useEffect(() => {
     const qr = createQR(url, 250, "transparent");
 
-    if (qrRef.current && amount.isGreaterThan(0)) {
+    if (qrRef.current && amount > 0) {
       qrRef.current.innerHTML = "";
       qr.append(qrRef.current);
     }

@@ -1,6 +1,5 @@
 import { ShieldCheckIcon } from "@heroicons/react/outline";
 import styled from "styled-components";
-import { CITIZEN_MINT_USDC_PRICE } from "~/common/constants";
 import { Loader as CLoader } from "~/components/common/Loader";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
@@ -9,6 +8,8 @@ import { Flex } from "~/components/layout/Flex";
 import { Logo } from "~/components/layout/Header";
 import { SelfRetriever } from "~/components/SelfRetriever";
 import { Wallet } from "~/components/Wallet";
+import { useSftPrice } from "~/hooks/useSftPrice";
+import { Translation } from "~/i18n/Translation";
 import { usePaymentStore } from "~/stores/usePaymentStore";
 import { useFaction } from "../../../FactionGuard";
 import { ReferenceRetriever } from "../ReferenceRetriever";
@@ -38,6 +39,8 @@ const Icon = styled.img`
 const CartItem = () => {
   const faction = useFaction();
 
+  const amount = useSftPrice();
+
   return (
     <Flex justify="between" className="space-x-3">
       <Flex className="w-20 h-20 rounded-md overflow-hidden">
@@ -52,7 +55,7 @@ const CartItem = () => {
         </Text>
       </Flex>
       <Flex align="center">
-        <Text color="text-white">{CITIZEN_MINT_USDC_PRICE} USDC</Text>
+        <Text color="text-white">{amount} USDC</Text>
       </Flex>
     </Flex>
   );
@@ -60,6 +63,7 @@ const CartItem = () => {
 
 export const View = () => {
   const isConfirming = usePaymentStore((s) => s.isConfirming);
+  const amount = useSftPrice();
 
   return (
     <>
@@ -77,23 +81,24 @@ export const View = () => {
               </Flex>
               <Flex align="center" justify="between">
                 <Text color="text-white" weight="bold" size="4xl">
-                  Checkout
+                  <Translation id="citizenship.checkout.title" />
                 </Text>
 
                 {isConfirming && <ConfirmLoader />}
               </Flex>
               <Text color="text-gray-200">
-                Completa il pagamento con Solana Pay per ottenere il tuo badge.
+                <Translation id="citizenship.checkout.subtitle" />
               </Text>
 
               <Flex direction="col" className="space-y-5 divide-y-2">
                 <CartItem />
+
                 <Flex pt={5} justify="between">
                   <Text color="text-white" weight="semibold">
-                    Totale
+                    <Translation id="citizenship.checkout.cart.total.label" />
                   </Text>
                   <Text color="text-white" weight="semibold">
-                    {CITIZEN_MINT_USDC_PRICE} USD
+                    {amount} USD
                   </Text>
                 </Flex>
               </Flex>
@@ -122,21 +127,21 @@ export const View = () => {
                   size="xl"
                   weight="semibold"
                 >
-                  Scansiona questo codice con il tuo Wallet Mobile
+                  <Translation id="citizenship.checkout.qrcode.hint.0" />
                 </Text>
 
                 <Flex align="center" className="space-x-2">
                   <ShieldCheckIcon className="w-6 h-6 text-gray-300" />
 
                   <Text size="sm" align="center" color="text-gray-300">
-                    Ti verrà chiesto di approvare la transazione
+                    <Translation id="citizenship.checkout.qrcode.hint.1" />
                   </Text>
                 </Flex>
               </Flex>
 
               <Flex justify="center">
                 <Text size="xs" color="text-gray-200">
-                  Oppure
+                  <Translation id="generic.or" />
                 </Text>
               </Flex>
 

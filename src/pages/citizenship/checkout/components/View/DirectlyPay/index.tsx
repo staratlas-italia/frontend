@@ -6,18 +6,17 @@ import BigNumber from "bignumber.js";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import {
-  CITIZEN_MINT_USDC_PRICE,
   DEVNET_USDC_TOKEN_MINT,
   SAI_CITIZEN_WALLET_DESTINATION,
   USDC_TOKEN_MINT,
 } from "~/common/constants";
 import { Button } from "~/components/controls/Button";
 import { SelfRetriever } from "~/components/SelfRetriever";
+import { getSftPrice } from "~/hooks/useSftPrice";
+import { Translation } from "~/i18n/Translation";
 import { getConnectionClusterUrl } from "~/utils/connection";
 import { ReferenceRetriever } from "../../ReferenceRetriever";
 import { usePaymentReference } from "../usePaymentReference";
-
-const amount = new BigNumber(CITIZEN_MINT_USDC_PRICE);
 
 export const DirectlyPayComponent = () => {
   const { publicKey, signTransaction } = useWallet();
@@ -37,7 +36,7 @@ export const DirectlyPayComponent = () => {
       );
 
       const transaction = await createTransfer(connection, publicKey, {
-        amount,
+        amount: new BigNumber(getSftPrice()),
         recipient: SAI_CITIZEN_WALLET_DESTINATION,
         splToken:
           cluster === "devnet" ? DEVNET_USDC_TOKEN_MINT : USDC_TOKEN_MINT,
@@ -60,7 +59,7 @@ export const DirectlyPayComponent = () => {
 
   return (
     <Button.Neutral size="small" onClick={handleDirectPayment}>
-      Pay directly
+      <Translation id="citizenship.checkout.payDirectly.action.title" />
     </Button.Neutral>
   );
 };
