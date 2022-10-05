@@ -1,4 +1,4 @@
-import { Connection, PublicKey } from "@solana/web3.js";
+import { Cluster, Connection, PublicKey } from "@solana/web3.js";
 import {
   getAllFleetsForUserPublicKey,
   getScoreVarsShipInfo,
@@ -8,11 +8,12 @@ import {
   ARMS_PRICE,
   FOOD_PRICE,
   FUEL_PRICE,
-  SA_FLEET_PROGRAM_ID,
+  SA_FLEET_PROGRAM,
   TOOLKIT_PRICE,
 } from "~/common/constants";
+import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { ScoreFleetResponse } from "~/types/api";
-import { getConnectionContext } from "~/utils/connection";
+import { getConnectionClusterUrl } from "~/utils/connection";
 import { dailyMaintenanceCostInAtlas } from "~/utils/dailyMaintenanceCostInAtlas";
 import { grossDailyRewardInAtlas } from "~/utils/grossDailyRewardInAtlas";
 import { netDailyRewardInAtlas } from "~/utils/netDailyRewardInAtlas";
@@ -20,30 +21,19 @@ import { isPublicKey } from "~/utils/pubkey";
 import { resDailyConsumption } from "~/utils/resDailyConsumption";
 import { resDailyCostInAtlas } from "~/utils/resDailyCostInAtlas";
 
-const connection = new Connection(
-  getConnectionContext("mainnet-beta").endpoint
-);
-
-// TODO
-// const cors = initMiddleware(
-//   Cors({
-//     origin:
-//       "https://app.staratlasitalia.com, https://fleet.staratlasitalia.com",
-//     methods: ["GET", "OPTIONS"],
-//     preflightContinue: false,
-//     optionsSuccessStatus: 204,
-//   })
-// );
-
 const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<ScoreFleetResponse>
 ) => {
   const {
-    query: { pbk },
+    query: { cluster, pbk },
   } = req;
 
-  if (!isPublicKey(pbk as string)) {
+  const connection = new Connection(
+    getConnectionClusterUrl(cluster as Cluster)
+  );
+
+  if (!pbk || !isPublicKey(pbk as string)) {
     res.status(200).json({
       success: false,
       error: "Invalid pubkey",
@@ -54,14 +44,14 @@ const handler = async (
   const accounts = await getAllFleetsForUserPublicKey(
     connection,
     new PublicKey(pbk),
-    new PublicKey(SA_FLEET_PROGRAM_ID)
+    SA_FLEET_PROGRAM
   );
 
   const shipsVars = await Promise.all(
     accounts.map((account) => {
       return getScoreVarsShipInfo(
         connection,
-        new PublicKey(SA_FLEET_PROGRAM_ID),
+        SA_FLEET_PROGRAM,
         new PublicKey(account.shipMint.toString())
       );
     })
@@ -200,4 +190,4 @@ const handler = async (
   });
 };
 
-export default handler;
+export default attachClusterMiddleware(handler);

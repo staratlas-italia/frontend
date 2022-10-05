@@ -2,9 +2,9 @@ import { Connection, PublicKey } from "@solana/web3.js";
 import { GmClientService, Order } from "@staratlas/factory";
 import { groupBy } from "lodash";
 import {
-  ATLAS_TOKEN_MINT_ID,
+  ATLAS_TOKEN_MINT,
   SA_MARKETPLACE_PROGRAM_ID,
-  USDC_TOKEN_MINT_ID,
+  USDC_TOKEN_MINT,
 } from "~/common/constants";
 
 export const getAssetOrderBook = async (
@@ -19,11 +19,11 @@ export const getAssetOrderBook = async (
   );
 
   const atlasOrders = assetOrders.filter(
-    (order) => order.currencyMint === ATLAS_TOKEN_MINT_ID
+    (order) => order.currencyMint === ATLAS_TOKEN_MINT.toString()
   );
 
   const usdcOrders = assetOrders.filter(
-    (order) => order.currencyMint === USDC_TOKEN_MINT_ID
+    (order) => order.currencyMint === USDC_TOKEN_MINT.toString()
   );
 
   const atlasOrdersByType = groupBy(atlasOrders, "orderType") as Record<

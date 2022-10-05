@@ -1,9 +1,10 @@
-import { Connection, PublicKey } from "@solana/web3.js";
+import { Cluster, Connection, PublicKey } from "@solana/web3.js";
 import { getScoreVarsShipInfo } from "@staratlas/factory";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { SA_FLEET_PROGRAM_ID } from "~/common/constants";
+import { SA_FLEET_PROGRAM } from "~/common/constants";
+import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { NormalizedScoreVarsShipInfo } from "~/types";
-import { getConnectionContext } from "~/utils/connection";
+import { getConnectionClusterUrl } from "~/utils/connection";
 import { isPublicKey } from "~/utils/pubkey";
 
 export type ResponseData =
@@ -16,19 +17,19 @@ export type ResponseData =
       data: NormalizedScoreVarsShipInfo;
     };
 
-const connection = new Connection(
-  getConnectionContext("mainnet-beta").endpoint
-);
-
 const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) => {
   const {
-    query: { mint },
+    query: { cluster, mint },
   } = req;
 
-  if (!isPublicKey(mint as string)) {
+  const connection = new Connection(
+    getConnectionClusterUrl(cluster as Cluster)
+  );
+
+  if (!mint || !isPublicKey(mint as string)) {
     res.status(200).json({
       success: false,
       error: "Invalid mint pubkey",
@@ -38,7 +39,7 @@ const handler = async (
 
   const account = await getScoreVarsShipInfo(
     connection,
-    new PublicKey(SA_FLEET_PROGRAM_ID),
+    SA_FLEET_PROGRAM,
     new PublicKey(mint)
   );
 
@@ -59,4 +60,4 @@ const handler = async (
   });
 };
 
-export default handler;
+export default attachClusterMiddleware(handler);

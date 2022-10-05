@@ -6,7 +6,7 @@ export const ShipList = () => {
 
   return (
     <div className="space-y-10">
-      {ships?.map((ship) => (
+      {ships.map((ship) => (
         <ShipCard key={ship._id} ship={ship} />
       ))}
     </div>

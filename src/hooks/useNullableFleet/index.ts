@@ -1,10 +1,12 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useEffect } from "react";
+import { useCluster } from "~/components/ClusterProvider";
 import { useSelf } from "~/hooks/useNullableSelf";
 import { useFleetStore } from "~/stores/useFleetStore";
 
 export const useNullableFleet = () => {
   const { publicKey } = useWallet();
+  const endpoint = useCluster();
 
   const self = useSelf();
 
@@ -17,7 +19,7 @@ export const useNullableFleet = () => {
       return;
     }
 
-    fetchFleet();
+    fetchFleet(endpoint.cluster);
   }, [self]);
 
   return {

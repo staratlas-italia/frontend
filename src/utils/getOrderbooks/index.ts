@@ -1,10 +1,10 @@
-import { Connection, PublicKey } from "@solana/web3.js";
+import { Connection } from "@solana/web3.js";
 import { GmClientService, Order } from "@staratlas/factory";
 import { groupBy } from "lodash";
 import {
-  ATLAS_TOKEN_MINT_ID,
+  ATLAS_TOKEN_MINT,
   SA_MARKETPLACE_PROGRAM_ID,
-  USDC_TOKEN_MINT_ID,
+  USDC_TOKEN_MINT,
 } from "~/common/constants";
 
 export const getOrderBooks = async (
@@ -13,13 +13,13 @@ export const getOrderBooks = async (
 ) => {
   const usdcOrders = await gmClientService.getOpenOrdersForCurrency(
     connection,
-    new PublicKey(USDC_TOKEN_MINT_ID),
+    USDC_TOKEN_MINT,
     SA_MARKETPLACE_PROGRAM_ID
   );
 
   const atlasOrders = await gmClientService.getOpenOrdersForCurrency(
     connection,
-    new PublicKey(ATLAS_TOKEN_MINT_ID),
+    ATLAS_TOKEN_MINT,
     SA_MARKETPLACE_PROGRAM_ID
   );
 

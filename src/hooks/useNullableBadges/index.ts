@@ -19,6 +19,7 @@ export const useNullableBadges = () => {
     }
 
     fetchBadges(connection);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [self]);
 
   return {

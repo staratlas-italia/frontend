@@ -1,13 +1,11 @@
-import Image from "next/image";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 
 type Props = {
-  image: string;
   title: string;
 };
 
-export const EmptyView = ({ image, title }: Props) => (
+export const EmptyView = ({ title }: Props) => (
   <BlurBackground
     py={5}
     justify="center"
@@ -15,8 +13,7 @@ export const EmptyView = ({ image, title }: Props) => (
     direction="col"
     className="space-y-3"
   >
-    <Image src={image} width={100} height={100} />
-    <Text size="3xl" color="text-white" weight="semibold">
+    <Text size="xl" color="text-white" weight="semibold">
       {title}
     </Text>
   </BlurBackground>

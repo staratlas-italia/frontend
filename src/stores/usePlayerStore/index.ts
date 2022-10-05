@@ -1,16 +1,17 @@
-import { Connection, PublicKey } from "@solana/web3.js";
+import { Cluster, Connection, PublicKey } from "@solana/web3.js";
 import create, { State } from "zustand";
 import {
-  ATLAS_TOKEN_MINT_ID,
-  POLIS_TOKEN_MINT_ID,
-  USDC_TOKEN_MINT_ID,
+  ATLAS_TOKEN_MINT,
+  POLIS_TOKEN_MINT,
+  USDC_TOKEN_MINT,
 } from "~/common/constants";
 import { fetchPlayer } from "~/network/player";
-import { fetchSelf } from "~/network/self";
+import { fetchOrCreateSelf } from "~/network/self";
 import { useBadgesStore } from "~/stores/useBadgesStore";
 import { useFleetStore } from "~/stores/useFleetStore";
 import { Avatar, Player } from "~/types";
 import { Self } from "~/types/api";
+import { getConnectionClusterUrl } from "~/utils/connection";
 import { getAvatarImageUrl } from "~/utils/getAvatarImageUrl";
 import { getTokenBalanceByMint } from "~/utils/getTokenBalanceByMint";
 import { toTuple } from "~/utils/toTuple";
@@ -21,7 +22,7 @@ type PlayerStore = State & {
   isFetching: boolean;
   amounts: [number | null, number | null, number | null];
   clear: () => void;
-  fetchSelf: (connection: Connection, publicKey: string) => void;
+  fetchSelf: (cluster: Cluster, publicKey: string) => void;
 };
 
 export const usePlayerStore = create<PlayerStore>((set, get) => ({
@@ -29,31 +30,33 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
   player: null,
   isFetching: false,
   amounts: [null, null, null],
-  fetchSelf: async (connection, publicKey) => {
+  fetchSelf: async (cluster, publicKey) => {
     if (get().isFetching) {
       return;
     }
 
     set({ isFetching: true });
 
+    const connection = new Connection(getConnectionClusterUrl(cluster));
+
     const [currentPlayer, self, atlasAmount, polisAmount, usdcAmount] =
       await Promise.all([
         fetchPlayer(publicKey),
-        fetchSelf(publicKey),
+        fetchOrCreateSelf({ publicKey, cluster }),
         getTokenBalanceByMint(
           connection,
           new PublicKey(publicKey),
-          new PublicKey(ATLAS_TOKEN_MINT_ID)
+          ATLAS_TOKEN_MINT
         ).catch(() => null),
         getTokenBalanceByMint(
           connection,
           new PublicKey(publicKey),
-          new PublicKey(POLIS_TOKEN_MINT_ID)
+          POLIS_TOKEN_MINT
         ).catch(() => null),
         getTokenBalanceByMint(
           connection,
           new PublicKey(publicKey),
-          new PublicKey(USDC_TOKEN_MINT_ID)
+          USDC_TOKEN_MINT
         ).catch(() => null),
       ]);
 
@@ -80,7 +83,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     }
 
     useBadgesStore.getState().fetchBadges(connection, publicKey);
-    useFleetStore.getState().fetchFleet(publicKey);
+    useFleetStore.getState().fetchFleet(cluster, publicKey);
   },
   clear: () => set({ self: null, player: null }),
 }));

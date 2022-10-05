@@ -13,11 +13,11 @@ const SpaceBackground = styled(Flex)`
   margin-right: auto;
   width: 350px;
   height: 350px;
-  background-image: url("images/space.png");
+  background-image: url("images/space.webp");
 `;
 
 const Ship = styled.img.attrs({
-  src: "/images/ship.png",
+  src: "/images/ship.webp",
 })`
   min-width: 400px;
   max-width: 450px;

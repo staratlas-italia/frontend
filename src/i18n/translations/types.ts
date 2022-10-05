@@ -2,9 +2,38 @@ export type TranslationId =
   | "Admin.SignatureLoader.title"
   | "Admin.Stats.Refresh.action.title"
   | "Admin.Stats.title"
+  | "Badges.Heading.title"
+  | "citizenship.banner.action.title"
+  | "citizenship.banner.subtitle"
+  | "citizenship.banner.pre.subtitle"
+  | "citizenship.banner.title"
+  | "citizenship.banner.pre.title"
+  | "citizenship.checkout.cart.total.label"
+  | "citizenship.checkout.confirmed.description.0"
+  | "citizenship.checkout.confirmed.description.1"
+  | "citizenship.checkout.confirmed.details.amount.label"
+  | "citizenship.checkout.confirmed.details.date.label"
+  | "citizenship.checkout.confirmed.details.fee.label"
+  | "citizenship.checkout.confirmed.details.label"
+  | "citizenship.checkout.confirmed.details.state.label"
+  | "citizenship.checkout.confirmed.details.state.completed"
+  | "citizenship.checkout.confirmed.back.action.title"
+  | "citizenship.checkout.confirmed.reference.label"
+  | "citizenship.checkout.confirmed.subtitle"
+  | "citizenship.checkout.confirmed.title"
+  | "citizenship.checkout.payDirectly.action.title"
+  | "citizenship.checkout.qrcode.hint.0"
+  | "citizenship.checkout.qrcode.hint.1"
+  | "citizenship.checkout.subtitle"
+  | "citizenship.checkout.title"
+  | "citizenship.factionSelector.title"
+  | "citizenship.intro.description"
+  | "citizenship.intro.hint"
+  | "citizenship.intro.title"
   | "Dashboard.Profile.Placeholder.title"
   | "Fleet.Heading.title"
-  | "Badges.Heading.title"
+  | "generic.next"
+  | "generic.or"
   | "Home.EnlistBanner.action.title"
   | "Home.EnlistBanner.description.0"
   | "Home.EnlistBanner.description.1"
@@ -34,9 +63,8 @@ export type TranslationId =
   | "Mint.AccessDenied.text"
   | "Mint.CheckBadge.text"
   | "Mint.Hyperspace.text"
-  | "MintBanner.action.title"
-  | "MintBanner.subtitle"
-  | "MintBanner.title"
+  | "Referral.Banner.description"
+  | "Referral.Banner.title"
   | "Ships.Details.calico_compakt_hero.description"
   | "Ships.Details.calico_evac.description"
   | "Ships.Details.Components.title"
@@ -67,14 +95,13 @@ export type TranslationId =
   | "Ships.Table.Sell.action.title"
   | "Ships.Toolbar.grid"
   | "Ships.Toolbar.table"
-  | "Wallet.Disconnect.action.title"
-  | "Referral.Banner.title"
-  | "Referral.Banner.description";
+  | "Wallet.Disconnect.action.title";
 
 export type TranslationValues = {
   "Layout.Wallet.Modal.ConnectedTo.title": { wallet: string };
   "Mint.Hyperspace.text": { seconds: string };
   "Ships.Details.saleDate": { date: string };
+  "citizenship.banner.pre.subtitle": { countdown: string };
 };
 
 export type TranslationValuesId = keyof TranslationValues;

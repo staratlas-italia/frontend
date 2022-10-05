@@ -5,12 +5,13 @@ import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 import { shortenAddress } from "~/utils/shortenAddress";
+import { CreatePlayerBanner } from "../CreatePlayerBanner";
 
 export const Profile = () => {
   const player = usePlayerStore((s) => s.player);
 
   if (player === null) {
-    return null;
+    return <CreatePlayerBanner />;
   }
 
   const { avatarId, avatarImageUrl, balance, rank, factionRank } = player;

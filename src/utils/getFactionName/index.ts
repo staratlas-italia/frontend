@@ -1,4 +1,6 @@
-export const getFactionName = (faction: null | 0 | 1 | 2) => {
+import { FactionWithNone } from "~/types";
+
+export const getFactionName = (faction: null | 0 | 1 | 2): FactionWithNone => {
   switch (faction) {
     case 0:
       return "MUD";

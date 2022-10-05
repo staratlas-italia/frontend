@@ -11,6 +11,7 @@ import { shortenAddress } from "~/utils/shortenAddress";
 type Props = {
   iconSize?: number;
   showAddress?: boolean;
+  hideSettings?: boolean;
 };
 
 const Icon = styled(Identicon)<Props>`
@@ -18,7 +19,7 @@ const Icon = styled(Identicon)<Props>`
   border-radius: 50;
 `;
 
-export const UserBadge = ({ iconSize, showAddress }: Props) => {
+export const UserBadge = ({ hideSettings, iconSize, showAddress }: Props) => {
   const { connected, wallet, publicKey } = useWallet();
 
   let name = showAddress ? shortenAddress(`${publicKey}`) : "";
@@ -35,9 +36,10 @@ export const UserBadge = ({ iconSize, showAddress }: Props) => {
 
   return (
     <Flex className="space-x-2">
-      <Settings />
+      {!hideSettings && <Settings />}
+
       <Button.Neutral size="small">
-        <Flex className="space-x-2" align="center">
+        <Flex className="space-x-2 h-7" align="center">
           <Icon address={publicKey?.toBase58()} iconSize={iconSize} />
 
           {name && (

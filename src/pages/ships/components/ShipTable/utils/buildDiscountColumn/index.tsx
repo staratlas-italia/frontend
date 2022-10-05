@@ -21,7 +21,7 @@ export const buildDiscountColumn = ({
       <Text
         align="center"
         weight="medium"
-        color={cell.value > 0 ? "text-green-300" : "text-red-300"}
+        color={cell.value > 0 ? "text-emerald-300" : "text-red-300"}
         className="px-4 py-2"
       >
         {cell.value ? (

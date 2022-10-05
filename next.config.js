@@ -33,6 +33,7 @@ module.exports = withTM({
     MAIN_RPC_ENDPOINT: process.env.MAIN_RPC_ENDPOINT,
     STAR_ATLAS_API_URL: process.env.STAR_ATLAS_API_URL,
     FEATURES_ENDPOINT: process.env.FEATURES_ENDPOINT,
+    DEV_FEATURES_ENDPOINT: process.env.DEV_FEATURES_ENDPOINT,
   },
   i18n: {
     locales: ["it", "en"],

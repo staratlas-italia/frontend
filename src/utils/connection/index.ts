@@ -1,4 +1,4 @@
-import { Cluster, clusterApiUrl, Connection } from "@solana/web3.js";
+import { Cluster, clusterApiUrl } from "@solana/web3.js";
 
 export interface EndpointInfo {
   cluster: Cluster;
@@ -6,19 +6,16 @@ export interface EndpointInfo {
   url: string;
 }
 
-export const ENDPOINTS: EndpointInfo[] = [
+export const clusterEndpoints: EndpointInfo[] = [
   {
     cluster: "mainnet-beta",
     name: "Mainnet",
-    url:
-      process.env.MAIN_RPC_ENDPOINT ||
-      process.env.BACKUP_RPC_ENDPOINT ||
-      clusterApiUrl("mainnet-beta"),
+    url: process.env.MAIN_RPC_ENDPOINT || clusterApiUrl("mainnet-beta"),
   },
   {
     cluster: "devnet",
     name: "Devnet",
-    url: process.env.DEVNET_RPC_ENDPOINT || clusterApiUrl("devnet"),
+    url: clusterApiUrl("devnet"),
   },
   {
     cluster: "testnet",
@@ -27,20 +24,13 @@ export const ENDPOINTS: EndpointInfo[] = [
   },
 ];
 
-export interface ConnectionContext {
-  name: string;
-  cluster: Cluster;
-  current: Connection;
-  endpoint: string;
+export function getConnectionContext(cluster?: Cluster): EndpointInfo {
+  const endpoint =
+    clusterEndpoints.find((e) => e.cluster === cluster) || clusterEndpoints[0];
+
+  return endpoint;
 }
 
-export function getConnectionContext(cluster: Cluster): ConnectionContext {
-  const ENDPOINT = ENDPOINTS.find((e) => e.cluster === cluster) || ENDPOINTS[0];
-
-  return {
-    name: ENDPOINT!.name,
-    cluster: ENDPOINT!.cluster as Cluster,
-    current: new Connection(ENDPOINT!.url, "recent"),
-    endpoint: ENDPOINT!.url,
-  };
-}
+export const getConnectionClusterUrl = (cluster?: Cluster) => {
+  return getConnectionContext(cluster).url;
+};

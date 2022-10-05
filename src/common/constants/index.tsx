@@ -1,6 +1,7 @@
+import { GrowthBook } from "@growthbook/growthbook-react";
 import { PublicKey } from "@solana/web3.js";
 import { GmClientService } from "@staratlas/factory";
-import { Currency } from "~/types";
+import { Faction } from "~/types";
 
 export const ATLAS_USDC_MARKET_ADDR =
   "Di66GTLsV64JgCCYGVcY21RZ173BHkjJVgPyezNN7P1K";
@@ -20,21 +21,29 @@ export const TIER3_TOKEN_MINT_ID = new PublicKey(
   "tr3Z8EqLMeNf2gHSpCsu9uP2o5DzoQ8QNFmueKjHQ95"
 );
 
-export const ATLAS_TOKEN_MINT_ID =
-  "ATLASXmbPQxBUYbxPsV97usA3fPQYEqzQBUHgiFCUsXx";
+export const ATLAS_TOKEN_MINT = new PublicKey(
+  "ATLASXmbPQxBUYbxPsV97usA3fPQYEqzQBUHgiFCUsXx"
+);
 
-export const USDC_TOKEN_MINT_ID =
-  "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
+export const USDC_TOKEN_MINT = new PublicKey(
+  "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+);
 
-export const POLIS_TOKEN_MINT_ID =
-  "poLisWXnNRwC6oBu1vHiuKQzFjGL4XDSu4g9qjz9qVk";
+export const DEVNET_USDC_TOKEN_MINT = new PublicKey(
+  "Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr"
+);
 
 export const SA_MARKETPLACE_PROGRAM_ID = new PublicKey(
   "traderDnaR5w6Tcoi3NFm53i48FTDNbGjBSZwWXDRrg"
 );
 
-export const SA_FLEET_PROGRAM_ID =
-  "FLEET1qqzpexyaDpqb2DGsSzE2sDCizewCg9WjrA6DBW";
+export const POLIS_TOKEN_MINT = new PublicKey(
+  "poLisWXnNRwC6oBu1vHiuKQzFjGL4XDSu4g9qjz9qVk"
+);
+
+export const SA_FLEET_PROGRAM = new PublicKey(
+  "FLEET1qqzpexyaDpqb2DGsSzE2sDCizewCg9WjrA6DBW"
+);
 
 export const DEXLAB_API_URL = "https://open-api.dexlab.space/v1";
 
@@ -54,12 +63,38 @@ export const WEBSITE_URL =
   process.env.ENVIRONMENT === "development"
     ? ""
     : "https://app.staratlasitalia.com";
+
 export const FLEET_WEBSITE_URL = "https://fleet.staratlasitalia.com";
+
+export const SAI_CITIZEN_WALLET_DESTINATION = new PublicKey(
+  "saiQr2S4nVMfhsaJYmTMSdVwaB1PbqjYsCDX1FnDJon"
+);
+
+export const CITIZEN_TOKEN_MINT_PER_FACTION: Record<
+  Lowercase<Faction>,
+  PublicKey
+> = {
+  mud: new PublicKey("mudS4YjsuhGAgoihdhT64762iGTYaqKZN92bwhcGAGr"),
+  oni: new PublicKey("oniMqPYgTypbvTJqu8mL94pQM5QDdMF2fXcyweNJePQ"),
+  ustur: new PublicKey("ustuRPvoFHcmoonK7on8tc6MaUQeuzUxx2ioFeuXLyn"),
+};
+
+export const DEVNET_CITIZEN_TOKEN_MINT_PER_FACTION: Record<
+  Lowercase<Faction>,
+  PublicKey
+> = {
+  mud: new PublicKey("67D3p1VhvZbTVD26koiNkqCDDYFtgbnYmf6rUiVSiAuV"),
+  oni: new PublicKey("67D3p1VhvZbTVD26koiNkqCDDYFtgbnYmf6rUiVSiAuV"),
+  ustur: new PublicKey("67D3p1VhvZbTVD26koiNkqCDDYFtgbnYmf6rUiVSiAuV"),
+};
+
+export const DEV_EMAIL = "dev@staratlasitalia.com";
+
+export const growthbook = new GrowthBook();
 
 export const gmClientService = new GmClientService();
 
-export const currencyToMint: Record<Currency, string> = {
-  ATLAS: ATLAS_TOKEN_MINT_ID,
-  POLIS: POLIS_TOKEN_MINT_ID,
-  USDC: USDC_TOKEN_MINT_ID,
-};
+export const FEATURES_ENDPOINT =
+  process.env.ENVIRONMENT === "production"
+    ? process.env.FEATURES_ENDPOINT
+    : process.env.DEV_FEATURES_ENDPOINT;

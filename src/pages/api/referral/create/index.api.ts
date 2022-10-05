@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 
 import { matchSignatureMiddleware } from "~/middlewares/matchSignature";
-import { mongoClient } from "~/pages/api/mongodb";
+import { getMongoDatabase, mongoClient } from "~/pages/api/mongodb";
 import { Self } from "~/types/api";
 
 const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
@@ -24,7 +24,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     });
   }
 
-  const db = mongoClient.db("app-db");
+  const db = getMongoDatabase();
 
   const userCollection = db.collection<Self>("users");
 
