@@ -1,8 +1,8 @@
+import { CitizenInfoBanner } from "~/components/CitizenInfoBanner";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
 import { Header } from "~/components/layout/Header";
 import { Treasury } from "~/components/layout/Header/components/Treasury";
-import { CitizenInfoBanner } from "~/components/MintBanner";
 import { EnlistBanner } from "~/views/Home/components/EnlistBanner";
 import { WelcomeBanner } from "~/views/Home/components/WelcomeBanner";
 

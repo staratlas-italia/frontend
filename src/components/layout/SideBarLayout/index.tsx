@@ -1,10 +1,10 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import React, { PropsWithChildren } from "react";
+import { CitizenInfoBanner } from "~/components/CitizenInfoBanner";
 import { BaseLayout } from "~/components/layout/BaseLayout";
 import { Container } from "~/components/layout/Container";
 import { Flex } from "~/components/layout/Flex";
 import { Header } from "~/components/layout/Header";
-import { CitizenInfoBanner } from "~/components/MintBanner";
 import { SelfRetriever } from "~/components/SelfRetriever";
 import { Provider } from "./components/Provider";
 import { SideBar } from "./components/SideBar";

@@ -3,9 +3,11 @@ export type TranslationId =
   | "Admin.Stats.Refresh.action.title"
   | "Admin.Stats.title"
   | "Badges.Heading.title"
-  | "citizenBanner.action.title"
-  | "citizenBanner.subtitle"
-  | "citizenBanner.title"
+  | "citizenship.banner.action.title"
+  | "citizenship.banner.subtitle"
+  | "citizenship.banner.pre.subtitle"
+  | "citizenship.banner.title"
+  | "citizenship.banner.pre.title"
   | "citizenship.checkout.cart.total.label"
   | "citizenship.checkout.confirmed.description.0"
   | "citizenship.checkout.confirmed.description.1"
@@ -99,6 +101,7 @@ export type TranslationValues = {
   "Layout.Wallet.Modal.ConnectedTo.title": { wallet: string };
   "Mint.Hyperspace.text": { seconds: string };
   "Ships.Details.saleDate": { date: string };
+  "citizenship.banner.pre.subtitle": { countdown: string };
 };
 
 export type TranslationValuesId = keyof TranslationValues;

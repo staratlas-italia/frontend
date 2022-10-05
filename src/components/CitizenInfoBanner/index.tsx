@@ -4,15 +4,20 @@ import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
 import { Translation } from "~/i18n/Translation";
 import { getRoute } from "~/utils/getRoute";
+import { useCountdown } from "./useCountdown";
 
 export const CitizenInfoBanner = () => {
   const isCitizenInfoBannerDisabled = useFeature(
     "sai-frontend-enable-mint-banner"
   ).off;
 
-  const isEnabledCitizenshipPurchase = useFeature(
+  const isCitizenshipPurchaseDisabled = useFeature(
     "sai-frontend-enabled-citizenship-purchase"
   ).off;
+
+  const [days, hours, minutes, seconds] = useCountdown(
+    "2022-10-07T20:00:00.000Z"
+  );
 
   if (isCitizenInfoBannerDisabled) {
     return null;
@@ -31,17 +36,32 @@ export const CitizenInfoBanner = () => {
       >
         <Flex direction="col">
           <Text weight="semibold">
-            <Translation id="citizenBanner.title" />
+            <Translation
+              id={
+                isCitizenshipPurchaseDisabled
+                  ? "citizenship.banner.pre.title"
+                  : "citizenship.banner.title"
+              }
+            />
           </Text>
           <Text>
-            <Translation id="citizenBanner.subtitle" />
+            {isCitizenshipPurchaseDisabled ? (
+              <Translation
+                id="citizenship.banner.pre.subtitle"
+                values={{
+                  countdown: `${days}d ${hours}h ${minutes}m ${seconds}s`,
+                }}
+              />
+            ) : (
+              <Translation id="citizenship.banner.subtitle" />
+            )}
           </Text>
         </Flex>
 
-        {isEnabledCitizenshipPurchase && (
+        {!isCitizenshipPurchaseDisabled && (
           <Link href={getRoute("/citizenship")}>
             <a className="underline cursor-pointer text-right">
-              <Translation id="citizenBanner.action.title" />
+              <Translation id="citizenship.banner.action.title" />
             </a>
           </Link>
         )}
