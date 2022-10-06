@@ -1,4 +1,5 @@
 import { GrowthBook } from "@growthbook/growthbook-react";
+import { withSentry } from "@sentry/nextjs";
 import {
   findReference,
   FindReferenceError,
@@ -72,7 +73,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
   }
 
   const amount = new BigNumber(getSftPrice(growthbook));
-  console.log(amount);
+
   const {
     cluster: clusterParam,
     faction,
@@ -192,5 +193,6 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 export default pipe(
   matchMethodMiddleware(handler, ["POST"]),
   attachClusterMiddleware,
-  useMongoMiddleware
+  useMongoMiddleware,
+  withSentry
 );
