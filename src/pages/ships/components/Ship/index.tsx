@@ -33,7 +33,9 @@ export const ShipCard = ({ ship }: Props) => {
   const isF = isFirefox();
 
   const url = ship.markets.length
-    ? `https://play.staratlas.com/market/${ship?.markets[0].id}`
+    ? `https://play.staratlas.com/market/${ship.name
+        .toLowerCase()
+        .replace(/\s/g, "-")}`
     : null;
 
   return (
@@ -73,11 +75,13 @@ export const ShipCard = ({ ship }: Props) => {
                 className="mt-5 sm:mt-10"
               >
                 {url && (
-                  <a href={url} target="_blank" rel="noreferrer">
-                    <Button.Primary as="span" className="w-full lg:w-auto">
-                      <Translation id="Ships.List.Card.BuyAction.title" />
-                    </Button.Primary>
-                  </a>
+                  <Link href={url}>
+                    <a target="_blank" rel="noreferrer">
+                      <Button.Primary as="div" className="w-full lg:w-auto">
+                        <Translation id="Ships.List.Card.BuyAction.title" />
+                      </Button.Primary>
+                    </a>
+                  </Link>
                 )}
                 <Flex className="mt-3 lg:ml-3 lg:mt-0 w-full">
                   <Link
@@ -88,7 +92,7 @@ export const ShipCard = ({ ship }: Props) => {
                     locale={locale}
                   >
                     <a className="w-full lg:w-auto">
-                      <Button.Tertiary as="span">
+                      <Button.Tertiary as="div">
                         <Translation id="Ships.List.Card.ReadMore.title" />
                       </Button.Tertiary>
                     </a>
