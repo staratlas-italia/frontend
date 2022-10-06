@@ -21,6 +21,8 @@ export type TranslationId =
   | "citizenship.checkout.confirmed.reference.label"
   | "citizenship.checkout.confirmed.subtitle"
   | "citizenship.checkout.confirmed.title"
+  | "citizenship.checkout.error.title"
+  | "citizenship.checkout.error.description"
   | "citizenship.checkout.payDirectly.action.title"
   | "citizenship.checkout.qrcode.hint.0"
   | "citizenship.checkout.qrcode.hint.1"

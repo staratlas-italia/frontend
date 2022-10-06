@@ -1,3 +1,4 @@
+import { withSentry } from "@sentry/nextjs";
 import { Keypair } from "@solana/web3.js";
 import { pipe } from "fp-ts/function";
 import { ObjectId } from "mongodb";
@@ -80,5 +81,6 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 export default pipe(
   matchMethodMiddleware(handler, ["POST"]),
   useMongoMiddleware,
-  attachClusterMiddleware
+  attachClusterMiddleware,
+  withSentry
 );

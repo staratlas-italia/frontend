@@ -1,8 +1,10 @@
+import { withSentry } from "@sentry/nextjs";
 import { Cluster, Connection, PublicKey } from "@solana/web3.js";
 import {
   getAllFleetsForUserPublicKey,
   getScoreVarsShipInfo,
 } from "@staratlas/factory";
+import { pipe } from "fp-ts/lib/function";
 import type { NextApiRequest, NextApiResponse } from "next";
 import {
   ARMS_PRICE,
@@ -190,4 +192,4 @@ const handler = async (
   });
 };
 
-export default attachClusterMiddleware(handler);
+export default pipe(handler, attachClusterMiddleware, withSentry);
