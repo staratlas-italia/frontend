@@ -20,6 +20,7 @@ export type ApiRoutes =
   | "/api/menu"
   | "/api/player"
   | "/api/payment/confirm"
+  | "/api/payment/transfer"
   | "/api/payment/reference"
   | "/api/referral/create"
   | "/api/referral/redeem"

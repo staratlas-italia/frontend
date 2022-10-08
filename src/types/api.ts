@@ -25,7 +25,7 @@ export type PaymentReferenceResponse =
       success: false;
       error: string;
     }
-  | { success: true; reference: string };
+  | { success: true; reference: string; returnReference: string };
 
 export type TransactionStatus =
   | "ACCEPTED"
@@ -38,6 +38,7 @@ export type Transaction = {
   createdAt: Date;
   userId: ObjectId;
   reference: string;
+  returnReference: string;
   status: TransactionStatus;
 };
 
@@ -50,6 +51,10 @@ export type ConfirmPaymentResponse =
       success: false;
       error: string;
     };
+
+export type TransferPaymentResponse =
+  | { success: true; eligible: boolean }
+  | { success: false; error: string };
 
 export type ScoreFleetResponse =
   | {

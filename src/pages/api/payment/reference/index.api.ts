@@ -49,17 +49,20 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     res.status(200).json({
       success: true,
       reference: pendingTransaction.reference,
+      returnReference: pendingTransaction.returnReference,
     });
     return;
   }
 
   const reference = Keypair.generate().publicKey.toString();
+  const returnReference = Keypair.generate().publicKey.toString();
 
   const insertResult = await transactionsCollection.insertOne({
     meta: { amount: getSftPrice(), name: "CITIZENSHIP_CARD" },
     status: "PENDING",
     userId: new ObjectId(userId),
     reference,
+    returnReference,
     createdAt: new Date(),
   });
 
@@ -69,6 +72,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     res.status(200).json({
       success: true,
       reference,
+      returnReference,
     });
   }
 

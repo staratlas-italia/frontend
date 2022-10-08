@@ -12,10 +12,12 @@ import {
 import { useCluster } from "~/components/ClusterProvider";
 import { Flex } from "~/components/layout/Flex";
 import { useSftPrice } from "~/hooks/useSftPrice";
-
+import { transferPayment } from "~/network/payments/transfer";
 import { usePaymentStore } from "~/stores/usePaymentStore";
+import { getRoute } from "~/utils/getRoute";
 import { useFaction } from "../../../../FactionGuard";
 import { usePaymentReference } from "../usePaymentReference";
+import { usePaymentReturnReference } from "../usePaymentReturnReference";
 
 export const QrCode = memo(() => {
   const router = useRouter();
@@ -26,6 +28,7 @@ export const QrCode = memo(() => {
   const faction = useFaction();
   const { publicKey } = useWallet();
   const reference = usePaymentReference();
+  const returnReference = usePaymentReturnReference();
   const qrRef = useRef<HTMLDivElement>(null);
 
   const url = useMemo(() => {
@@ -55,21 +58,44 @@ export const QrCode = memo(() => {
       return;
     }
 
-    const redirectUri = await confirmPayment({
+    const status = await confirmPayment({
       cluster,
-      faction,
       publicKey: publicKey.toString(),
       reference,
     });
 
-    if (redirectUri) {
-      router.push(redirectUri);
+    if (status !== null) {
+      if (status) {
+        const transferResult = await transferPayment({
+          cluster,
+          faction,
+          publicKey: publicKey.toString(),
+          reference,
+          returnReference,
+        });
+
+        if (transferResult.success && transferResult.eligible) {
+          router.push(getRoute("/citizenship/checkout/confirmed"));
+
+          return;
+        }
+      }
+
+      router.push(getRoute("/citizenship/checkout/error"));
 
       return;
     }
 
     return setTimeout(() => recusiveConfirm(), 2000);
-  }, [cluster, confirmPayment, faction, publicKey, reference, router]);
+  }, [
+    cluster,
+    confirmPayment,
+    faction,
+    publicKey,
+    reference,
+    returnReference,
+    router,
+  ]);
 
   useEffect(() => {
     const timeout = recusiveConfirm();

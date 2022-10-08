@@ -11,24 +11,25 @@ export const ReferenceRetriever = ({
   children,
   loader,
 }: PropsWithChildren<Props>) => {
-  const [reference, fetchReference] = usePaymentStore((s) => [
+  const [reference, returnReference, fetchReference] = usePaymentStore((s) => [
     s.reference,
+    s.returnReference,
     s.fetchReference,
   ]);
 
   const { cluster } = useRouter().query;
 
   useEffect(() => {
-    if (!reference) {
+    if (!reference || !returnReference) {
       fetchReference(cluster as Cluster);
     }
-  }, [reference, fetchReference, cluster]);
+  }, [reference, returnReference, fetchReference, cluster]);
 
-  if (reference === null && loader) {
+  if ((reference === null || returnReference === null) && loader) {
     return <>{loader}</>;
   }
 
-  if (!reference) {
+  if (!reference || !returnReference) {
     return null;
   }
 

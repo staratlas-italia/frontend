@@ -11,8 +11,6 @@ import BigNumber from "bignumber.js";
 import { pipe } from "fp-ts/function";
 import { NextApiRequest, NextApiResponse } from "next";
 import {
-  CITIZEN_TOKEN_MINT_PER_FACTION,
-  DEVNET_CITIZEN_TOKEN_MINT_PER_FACTION,
   DEVNET_USDC_TOKEN_MINT,
   FEATURES_ENDPOINT,
   SAI_CITIZEN_WALLET_DESTINATION,
@@ -23,45 +21,9 @@ import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 import { useMongoMiddleware } from "~/middlewares/useMongo";
 import { getMongoDatabase } from "~/pages/api/mongodb";
-import { Faction } from "~/types";
 import { Transaction } from "~/types/api";
 import { getConnectionClusterUrl } from "~/utils/connection";
-import { isValidFaction } from "~/utils/isFaction";
 import { isPublicKey } from "~/utils/pubkey";
-import { transferTo } from "./transferTo";
-
-const sendTokens = async ({
-  connection,
-  cluster,
-  faction,
-  recipient,
-}: {
-  connection: Connection;
-  cluster: Cluster;
-  faction: Faction;
-  recipient: string;
-}) => {
-  const mint = (
-    cluster === "devnet"
-      ? DEVNET_CITIZEN_TOKEN_MINT_PER_FACTION
-      : CITIZEN_TOKEN_MINT_PER_FACTION
-  )[faction.toLowerCase()];
-
-  try {
-    await transferTo({
-      connection,
-      cluster,
-      mint,
-      recipient: new PublicKey(recipient),
-    });
-
-    return true;
-  } catch (e) {
-    console.log(e);
-
-    return false;
-  }
-};
 
 const growthbook = new GrowthBook();
 
@@ -74,14 +36,9 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 
   const amount = new BigNumber(getSftPrice(growthbook));
 
-  const {
-    cluster: clusterParam,
-    faction,
-    reference: referenceParam,
-    publicKey,
-  } = body;
+  const { cluster: clusterParam, reference: referenceParam, publicKey } = body;
 
-  if (!referenceParam || !isValidFaction(faction) || !isPublicKey(publicKey)) {
+  if (!referenceParam || !isPublicKey(publicKey)) {
     res.status(400).json({
       success: false,
       error: "Invalid parameters supplied.",
@@ -152,34 +109,6 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     {
       $set: {
         status: "ACCEPTED_WITHOUT_RETURN",
-      },
-    }
-  );
-
-  const status = await sendTokens({
-    connection,
-    cluster,
-    faction,
-    recipient: publicKey,
-  });
-
-  if (!status) {
-    res.status(200).json({
-      success: false,
-      error: "Not able to send tokens",
-    });
-
-    return;
-  }
-
-  await transactionsCollection.findOneAndUpdate(
-    {
-      reference: referenceParam,
-      status: "ACCEPTED_WITHOUT_RETURN",
-    },
-    {
-      $set: {
-        status: "ACCEPTED",
       },
     }
   );
