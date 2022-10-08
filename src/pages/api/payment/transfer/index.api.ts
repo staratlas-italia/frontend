@@ -1,4 +1,4 @@
-import { withSentry } from "@sentry/nextjs";
+import { captureException, withSentry } from "@sentry/nextjs";
 import { Cluster, Connection, PublicKey } from "@solana/web3.js";
 import { pipe } from "fp-ts/function";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -47,7 +47,7 @@ const sendTokens = async ({
 
     return true;
   } catch (e) {
-    console.log(e);
+    captureException(e, { level: "error" });
 
     return false;
   }
