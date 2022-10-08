@@ -5,28 +5,28 @@ import { confirmPayment } from "~/network/payments/confirm";
 import { fetchPaymentReference } from "~/network/payments/reference";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 import { Faction } from "~/types";
-import { getRoute } from "~/utils/getRoute";
 
 type PaymentStore = {
   faction: Faction | null;
   reference: string | null;
+  returnReference: string | null;
   isConfirming: boolean;
   isFetchingReference: boolean;
   confirm: (_: {
     cluster: Cluster;
-    faction: Faction;
     publicKey: string;
     reference: string;
-  }) => Promise<string | null>;
+  }) => Promise<boolean | null>;
   fetchReference: (cluster?: Cluster) => void;
 };
 
 export const usePaymentStore = create<PaymentStore>((set, get) => ({
   faction: null,
   reference: null,
+  returnReference: null,
   isConfirming: false,
   isFetchingReference: false,
-  confirm: async ({ cluster, faction, publicKey, reference }) => {
+  confirm: async ({ cluster, publicKey, reference }) => {
     if (get().isConfirming) {
       return null;
     }
@@ -35,19 +35,16 @@ export const usePaymentStore = create<PaymentStore>((set, get) => ({
 
     const response = await confirmPayment({
       cluster,
-      faction,
       publicKey: publicKey.toString(),
       reference,
     });
 
     if (!response.success) {
-      console.log(response);
-
-      return getRoute("/citizenship/checkout/error");
+      return false;
     }
 
     if (response.verified) {
-      return getRoute("/citizenship/checkout/confirmed");
+      return true;
     }
 
     set({ isConfirming: false });
@@ -68,11 +65,16 @@ export const usePaymentStore = create<PaymentStore>((set, get) => ({
       "This hook is meant to be used inside a SelfRetriever component"
     );
 
-    const reference = await fetchPaymentReference({
+    const response = await fetchPaymentReference({
       cluster,
       userId: self._id.toString(),
     });
 
-    set({ isFetchingReference: false, reference });
+    const { reference, returnReference } = response || {
+      reference: null,
+      returnReference: null,
+    };
+
+    set({ isFetchingReference: false, reference, returnReference });
   },
 }));

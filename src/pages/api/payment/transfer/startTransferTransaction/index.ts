@@ -1,5 +1,6 @@
-import { getOrCreateAssociatedTokenAccount, mintTo } from "@solana/spl-token";
+import { createTransfer } from "@solana/pay";
 import { Cluster, Connection, Keypair, PublicKey } from "@solana/web3.js";
+import BigNumber from "bignumber.js";
 import * as base58 from "bs58";
 
 type Param = {
@@ -7,13 +8,15 @@ type Param = {
   cluster: Cluster;
   mint: PublicKey;
   recipient: PublicKey;
+  reference: PublicKey;
 };
 
-export const transferTo = async ({
+export const startTransferTransaction = async ({
   connection,
   cluster,
   mint,
   recipient,
+  reference,
 }: Param) => {
   const payer = Keypair.fromSecretKey(
     base58.decode(
@@ -25,21 +28,14 @@ export const transferTo = async ({
 
   const numberTokens = 1;
 
-  const account = await getOrCreateAssociatedTokenAccount(
-    connection,
-    payer,
-    mint,
-    recipient
-  );
+  const transaction = await createTransfer(connection, payer.publicKey, {
+    amount: new BigNumber(numberTokens),
+    recipient,
+    splToken: mint,
+    reference,
+  });
 
-  const txid = await mintTo(
-    connection,
-    payer,
-    mint,
-    account.address,
-    payer,
-    numberTokens * Math.pow(10, 0)
-  );
+  const txid = await connection.sendTransaction(transaction, [payer]);
 
   console.log(
     `Succesfully minted ${numberTokens} to ${recipient.toString()}. TXID: ${txid} \n`

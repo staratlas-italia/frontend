@@ -20,7 +20,7 @@ export const fetchPaymentReference = async ({ cluster, userId }: Param) => {
     const res = (await response.json()) as PaymentReferenceResponse;
 
     if (res.success) {
-      return res.reference;
+      return res;
     }
 
     return null;
