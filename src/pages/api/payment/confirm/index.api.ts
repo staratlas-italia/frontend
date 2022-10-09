@@ -1,5 +1,5 @@
 import { GrowthBook } from "@growthbook/growthbook-react";
-import { captureException, withSentry } from "@sentry/nextjs";
+import { captureException } from "@sentry/nextjs";
 import {
   findReference,
   FindReferenceError,
@@ -121,6 +121,5 @@ export default pipe(
   handler,
   matchMethodMiddleware(["POST"]),
   attachClusterMiddleware,
-  useMongoMiddleware,
-  withSentry
+  useMongoMiddleware
 );

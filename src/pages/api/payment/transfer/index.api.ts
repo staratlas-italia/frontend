@@ -1,4 +1,4 @@
-import { captureException, withSentry } from "@sentry/nextjs";
+import { captureException } from "@sentry/nextjs";
 import { Cluster, Connection, PublicKey } from "@solana/web3.js";
 import { pipe } from "fp-ts/function";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -133,9 +133,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 
 export default pipe(
   handler,
-  withSentry,
   matchMethodMiddleware(["POST"]),
   attachClusterMiddleware,
-  useMongoMiddleware,
-  withSentry
+  useMongoMiddleware
 );

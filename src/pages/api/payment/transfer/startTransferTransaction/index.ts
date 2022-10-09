@@ -1,5 +1,6 @@
+import { captureException } from "@sentry/nextjs";
 import { createTransfer } from "@solana/pay";
-import { getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
+import { createAssociatedTokenAccount } from "@solana/spl-token";
 import { Cluster, Connection, Keypair, PublicKey } from "@solana/web3.js";
 import BigNumber from "bignumber.js";
 import * as base58 from "bs58";
@@ -29,7 +30,11 @@ export const startTransferTransaction = async ({
 
   const numberTokens = 1;
 
-  await getOrCreateAssociatedTokenAccount(connection, payer, mint, recipient);
+  try {
+    await createAssociatedTokenAccount(connection, payer, mint, recipient);
+  } catch (e) {
+    captureException(e, { level: "error" });
+  }
 
   const transaction = await createTransfer(connection, payer.publicKey, {
     amount: new BigNumber(numberTokens),

@@ -1,6 +1,6 @@
 import { CheckCircleIcon } from "@heroicons/react/solid";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Confetti from "react-dom-confetti";
 import styled from "styled-components";
 import { DEV_EMAIL } from "~/common/constants";
@@ -13,6 +13,7 @@ import { Logo } from "~/components/layout/Header";
 import { Translation } from "~/i18n/Translation";
 import { usePaymentReference } from "~/pages/citizenship/checkout/components/View/usePaymentReference";
 import { useFaction } from "~/pages/citizenship/FactionGuard";
+import { usePaymentStore } from "~/stores/usePaymentStore";
 import { getRoute } from "~/utils/getRoute";
 import { TransactionDetails } from "./TransactionDetails";
 
@@ -38,13 +39,21 @@ export const View = () => {
   const faction = useFaction();
   const reference = usePaymentReference();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const memoizedFaction = useMemo(() => faction, []);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const memoizedReference = useMemo(() => reference, []);
+
   const [done, setDone] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => setDone(true), 600);
+    const timeout2 = setTimeout(() => usePaymentStore.destroy(), 1000);
 
     return () => {
       clearTimeout(timeout);
+      clearTimeout(timeout2);
     };
   }, [setDone]);
 
@@ -72,7 +81,7 @@ export const View = () => {
                   <img
                     className="rotate-12"
                     alt="citizen-card"
-                    src={`/images/cards/card-${faction}.webp`}
+                    src={`/images/cards/card-${memoizedFaction}.webp`}
                   />
                 </ImageContainer>
 
@@ -99,7 +108,7 @@ export const View = () => {
 
                 <a
                   className="text-emerald-500"
-                  href={`mailto:dev@staratlasitalia.com?subject=Reference ${reference}`}
+                  href={`mailto:dev@staratlasitalia.com?subject=Reference ${memoizedReference}`}
                   rel="noreferrer"
                   target="_blank"
                 >

@@ -1,4 +1,3 @@
-import { withSentry } from "@sentry/nextjs";
 import { pipe } from "fp-ts/function";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getMenuItems } from "~/components/layout/SideBarLayout/components/SideBarContent/getMenuItems";
@@ -19,4 +18,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   });
 };
 
-export default pipe(handler, withSentry, matchMethodMiddleware(["GET"]));
+export default pipe(handler, matchMethodMiddleware(["GET"]));

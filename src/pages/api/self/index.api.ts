@@ -1,4 +1,3 @@
-import { withSentry } from "@sentry/nextjs";
 import { Cluster } from "@solana/web3.js";
 import { pipe } from "fp-ts/function";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -81,8 +80,6 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 
 export default pipe(
   handler,
-  withSentry,
   matchMethodMiddleware(["GET", "POST"]),
-  attachClusterMiddleware,
-  withSentry
+  attachClusterMiddleware
 );
