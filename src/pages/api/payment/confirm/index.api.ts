@@ -29,7 +29,9 @@ const growthbook = new GrowthBook();
 
 const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
   if (FEATURES_ENDPOINT) {
-    const json = await fetch(FEATURES_ENDPOINT).then((res) => res.json());
+    const json = await fetch(FEATURES_ENDPOINT, { cache: "no-store" }).then(
+      (res) => res.json()
+    );
 
     growthbook.setFeatures(json.features);
   }

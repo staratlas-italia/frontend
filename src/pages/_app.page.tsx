@@ -38,7 +38,7 @@ function App({ router, ...props }: AppProps) {
       return;
     }
 
-    fetch(FEATURES_ENDPOINT)
+    fetch(FEATURES_ENDPOINT, { cache: "no-store" })
       .then((res) => res.json())
       .then((json) => {
         growthbook.setFeatures(json.features);
