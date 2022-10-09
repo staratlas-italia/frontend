@@ -61,7 +61,7 @@ const moduleExports = withTM({
     // This option will automatically provide performance monitoring for Next.js
     // data-fetching methods and API routes, making the manual wrapping of API
     // routes via `withSentry` redundant.
-    autoInstrumentServerFunctions: true,
+    autoInstrumentServerFunctions: false,
   },
 });
 
