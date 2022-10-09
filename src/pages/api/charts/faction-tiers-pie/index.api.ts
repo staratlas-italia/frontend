@@ -1,3 +1,5 @@
+import { withSentry } from "@sentry/nextjs";
+import { pipe } from "fp-ts/function";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { isAdminMiddleware } from "~/middlewares/isAdmin";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
@@ -37,7 +39,10 @@ const handler = async (_: NextApiRequest, res: NextApiResponse) => {
   });
 };
 
-export default matchMethodMiddleware(
-  isAdminMiddleware(matchSignatureMiddleware(handler)),
-  ["POST"]
+export default pipe(
+  handler,
+  withSentry,
+  matchMethodMiddleware(["POST"]),
+  isAdminMiddleware,
+  matchSignatureMiddleware
 );

@@ -1,6 +1,7 @@
+import { withSentry } from "@sentry/nextjs";
+import { pipe } from "fp-ts/lib/function";
 import { NextApiRequest, NextApiResponse } from "next";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
-
 import { matchSignatureMiddleware } from "~/middlewares/matchSignature";
 import { getMongoDatabase, mongoClient } from "~/pages/api/mongodb";
 import { Self } from "~/types/api";
@@ -99,6 +100,9 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
   });
 };
 
-export default matchMethodMiddleware(matchSignatureMiddleware(handler), [
-  "POST",
-]);
+export default pipe(
+  handler,
+  withSentry,
+  matchMethodMiddleware(["POST"]),
+  matchSignatureMiddleware
+);

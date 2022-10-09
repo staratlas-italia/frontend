@@ -120,7 +120,9 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 };
 
 export default pipe(
-  matchMethodMiddleware(handler, ["POST"]),
+  handler,
+  withSentry,
+  matchMethodMiddleware(["POST"]),
   attachClusterMiddleware,
   useMongoMiddleware,
   withSentry

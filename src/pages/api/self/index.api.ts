@@ -80,7 +80,9 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 export default pipe(
-  matchMethodMiddleware(handler, ["GET", "POST"]),
+  handler,
+  withSentry,
+  matchMethodMiddleware(["GET", "POST"]),
   attachClusterMiddleware,
   withSentry
 );
