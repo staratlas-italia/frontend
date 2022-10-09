@@ -20,7 +20,7 @@
     "@heroicons/react": "^1.0.5",
     "@metaplex-foundation/js": "^0.15.0",
     "@sentry/nextjs": "^7.14.2",
-    "@solana/pay": "^0.2.0",
+    "@solana/pay": "^0.2.4",
     "@solana/spl-token": "^0.3.5",
     "@solana/wallet-adapter-base": "^0.7.0",
     "@solana/wallet-adapter-react": "^0.13.1",

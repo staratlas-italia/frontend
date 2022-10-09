@@ -1,3 +1,4 @@
+import { captureException } from "@sentry/nextjs";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { mongoClient } from "~/pages/api/mongodb";
 
@@ -7,7 +8,8 @@ export const useMongoMiddleware =
     try {
       await mongoClient.connect();
     } catch (e) {
-      console.log("Cannot connect to mongo...", JSON.stringify(e));
+      captureException(e, { level: "error" });
+
       res.status(500).json({
         error: "Cannot connect to DB.",
       });

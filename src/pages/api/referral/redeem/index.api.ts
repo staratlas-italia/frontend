@@ -89,8 +89,6 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     { $set: { fromReferral: referralCode } }
   );
 
-  await mongoClient.close();
-
   res.status(200).json({
     success: true,
     user: {
