@@ -29,6 +29,5 @@ export type ApiRoutes =
   | "/api/self"
   | "/api/ships";
 
-export const getApiRoute = <Route extends ApiRoutes>(route: Route) =>
-  route as string;
-export const getRoute = <Route extends Routes>(route: Route) => route as string;
+export const getApiRoute = <Route extends ApiRoutes>(route: Route) => route;
+export const getRoute = <Route extends Routes>(route: Route) => route;
