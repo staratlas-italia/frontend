@@ -6,7 +6,8 @@ export type MatchMethodMiddlewareReponse = {
 };
 
 export const matchMethodMiddleware =
-  (handler: NextApiHandler, methods: ("GET" | "POST")[]) =>
+  (methods: ("GET" | "POST")[]) =>
+  (handler: NextApiHandler) =>
   (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method && !(methods as string[]).includes(req.method)) {
       return res.status(405).json({ status: 405, error: "Method not allowed" });

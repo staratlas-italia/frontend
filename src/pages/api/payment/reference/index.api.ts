@@ -1,4 +1,3 @@
-import { withSentry } from "@sentry/nextjs";
 import { Keypair } from "@solana/web3.js";
 import { pipe } from "fp-ts/function";
 import { ObjectId } from "mongodb";
@@ -7,7 +6,7 @@ import { getSftPrice } from "~/hooks/useSftPrice";
 import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 import { useMongoMiddleware } from "~/middlewares/useMongo";
-import { getMongoDatabase, mongoClient } from "~/pages/api/mongodb";
+import { getMongoDatabase } from "~/pages/api/mongodb";
 import { Self, Transaction } from "~/types/api";
 
 const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
@@ -29,8 +28,6 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
   const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
 
   if (!user) {
-    await mongoClient.close();
-
     res.status(404).json({
       success: false,
       error: "User not found.",
@@ -38,14 +35,29 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const pendingTransaction = await transactionsCollection.findOne({
+  let pendingTransaction = await transactionsCollection.findOne({
     userId: new ObjectId(userId),
     status: "PENDING",
   });
 
-  if (pendingTransaction) {
-    await mongoClient.close();
+  const acceptedWithoutReturnTransaction = await transactionsCollection.findOne(
+    {
+      userId: new ObjectId(userId),
+      status: "ACCEPTED_WITHOUT_RETURN",
+    }
+  );
 
+  if (acceptedWithoutReturnTransaction) {
+    const timeago =
+      Date.now() - acceptedWithoutReturnTransaction?.createdAt.getTime();
+
+    // More than 5 minutes
+    if (timeago >= 300_000) {
+      pendingTransaction = acceptedWithoutReturnTransaction;
+    }
+  }
+
+  if (pendingTransaction) {
     res.status(200).json({
       success: true,
       reference: pendingTransaction.reference,
@@ -66,8 +78,6 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     createdAt: new Date(),
   });
 
-  await mongoClient.close();
-
   if (insertResult.acknowledged) {
     res.status(200).json({
       success: true,
@@ -83,8 +93,8 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 };
 
 export default pipe(
-  matchMethodMiddleware(handler, ["POST"]),
+  handler,
+  matchMethodMiddleware(["POST"]),
   useMongoMiddleware,
-  attachClusterMiddleware,
-  withSentry
+  attachClusterMiddleware
 );

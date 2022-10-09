@@ -1,3 +1,4 @@
+import { pipe } from "fp-ts/function";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getMenuItems } from "~/components/layout/SideBarLayout/components/SideBarContent/getMenuItems";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
@@ -17,4 +18,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   });
 };
 
-export default matchMethodMiddleware(handler, ["GET"]);
+export default pipe(handler, matchMethodMiddleware(["GET"]));

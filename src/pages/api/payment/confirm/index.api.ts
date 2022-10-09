@@ -1,5 +1,5 @@
 import { GrowthBook } from "@growthbook/growthbook-react";
-import { withSentry } from "@sentry/nextjs";
+import { captureException } from "@sentry/nextjs";
 import {
   findReference,
   FindReferenceError,
@@ -70,8 +70,6 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     );
   } catch (e) {
     if (e instanceof FindReferenceError) {
-      console.log("Not found yet", e);
-
       res.status(200).json({
         success: true,
         verified: false,
@@ -80,7 +78,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     }
 
     if (e instanceof ValidateTransferError) {
-      console.error("Transaction is invalid", e);
+      captureException(e, { level: "error" });
 
       res.status(200).json({
         success: false,
@@ -120,8 +118,8 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 };
 
 export default pipe(
-  matchMethodMiddleware(handler, ["POST"]),
+  handler,
+  matchMethodMiddleware(["POST"]),
   attachClusterMiddleware,
-  useMongoMiddleware,
-  withSentry
+  useMongoMiddleware
 );

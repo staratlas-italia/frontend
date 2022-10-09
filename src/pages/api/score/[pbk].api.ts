@@ -1,4 +1,3 @@
-import { withSentry } from "@sentry/nextjs";
 import { Cluster, Connection, PublicKey } from "@solana/web3.js";
 import {
   getAllFleetsForUserPublicKey,
@@ -192,4 +191,4 @@ const handler = async (
   });
 };
 
-export default pipe(handler, attachClusterMiddleware, withSentry);
+export default pipe(handler, attachClusterMiddleware);
