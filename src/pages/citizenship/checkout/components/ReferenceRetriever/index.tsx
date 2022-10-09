@@ -1,7 +1,9 @@
+import { captureException } from "@sentry/nextjs";
 import { Cluster } from "@solana/web3.js";
 import { useRouter } from "next/router";
 import { PropsWithChildren, ReactNode, useEffect } from "react";
 import { usePaymentStore } from "~/stores/usePaymentStore";
+import { getRoute } from "~/utils/getRoute";
 
 type Props = {
   loader?: ReactNode;
@@ -17,13 +19,21 @@ export const ReferenceRetriever = ({
     s.fetchReference,
   ]);
 
-  const { cluster } = useRouter().query;
+  const { query, replace } = useRouter();
+
+  const { cluster } = query;
 
   useEffect(() => {
     if (!reference || !returnReference) {
-      fetchReference(cluster as Cluster);
+      try {
+        fetchReference(cluster as Cluster);
+      } catch (e) {
+        captureException(e, { level: "error" });
+
+        replace(getRoute("/citizenship"));
+      }
     }
-  }, [reference, returnReference, fetchReference, cluster]);
+  }, [reference, returnReference, fetchReference, cluster, replace]);
 
   if ((reference === null || returnReference === null) && loader) {
     return <>{loader}</>;
