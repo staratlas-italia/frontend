@@ -12,12 +12,9 @@ import {
 import { useCluster } from "~/components/ClusterProvider";
 import { Flex } from "~/components/layout/Flex";
 import { useSftPrice } from "~/hooks/useSftPrice";
-import { transferPayment } from "~/network/payments/transfer";
 import { usePaymentStore } from "~/stores/usePaymentStore";
 import { getRoute } from "~/utils/getRoute";
-import { useFaction } from "../../../../FactionGuard";
 import { usePaymentReference } from "../usePaymentReference";
-import { usePaymentReturnReference } from "../usePaymentReturnReference";
 
 export const QrCode = memo(() => {
   const router = useRouter();
@@ -25,10 +22,8 @@ export const QrCode = memo(() => {
   const { cluster } = useCluster();
   const confirmPayment = usePaymentStore((s) => s.confirm);
 
-  const faction = useFaction();
   const { publicKey } = useWallet();
   const reference = usePaymentReference();
-  const returnReference = usePaymentReturnReference();
   const qrRef = useRef<HTMLDivElement>(null);
 
   const url = useMemo(() => {
@@ -66,19 +61,9 @@ export const QrCode = memo(() => {
 
     if (status !== null) {
       if (status) {
-        const transferResult = await transferPayment({
-          cluster,
-          faction,
-          publicKey: publicKey.toString(),
-          reference,
-          returnReference,
-        });
+        router.push(getRoute("/citizenship/checkout/confirmed"));
 
-        if (transferResult.success && transferResult.eligible) {
-          router.push(getRoute("/citizenship/checkout/confirmed"));
-
-          return;
-        }
+        return;
       }
 
       router.push(getRoute("/citizenship/checkout/error"));
@@ -87,15 +72,7 @@ export const QrCode = memo(() => {
     }
 
     return setTimeout(() => recusiveConfirm(), 2000);
-  }, [
-    cluster,
-    confirmPayment,
-    faction,
-    publicKey,
-    reference,
-    returnReference,
-    router,
-  ]);
+  }, [cluster, confirmPayment, publicKey, reference, router]);
 
   useEffect(() => {
     const timeout = recusiveConfirm();
