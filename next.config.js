@@ -27,7 +27,6 @@ const { withSentryConfig } = require("@sentry/nextjs");
 const moduleExports = withTM({
   env: {
     ADMINS_PBKS: process.env.ADMINS_PBKS,
-    BACKUP_RPC_ENDPOINT: process.env.BACKUP_RPC_ENDPOINT,
     DEVNET_RPC_ENDPOINT: process.env.DEVNET_RPC_ENDPOINT,
     ENVIRONMENT: process.env.ENVIRONMENT,
     GOOGLE_ANALYTICS_KEY: process.env.GOOGLE_ANALYTICS_KEY,

@@ -20,7 +20,7 @@ export const useNullableFleet = () => {
     }
 
     fetchFleet(endpoint.cluster);
-  }, [self]);
+  }, [endpoint.cluster, fetchFleet, fleet, publicKey, self]);
 
   return {
     isFetching,

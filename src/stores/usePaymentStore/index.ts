@@ -37,6 +37,8 @@ export const usePaymentStore = create<PaymentStore>((set, get) => ({
       reference,
     });
 
+    set({ isConfirming: false });
+
     if (!response.success) {
       return false;
     }
@@ -44,8 +46,6 @@ export const usePaymentStore = create<PaymentStore>((set, get) => ({
     if (response.verified) {
       return true;
     }
-
-    set({ isConfirming: false });
 
     return null;
   },
