@@ -1,4 +1,4 @@
-import { Cluster } from "@solana/web3.js";
+import { Cluster, PublicKey } from "@solana/web3.js";
 import invariant from "invariant";
 import create from "zustand";
 import { confirmPayment } from "~/network/payments/confirm";
@@ -9,7 +9,6 @@ import { Faction } from "~/types";
 type PaymentStore = {
   faction: Faction | null;
   reference: string | null;
-  returnReference: string | null;
   isConfirming: boolean;
   isFetchingReference: boolean;
   confirm: (_: {
@@ -17,13 +16,12 @@ type PaymentStore = {
     publicKey: string;
     reference: string;
   }) => Promise<boolean | null>;
-  fetchReference: (cluster?: Cluster) => void;
+  fetchReference: (_: { cluster?: Cluster; publicKey: PublicKey }) => void;
 };
 
 export const usePaymentStore = create<PaymentStore>((set, get) => ({
   faction: null,
   reference: null,
-  returnReference: null,
   isConfirming: false,
   isFetchingReference: false,
   confirm: async ({ cluster, publicKey, reference }) => {
@@ -51,9 +49,11 @@ export const usePaymentStore = create<PaymentStore>((set, get) => ({
 
     return null;
   },
-  fetchReference: async (cluster) => {
-    if (get().isFetchingReference) {
-      return;
+  fetchReference: async ({ cluster, publicKey }) => {
+    const faction = get().faction;
+
+    if (get().isFetchingReference || !faction) {
+      return null;
     }
 
     set({ isFetchingReference: true });
@@ -67,14 +67,15 @@ export const usePaymentStore = create<PaymentStore>((set, get) => ({
 
     const response = await fetchPaymentReference({
       cluster,
+      faction,
+      publicKey: publicKey.toString(),
       userId: self._id.toString(),
     });
 
-    const { reference, returnReference } = response || {
+    const { reference } = response || {
       reference: null,
-      returnReference: null,
     };
 
-    set({ isFetchingReference: false, reference, returnReference });
+    set({ isFetchingReference: false, reference });
   },
 }));

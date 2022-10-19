@@ -25,7 +25,7 @@ export type PaymentReferenceResponse =
       success: false;
       error: string;
     }
-  | { success: true; reference: string; returnReference: string };
+  | { success: true; reference: string };
 
 export type TransactionStatus =
   | "ACCEPTED"
@@ -33,12 +33,11 @@ export type TransactionStatus =
   | "PENDING"
   | "REJECTED";
 
-export type Transaction = {
-  meta: Record<string, string | number>;
+export type Transaction<Meta = Record<string, string | number>> = {
+  meta: Meta;
   createdAt: Date;
   userId: ObjectId;
   reference: string;
-  returnReference: string;
   status: TransactionStatus;
 };
 

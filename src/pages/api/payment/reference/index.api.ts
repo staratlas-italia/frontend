@@ -10,9 +10,9 @@ import { getMongoDatabase } from "~/pages/api/mongodb";
 import { Self, Transaction } from "~/types/api";
 
 const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
-  const { userId, cluster } = body;
+  const { userId, cluster, faction, publicKey } = body;
 
-  if (!userId) {
+  if (!userId || !faction || !publicKey) {
     res.status(400).json({
       success: false,
       error: "Invalid parameters supplied.",
@@ -37,44 +37,30 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 
   let pendingTransaction = await transactionsCollection.findOne({
     userId: new ObjectId(userId),
+    "meta.faction": faction.toUpperCase(),
     status: "PENDING",
   });
-
-  const acceptedWithoutReturnTransaction = await transactionsCollection.findOne(
-    {
-      userId: new ObjectId(userId),
-      status: "ACCEPTED_WITHOUT_RETURN",
-    }
-  );
-
-  if (acceptedWithoutReturnTransaction) {
-    const timeago =
-      Date.now() - acceptedWithoutReturnTransaction?.createdAt.getTime();
-
-    // More than 5 minutes
-    if (timeago >= 300_000) {
-      pendingTransaction = acceptedWithoutReturnTransaction;
-    }
-  }
 
   if (pendingTransaction) {
     res.status(200).json({
       success: true,
       reference: pendingTransaction.reference,
-      returnReference: pendingTransaction.returnReference,
     });
     return;
   }
 
   const reference = Keypair.generate().publicKey.toString();
-  const returnReference = Keypair.generate().publicKey.toString();
 
   const insertResult = await transactionsCollection.insertOne({
-    meta: { amount: getSftPrice(), name: "CITIZENSHIP_CARD" },
+    meta: {
+      faction: faction.toUpperCase(),
+      publicKey,
+      amount: getSftPrice(),
+      name: "CITIZENSHIP_CARD",
+    },
     status: "PENDING",
     userId: new ObjectId(userId),
     reference,
-    returnReference,
     createdAt: new Date(),
   });
 
@@ -82,8 +68,8 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     res.status(200).json({
       success: true,
       reference,
-      returnReference,
     });
+    return;
   }
 
   res.status(200).json({

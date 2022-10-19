@@ -1,8 +1,11 @@
 import { captureException } from "@sentry/nextjs";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { Cluster } from "@solana/web3.js";
 import { useRouter } from "next/router";
 import { PropsWithChildren, ReactNode, useEffect } from "react";
+import { useFaction } from "~/pages/citizenship/FactionGuard";
 import { usePaymentStore } from "~/stores/usePaymentStore";
+import { fillUrlParameters } from "~/utils/fillUrlParameters";
 import { getRoute } from "~/utils/getRoute";
 
 type Props = {
@@ -13,9 +16,11 @@ export const ReferenceRetriever = ({
   children,
   loader,
 }: PropsWithChildren<Props>) => {
-  const [reference, returnReference, fetchReference] = usePaymentStore((s) => [
+  const faction = useFaction();
+  const { publicKey } = useWallet();
+
+  const [reference, fetchReference] = usePaymentStore((s) => [
     s.reference,
-    s.returnReference,
     s.fetchReference,
   ]);
 
@@ -24,22 +29,26 @@ export const ReferenceRetriever = ({
   const { cluster } = query;
 
   useEffect(() => {
-    if (!reference || !returnReference) {
+    if (publicKey && !reference) {
       try {
-        fetchReference(cluster as Cluster);
+        fetchReference({ cluster: cluster as Cluster, publicKey });
       } catch (e) {
         captureException(e, { level: "error" });
 
-        replace(getRoute("/citizenship"));
+        replace(
+          fillUrlParameters(getRoute("/citizenship/:faction"), {
+            faction: faction.toLowerCase(),
+          })
+        );
       }
     }
-  }, [reference, returnReference, fetchReference, cluster, replace]);
+  }, [reference, fetchReference, cluster, replace, publicKey, faction]);
 
-  if ((reference === null || returnReference === null) && loader) {
+  if (reference === null && loader) {
     return <>{loader}</>;
   }
 
-  if (!reference || !returnReference) {
+  if (!reference) {
     return null;
   }
 

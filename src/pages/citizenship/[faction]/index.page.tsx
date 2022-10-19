@@ -41,7 +41,9 @@ const Citizenship = () => {
       return;
     }
 
-    usePaymentStore.setState({ faction: faction as Faction });
+    usePaymentStore.setState({
+      faction: (faction as string).toUpperCase() as Faction,
+    });
   }, [faction, router]);
 
   return (
