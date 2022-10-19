@@ -1,12 +1,8 @@
 import { ResourcesRetriever } from "~/components/ResourcesRetriever";
-import { useNullableSelf } from "~/hooks/useNullableSelf";
+import { SelfRetriever } from "~/components/SelfRetriever";
 
-export const PreloadResources = () => {
-  const { isFetching } = useNullableSelf();
-
-  if (isFetching) {
-    return null;
-  }
-
-  return <ResourcesRetriever />;
-};
+export const PreloadResources = () => (
+  <SelfRetriever>
+    <ResourcesRetriever />
+  </SelfRetriever>
+);
