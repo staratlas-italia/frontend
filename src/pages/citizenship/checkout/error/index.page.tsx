@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { ReferenceRetriever } from "~/pages/citizenship/checkout/components/ReferenceRetriever";
+import { FactionGuard } from "~/pages/citizenship/FactionGuard";
 import { View } from "./View";
 
 const Citizenship = () => (
@@ -8,9 +9,11 @@ const Citizenship = () => (
       <title>Citizenship - StarAtlasItalia</title>
     </Head>
 
-    <ReferenceRetriever>
-      <View />
-    </ReferenceRetriever>
+    <FactionGuard>
+      <ReferenceRetriever>
+        <View />
+      </ReferenceRetriever>
+    </FactionGuard>
   </>
 );
 

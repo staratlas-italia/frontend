@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { ComponentType, PropsWithChildren } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Loader } from "~/components/common/Loader";
 import { Text } from "~/components/common/Text";
 import { TextColor } from "~/components/common/Text/types";
@@ -52,7 +52,13 @@ const Wrapper = styled.button.withConfig({
   shouldForwardProp: (prop, defaultShouldForwardProp) =>
     !["size", "loading", "round"].includes(prop) &&
     defaultShouldForwardProp(prop),
-})``;
+})`
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      pointer-events: none;
+    `}
+`;
 
 export const Button = ({
   as = "button",
