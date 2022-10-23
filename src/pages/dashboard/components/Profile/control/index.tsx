@@ -1,15 +1,12 @@
-import { DISCORD_OAUTH_URL } from "~/common/constants";
 import { InfoRow } from "~/components/common/Info";
 import { Price } from "~/components/common/Price";
 import { Text } from "~/components/common/Text";
-import { Button } from "~/components/controls/Button";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 import { shortenAddress } from "~/utils/shortenAddress";
 import { CreatePlayerBanner } from "../CreatePlayerBanner";
-import Image from "next/image";
-import Link from "next/link";
+import LinkDiscordButton from "~/components/LinkDiscordButton";
 
 export const Profile = () => {
   const player = usePlayerStore((s) => s.player);
@@ -59,27 +56,7 @@ export const Profile = () => {
             <Price color="text-white" value={balance} />
           </InfoRow>
 
-          {self && !self.discordId && (
-            <InfoRow>
-              <Link href={DISCORD_OAUTH_URL}>
-                <a>
-                  <Button.Primary
-                    size="small"
-                    iconRight={({ className }) => (
-                      <Image
-                        src={"/images/social/discord_logo.svg"}
-                        width={50}
-                        height={50}
-                        className={className}
-                      />
-                    )}
-                  >
-                    Link
-                  </Button.Primary>
-                </a>
-              </Link>
-            </InfoRow>
-          )}
+          {self && !self.discordId && <LinkDiscordButton />}
         </Flex>
       </BlurBackground>
     </Flex>

@@ -4,7 +4,7 @@ import { Flex } from "~/components/layout/Flex";
 import { Logo } from "~/components/layout/Header";
 import { Wallet } from "~/components/Wallet";
 
-const Card = () => {
+export const View = () => {
   return (
     <Container>
       <Flex direction="col" align="center" justify="center" pt={52}>
@@ -23,5 +23,3 @@ const Card = () => {
     </Container>
   );
 };
-
-export default Card;
