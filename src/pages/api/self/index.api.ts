@@ -70,16 +70,56 @@ const getHandler = useMongoMiddleware(
   }
 );
 
-const handler = (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === "GET") {
-    return getHandler(req, res);
-  }
+const putHandler = useMongoMiddleware(
+  async ({ body }: NextApiRequest, res: NextApiResponse) => {
+    const { cluster, publicKey, discordId } = body;
 
-  return postHandler(req, res);
+    if (!publicKey) {
+      res.status(400).json({
+        error: `Invalid public key`,
+      });
+      return;
+    }
+
+    const db = getMongoDatabase(cluster as Cluster);
+
+    const userCollection = db.collection<Self>("users");
+
+    const user = await userCollection.findOneAndUpdate(
+      {
+        wallets: { $in: [publicKey] },
+      },
+      { $set: { discordId } }
+    );
+
+    if (!user) {
+      res.status(200).json({
+        success: false,
+        error: `User not found.`,
+      });
+      return;
+    }
+
+    res.status(200).json({
+      success: true,
+      user: user.value,
+    });
+  }
+);
+
+const handler = (req: NextApiRequest, res: NextApiResponse) => {
+  switch (req.method) {
+    case "GET":
+      return getHandler(req, res);
+    case "POST":
+      return postHandler(req, res);
+    case "PUT":
+      return putHandler(req, res);
+  }
 };
 
 export default pipe(
   handler,
-  matchMethodMiddleware(["GET", "POST"]),
+  matchMethodMiddleware(["GET", "POST", "PUT"]),
   attachClusterMiddleware
 );

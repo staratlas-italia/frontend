@@ -6,7 +6,7 @@ export type MatchMethodMiddlewareReponse = {
 };
 
 export const matchMethodMiddleware =
-  (methods: ("GET" | "POST")[]) =>
+  (methods: ("GET" | "POST" | "PUT")[]) =>
   (handler: NextApiHandler) =>
   (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method && !(methods as string[]).includes(req.method)) {

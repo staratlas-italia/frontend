@@ -1,4 +1,5 @@
 import { Metadata, Metaplex } from "@metaplex-foundation/js";
+import { captureException } from "@sentry/nextjs";
 import { Connection, PublicKey } from "@solana/web3.js";
 import create from "zustand";
 import { usePlayerStore } from "~/stores/usePlayerStore";
@@ -27,33 +28,42 @@ export const useBadgesStore = create<BadgesStore>((set, get) => ({
     if (publicKey) {
       const metaplex = Metaplex.make(connection, { cluster: "mainnet-beta" });
 
-      const nfts = await metaplex
-        .nfts()
-        .findAllByOwner({
-          owner: new PublicKey(publicKey),
-          commitment: "confirmed",
-        })
-        .run();
+      try {
+        const nfts = await metaplex
+          .nfts()
+          .findAllByOwner({
+            owner: new PublicKey(publicKey),
+            commitment: "confirmed",
+          })
+          .run();
+        const oweNfts = await Promise.all(
+          (nfts as Metadata[])
+            .filter((nft) => getBadgeByMint(nft.mintAddress))
+            .map(async (nft) =>
+              nft
+                ? toTuple([
+                    nft,
+                    await fetch(nft.uri)
+                      .then((res) => res.json())
+                      .catch(() => ({})),
+                  ])
+                : Promise.resolve(toTuple([nft, {}]))
+            )
+        );
 
-      const oweNfts = await Promise.all(
-        (nfts as Metadata[])
-          .filter((nft) => getBadgeByMint(nft.mintAddress))
-          .map(async (nft) =>
-            nft
-              ? toTuple([
-                  nft,
-                  await fetch(nft.uri)
-                    .then((res) => res.json())
-                    .catch(() => ({})),
-                ])
-              : Promise.resolve(toTuple([nft, {}]))
-          )
-      );
+        set({
+          badges: oweNfts,
+          isFetching: false,
+        });
+      } catch (error) {
+        captureException(error);
 
-      set({
-        badges: oweNfts,
-        isFetching: false,
-      });
+        set({
+          badges: [],
+          isFetching: false,
+        });
+      }
+
       return;
     }
 
