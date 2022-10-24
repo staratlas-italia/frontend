@@ -26,6 +26,7 @@ export type ApiRoutes =
   | "/api/score/:publicKey"
   | "/api/score/rates/:mint"
   | "/api/self"
+  | "/api/self/link"
   | "/api/ships";
 
 export const getApiRoute = <Route extends ApiRoutes>(route: Route) => route;

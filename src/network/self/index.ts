@@ -83,25 +83,28 @@ const insertSelf = async ({
   }
 };
 
-export const updateSelf = async ({
+export const linkDiscordId = async ({
   cluster,
-  publicKey,
   discordId,
+  publicKey,
+  signature,
 }: {
   cluster: Cluster;
   publicKey: string;
   discordId: string;
+  signature: string;
 }): Promise<Self | null> => {
   try {
-    const res = await fetch(getApiRoute("/api/self"), {
-      method: "PUT",
+    const res = await fetch(getApiRoute("/api/self/link"), {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         cluster,
-        publicKey,
         discordId,
+        publicKey,
+        signature,
       }),
     });
 

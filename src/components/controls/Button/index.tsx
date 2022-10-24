@@ -89,7 +89,7 @@ export const Button = ({
         {...props}
       >
         {iconLeft && (
-          <Flex pr={5}>{iconLeft({ className: `h-5 w-5 ${textColor}` })}</Flex>
+          <Flex pr={2}>{iconLeft({ className: `h-5 w-5 ${textColor}` })}</Flex>
         )}
 
         <Text
@@ -107,7 +107,7 @@ export const Button = ({
         {loading && <Loader />}
 
         {iconRight && (
-          <Flex pl={5}>{iconRight({ className: `h-5 w-5 ${textColor}` })}</Flex>
+          <Flex pl={2}>{iconRight({ className: `h-5 w-5 ${textColor}` })}</Flex>
         )}
       </Flex>
     </Wrapper>
