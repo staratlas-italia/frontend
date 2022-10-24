@@ -56,6 +56,8 @@ export const View = () => {
         discordId: discordSelf.id,
         signature,
       });
+      
+      setDone(true);
     };
 
     run();
