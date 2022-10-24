@@ -1,14 +1,18 @@
 import Link from "next/link";
-import { Fragment, PropsWithChildren, useMemo } from "react";
+import { useRouter } from "next/router";
+import { Fragment, PropsWithChildren, useEffect, useMemo } from "react";
 import { DISCORD_OAUTH_URL } from "~/common/constants";
 import { useSelf } from "~/hooks/useNullableSelf";
 import { Button } from "../controls/Button";
 
-const LinkWrapper = ({ children }: PropsWithChildren<unknown>) => (
-  <Link href={DISCORD_OAUTH_URL}>
-    <a>{children}</a>
-  </Link>
-);
+const LinkWrapper = ({ children }: PropsWithChildren<unknown>) => {
+  const router = useRouter();
+  return (
+    <Link href={DISCORD_OAUTH_URL + `&state=${router.pathname}`}>
+      <a>{children}</a>
+    </Link>
+  );
+};
 
 const LinkDiscordButton = () => {
   const self = useSelf();

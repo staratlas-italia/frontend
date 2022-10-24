@@ -37,7 +37,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
   if (!userWithSameDiscordId) {
     const user = await userCollection.findOneAndUpdate(
       {
-        wallets: { $in: [publicKey] },
+        _id: currentUser._id,
       },
       { $set: { discordId } }
     );

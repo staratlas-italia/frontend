@@ -23,12 +23,14 @@ export const View = () => {
   const [done, setDone] = useState(false);
 
   const signature = useSignature();
+  let pathname: string | null = "";
 
   useEffect(() => {
     const run = async () => {
       const parsedHash = new URLSearchParams(window.location.hash.substring(1));
       const accessToken = parsedHash.get("access_token");
       const error = parsedHash.get("error");
+      pathname = parsedHash.get("state");
 
       if (!accessToken || error === "access_denied") {
         setDone(true);
@@ -48,7 +50,7 @@ export const View = () => {
         return;
       }
 
-      await linkDiscord({
+      linkDiscord({
         cluster: endpoint.cluster,
         publicKey: publicKey.toString(),
         discordId: discordSelf.id,
@@ -60,7 +62,12 @@ export const View = () => {
   }, [endpoint.cluster, publicKey, linkDiscord, signature]);
 
   if (self.discordId || done) {
-    return <Redirect replace to={getRoute("/dashboard")} />;
+    const redirectDashboard = !pathname || pathname === "/dashboard";
+    return (
+      <>
+        {redirectDashboard && <Redirect replace to={getRoute("/dashboard")} />}
+      </>
+    );
   }
 
   return (
