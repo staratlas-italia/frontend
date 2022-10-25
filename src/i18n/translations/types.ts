@@ -31,6 +31,7 @@ export type TranslationId =
   | "citizenship.factionSelector.title"
   | "citizenship.intro.description"
   | "citizenship.intro.hint"
+  | "citizenship.intro.discord"
   | "citizenship.intro.title"
   | "Dashboard.Profile.Placeholder.title"
   | "Fleet.Heading.title"

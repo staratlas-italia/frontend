@@ -56,7 +56,7 @@ export const Profile = () => {
             <Price color="text-white" value={balance} />
           </InfoRow>
 
-          {self && !self.discordId && <LinkDiscordButton />}
+          <LinkDiscordButton />
         </Flex>
       </BlurBackground>
     </Flex>

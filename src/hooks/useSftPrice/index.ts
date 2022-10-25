@@ -3,7 +3,14 @@ import { growthbook as appGrowthbook } from "~/common/constants";
 
 export const useSftPrice = () => getSftPrice();
 
-export const getSftPrice = (growthbook?: GrowthBook) => {
+export const getSftPrice = (growthbook?: GrowthBook, discoutAmout?: number) => {
+  debugger;
+  let defaultPrice = 20;
+
+  if (discoutAmout) {
+    defaultPrice -= discoutAmout;
+  }
+
   const changePriceISODateString = (
     growthbook ?? appGrowthbook
   ).getFeatureValue<string>("sai-frontend-price-change-date", "");
@@ -14,11 +21,15 @@ export const getSftPrice = (growthbook?: GrowthBook) => {
 
   if (date) {
     if (new Date() > date) {
-      return 20;
+      return defaultPrice;
     }
 
     return 15;
   }
 
-  return 20;
+  return defaultPrice;
+};
+
+export const getDiscoutAmount = (discordId?: string | null): number => {
+  return discordId ? 5 : 0;
 };

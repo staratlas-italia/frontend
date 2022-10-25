@@ -11,6 +11,7 @@ import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Container } from "~/components/layout/Container";
 import { Flex } from "~/components/layout/Flex";
 import { Logo } from "~/components/layout/Header";
+import LinkDiscordButton from "~/components/LinkDiscordButton";
 import { LocaleSelector } from "~/components/LocaleSelector";
 import { Wallet } from "~/components/Wallet";
 import { Translation } from "~/i18n/Translation";
@@ -76,6 +77,10 @@ const Citizenship = () => {
                   <Text color="text-gray-200">
                     <Translation id="citizenship.intro.description" />
                   </Text>
+                  <Text color="text-gray-200" weight="bold">
+                    <Translation id="citizenship.intro.discord" />
+                  </Text>
+                  <LinkDiscordButton />
                   <Text color="text-gray-200" weight="bold">
                     <Translation id="citizenship.intro.hint" />
                   </Text>

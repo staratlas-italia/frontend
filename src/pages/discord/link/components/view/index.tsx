@@ -11,7 +11,9 @@ import { Wallet } from "~/components/Wallet";
 import { useSelf } from "~/hooks/useNullableSelf";
 import { getDiscordSelf } from "~/network/discord";
 import { usePlayerStore } from "~/stores/usePlayerStore";
-import { getRoute } from "~/utils/getRoute";
+import { getRoute, Routes } from "~/utils/getRoute";
+
+let pathname: string | null = "";
 
 export const View = () => {
   const { publicKey } = useWallet();
@@ -23,7 +25,6 @@ export const View = () => {
   const [done, setDone] = useState(false);
 
   const signature = useSignature();
-  let pathname: string | null = "";
 
   useEffect(() => {
     const run = async () => {
@@ -56,7 +57,7 @@ export const View = () => {
         discordId: discordSelf.id,
         signature,
       });
-      
+
       setDone(true);
     };
 
@@ -64,12 +65,8 @@ export const View = () => {
   }, [endpoint.cluster, publicKey, linkDiscord, signature]);
 
   if (self.discordId || done) {
-    const redirectDashboard = !pathname || pathname === "/dashboard";
-    return (
-      <>
-        {redirectDashboard && <Redirect replace to={getRoute("/dashboard")} />}
-      </>
-    );
+    const route = getRoute(pathname as Routes) || getRoute("/dashboard");
+    return <Redirect replace to={route} />;
   }
 
   return (

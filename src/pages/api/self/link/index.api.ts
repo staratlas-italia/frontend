@@ -39,9 +39,10 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
       {
         _id: currentUser._id,
       },
-      { $set: { discordId } }
+      { $set: { discordId } },
+      { returnDocument: "after" }
     );
-
+     
     if (!user) {
       res.status(200).json({
         success: false,
