@@ -4,7 +4,6 @@ import { growthbook as appGrowthbook } from "~/common/constants";
 export const useSftPrice = () => getSftPrice();
 
 export const getSftPrice = (growthbook?: GrowthBook, discoutAmout?: number) => {
-  debugger;
   let defaultPrice = 20;
 
   if (discoutAmout) {
