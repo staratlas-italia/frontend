@@ -8,13 +8,13 @@ import { Button } from "../controls/Button";
 const LinkWrapper = ({ children }: PropsWithChildren<unknown>) => {
   const router = useRouter();
   return (
-    <Link href={DISCORD_OAUTH_URL + `&state=${router.asPath}`}>
+    <Link href={`${DISCORD_OAUTH_URL}&state=${router.asPath}`}>
       <a>{children}</a>
     </Link>
   );
 };
 
-const LinkDiscordButton = () => {
+export const LinkDiscordButton = () => {
   const self = useSelf();
 
   const Wrapper = useMemo(
@@ -40,5 +40,3 @@ const LinkDiscordButton = () => {
     </Wrapper>
   );
 };
-
-export default LinkDiscordButton;

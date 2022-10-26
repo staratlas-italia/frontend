@@ -13,8 +13,6 @@ import { getDiscordSelf } from "~/network/discord";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 import { getRoute, Routes } from "~/utils/getRoute";
 
-let pathname: string | null = "";
-
 export const View = () => {
   const { publicKey } = useWallet();
 
@@ -23,6 +21,7 @@ export const View = () => {
   const linkDiscord = usePlayerStore((state) => state.linkDiscord);
 
   const [done, setDone] = useState(false);
+  const [pathname, setPathname] = useState("");
 
   const signature = useSignature();
 
@@ -31,7 +30,7 @@ export const View = () => {
       const parsedHash = new URLSearchParams(window.location.hash.substring(1));
       const accessToken = parsedHash.get("access_token");
       const error = parsedHash.get("error");
-      pathname = parsedHash.get("state");
+      setPathname(parsedHash.get("state") || "");
 
       if (!accessToken || error === "access_denied") {
         setDone(true);
@@ -57,8 +56,6 @@ export const View = () => {
         discordId: discordSelf.id,
         signature,
       });
-
-      setDone(true);
     };
 
     run();

@@ -6,7 +6,7 @@ import { Flex } from "~/components/layout/Flex";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 import { shortenAddress } from "~/utils/shortenAddress";
 import { CreatePlayerBanner } from "../CreatePlayerBanner";
-import LinkDiscordButton from "~/components/LinkDiscordButton";
+import { LinkDiscordButton } from "~/components/LinkDiscordButton";
 
 export const Profile = () => {
   const player = usePlayerStore((s) => s.player);
