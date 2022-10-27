@@ -52,6 +52,7 @@ export const matchSignatureMiddleware =
           error: "Signature does not match",
           meta: {
             date: new Date().toISOString(),
+            time: new Date().setHours(0, 0, 0, 0).toString(),
             message,
             publicKey,
             signature,
