@@ -49,8 +49,7 @@ export const DEXLAB_API_URL = "https://open-api.dexlab.space/v1";
 
 export const DISCORD_API_URL = "https://discord.com/api";
 
-export const DISCORD_OAUTH_URL =
-  "https://discord.com/api/oauth2/authorize?client_id=994188188807602186&redirect_uri=https%3A%2F%2Fapp.staratlasitalia.com%2Fdiscord%2Flink&response_type=token&scope=identify";
+export const DISCORD_OAUTH_URL = process.env.DISCORD_OAUTH_URL;
 
 export const FUEL_PRICE = 0.0014336;
 
