@@ -1,4 +1,3 @@
-import { GrowthBook } from "@growthbook/growthbook-react";
 import { captureException } from "@sentry/nextjs";
 import {
   findReference,
@@ -12,32 +11,19 @@ import { pipe } from "fp-ts/function";
 import { NextApiRequest, NextApiResponse } from "next";
 import {
   DEVNET_USDC_TOKEN_MINT,
-  FEATURES_ENDPOINT,
   SAI_CITIZEN_WALLET_DESTINATION,
   USDC_TOKEN_MINT,
 } from "~/common/constants";
-import { getSftPrice } from "~/hooks/useSftPrice";
+import { getCitizenshipPrice } from "~/hooks/useCitizenshipPrice";
 import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 import { useMongoMiddleware } from "~/middlewares/useMongo";
 import { getMongoDatabase } from "~/pages/api/mongodb";
-import { Transaction } from "~/types/api";
+import { Self, Transaction } from "~/types/api";
 import { getConnectionClusterUrl } from "~/utils/connection";
 import { isPublicKey } from "~/utils/pubkey";
 
-const growthbook = new GrowthBook();
-
 const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
-  if (FEATURES_ENDPOINT) {
-    const json = await fetch(FEATURES_ENDPOINT, { cache: "no-store" }).then(
-      (res) => res.json()
-    );
-
-    growthbook.setFeatures(json.features);
-  }
-
-  const amount = new BigNumber(getSftPrice(growthbook));
-
   const { cluster: clusterParam, reference: referenceParam, publicKey } = body;
 
   if (!referenceParam || !isPublicKey(publicKey)) {
@@ -49,6 +35,15 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
   }
 
   const cluster = clusterParam as Cluster;
+
+  const db = getMongoDatabase(cluster);
+  const userCollection = db.collection<Self>("users");
+
+  const currentUser = await userCollection.findOne({
+    wallets: { $in: [publicKey] },
+  });
+
+  const amount = new BigNumber(getCitizenshipPrice(currentUser?.discordId));
 
   const reference = new PublicKey(referenceParam);
   const connection = new Connection(getConnectionClusterUrl(cluster));
@@ -96,8 +91,6 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 
     return;
   }
-
-  const db = getMongoDatabase(cluster);
 
   const transactionsCollection = db.collection<Transaction>("transactions");
 

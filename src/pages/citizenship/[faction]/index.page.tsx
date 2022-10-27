@@ -1,3 +1,4 @@
+import { ArrowRightIcon } from "@heroicons/react/solid";
 import { useWallet } from "@solana/wallet-adapter-react";
 import classNames from "classnames";
 import Head from "next/head";
@@ -12,7 +13,9 @@ import { Container } from "~/components/layout/Container";
 import { Flex } from "~/components/layout/Flex";
 import { Logo } from "~/components/layout/Header";
 import { LinkDiscordButton } from "~/components/LinkDiscordButton";
+import { LoadingView } from "~/components/LoadingView";
 import { LocaleSelector } from "~/components/LocaleSelector";
+import { SelfRetriever } from "~/components/SelfRetriever";
 import { Wallet } from "~/components/Wallet";
 import { Translation } from "~/i18n/Translation";
 import { usePaymentStore } from "~/stores/usePaymentStore";
@@ -54,80 +57,94 @@ const Citizenship = () => {
       </Head>
 
       <Container>
-        <Flex direction="col" align="center" justify="center" pt={52}>
-          <BlurBackground p={8} className="max-w-screen-md" direction="col">
-            <Flex align="center" pb={5} justify="between">
-              <Flex>
-                <Logo />
+        <SelfRetriever loader={<LoadingView />}>
+          <Flex direction="col" align="center" justify="center" pt={52}>
+            <BlurBackground p={8} className="max-w-screen-md" direction="col">
+              <Flex align="center" pb={5} justify="between">
+                <Flex>
+                  <Logo />
+                </Flex>
+
+                <LocaleSelector />
               </Flex>
 
-              <LocaleSelector />
-            </Flex>
-            <Flex direction="col-reverse" mdDirection="row">
-              <Flex>
-                <Flex
-                  direction="col"
-                  className="space-y-4 mr-5 lg:mr-5"
-                  pt={10}
-                  lgPt={0}
-                >
-                  <Text size="4xl" weight="bold" color="text-white">
-                    <Translation id="citizenship.intro.title" />
-                  </Text>
-                  <Text color="text-gray-200">
-                    <Translation id="citizenship.intro.description" />
-                  </Text>
-                  <Text color="text-gray-200" weight="bold">
-                    <Translation id="citizenship.intro.discord" />
-                  </Text>
-                  <LinkDiscordButton />
+              <Flex direction="col" pb={10} mdPb={5}>
+                <Flex>
                   <Text color="text-gray-200" weight="bold">
                     <Translation id="citizenship.intro.hint" />
                   </Text>
                 </Flex>
+                <Flex pt={3} className="space-x-3">
+                  <Wallet />
+                </Flex>
               </Flex>
-
-              <Flex align="center" justify="center">
-                <ImageContainer>
-                  <img
-                    className="rotate-12"
-                    alt="Citizenship card"
-                    src={`/images/cards/card-${faction}.webp`}
-                  />
-                </ImageContainer>
-              </Flex>
-            </Flex>
-
-            <Flex pt={5} className="space-x-3">
-              <Wallet />
-
-              <Link
-                href={
-                  connected
-                    ? appendQueryParams(
-                        getRoute("/citizenship/checkout"),
-                        (cluster ? { cluster } : {}) as Record<string, any>
-                      )
-                    : "#"
-                }
-                passHref
-              >
-                <a
-                  className={classNames({ "pointer-events-none": !connected })}
-                >
-                  <Button.Neutral
-                    as="div"
-                    className="cursor-pointer"
-                    disabled={!connected}
-                    size="small"
+              <Flex direction="col-reverse" mdDirection="row">
+                <Flex>
+                  <Flex
+                    direction="col"
+                    className="space-y-4 mr-5 lg:mr-5"
+                    pt={10}
+                    lgPt={0}
                   >
-                    <Translation id="generic.next" />
-                  </Button.Neutral>
-                </a>
-              </Link>
-            </Flex>
-          </BlurBackground>
-        </Flex>
+                    <Text size="4xl" weight="bold" color="text-white">
+                      <Translation id="citizenship.intro.title" />
+                    </Text>
+                    <Text color="text-gray-200">
+                      <Translation id="citizenship.intro.description" />
+                    </Text>
+                  </Flex>
+                </Flex>
+
+                <Flex align="center" justify="center">
+                  <ImageContainer>
+                    <img
+                      className="rotate-12"
+                      alt="Citizenship card"
+                      src={`/images/cards/card-${faction}.webp`}
+                    />
+                  </ImageContainer>
+                </Flex>
+              </Flex>
+
+              <Flex direction="col" pt={5}>
+                <Flex className="md:w-2/3">
+                  <Text color="text-gray-200" weight="bold">
+                    <Translation id="citizenship.intro.discord" />
+                  </Text>
+                </Flex>
+                <Flex pt={3} justify={"between"}>
+                  <LinkDiscordButton />
+                  <Link
+                    href={
+                      connected
+                        ? appendQueryParams(
+                            getRoute("/citizenship/checkout"),
+                            (cluster ? { cluster } : {}) as Record<string, any>
+                          )
+                        : "#"
+                    }
+                    passHref
+                  >
+                    <a
+                      className={classNames({
+                        "pointer-events-none": !connected,
+                      })}
+                    >
+                      <Button.Neutral
+                        as="div"
+                        className="cursor-pointer"
+                        disabled={!connected}
+                        iconRight={ArrowRightIcon}
+                      >
+                        <Translation id="generic.next" />
+                      </Button.Neutral>
+                    </a>
+                  </Link>
+                </Flex>
+              </Flex>
+            </BlurBackground>
+          </Flex>
+        </SelfRetriever>
       </Container>
     </>
   );

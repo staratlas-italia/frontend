@@ -64,6 +64,10 @@ export const ATLAS_DECIMAL = 100_000_000;
 
 export const ONE_DAY_IN_MILLISECONDS = 86_400_000;
 
+export const CITIZENSHIP_FULL_PRICE = 20;
+
+export const CITIZENSHIP_DISCOUNT_PRICE = 15;
+
 export const WEBSITE_URL =
   process.env.ENVIRONMENT === "development"
     ? ""

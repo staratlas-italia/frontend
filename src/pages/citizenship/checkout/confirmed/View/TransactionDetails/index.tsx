@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
-import { useSftPrice } from "~/hooks/useSftPrice";
+import { useCitizenshipPrice } from "~/hooks/useCitizenshipPrice";
 import { Translation } from "~/i18n/Translation";
 import { useTranslation } from "~/i18n/useTranslation";
 
@@ -15,7 +15,7 @@ const Item = ({ title, value }: { title: string; value: string }) => (
 );
 
 export const TransactionDetails = () => {
-  const amount = useSftPrice();
+  const amount = useCitizenshipPrice();
 
   const dateLabel = useTranslation(
     "citizenship.checkout.confirmed.details.date.label"

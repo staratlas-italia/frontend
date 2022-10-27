@@ -11,14 +11,14 @@ import {
 } from "~/common/constants";
 import { useCluster } from "~/components/ClusterProvider";
 import { Flex } from "~/components/layout/Flex";
-import { useSftPrice } from "~/hooks/useSftPrice";
+import { useCitizenshipPrice } from "~/hooks/useCitizenshipPrice";
 import { usePaymentStore } from "~/stores/usePaymentStore";
 import { getRoute } from "~/utils/getRoute";
 import { usePaymentReference } from "../usePaymentReference";
 
 export const QrCode = memo(() => {
   const router = useRouter();
-  const amount = useSftPrice();
+  const amount = useCitizenshipPrice();
   const { cluster } = useCluster();
   const confirmPayment = usePaymentStore((s) => s.confirm);
 

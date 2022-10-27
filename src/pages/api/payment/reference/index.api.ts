@@ -2,7 +2,7 @@ import { Keypair } from "@solana/web3.js";
 import { pipe } from "fp-ts/function";
 import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSftPrice } from "~/hooks/useSftPrice";
+import { getCitizenshipPrice } from "~/hooks/useCitizenshipPrice";
 import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 import { useMongoMiddleware } from "~/middlewares/useMongo";
@@ -55,7 +55,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     meta: {
       faction: faction.toUpperCase(),
       publicKey,
-      amount: getSftPrice(),
+      amount: getCitizenshipPrice(user.discordId),
       name: "CITIZENSHIP_CARD",
     },
     status: "PENDING",

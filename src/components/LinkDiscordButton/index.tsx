@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Fragment, PropsWithChildren, useEffect, useMemo } from "react";
+import { Fragment, PropsWithChildren, useMemo } from "react";
 import { DISCORD_OAUTH_URL } from "~/common/constants";
 import { useSelf } from "~/hooks/useNullableSelf";
 import { Button } from "../controls/Button";
@@ -26,11 +26,11 @@ export const LinkDiscordButton = () => {
     <Wrapper>
       <Button.Primary
         as="div"
-        size="small"
+        className="rounded-xl"
         iconLeft={() => (
           <img
             alt="Discord Link"
-            className="h-10 w-10"
+            className="h-6 w-6"
             src="/images/social/discord_logo.svg"
           />
         )}
