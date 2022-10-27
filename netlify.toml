@@ -2,5 +2,8 @@
   command = "yarn build"
   publish = ".next"
 
+[build.environment]
+  TZ = "UTC"
+
 [[plugins]]
   package = "@netlify/plugin-nextjs"
