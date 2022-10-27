@@ -39,6 +39,7 @@ export const AssertAuthenticated = ({ adminOnly, children, loader }: Props) => {
     };
 
     run();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signature, signatueIsValid]);
 
   if (adminOnly && !isAdmin(publicKey)) {

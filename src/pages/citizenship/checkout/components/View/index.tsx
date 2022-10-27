@@ -8,7 +8,7 @@ import { Flex } from "~/components/layout/Flex";
 import { Logo } from "~/components/layout/Header";
 import { SelfRetriever } from "~/components/SelfRetriever";
 import { Wallet } from "~/components/Wallet";
-import { useSftPrice } from "~/hooks/useSftPrice";
+import { useCitizenshipPrice } from "~/hooks/useCitizenshipPrice";
 import { Translation } from "~/i18n/Translation";
 import { usePaymentStore } from "~/stores/usePaymentStore";
 import { useFaction } from "../../../FactionGuard";
@@ -39,7 +39,7 @@ const Icon = styled.img`
 const CartItem = () => {
   const faction = useFaction();
 
-  const amount = useSftPrice();
+  const amount = useCitizenshipPrice();
 
   return (
     <Flex justify="between" className="space-x-3">
@@ -63,7 +63,7 @@ const CartItem = () => {
 
 export const View = () => {
   const isConfirming = usePaymentStore((s) => s.isConfirming);
-  const amount = useSftPrice();
+  const amount = useCitizenshipPrice();
 
   return (
     <>

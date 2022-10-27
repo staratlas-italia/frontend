@@ -6,9 +6,11 @@ import { Flex } from "~/components/layout/Flex";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 import { shortenAddress } from "~/utils/shortenAddress";
 import { CreatePlayerBanner } from "../CreatePlayerBanner";
+import { LinkDiscordButton } from "~/components/LinkDiscordButton";
 
 export const Profile = () => {
   const player = usePlayerStore((s) => s.player);
+  const self = usePlayerStore((s) => s.self);
 
   if (player === null) {
     return <CreatePlayerBanner />;
@@ -53,6 +55,8 @@ export const Profile = () => {
           <InfoRow color="text-gray-200" title="net worth">
             <Price color="text-white" value={balance} />
           </InfoRow>
+
+          <LinkDiscordButton />
         </Flex>
       </BlurBackground>
     </Flex>

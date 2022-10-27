@@ -71,11 +71,12 @@ const getHandler = useMongoMiddleware(
 );
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === "GET") {
-    return getHandler(req, res);
+  switch (req.method) {
+    case "GET":
+      return getHandler(req, res);
+    case "POST":
+      return postHandler(req, res);
   }
-
-  return postHandler(req, res);
 };
 
 export default pipe(

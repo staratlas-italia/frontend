@@ -47,6 +47,11 @@ export const SA_FLEET_PROGRAM = new PublicKey(
 
 export const DEXLAB_API_URL = "https://open-api.dexlab.space/v1";
 
+export const DISCORD_API_URL = "https://discord.com/api";
+
+export const DISCORD_OAUTH_URL =
+  "https://discord.com/api/oauth2/authorize?client_id=994188188807602186&redirect_uri=https%3A%2F%2Fapp.staratlasitalia.com%2Fdiscord%2Flink&response_type=token&scope=identify";
+
 export const FUEL_PRICE = 0.0014336;
 
 export const FOOD_PRICE = 0.0006144;
@@ -58,6 +63,10 @@ export const TOOLKIT_PRICE = 0.0017408;
 export const ATLAS_DECIMAL = 100_000_000;
 
 export const ONE_DAY_IN_MILLISECONDS = 86_400_000;
+
+export const CITIZENSHIP_FULL_PRICE = 20;
+
+export const CITIZENSHIP_DISCOUNT_PRICE = 15;
 
 export const WEBSITE_URL =
   process.env.ENVIRONMENT === "development"

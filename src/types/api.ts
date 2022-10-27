@@ -91,3 +91,8 @@ export type ChartResponses = {
     ? FactionTiersPieData
     : BasicChartData;
 };
+
+export type DiscordUser = {
+  id: string;
+  username: string;
+};

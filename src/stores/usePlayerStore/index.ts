@@ -6,7 +6,7 @@ import {
   USDC_TOKEN_MINT,
 } from "~/common/constants";
 import { fetchPlayer } from "~/network/player";
-import { fetchOrCreateSelf } from "~/network/self";
+import { fetchOrCreateSelf, linkDiscordId } from "~/network/self";
 import { useBadgesStore } from "~/stores/useBadgesStore";
 import { useFleetStore } from "~/stores/useFleetStore";
 import { Avatar, Player } from "~/types";
@@ -21,8 +21,14 @@ type PlayerStore = State & {
   player: Player | null;
   isFetching: boolean;
   amounts: [number | null, number | null, number | null];
-  clear: () => void;
+  linkDiscord: (_: {
+    cluster: Cluster;
+    publicKey: string;
+    discordId: string;
+    signature: string;
+  }) => void;
   fetchSelf: (cluster: Cluster, publicKey: string) => void;
+  clear: () => void;
 };
 
 export const usePlayerStore = create<PlayerStore>((set, get) => ({
@@ -30,6 +36,27 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
   player: null,
   isFetching: false,
   amounts: [null, null, null],
+  linkDiscord: async ({ cluster, discordId, publicKey, signature }) => {
+    if (get().isFetching) {
+      return;
+    }
+
+    set({ isFetching: true });
+
+    const self = await linkDiscordId({
+      cluster,
+      discordId,
+      publicKey,
+      signature,
+    });
+
+    if (self) {
+      set({
+        self,
+        isFetching: false,
+      });
+    }
+  },
   fetchSelf: async (cluster, publicKey) => {
     if (get().isFetching) {
       return;
