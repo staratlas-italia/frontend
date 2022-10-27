@@ -1,6 +1,7 @@
+import * as ed from "@noble/ed25519";
+import { captureException } from "@sentry/nextjs";
 import bs58 from "bs58";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { sign } from "tweetnacl";
 import { getProofMessage } from "~/utils/getProofMessage";
 import { tryParsePublicKey } from "~/utils/pubkey";
 
@@ -20,7 +21,8 @@ export type MatchSignatureMiddlewareReponse =
     };
 
 export const matchSignatureMiddleware =
-  (handler: NextApiHandler) => (req: NextApiRequest, res: NextApiResponse) => {
+  (handler: NextApiHandler) =>
+  async (req: NextApiRequest, res: NextApiResponse) => {
     const { publicKey, signature } = req.body;
 
     const realPublicKey = tryParsePublicKey(publicKey);
@@ -37,22 +39,25 @@ export const matchSignatureMiddleware =
 
     const messageBytes = new TextEncoder().encode(message);
 
+    const isValid = await ed.verify(
+      signatureDecoded,
+      messageBytes,
+      realPublicKey.toBytes()
+    );
+
     try {
-      if (
-        !sign.detached.verify(
-          messageBytes,
-          signatureDecoded,
-          realPublicKey.toBytes()
-        )
-      ) {
-        return res
-          .status(403)
-          .json({ status: 403, error: "Signature does not match" });
+      if (!isValid) {
+        res.status(403).json({
+          status: 403,
+          error: "Signature does not match",
+        });
+        return;
       }
-    } catch (_) {
-      return res
-        .status(403)
-        .json({ status: 403, error: "Cannot verify signature" });
+    } catch (e) {
+      captureException(e);
+
+      res.status(403).json({ status: 403, error: "Cannot verify signature" });
+      return;
     }
 
     return handler(req, res);
