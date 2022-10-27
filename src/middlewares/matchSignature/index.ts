@@ -50,6 +50,11 @@ export const matchSignatureMiddleware =
         res.status(403).json({
           status: 403,
           error: "Signature does not match",
+          meta: {
+            message,
+            publicKey,
+            signature,
+          },
         });
         return;
       }
