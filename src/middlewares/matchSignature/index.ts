@@ -35,7 +35,8 @@ export const matchSignatureMiddleware =
 
     const signatureDecoded = bs58.decode(signature);
 
-    const message = getProofMessage();
+    const isoDate = new Date().toISOString();
+    const message = getProofMessage(new Date(isoDate).getTime());
 
     const messageBytes = new TextEncoder().encode(message);
 
@@ -50,13 +51,6 @@ export const matchSignatureMiddleware =
         res.status(403).json({
           status: 403,
           error: "Signature does not match",
-          meta: {
-            date: new Date().toISOString(),
-            time: new Date().setHours(0, 0, 0, 0).toString(),
-            message,
-            publicKey,
-            signature,
-          },
         });
         return;
       }
