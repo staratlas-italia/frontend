@@ -1,4 +1,5 @@
 import { Self } from "~/types/api";
+import { getProofMessage } from "~/utils/getProofMessage";
 import { getApiRoute } from "~/utils/getRoute";
 
 type Response =
@@ -24,6 +25,7 @@ export const createReferral = async (
       body: JSON.stringify({
         publicKey,
         signature,
+        message: getProofMessage(),
       }),
     });
 
@@ -64,6 +66,7 @@ export const redeemReferral = async (
         publicKey,
         signature,
         referralCode,
+        message: getProofMessage(),
       }),
     });
 

@@ -5,6 +5,7 @@ import { Player } from "~/types";
 import { Self } from "~/types/api";
 import { appendQueryParams } from "~/utils/appendQueryParams";
 import { getFactionName } from "~/utils/getFactionName";
+import { getProofMessage } from "~/utils/getProofMessage";
 import { getApiRoute } from "~/utils/getRoute";
 
 const buildDefaultSelf = (
@@ -105,6 +106,7 @@ export const linkDiscordId = async ({
         discordId,
         publicKey,
         signature,
+        message: getProofMessage(),
       }),
     });
 
