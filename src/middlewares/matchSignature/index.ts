@@ -2,7 +2,6 @@ import * as ed from "@noble/ed25519";
 import { captureException } from "@sentry/nextjs";
 import bs58 from "bs58";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { getProofMessage } from "~/utils/getProofMessage";
 import { tryParsePublicKey } from "~/utils/pubkey";
 
 export type MatchSignatureMiddlewareRequestBody = {
@@ -23,20 +22,17 @@ export type MatchSignatureMiddlewareReponse =
 export const matchSignatureMiddleware =
   (handler: NextApiHandler) =>
   async (req: NextApiRequest, res: NextApiResponse) => {
-    const { publicKey, signature } = req.body;
+    const { message, publicKey, signature } = req.body;
 
     const realPublicKey = tryParsePublicKey(publicKey);
 
-    if (!publicKey || !realPublicKey || !signature) {
+    if (!publicKey || !realPublicKey || !message || !signature) {
       return res
         .status(400)
         .json({ status: 400, error: "Missing or invalid parameters" });
     }
 
     const signatureDecoded = bs58.decode(signature);
-
-    const isoDate = new Date().toISOString();
-    const message = getProofMessage(new Date(isoDate).getTime());
 
     const messageBytes = new TextEncoder().encode(message);
 
