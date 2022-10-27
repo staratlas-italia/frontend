@@ -28,6 +28,7 @@ const moduleExports = withTM({
   env: {
     ADMINS_PBKS: process.env.ADMINS_PBKS,
     DEVNET_RPC_ENDPOINT: process.env.DEVNET_RPC_ENDPOINT,
+    DISCORD_OAUTH_URL: process.env.DISCORD_OAUTH_URL,
     ENVIRONMENT: process.env.ENVIRONMENT,
     GOOGLE_ANALYTICS_KEY: process.env.GOOGLE_ANALYTICS_KEY,
     GUILD_TREASURY_ADDR: process.env.GUILD_TREASURY_ADDR,
