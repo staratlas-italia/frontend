@@ -51,6 +51,7 @@ export const matchSignatureMiddleware =
           status: 403,
           error: "Signature does not match",
           meta: {
+            date: new Date().toISOString(),
             message,
             publicKey,
             signature,
