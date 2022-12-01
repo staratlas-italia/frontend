@@ -63,6 +63,7 @@
   "Layout.Wallet.Disconnect.title": "Disconnect",
   "Layout.Wallet.Modal.Connected.title": "Connected wallet",
   "Layout.Wallet.Modal.ConnectedTo.title": "Connected to {wallet}",
+  "layout.wallet.modal.connected.effectsLabel": "Show faction effect",
   "Mint.AccessDenied.text": "You cannot access this mint!",
   "Mint.CheckBadge.text": "Checking your wallet",
   "Mint.Hyperspace.text": "Hyperspace activation in {seconds}",

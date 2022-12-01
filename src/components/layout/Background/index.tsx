@@ -2,10 +2,12 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import styled, { css, keyframes } from "styled-components";
 import { SelfRetriever } from "~/components/SelfRetriever";
 import { useNullableBadges } from "~/hooks/useNullableBadges";
+import { useHueAnimation } from "~/stores/useAppStore";
 import { getHueByFactionStyle } from "~/utils/getHueByFaction";
 import { isFactionBadge } from "~/utils/isFactionBadge";
 
 type Props = {
+  show?: boolean;
   badgeMint?: string;
 };
 
@@ -24,7 +26,8 @@ const LayoutBackground = styled.div.attrs({
 })<Props>`
   background-image: url("/images/bg.webp");
 
-  ${({ badgeMint }) =>
+  ${({ badgeMint, show = true }) =>
+    show &&
     badgeMint &&
     css`
       animation: ${hueAnimation(badgeMint)} 0.5s ease-in-out;
@@ -35,6 +38,8 @@ const LayoutBackground = styled.div.attrs({
 const ConnectedBackground = () => {
   const { badges } = useNullableBadges();
 
+  const showAnimation = useHueAnimation();
+
   const [badge] =
     badges?.find(([badge]) => isFactionBadge(badge.mintAddress)) || [];
 
@@ -42,7 +47,12 @@ const ConnectedBackground = () => {
     return <LayoutBackground />;
   }
 
-  return <LayoutBackground badgeMint={badge.mintAddress.toString()} />;
+  return (
+    <LayoutBackground
+      badgeMint={badge.mintAddress.toString()}
+      show={showAnimation}
+    />
+  );
 };
 
 export const Background = () => {
