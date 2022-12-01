@@ -1,17 +1,14 @@
-import { PublicKey } from "@solana/web3.js";
 import { CITIZEN_TOKEN_MINT_PER_FACTION } from "~/common/constants";
 
-export const getHueByFaction = (badgeMint: string) => {
-  if (!badgeMint) return "0deg";
-
+export const getHueByFactionStyle = (badgeMint: string) => {
   switch (badgeMint) {
     case CITIZEN_TOKEN_MINT_PER_FACTION.mud.toString():
-      return "140deg";
+      return 140;
     case CITIZEN_TOKEN_MINT_PER_FACTION.oni.toString():
-      return "40deg";
+      return 40;
     case CITIZEN_TOKEN_MINT_PER_FACTION.ustur.toString():
-      return "200deg";
+      return 200;
     default:
-      return "0deg";
+      return 0;
   }
 };
