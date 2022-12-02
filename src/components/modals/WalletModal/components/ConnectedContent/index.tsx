@@ -75,7 +75,7 @@ export const ConnectedContent = () => {
             />
           </Flex>
 
-          <Text>
+          <Text className="cursor-pointer select-none" onClick={handleChange}>
             <Translation id="layout.wallet.modal.connected.effectsLabel" />
           </Text>
         </Flex>
