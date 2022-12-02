@@ -1,6 +1,7 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import Image from "next/image";
 import { useCallback, useMemo } from "react";
+import { Text } from "~/components/common/Text";
 import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
 import { List, ListSectons } from "~/components/List";
@@ -8,6 +9,7 @@ import { useModal } from "~/contexts/ModalContext";
 import { useClearAllStores } from "~/hooks/useClearAllStores";
 import { Translation } from "~/i18n/Translation";
 import { useTranslation } from "~/i18n/useTranslation";
+import { useAppStore, useHueAnimation } from "~/stores/useAppStore";
 import { shortenAddress } from "~/utils/shortenAddress";
 
 export const ConnectedContent = () => {
@@ -15,6 +17,14 @@ export const ConnectedContent = () => {
 
   const { close } = useModal("wallet-modal");
   const clear = useClearAllStores();
+
+  const hueAnimationEnabled = useHueAnimation();
+
+  const handleChange = useCallback(() => {
+    useAppStore.setState(({ showHueAnimation }) => ({
+      showHueAnimation: !showHueAnimation,
+    }));
+  }, []);
 
   const connectedWalletTranslation = useTranslation(
     "Layout.Wallet.Modal.Connected.title"
@@ -55,6 +65,21 @@ export const ConnectedContent = () => {
         className="border-2 border-gray-300 rounded space-y-8"
       >
         <List sections={sections} />
+
+        <Flex>
+          <Flex pr={2}>
+            <input
+              type="checkbox"
+              checked={hueAnimationEnabled}
+              onChange={handleChange}
+            />
+          </Flex>
+
+          <Text className="cursor-pointer select-none" onClick={handleChange}>
+            <Translation id="layout.wallet.modal.connected.effectsLabel" />
+          </Text>
+        </Flex>
+
         <Button.Dark
           onClick={() => {
             close();

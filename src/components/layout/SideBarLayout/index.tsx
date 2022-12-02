@@ -1,6 +1,7 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import React, { PropsWithChildren } from "react";
 import { CitizenInfoBanner } from "~/components/CitizenInfoBanner";
+import { Background } from "~/components/layout/Background";
 import { BaseLayout } from "~/components/layout/BaseLayout";
 import { Container } from "~/components/layout/Container";
 import { Flex } from "~/components/layout/Flex";
@@ -18,6 +19,8 @@ export const SideBarLayout = React.memo(
     return (
       <Provider>
         <SideBar />
+
+        <Background />
 
         <BaseLayout hasSidebar>
           <Header fluid fixed />
@@ -40,6 +43,7 @@ export const SideBarLayout = React.memo(
             </div>
           </Container>
         </BaseLayout>
+        {/* )} */}
       </Provider>
     );
   }

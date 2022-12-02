@@ -63,6 +63,7 @@ export type TranslationId =
   | "Layout.Wallet.Disconnect.title"
   | "Layout.Wallet.Modal.Connected.title"
   | "Layout.Wallet.Modal.ConnectedTo.title"
+  | "layout.wallet.modal.connected.effectsLabel"
   | "Mint.AccessDenied.text"
   | "Mint.CheckBadge.text"
   | "Mint.Hyperspace.text"

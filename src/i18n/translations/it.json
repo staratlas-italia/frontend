@@ -63,6 +63,7 @@
   "Layout.Wallet.Disconnect.title": "Disconnetti",
   "Layout.Wallet.Modal.Connected.title": "Portafoglio connesso",
   "Layout.Wallet.Modal.ConnectedTo.title": "Connetti con {wallet}",
+  "layout.wallet.modal.connected.effectsLabel": "Mostra effetto fazione",
   "Mint.AccessDenied.text": "Non hai i permessi per accedere al mint!",
   "Mint.CheckBadge.text": "Controllo il tuo wallet",
   "Mint.Hyperspace.text": "Attivazione iperspazio in {seconds}",
