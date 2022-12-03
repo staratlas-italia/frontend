@@ -3,21 +3,23 @@ import styled, { css, keyframes } from "styled-components";
 import { SelfRetriever } from "~/components/SelfRetriever";
 import { useNullableBadges } from "~/hooks/useNullableBadges";
 import { useHueAnimation } from "~/stores/useAppStore";
+import { useHueStore } from "~/stores/useHueStore";
 import { getHueByFactionStyle } from "~/utils/getHueByFaction";
 import { isFactionBadge } from "~/utils/isFactionBadge";
 
 type Props = {
   show?: boolean;
-  badgeMint?: string;
+  hue?: number;
+  connected?: boolean;
 };
 
-const hueAnimation = (badgeMint: string) => keyframes`
+const hueAnimation = (hue: number) => keyframes`
   0% {
     filter: hue-rotate(0deg);
   }
 
   100% {
-    filter: hue-rotate(${getHueByFactionStyle(badgeMint)}deg);
+    filter: hue-rotate(${hue}deg);
   }
 `;
 
@@ -26,12 +28,14 @@ const LayoutBackground = styled.div.attrs({
 })<Props>`
   background-image: url("/images/bg.webp");
 
-  ${({ badgeMint, show = true }) =>
+  ${({ hue, connected = false, show = true }) =>
     show &&
-    badgeMint &&
+    hue &&
+    hue != 0 &&
     css`
-      animation: ${hueAnimation(badgeMint)} 0.5s ease-in-out;
+      animation: ${hueAnimation(hue)} 0.5s ease-in-out;
       animation-fill-mode: forwards;
+      animation-direction: ${connected ? "normal" : "reverse"};
     `}
 `;
 
@@ -40,6 +44,9 @@ const ConnectedBackground = () => {
 
   const showAnimation = useHueAnimation();
 
+  const hue = useHueStore((state) => state.hue);
+  const updateHue = useHueStore((state) => state.updateHue);
+
   const [badge] =
     badges?.find(([badge]) => isFactionBadge(badge.mintAddress)) || [];
 
@@ -47,24 +54,25 @@ const ConnectedBackground = () => {
     return <LayoutBackground />;
   }
 
-  return (
-    <LayoutBackground
-      badgeMint={badge.mintAddress.toString()}
-      show={showAnimation}
-    />
-  );
+  updateHue(getHueByFactionStyle(badge.mintAddress.toString()));
+
+  return <LayoutBackground hue={hue} connected={true} show={showAnimation} />;
 };
 
 export const Background = () => {
   const { connected } = useWallet();
+  const showAnimation = useHueAnimation();
+  const hue = useHueStore((state) => state.hue);
 
   if (connected) {
     return (
-      <SelfRetriever loader={<LayoutBackground />}>
+      <SelfRetriever
+        loader={<LayoutBackground hue={hue} show={showAnimation} />}
+      >
         <ConnectedBackground />
       </SelfRetriever>
     );
   }
 
-  return <LayoutBackground />;
+  return <LayoutBackground hue={hue} show={showAnimation} />;
 };
