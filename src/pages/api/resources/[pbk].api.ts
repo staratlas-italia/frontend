@@ -6,7 +6,6 @@ import {
   FUEL_TOKEN_MINT_ID,
   TOOL_TOKEN_MINT_ID,
 } from "~/common/constants/index";
-import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { getConnectionClusterUrl } from "~/utils/connection";
 import { getTokenBalanceByMint } from "~/utils/getTokenBalanceByMint";
 import { isPublicKey } from "~/utils/pubkey";
@@ -63,4 +62,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   });
 };
 
-export default attachClusterMiddleware(handler);
+export default handler;

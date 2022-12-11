@@ -2,7 +2,6 @@ import { Cluster, Connection, PublicKey } from "@solana/web3.js";
 import { getScoreVarsShipInfo } from "@staratlas/factory";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { SA_FLEET_PROGRAM } from "~/common/constants";
-import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { NormalizedScoreVarsShipInfo } from "~/types";
 import { getConnectionClusterUrl } from "~/utils/connection";
 import { isPublicKey } from "~/utils/pubkey";
@@ -60,4 +59,4 @@ const handler = async (
   });
 };
 
-export default attachClusterMiddleware(handler);
+export default handler;

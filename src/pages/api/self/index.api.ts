@@ -1,7 +1,6 @@
 import { Cluster } from "@solana/web3.js";
 import { pipe } from "fp-ts/function";
 import { NextApiRequest, NextApiResponse } from "next";
-import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 import { useMongoMiddleware } from "~/middlewares/useMongo";
 import { getMongoDatabase } from "~/pages/api/mongodb";
@@ -14,6 +13,7 @@ const postHandler = useMongoMiddleware(
 
     if (!self) {
       res.status(400).json({
+        success: false,
         error: "Invalid public key",
       });
       return;
@@ -27,7 +27,7 @@ const postHandler = useMongoMiddleware(
 
     res.json({
       success: true,
-      self: {
+      user: {
         _id: result.insertedId.toString(),
         ...self,
       },
@@ -42,6 +42,7 @@ const getHandler = useMongoMiddleware(
 
     if (!publicKey) {
       res.status(400).json({
+        success: false,
         error: "Invalid public key",
       });
       return;
@@ -79,8 +80,4 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default pipe(
-  handler,
-  matchMethodMiddleware(["GET", "POST"]),
-  attachClusterMiddleware
-);
+export default pipe(handler, matchMethodMiddleware(["GET", "POST"]));

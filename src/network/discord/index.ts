@@ -1,23 +1,17 @@
 import { captureException } from "@sentry/nextjs";
 import { DISCORD_API_URL } from "~/common/constants";
+import { createApiClient } from "~/network/api";
 import { DiscordUser } from "~/types/api";
 
-export const getDiscordSelf = async (
-  token: string
-): Promise<DiscordUser | null> => {
+const discordClient = createApiClient(DISCORD_API_URL);
+
+export const getDiscordSelf = async (token: string) => {
   try {
-    const response = await fetch(`${DISCORD_API_URL}/users/@me`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const user = await discordClient.get<DiscordUser | null>("/users/@me", {
+      Authorization: `Bearer ${token}`,
     });
 
-    if (response.ok) {
-      return response.json();
-    }
-
-    return null;
+    return user;
   } catch (e) {
     captureException(e);
 

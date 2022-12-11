@@ -1,32 +1,34 @@
-import { Cluster } from "@solana/web3.js";
+import { api } from "~/network/api";
 import { ConfirmPaymentResponse } from "~/types/api";
 import { getApiRoute } from "~/utils/getRoute";
 
 type Param = {
-  cluster: Cluster;
+  amount: number;
   publicKey: string;
   reference: string;
   signal?: AbortSignal;
 };
 
 export const confirmPayment = async ({
-  cluster,
+  amount,
   publicKey,
   reference,
   signal = new AbortController().signal,
 }: Param) => {
-  const response = await fetch(getApiRoute("/api/payment/confirm"), {
-    method: "POST",
-    signal,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      cluster,
-      publicKey,
-      reference,
-    }),
-  });
+  const response = await api.post<ConfirmPaymentResponse>(
+    getApiRoute("/api/payment/confirm"),
+    {
+      body: {
+        amount,
+        publicKey,
+        reference,
+      },
+      headers: {
+        "Content-Type": "application/json",
+      },
+      signal,
+    }
+  );
 
-  return response.json() as Promise<ConfirmPaymentResponse>;
+  return response;
 };

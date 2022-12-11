@@ -1,13 +1,13 @@
+import { api } from "~/network/api";
 import { Player } from "~/types";
 import { appendQueryParams } from "~/utils/appendQueryParams";
 import { getApiRoute } from "~/utils/getRoute";
 
-export const fetchPlayer = async (pubkey: string): Promise<Player | null> => {
+export const fetchPlayer = async (pubkey: string) => {
   try {
-    const res = await fetch(
+    return api.get<Player>(
       appendQueryParams(getApiRoute("/api/player"), { pubkey })
     );
-    return await res.json();
   } catch (e) {
     return null;
   }
