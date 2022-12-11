@@ -1,6 +1,7 @@
 import { GrowthBook } from "@growthbook/growthbook-react";
 import { PublicKey } from "@solana/web3.js";
 import { GmClientService } from "@staratlas/factory";
+import { TranslationId } from "~/i18n/translations/types";
 import { Faction } from "~/types";
 
 export const ATLAS_USDC_MARKET_ADDR =
@@ -45,8 +46,6 @@ export const SA_FLEET_PROGRAM = new PublicKey(
   "FLEET1qqzpexyaDpqb2DGsSzE2sDCizewCg9WjrA6DBW"
 );
 
-export const DEXLAB_API_URL = "https://open-api.dexlab.space/v1";
-
 export const DISCORD_API_URL = "https://discord.com/api";
 
 export const DISCORD_OAUTH_URL = process.env.DISCORD_OAUTH_URL;
@@ -62,10 +61,6 @@ export const TOOLKIT_PRICE = 0.0017408;
 export const ATLAS_DECIMAL = 100_000_000;
 
 export const ONE_DAY_IN_MILLISECONDS = 86_400_000;
-
-export const CITIZENSHIP_FULL_PRICE = 20;
-
-export const CITIZENSHIP_DISCOUNT_PRICE = 15;
 
 export const WEBSITE_URL =
   process.env.ENVIRONMENT === "development"
@@ -87,15 +82,6 @@ export const CITIZEN_TOKEN_MINT_PER_FACTION: Record<
   ustur: new PublicKey("ustuRPvoFHcmoonK7on8tc6MaUQeuzUxx2ioFeuXLyn"),
 };
 
-export const DEVNET_CITIZEN_TOKEN_MINT_PER_FACTION: Record<
-  Lowercase<Faction>,
-  PublicKey
-> = {
-  mud: new PublicKey("67D3p1VhvZbTVD26koiNkqCDDYFtgbnYmf6rUiVSiAuV"),
-  oni: new PublicKey("67D3p1VhvZbTVD26koiNkqCDDYFtgbnYmf6rUiVSiAuV"),
-  ustur: new PublicKey("67D3p1VhvZbTVD26koiNkqCDDYFtgbnYmf6rUiVSiAuV"),
-};
-
 export const DEV_EMAIL = "dev@staratlasitalia.com";
 
 export const growthbook = new GrowthBook();
@@ -106,3 +92,118 @@ export const FEATURES_ENDPOINT =
   process.env.ENVIRONMENT === "production"
     ? process.env.FEATURES_ENDPOINT
     : process.env.DEV_FEATURES_ENDPOINT;
+
+export const SAI_TOKEN_SWAP_PROGRAM_ID = new PublicKey(
+  "9EwZquhRwZ7efbMwATpt5XRJsbXKFjQ2aFfePyL2ngFg"
+);
+
+type SwapSetting = {
+  quantity?: number;
+  name: string;
+  mint: PublicKey;
+  swapAccount: PublicKey;
+  vaultCurrency: string;
+  image: {
+    normal: string;
+    square: string;
+  };
+  sections: {
+    intro: {
+      title: TranslationId;
+      description: TranslationId;
+    };
+    checkout: {
+      title: TranslationId;
+      subtitle: TranslationId;
+    };
+    confirmed: {
+      description: TranslationId;
+    };
+  };
+};
+
+export const DEVNET_FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS: Record<
+  Lowercase<Faction>,
+  string
+> = {
+  oni: "FQpDeHQZ4csh7dkyYGFPDq4mvW6KZH4uTBxohxPG3K8b",
+  mud: "BtpXkPQoAc2eeoFoSmjqJxssM2GUcLScbEJQr3ACvDT9",
+  ustur: "2w1DbkC4XcreYJquUz2vz2uhV9pKaik4j6w11uWjFUso",
+};
+
+export const FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS: Record<
+  Lowercase<Faction>,
+  string
+> = {
+  oni: "D9Nq8DSbTvDWTHnG9jEgkcoLKmfTaGds6UgdE9c1Y4hz",
+  mud: "BXkoZquRBwbscxLit57CQCJGa9LwE2TByQpvSp9afhFe",
+  ustur: "9Pb1mbD6tkxsRPauNZPZ5fta7TUMPjN6ZXpujTjkQNko",
+};
+
+export const DEVNET_CITIZEN_TOKEN_MINT_PER_STATE_ACCOUNT: Record<
+  string,
+  PublicKey
+> = {
+  [DEVNET_FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.oni]: new PublicKey(
+    "FCNy7oyjevsCbHbL2cgDJeWrmd3wWTDeq4u4uafCNUuu"
+  ),
+  [DEVNET_FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.mud]: new PublicKey(
+    "EVWyAZNy32GnB9GZEcnGsawii4NfnC6KPsaRCGM7g8sx"
+  ),
+  [DEVNET_FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.ustur]: new PublicKey(
+    "7n4rgd4WVNvzFom7UFqjCa9fpMB9apP8Gz3zX3aS6VEr"
+  ),
+};
+
+const citizenShipTranslations: SwapSetting["sections"] = {
+  intro: {
+    title: "citizenship.intro.title",
+    description: "citizenship.intro.description",
+  },
+  checkout: {
+    title: "citizenship.checkout.title",
+    subtitle: "citizenship.checkout.subtitle",
+  },
+  confirmed: {
+    description: "citizenship.checkout.confirmed.subtitle",
+  },
+};
+
+export const TOKEN_SWAP_STATE_ACCOUNTS: Record<string, SwapSetting> = {
+  [FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.oni]: {
+    quantity: 1,
+    mint: CITIZEN_TOKEN_MINT_PER_FACTION.oni,
+    name: "Badge ONI",
+    swapAccount: new PublicKey(FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.oni),
+    vaultCurrency: "USDC",
+    image: {
+      normal: "/images/cards/card-oni.webp",
+      square: "/images/cards/card-square-oni.webp",
+    },
+    sections: citizenShipTranslations,
+  },
+  [FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.mud]: {
+    quantity: 1,
+    mint: CITIZEN_TOKEN_MINT_PER_FACTION.mud,
+    name: "Badge MUD",
+    swapAccount: new PublicKey(FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.mud),
+    vaultCurrency: "USDC",
+    image: {
+      normal: "/images/cards/card-mud.webp",
+      square: "/images/cards/card-square-mud.webp",
+    },
+    sections: citizenShipTranslations,
+  },
+  [FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.ustur]: {
+    quantity: 1,
+    mint: CITIZEN_TOKEN_MINT_PER_FACTION.ustur,
+    name: "Badge USTUR",
+    swapAccount: new PublicKey(FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.ustur),
+    vaultCurrency: "USDC",
+    image: {
+      normal: "/images/cards/card-ustur.webp",
+      square: "/images/cards/card-square-ustur.webp",
+    },
+    sections: citizenShipTranslations,
+  },
+};

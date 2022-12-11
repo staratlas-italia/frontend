@@ -48,11 +48,30 @@ const getButtonSize = (size?: ButtonSize): Partial<PaddingProps> => {
   return {};
 };
 
+const getButtonHeight = ({ size }: Pick<ButtonProps, "size">) => {
+  switch (size) {
+    case "small":
+      return css`
+        height: 44px;
+      `;
+    case "large":
+      return css`
+        height: 68px;
+      `;
+    default:
+      return css`
+        height: 60px;
+      `;
+  }
+};
+
 const Wrapper = styled.button.withConfig({
   shouldForwardProp: (prop, defaultShouldForwardProp) =>
     !["size", "loading", "round"].includes(prop) &&
     defaultShouldForwardProp(prop),
 })`
+  ${getButtonHeight}
+
   ${({ disabled }) =>
     disabled &&
     css`
@@ -76,6 +95,7 @@ export const Button = ({
   return (
     <Wrapper
       as={as}
+      size={size}
       disabled={disabled}
       className={classNames(className, "group rounded-md", {
         "w-5 h-5": round,
@@ -84,7 +104,7 @@ export const Button = ({
     >
       <Flex
         align="center"
-        justify="between"
+        justify="center"
         {...(round ? undefined : getButtonSize(size))}
         {...props}
       >
@@ -92,19 +112,21 @@ export const Button = ({
           <Flex pr={2}>{iconLeft({ className: `h-5 w-5 ${textColor}` })}</Flex>
         )}
 
-        <Text
-          hover
-          size="base"
-          align="center"
-          mdSize="lg"
-          weight="semibold"
-          className="w-full"
-          color={textColor}
-        >
-          {children}
-        </Text>
-
-        {loading && <Loader />}
+        {loading ? (
+          <Loader />
+        ) : (
+          <Text
+            hover
+            size="base"
+            align="center"
+            mdSize="lg"
+            weight="semibold"
+            className="w-full"
+            color={textColor}
+          >
+            {children}
+          </Text>
+        )}
 
         {iconRight && (
           <Flex pl={2}>{iconRight({ className: `h-5 w-5 ${textColor}` })}</Flex>

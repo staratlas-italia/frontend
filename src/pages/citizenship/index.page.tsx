@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import { FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS } from "~/common/constants";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
@@ -52,8 +53,8 @@ const Citizenship = () => {
         <FactionBlock
           onClick={() =>
             router.push(
-              fillUrlParameters(getRoute("/citizenship/:faction"), {
-                faction: "mud",
+              fillUrlParameters(getRoute("/swap/:swapAccount"), {
+                swapAccount: FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.mud,
               })
             )
           }
@@ -78,8 +79,8 @@ const Citizenship = () => {
         <FactionBlock
           onClick={() =>
             router.push(
-              fillUrlParameters(getRoute("/citizenship/:faction"), {
-                faction: "ustur",
+              fillUrlParameters(getRoute("/swap/:swapAccount"), {
+                swapAccount: FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.ustur,
               })
             )
           }
@@ -104,8 +105,8 @@ const Citizenship = () => {
         <FactionBlock
           onClick={() =>
             router.push(
-              fillUrlParameters(getRoute("/citizenship/:faction"), {
-                faction: "oni",
+              fillUrlParameters(getRoute("/swap/:swapAccount"), {
+                swapAccount: FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.oni,
               })
             )
           }
