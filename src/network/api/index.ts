@@ -1,4 +1,4 @@
-import { WEBSITE_URL } from "~/common/constants";
+import { APP_BASE_URL } from "~/common/constants";
 
 const request = async <Res>(
   url: string,
@@ -40,4 +40,4 @@ export const createApiClient = (apiUrl: string) => ({
     }),
 });
 
-export const api = createApiClient(WEBSITE_URL);
+export const api = createApiClient(APP_BASE_URL);

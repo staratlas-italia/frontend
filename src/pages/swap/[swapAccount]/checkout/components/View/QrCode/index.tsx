@@ -7,7 +7,7 @@ import { useSwapStateAccount } from "~/components/SwapStateAccountGuard";
 import { useSwapProgramPrice } from "~/hooks/useSwapProgramPrice";
 import { usePaymentStore } from "~/stores/usePaymentStore";
 import { fillUrlParameters } from "~/utils/fillUrlParameters";
-import { getRoute } from "~/utils/getRoute";
+import { getApiRoute, getRoute } from "~/utils/getRoute";
 import { usePaymentReference } from "../../ReferenceRetriever";
 
 export const QrCode = memo(() => {
@@ -24,10 +24,7 @@ export const QrCode = memo(() => {
 
   const url = useMemo(() => {
     const currentUrl = new URL(
-      `${
-        "https://c986-2001-b07-5d2b-c19a-c00e-f7bd-1d75-6bd7.ngrok.io/api/" ||
-        window.location.origin
-      }`
+      `${window.location.origin}${getApiRoute("/api/swap")}`
     );
 
     currentUrl.searchParams.append("stateAccount", swapAccount.toString());

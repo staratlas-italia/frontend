@@ -15,7 +15,7 @@ export const clusterEndpoints: EndpointInfo[] = [
   {
     cluster: "devnet",
     name: "Devnet",
-    url: clusterApiUrl("devnet"),
+    url: process.env.DEVNET_RPC_ENDPOINT || clusterApiUrl("devnet"),
   },
   {
     cluster: "testnet",

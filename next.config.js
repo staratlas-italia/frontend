@@ -27,6 +27,7 @@ const { withSentryConfig } = require("@sentry/nextjs");
 const moduleExports = withTM({
   env: {
     ADMINS_PBKS: process.env.ADMINS_PBKS,
+    APP_BASE_URL: process.env.APP_BASE_URL,
     DEVNET_RPC_ENDPOINT: process.env.DEVNET_RPC_ENDPOINT,
     DISCORD_OAUTH_URL: process.env.DISCORD_OAUTH_URL,
     ENVIRONMENT: process.env.ENVIRONMENT,

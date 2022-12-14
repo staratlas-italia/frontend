@@ -62,10 +62,7 @@ export const ATLAS_DECIMAL = 100_000_000;
 
 export const ONE_DAY_IN_MILLISECONDS = 86_400_000;
 
-export const WEBSITE_URL =
-  process.env.ENVIRONMENT === "development"
-    ? ""
-    : "https://app.staratlasitalia.com";
+export const APP_BASE_URL = process.env.APP_BASE_URL || "";
 
 export const FLEET_WEBSITE_URL = "https://fleet.staratlasitalia.com";
 

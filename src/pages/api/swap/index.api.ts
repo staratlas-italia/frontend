@@ -10,26 +10,31 @@ import {
 } from "@solana/web3.js";
 import { pipe } from "fp-ts/function";
 import { NextApiRequest, NextApiResponse } from "next";
-import { SAI_TOKEN_SWAP_PROGRAM_ID, USDC_TOKEN_MINT } from "~/common/constants";
+import {
+  APP_BASE_URL,
+  SAI_TOKEN_SWAP_PROGRAM_ID,
+  TOKEN_SWAP_STATE_ACCOUNTS,
+  USDC_TOKEN_MINT,
+} from "~/common/constants";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 import { IDL } from "~/programs/sai_token_swap";
 
 const getHandler = (req: NextApiRequest, res: NextApiResponse) => {
-  const label = "Exiled Apes Academy";
+  const stateAccountField = req.query.stateAccount as string;
 
-  const icon =
-    "https://exiledapes.academy/wp-content/uploads/2021/09/X_share.png";
+  const state = TOKEN_SWAP_STATE_ACCOUNTS[stateAccountField];
+  const path = state.image.square;
 
   res.status(200).json({
-    label,
-    icon,
+    label: state.name,
+    icon: `${APP_BASE_URL}${path}`,
   });
 };
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const accountField = req.body?.account;
   const mintField = req.query.mint as string;
-  const stateAccountField = req.query.stateAcount as string;
+  const stateAccountField = req.query.stateAccount as string;
   const referenceField = req.query.reference as string;
 
   if (!accountField || !mintField || !stateAccountField || !referenceField) {
@@ -102,7 +107,10 @@ const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   });
 
   const base64Transaction = serializedTransaction.toString("base64");
-  const message = "Thank you for your purchase of ExiledApe #518";
+
+  const state = TOKEN_SWAP_STATE_ACCOUNTS[stateAccountField];
+
+  const message = `Thank you for your purchase of ${state.name}`;
 
   res.status(200).json({ transaction: base64Transaction, message });
 };
