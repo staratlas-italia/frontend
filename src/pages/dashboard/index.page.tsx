@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Page } from "./components/Page";
+import { View } from "./components/View";
 
 const Dashboard = () => {
   return (
@@ -8,7 +8,7 @@ const Dashboard = () => {
         <title>Dashboard - StarAtlasItalia</title>
       </Head>
 
-      <Page />
+      <View />
     </>
   );
 };

@@ -21,6 +21,7 @@ export type ButtonProps = PropsWithChildren<{
   size?: ButtonSize;
   round?: boolean;
   textColor?: TextColor;
+  type?: "submit";
 }>;
 
 const getButtonSize = (size?: ButtonSize): Partial<PaddingProps> => {
@@ -90,6 +91,7 @@ export const Button = ({
   size = "regular",
   round,
   textColor = "text-black",
+  type,
   ...props
 }: ButtonProps) => {
   return (
@@ -101,6 +103,7 @@ export const Button = ({
         "w-5 h-5": round,
         "opacity-60": disabled,
       })}
+      type={type}
     >
       <Flex
         align="center"

@@ -1,22 +1,16 @@
 import Link from "next/link";
-import { Heading } from "~/components/common/Heading";
 import { Text } from "~/components/common/Text";
 import { EmptyView } from "~/components/EmptyView";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
-import { LoadingView } from "~/components/LoadingView";
-import { useNullableBadges } from "~/hooks/useNullableBadges";
+import { useBadges } from "~/hooks/useNullableBadges";
 
 export const Badges = () => {
-  const { badges } = useNullableBadges();
+  const badges = useBadges();
 
   return (
-    <Flex direction="col" className="z-10 space-y-5">
-      <Heading title="Badges.Heading.title" />
-
-      {badges === null ? (
-        <LoadingView />
-      ) : !badges?.length ? (
+    <>
+      {!badges?.length ? (
         <EmptyView title="No badges found" />
       ) : (
         <Flex className="space-x-3 overflow-scroll">
@@ -53,6 +47,6 @@ export const Badges = () => {
           ))}
         </Flex>
       )}
-    </Flex>
+    </>
   );
 };
