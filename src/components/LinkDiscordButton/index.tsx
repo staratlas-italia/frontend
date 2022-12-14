@@ -7,10 +7,9 @@ import { Button } from "../controls/Button";
 
 const LinkWrapper = ({ children }: PropsWithChildren<unknown>) => {
   const router = useRouter();
+
   return (
-    <Link href={`${DISCORD_OAUTH_URL}&state=${router.asPath}`}>
-      <a>{children}</a>
-    </Link>
+    <Link href={`${DISCORD_OAUTH_URL}&state=${router.asPath}`}>{children}</Link>
   );
 };
 

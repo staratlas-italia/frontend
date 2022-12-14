@@ -104,21 +104,18 @@ export const View = () => {
                     : "#"
                 }
                 passHref
+                className={classNames({
+                  "pointer-events-none": !connected,
+                })}
               >
-                <a
-                  className={classNames({
-                    "pointer-events-none": !connected,
-                  })}
+                <Button.Neutral
+                  as="div"
+                  className="cursor-pointer"
+                  disabled={!connected}
+                  iconRight={ArrowRightIcon}
                 >
-                  <Button.Neutral
-                    as="div"
-                    className="cursor-pointer"
-                    disabled={!connected}
-                    iconRight={ArrowRightIcon}
-                  >
-                    <Translation id="generic.next" />
-                  </Button.Neutral>
-                </a>
+                  <Translation id="generic.next" />
+                </Button.Neutral>
               </Link>
             </Flex>
           </BlurBackground>

@@ -59,10 +59,11 @@ export const CitizenInfoBanner = () => {
         </Flex>
 
         {!isCitizenshipPurchaseDisabled && (
-          <Link href={getRoute("/citizenship")}>
-            <a className="underline cursor-pointer text-right">
-              <Translation id="citizenship.banner.action.title" />
-            </a>
+          <Link
+            href={getRoute("/citizenship")}
+            className="underline cursor-pointer text-right"
+          >
+            <Translation id="citizenship.banner.action.title" />
           </Link>
         )}
       </Flex>

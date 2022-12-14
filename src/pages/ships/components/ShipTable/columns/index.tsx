@@ -81,10 +81,9 @@ export const columns = ({
               shipId: row.original.id,
             })}
             locale={locale}
+            target="_blank"
           >
-            <a target="_blank">
-              <ExternalLinkIcon className="h-5 w-5" />
-            </a>
+            <ExternalLinkIcon className="h-5 w-5" />
           </Link>
         </Flex>
       );

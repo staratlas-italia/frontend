@@ -34,19 +34,20 @@ export const WelcomeBanner = () => {
         >
           <Translation id="Home.WelcomeBanner.title" />
         </Text>
+
         <Text color="text-white" size="lg" mdSize="xl" weight="medium">
           <Translation id="Home.WelcomeBanner.description.0" />
         </Text>
+
         <Text color="text-white" weight="semibold" size="lg" mdSize="xl">
           <Translation id="Home.WelcomeBanner.description.1" />
         </Text>
+
         <Flex>
           <Link href="/dashboard" locale={locale}>
-            <a>
-              <Button.Primary iconRight={ArrowRightIcon}>
-                <Translation id="Home.WelcomeBanner.action.title" />
-              </Button.Primary>
-            </a>
+            <Button.Primary iconRight={ArrowRightIcon}>
+              <Translation id="Home.WelcomeBanner.action.title" />
+            </Button.Primary>
           </Link>
         </Flex>
       </BlurBackground>

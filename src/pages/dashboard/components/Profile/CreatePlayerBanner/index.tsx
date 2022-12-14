@@ -16,12 +16,14 @@ export const CreatePlayerBanner = () => {
         </Text>
       </Flex>
       <Flex>
-        <Link href="https://play.staratlas.com/faction">
-          <a target="_blank" rel="noopener">
-            <Button.Neutral as="div" size="small">
-              Creane uno!
-            </Button.Neutral>
-          </a>
+        <Link
+          href="https://play.staratlas.com/faction"
+          target="_blank"
+          rel="noopener"
+        >
+          <Button.Neutral as="div" size="small">
+            Creane uno!
+          </Button.Neutral>
         </Link>
       </Flex>
     </BlurBackground>
