@@ -1,3 +1,4 @@
+import { CogIcon } from "@heroicons/react/outline";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { Wallet } from "@solana/wallet-adapter-wallets";
 import styled from "styled-components";
@@ -5,13 +6,13 @@ import { Text } from "~/components/common/Text";
 import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
 import { Identicon } from "~/components/Wallet/components/UserBadge/Identicon";
-import { Settings } from "~/components/Wallet/components/UserBadge/Settings";
+import { useModal } from "~/contexts/ModalContext";
 import { shortenAddress } from "~/utils/shortenAddress";
 
 type Props = {
   iconSize?: number;
   showAddress?: boolean;
-  hideSettings?: boolean;
+  disableSettings?: boolean;
 };
 
 const Icon = styled(Identicon)<Props>`
@@ -19,8 +20,13 @@ const Icon = styled(Identicon)<Props>`
   border-radius: 50;
 `;
 
-export const UserBadge = ({ hideSettings, iconSize, showAddress }: Props) => {
+export const UserBadge = ({
+  disableSettings,
+  iconSize,
+  showAddress,
+}: Props) => {
   const { connected, wallet, publicKey } = useWallet();
+  const { open } = useModal("wallet-modal");
 
   let name = showAddress ? shortenAddress(`${publicKey}`) : "";
 
@@ -36,9 +42,11 @@ export const UserBadge = ({ hideSettings, iconSize, showAddress }: Props) => {
 
   return (
     <Flex className="space-x-2">
-      {!hideSettings && <Settings />}
-
-      <Button.Neutral size="small">
+      <Button.Neutral
+        size="small"
+        iconRight={disableSettings ? undefined : CogIcon}
+        onClick={disableSettings ? undefined : open}
+      >
         <Flex className="space-x-2 h-7" align="center">
           <Icon address={publicKey?.toBase58()} iconSize={iconSize} />
 
