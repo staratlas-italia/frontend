@@ -13,8 +13,8 @@ type AuthStore = {
   clear: () => void;
 };
 
-export const useAuthStore = create<AuthStore>(
-  persist(
+export const useAuthStore = create(
+  persist<AuthStore>(
     (set, get) => ({
       signature: null,
       updatedAt: null,

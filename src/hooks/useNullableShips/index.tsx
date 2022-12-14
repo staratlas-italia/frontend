@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import useSWR from "swr";
 import { useShipContext } from "~/contexts/ShipsContext";
+import { api } from "~/network/api";
 import { StarAtlasEntity } from "~/types";
 import { getApiRoute } from "~/utils/getRoute";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+const fetcher = (url: string) => api.get<StarAtlasEntity[]>(url);
 
 export const useNullableShips = () => {
   const { update } = useShipContext();

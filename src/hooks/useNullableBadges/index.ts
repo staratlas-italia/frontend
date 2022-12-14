@@ -1,29 +1,36 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import invariant from "invariant";
 import { useEffect } from "react";
-import { useSelf } from "~/hooks/useNullableSelf";
 import { useBadgesStore } from "~/stores/useBadgesStore";
 
 export const useNullableBadges = () => {
   const { connection } = useConnection();
   const { publicKey } = useWallet();
 
-  const self = useSelf();
-
-  const badges = useBadgesStore((state) => state.badges);
-  const fetchBadges = useBadgesStore((state) => state.fetchBadges);
-  const isFetching = useBadgesStore((state) => state.isFetching);
+  const { badges, fetchBadges, isFetching } = useBadgesStore();
 
   useEffect(() => {
-    if (badges && publicKey && self.wallets.includes(publicKey.toString())) {
+    if (!publicKey) {
       return;
     }
 
-    fetchBadges(connection);
+    fetchBadges(connection, publicKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [self]);
+  }, [publicKey?.toString()]);
 
   return {
     isFetching,
     badges,
   };
+};
+
+export const useBadges = () => {
+  const badges = useBadgesStore((state) => state.badges);
+
+  invariant(
+    badges,
+    "This hook is meant to be used inside a BadgesRetriever component."
+  );
+
+  return badges;
 };

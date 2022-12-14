@@ -7,8 +7,6 @@ import {
 } from "~/common/constants";
 import { fetchPlayer } from "~/network/player";
 import { fetchOrCreateSelf, linkDiscordId } from "~/network/self";
-import { useBadgesStore } from "~/stores/useBadgesStore";
-import { useFleetStore } from "~/stores/useFleetStore";
 import { Avatar, Player } from "~/types";
 import { Self } from "~/types/api";
 import { getConnectionClusterUrl } from "~/utils/connection";
@@ -101,16 +99,15 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
         self,
         isFetching: false,
       });
-    } else {
-      set({
-        amounts,
-        self,
-        isFetching: false,
-      });
+
+      return;
     }
 
-    useBadgesStore.getState().fetchBadges(connection, publicKey);
-    useFleetStore.getState().fetchFleet(cluster, publicKey);
+    set({
+      amounts,
+      self,
+      isFetching: false,
+    });
   },
   clear: () => set({ self: null, player: null }),
 }));
