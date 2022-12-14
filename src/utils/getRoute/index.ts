@@ -1,5 +1,3 @@
-import { ChartType } from "~/types/api";
-
 export type Routes =
   | "/"
   | "/admin"
@@ -15,7 +13,6 @@ export type Routes =
   | "/ships/:shipId";
 
 export type ApiRoutes =
-  | `/api/charts/${ChartType}`
   | "/api/menu"
   | "/api/player"
   | "/api/payment/confirm"

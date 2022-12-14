@@ -1,14 +1,14 @@
 import { AssertAuthenticated } from "~/components/auth/AssertAuthenticated";
 import { LoadingView } from "~/components/LoadingView";
-import { Stats } from "~/views/admin/Stats";
+import { Admin } from "~/views/Admin";
 
-const Admin = () => (
+const AdminPage = () => (
   <AssertAuthenticated
     adminOnly
     loader={<LoadingView title="Admin.SignatureLoader.title" />}
   >
-    <Stats />
+    <Admin />
   </AssertAuthenticated>
 );
 
-export default Admin;
+export default AdminPage;
