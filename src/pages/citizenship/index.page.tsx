@@ -1,10 +1,14 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS } from "~/common/constants";
+import {
+  FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS,
+  FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS_DISCOUNTED,
+} from "~/common/constants";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
+import { useNullableSelf } from "~/hooks/useNullableSelf";
 import { Translation } from "~/i18n/Translation";
 import { fillUrlParameters } from "~/utils/fillUrlParameters";
 import { getRoute } from "~/utils/getRoute";
@@ -33,6 +37,13 @@ const FactionImage = styled.img.attrs({
 
 const Citizenship = () => {
   const router = useRouter();
+  const { self } = useNullableSelf();
+
+  const discordLinked = !!self?.discordId;
+
+  const accounts = discordLinked
+    ? FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS_DISCOUNTED
+    : FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS;
 
   return (
     <>
@@ -54,7 +65,7 @@ const Citizenship = () => {
           onClick={() =>
             router.push(
               fillUrlParameters(getRoute("/swap/:swapAccount"), {
-                swapAccount: FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.mud,
+                swapAccount: accounts.mud,
               })
             )
           }
@@ -80,7 +91,7 @@ const Citizenship = () => {
           onClick={() =>
             router.push(
               fillUrlParameters(getRoute("/swap/:swapAccount"), {
-                swapAccount: FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.ustur,
+                swapAccount: accounts.ustur,
               })
             )
           }
@@ -106,7 +117,7 @@ const Citizenship = () => {
           onClick={() =>
             router.push(
               fillUrlParameters(getRoute("/swap/:swapAccount"), {
-                swapAccount: FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.oni,
+                swapAccount: accounts.oni,
               })
             )
           }

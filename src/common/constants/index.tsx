@@ -131,13 +131,22 @@ export const DEVNET_FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS: Record<
   ustur: "2w1DbkC4XcreYJquUz2vz2uhV9pKaik4j6w11uWjFUso",
 };
 
-export const FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS: Record<
+export const FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS_DISCOUNTED: Record<
   Lowercase<Faction>,
   string
 > = {
   oni: "D9Nq8DSbTvDWTHnG9jEgkcoLKmfTaGds6UgdE9c1Y4hz",
   mud: "BXkoZquRBwbscxLit57CQCJGa9LwE2TByQpvSp9afhFe",
   ustur: "9Pb1mbD6tkxsRPauNZPZ5fta7TUMPjN6ZXpujTjkQNko",
+};
+
+export const FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS: Record<
+  Lowercase<Faction>,
+  string
+> = {
+  oni: "J6cvRe9S7D6RtsKxLeQDYmRLdhAwCEw6jXCUCsLFEWmC",
+  mud: "3CKAvF1v9hCXzZHPG68CMPtTuuX7gAE1dmvW6xBdnVNH",
+  ustur: "AKPxHQyA7rzPwcfx8udQjisaWm45qopMoji8cC8tiMBJ",
 };
 
 export const DEVNET_CITIZEN_TOKEN_MINT_PER_STATE_ACCOUNT: Record<
@@ -199,6 +208,48 @@ export const TOKEN_SWAP_STATE_ACCOUNTS: Record<string, SwapSetting> = {
     mint: CITIZEN_TOKEN_MINT_PER_FACTION.ustur,
     name: "Badge USTUR",
     swapAccount: new PublicKey(FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.ustur),
+    vaultCurrency: "USDC",
+    image: {
+      normal: "/images/cards/card-ustur.webp",
+      square: "/images/cards/card-square-ustur.webp",
+    },
+    sections: citizenShipTranslations,
+  },
+  [FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS_DISCOUNTED.oni]: {
+    quantity: 1,
+    mint: CITIZEN_TOKEN_MINT_PER_FACTION.oni,
+    name: "Badge ONI discounted",
+    swapAccount: new PublicKey(
+      FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS_DISCOUNTED.oni
+    ),
+    vaultCurrency: "USDC",
+    image: {
+      normal: "/images/cards/card-oni.webp",
+      square: "/images/cards/card-square-oni.webp",
+    },
+    sections: citizenShipTranslations,
+  },
+  [FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS_DISCOUNTED.mud]: {
+    quantity: 1,
+    mint: CITIZEN_TOKEN_MINT_PER_FACTION.mud,
+    name: "Badge MUD discounted",
+    swapAccount: new PublicKey(
+      FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS_DISCOUNTED.mud
+    ),
+    vaultCurrency: "USDC",
+    image: {
+      normal: "/images/cards/card-mud.webp",
+      square: "/images/cards/card-square-mud.webp",
+    },
+    sections: citizenShipTranslations,
+  },
+  [FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS_DISCOUNTED.ustur]: {
+    quantity: 1,
+    mint: CITIZEN_TOKEN_MINT_PER_FACTION.ustur,
+    name: "Badge USTUR discounted",
+    swapAccount: new PublicKey(
+      FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS_DISCOUNTED.ustur
+    ),
     vaultCurrency: "USDC",
     image: {
       normal: "/images/cards/card-ustur.webp",

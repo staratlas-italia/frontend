@@ -100,5 +100,9 @@
   "Ships.Toolbar.grid": "Mostra griglia",
   "Ships.Toolbar.table": "Mostra tabella",
   "Wallet.Disconnect.action.title": "Disconnetti",
-  "generic.error.denied": "Non sei autorizzato ad accedere a questa sezione!"
+  "generic.error.denied": "Non sei autorizzato ad accedere a questa sezione!",
+  "generic.form.error.required": "Il campo è obbligatorio",
+  "generic.form.error.publicKey": "Il campo deve essere una public key valida",
+  "generic.form.error.publicKey.different": "Il campo deve essere una public key diversa",
+  "generic.form.error.number": "Il campo deve essere un numero"
 }

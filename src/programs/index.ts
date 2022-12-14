@@ -42,9 +42,10 @@ export const fetchSwapPrice = async (
   );
 };
 
-export const initilizeUSDCSwap = async (
+export const initilizeSwap = async (
   connection: Connection,
   wallet: AnchorWallet,
+  proceedsMint: PublicKey,
   mint: PublicKey,
   price: number
 ) => {
@@ -68,7 +69,7 @@ export const initilizeUSDCSwap = async (
       owner: wallet.publicKey,
       vault: vaultPda,
       proceedsVault: proceedsVaultPda,
-      proceedsMint: USDC_TOKEN_MINT,
+      proceedsMint,
     })
     .signers([stateAccount])
     .rpc();

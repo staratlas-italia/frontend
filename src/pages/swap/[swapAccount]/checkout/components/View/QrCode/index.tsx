@@ -48,56 +48,6 @@ export const QrCode = memo(() => {
     }
   });
 
-  // const onPaymentComplete = useCallback(
-  //   (error?: Error | undefined) => {
-  //     if (!error) {
-  //       router.push(
-  //         fillUrlParameters(getRoute("/swap/:swapAccount/checkout/confirmed"), {
-  //           swapAccount: swapAccount.toString(),
-  //         })
-  //       );
-
-  //       return;
-  //     }
-
-  //     if (error instanceof WalletSignTransactionError) {
-  //       if (error.error.code === 4001) {
-  //         // User cancelled the sign
-  //         return;
-  //       }
-  //     }
-
-  //     if (error instanceof AnchorError) {
-  //       switch (error.error.errorCode.code) {
-  //         case "NotEnoughFunds":
-  //           toast.error(notEnoghFundMessage);
-  //           break;
-  //         default:
-  //           router.push(
-  //             appendQueryParams(
-  //               fillUrlParameters(
-  //                 getRoute("/swap/:swapAccount/checkout/error"),
-  //                 {
-  //                   swapAccount: swapAccount.toString(),
-  //                 }
-  //               ),
-  //               { code: error.error.errorCode.code }
-  //             )
-  //           );
-  //       }
-
-  //       return;
-  //     }
-
-  //     router.push(
-  //       fillUrlParameters(getRoute("/swap/:swapAccount/checkout/error"), {
-  //         swapAccount: swapAccount.toString(),
-  //       })
-  //     );
-  //   },
-  //   [notEnoghFundMessage, router, swapAccount]
-  // );
-
   const recusiveConfirm = useCallback(async () => {
     if (!publicKey) {
       return;
@@ -127,7 +77,6 @@ export const QrCode = memo(() => {
       );
       return;
     }
-    return setTimeout(() => recusiveConfirm(), 2000);
   }, [
     amount,
     confirmPayment,
@@ -139,9 +88,9 @@ export const QrCode = memo(() => {
   ]);
 
   useEffect(() => {
-    const timeout = recusiveConfirm();
+    const interval = setInterval(recusiveConfirm, 2000);
 
-    return () => clearTimeout(timeout);
+    return () => clearInterval(interval);
   }, [publicKey, recusiveConfirm]);
 
   return (

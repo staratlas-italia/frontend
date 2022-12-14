@@ -53,7 +53,7 @@ const getHandler = useMongoMiddleware(
     const userCollection = db.collection<Self>("users");
 
     const user = await userCollection.findOne({
-      wallets: { $in: [publicKey] },
+      wallets: publicKey,
     });
 
     if (!user) {

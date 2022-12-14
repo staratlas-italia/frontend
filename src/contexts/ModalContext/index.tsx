@@ -11,6 +11,7 @@ export const ModalContext = createContext<ModalContextState>(
 
 export type AvailableModal =
   | "wallet-modal"
+  | "add-program-instance-modal"
   | "how-to-buy-modal"
   | "ships-modal";
 
