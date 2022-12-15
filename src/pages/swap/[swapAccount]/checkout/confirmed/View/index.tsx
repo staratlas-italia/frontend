@@ -38,6 +38,7 @@ export const View = () => {
   const { publicKey } = useWallet();
   const { image, sections } = useSwapStateAccount();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const memoizedImagePath = useMemo(() => image.normal, []);
 
   const [done, setDone] = useState(false);

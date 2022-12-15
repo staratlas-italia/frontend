@@ -1,6 +1,5 @@
 import { captureException } from "@sentry/nextjs";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { Cluster } from "@solana/web3.js";
 import invariant from "invariant";
 import { useRouter } from "next/router";
 import { PropsWithChildren, ReactNode, useEffect } from "react";
@@ -32,7 +31,7 @@ export const ReferenceRetriever = ({
   useEffect(() => {
     if (publicKey && !reference) {
       try {
-        fetchReference({ cluster: cluster as Cluster, publicKey, swapAccount });
+        fetchReference({ publicKey, swapAccount });
       } catch (e) {
         captureException(e, { level: "error" });
 

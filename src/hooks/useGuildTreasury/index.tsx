@@ -46,8 +46,9 @@ export const useGuildTreasury = (): UseGuildTreasuryResult => {
       });
       setLoading(false);
     };
+
     run();
-  }, []);
+  }, [connection]);
 
   return { loading, treasury };
 };

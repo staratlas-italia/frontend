@@ -9,7 +9,7 @@ export const getDiscordSelf = async (token: string) => {
   try {
     const user = await discordClient.get<DiscordUser | null>("/users/@me", {
       Authorization: `Bearer ${token}`,
-    });
+    } as Record<string, string>);
 
     return user;
   } catch (e) {

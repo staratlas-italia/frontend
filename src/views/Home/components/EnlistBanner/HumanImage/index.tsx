@@ -17,7 +17,7 @@ export const HumanImage = () => {
   return (
     <Container px={10} mdPx={0} py={10} align="center" justify="center">
       <Flex className="rounded-full overflow-hidden">
-        <Human width={400} height={400} />
+        <Human alt="humanoid character" width={400} height={400} />
       </Flex>
     </Container>
   );
