@@ -4,7 +4,6 @@ import { Connection, PublicKey } from "@solana/web3.js";
 import { uniqWith } from "lodash";
 import create from "zustand";
 import { CITIZEN_TOKEN_MINT_PER_FACTION } from "~/common/constants";
-import { getConnectionClusterUrl } from "~/utils/connection";
 import { getBadgeByMint } from "~/utils/getBadgeByMint";
 import { toTuple } from "~/utils/toTuple";
 
@@ -18,7 +17,7 @@ type BadgesStore = {
 export const useBadgesStore = create<BadgesStore>((set, get) => ({
   badges: null,
   isFetching: false,
-  fetchBadges: async (_, publicKey) => {
+  fetchBadges: async (connection, publicKey) => {
     if (get().badges || get().isFetching) {
       return;
     }
@@ -26,10 +25,6 @@ export const useBadgesStore = create<BadgesStore>((set, get) => ({
     set({ isFetching: true });
 
     try {
-      const connection = new Connection(
-        getConnectionClusterUrl("mainnet-beta")
-      );
-
       const metaplex = Metaplex.make(connection, { cluster: "mainnet-beta" });
 
       const nfts = await metaplex.nfts().findAllByOwner({
@@ -67,7 +62,6 @@ export const useBadgesStore = create<BadgesStore>((set, get) => ({
         isFetching: false,
       });
     } catch (error) {
-      console.log("[dd]", error);
       captureException(error);
 
       set({
