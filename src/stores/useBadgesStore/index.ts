@@ -1,5 +1,6 @@
 import { Metadata, Metaplex } from "@metaplex-foundation/js";
 import { captureException } from "@sentry/nextjs";
+import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { Connection, PublicKey } from "@solana/web3.js";
 import { uniqWith } from "lodash";
 import create from "zustand";
@@ -31,17 +32,39 @@ export const useBadgesStore = create<BadgesStore>((set, get) => ({
         owner: new PublicKey(publicKey),
       });
 
+      const mints = [
+        CITIZEN_TOKEN_MINT_PER_FACTION.oni,
+        CITIZEN_TOKEN_MINT_PER_FACTION.mud,
+        CITIZEN_TOKEN_MINT_PER_FACTION.ustur,
+      ];
+
       const sfts = await metaplex.nfts().findAllByMintList({
-        mints: [
-          CITIZEN_TOKEN_MINT_PER_FACTION.oni,
-          CITIZEN_TOKEN_MINT_PER_FACTION.mud,
-          CITIZEN_TOKEN_MINT_PER_FACTION.ustur,
-        ],
+        mints,
       });
+
+      const addresses = await Promise.all(
+        mints.map((mint) => getAssociatedTokenAddress(mint, publicKey))
+      );
+
+      const tokens = await Promise.all(
+        addresses.map((address) =>
+          metaplex.tokens().findTokenWithMintByAddress({
+            address,
+          })
+        )
+      );
+
+      const finalSfts = sfts.filter(
+        (sft) =>
+          sft &&
+          tokens
+            .map((t) => t.mint.address.toString())
+            .includes((sft as Metadata).mintAddress.toString())
+      );
 
       const oweNfts = await Promise.all(
         uniqWith(
-          [...nfts, ...sfts] as Metadata[],
+          [...nfts, ...finalSfts] as Metadata[],
           (a, b) => a.mintAddress.toString() === b.mintAddress.toString()
         )
           .filter((nft) => getBadgeByMint(nft.mintAddress))
