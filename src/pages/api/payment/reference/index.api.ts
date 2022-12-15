@@ -7,7 +7,7 @@ import { getMongoDatabase } from "~/pages/api/mongodb";
 import { Self, Transaction } from "~/types/api";
 
 const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
-  const { cluster, swapAccount, publicKey } = body;
+  const { swapAccount, publicKey } = body;
 
   if (!swapAccount || !publicKey) {
     res.status(400).json({
@@ -17,7 +17,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const db = getMongoDatabase(cluster);
+  const db = getMongoDatabase();
 
   const transactionsCollection = db.collection<Transaction>("transactions");
   const usersCollection = db.collection<Self>("users");

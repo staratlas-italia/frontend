@@ -15,7 +15,7 @@ import { getShrinkClasses } from "~/components/layout/Flex/utils/getShrinkClasse
 import { getWrapClasses } from "~/components/layout/Flex/utils/getWrapClasses";
 import { Padding, PaddingProps } from "../Padding";
 
-export type FlexProps = React.HTMLAttributes<HTMLElement> & {
+export type FlexProps = React.HTMLAttributes<HTMLDivElement> & {
   as?: ComponentType | string;
 } & Partial<PaddingProps & Flexbox & MdFlexbox & LgFlexbox & XlFlexbox>;
 

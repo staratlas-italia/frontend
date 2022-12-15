@@ -70,15 +70,6 @@ export const SAI_CITIZEN_WALLET_DESTINATION = new PublicKey(
   "saiQr2S4nVMfhsaJYmTMSdVwaB1PbqjYsCDX1FnDJon"
 );
 
-export const CITIZEN_TOKEN_MINT_PER_FACTION: Record<
-  Lowercase<Faction>,
-  PublicKey
-> = {
-  mud: new PublicKey("mudS4YjsuhGAgoihdhT64762iGTYaqKZN92bwhcGAGr"),
-  oni: new PublicKey("oniMqPYgTypbvTJqu8mL94pQM5QDdMF2fXcyweNJePQ"),
-  ustur: new PublicKey("ustuRPvoFHcmoonK7on8tc6MaUQeuzUxx2ioFeuXLyn"),
-};
-
 export const DEV_EMAIL = "dev@staratlasitalia.com";
 
 export const growthbook = new GrowthBook();
@@ -119,12 +110,30 @@ type SwapSetting = {
   };
 };
 
+export const CITIZEN_TOKEN_MINT_PER_FACTION: Record<
+  Lowercase<Faction>,
+  PublicKey
+> = {
+  oni: new PublicKey("oniMqPYgTypbvTJqu8mL94pQM5QDdMF2fXcyweNJePQ"),
+  mud: new PublicKey("mudS4YjsuhGAgoihdhT64762iGTYaqKZN92bwhcGAGr"),
+  ustur: new PublicKey("ustuRPvoFHcmoonK7on8tc6MaUQeuzUxx2ioFeuXLyn"),
+};
+
+export const DEVNET_CITIZEN_TOKEN_MINT_PER_FACTION: Record<
+  Lowercase<Faction>,
+  PublicKey
+> = {
+  oni: new PublicKey("FCNy7oyjevsCbHbL2cgDJeWrmd3wWTDeq4u4uafCNUuu"),
+  mud: new PublicKey("EVWyAZNy32GnB9GZEcnGsawii4NfnC6KPsaRCGM7g8sx"),
+  ustur: new PublicKey("7n4rgd4WVNvzFom7UFqjCa9fpMB9apP8Gz3zX3aS6VEr"),
+};
+
 export const DEVNET_FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS: Record<
   Lowercase<Faction>,
   string
 > = {
-  oni: "FQpDeHQZ4csh7dkyYGFPDq4mvW6KZH4uTBxohxPG3K8b",
-  mud: "BtpXkPQoAc2eeoFoSmjqJxssM2GUcLScbEJQr3ACvDT9",
+  oni: "BtpXkPQoAc2eeoFoSmjqJxssM2GUcLScbEJQr3ACvDT9",
+  mud: "FQpDeHQZ4csh7dkyYGFPDq4mvW6KZH4uTBxohxPG3K8b",
   ustur: "2w1DbkC4XcreYJquUz2vz2uhV9pKaik4j6w11uWjFUso",
 };
 
@@ -144,21 +153,6 @@ export const FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS: Record<
   oni: "J6cvRe9S7D6RtsKxLeQDYmRLdhAwCEw6jXCUCsLFEWmC",
   mud: "3CKAvF1v9hCXzZHPG68CMPtTuuX7gAE1dmvW6xBdnVNH",
   ustur: "AKPxHQyA7rzPwcfx8udQjisaWm45qopMoji8cC8tiMBJ",
-};
-
-export const DEVNET_CITIZEN_TOKEN_MINT_PER_STATE_ACCOUNT: Record<
-  string,
-  PublicKey
-> = {
-  [DEVNET_FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.oni]: new PublicKey(
-    "FCNy7oyjevsCbHbL2cgDJeWrmd3wWTDeq4u4uafCNUuu"
-  ),
-  [DEVNET_FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.mud]: new PublicKey(
-    "EVWyAZNy32GnB9GZEcnGsawii4NfnC6KPsaRCGM7g8sx"
-  ),
-  [DEVNET_FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.ustur]: new PublicKey(
-    "7n4rgd4WVNvzFom7UFqjCa9fpMB9apP8Gz3zX3aS6VEr"
-  ),
 };
 
 const citizenShipTranslations: SwapSetting["sections"] = {
@@ -248,6 +242,47 @@ export const TOKEN_SWAP_STATE_ACCOUNTS: Record<string, SwapSetting> = {
       FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS_DISCOUNTED.ustur
     ),
     vaultCurrency: "USDC",
+    image: {
+      normal: "/images/cards/card-ustur.webp",
+      square: "/images/cards/card-square-ustur.webp",
+    },
+    sections: citizenShipTranslations,
+  },
+};
+
+export const DEVNET_TOKEN_SWAP_STATE_ACCOUNTS: Record<string, SwapSetting> = {
+  [DEVNET_FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.oni]: {
+    quantity: 1,
+    mint: DEVNET_CITIZEN_TOKEN_MINT_PER_FACTION.oni,
+    name: "Badge ONI DEVNET",
+    swapAccount: new PublicKey(DEVNET_FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.oni),
+    vaultCurrency: "USDC-Dev",
+    image: {
+      normal: "/images/cards/card-oni.webp",
+      square: "/images/cards/card-square-oni.webp",
+    },
+    sections: citizenShipTranslations,
+  },
+  [DEVNET_FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.mud]: {
+    quantity: 1,
+    mint: DEVNET_CITIZEN_TOKEN_MINT_PER_FACTION.mud,
+    name: "Badge MUD DEVNET",
+    swapAccount: new PublicKey(DEVNET_FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.mud),
+    vaultCurrency: "USDC-Dev",
+    image: {
+      normal: "/images/cards/card-mud.webp",
+      square: "/images/cards/card-square-mud.webp",
+    },
+    sections: citizenShipTranslations,
+  },
+  [DEVNET_FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.ustur]: {
+    quantity: 1,
+    mint: DEVNET_CITIZEN_TOKEN_MINT_PER_FACTION.ustur,
+    name: "Badge USTUR DEVNET",
+    swapAccount: new PublicKey(
+      DEVNET_FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS.ustur
+    ),
+    vaultCurrency: "USDC-Dev",
     image: {
       normal: "/images/cards/card-ustur.webp",
       square: "/images/cards/card-square-ustur.webp",

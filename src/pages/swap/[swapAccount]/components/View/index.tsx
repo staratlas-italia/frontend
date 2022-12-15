@@ -11,7 +11,9 @@ import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Container } from "~/components/layout/Container";
 import { Flex } from "~/components/layout/Flex";
 import { Logo } from "~/components/layout/Header";
+import { LinkDiscordButton } from "~/components/LinkDiscordButton";
 import { LocaleSelector } from "~/components/LocaleSelector";
+import { SelfRetriever } from "~/components/SelfRetriever";
 import { useSwapStateAccount } from "~/components/SwapStateAccountGuard";
 import { Wallet } from "~/components/Wallet";
 import { Translation } from "~/i18n/Translation";
@@ -90,33 +92,44 @@ export const View = () => {
               </Flex>
             </Flex>
 
-            <Flex pt={5}>
-              <Link
-                href={
-                  connected
-                    ? appendQueryParams(
-                        fillUrlParameters(
-                          getRoute("/swap/:swapAccount/checkout"),
-                          { swapAccount: swapAccount.toString() }
-                        ),
-                        (cluster ? { cluster } : {}) as Record<string, any>
-                      )
-                    : "#"
-                }
-                passHref
-                className={classNames({
-                  "pointer-events-none": !connected,
-                })}
-              >
-                <Button.Neutral
-                  as="div"
-                  className="cursor-pointer"
-                  disabled={!connected}
-                  iconRight={ArrowRightIcon}
+            <Flex direction="col" pt={5}>
+              <Flex className="md:w-2/3">
+                <Text color="text-gray-200" weight="bold">
+                  <Translation id="citizenship.intro.discord" />
+                </Text>
+              </Flex>
+              <Flex pt={3} justify="between">
+                <SelfRetriever loader={<LinkDiscordButton.Loader />}>
+                  <LinkDiscordButton />
+                </SelfRetriever>
+
+                <Link
+                  className={classNames({
+                    "pointer-events-none": !connected,
+                  })}
+                  href={
+                    connected
+                      ? appendQueryParams(
+                          fillUrlParameters(
+                            getRoute("/swap/:swapAccount/checkout"),
+                            { swapAccount: swapAccount.toString() }
+                          ),
+                          (cluster ? { cluster } : {}) as Record<string, any>
+                        )
+                      : "#"
+                  }
+                  passHref
                 >
-                  <Translation id="generic.next" />
-                </Button.Neutral>
-              </Link>
+                  <Button.Neutral
+                    as="div"
+                    className="cursor-pointer"
+                    disabled={!connected}
+                    iconRight={ArrowRightIcon}
+                  >
+                    <Translation id="generic.next" />
+                  </Button.Neutral>
+                </Link>
+              </Flex>
             </Flex>
           </BlurBackground>
         </Flex>

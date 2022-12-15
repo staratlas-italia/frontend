@@ -9,21 +9,18 @@ type PaymentStore = {
   isFetchingReference: boolean;
   confirm: (_: {
     amount: number;
+    cluster: Cluster;
     publicKey: string;
     reference: string;
   }) => Promise<boolean | null>;
-  fetchReference: (_: {
-    cluster?: Cluster;
-    publicKey: PublicKey;
-    swapAccount: PublicKey;
-  }) => void;
+  fetchReference: (_: { publicKey: PublicKey; swapAccount: PublicKey }) => void;
 };
 
 export const usePaymentStore = create<PaymentStore>((set, get) => ({
   reference: null,
   isConfirming: false,
   isFetchingReference: false,
-  confirm: async ({ amount, publicKey, reference }) => {
+  confirm: async ({ amount, cluster, publicKey, reference }) => {
     if (get().isConfirming) {
       return null;
     }
@@ -32,6 +29,7 @@ export const usePaymentStore = create<PaymentStore>((set, get) => ({
 
     const response = await confirmPayment({
       amount,
+      cluster,
       publicKey: publicKey.toString(),
       reference,
     });
@@ -48,7 +46,7 @@ export const usePaymentStore = create<PaymentStore>((set, get) => ({
 
     return null;
   },
-  fetchReference: async ({ cluster, publicKey, swapAccount }) => {
+  fetchReference: async ({ publicKey, swapAccount }) => {
     if (get().isFetchingReference) {
       return null;
     }
@@ -56,7 +54,6 @@ export const usePaymentStore = create<PaymentStore>((set, get) => ({
     set({ isFetchingReference: true });
 
     const response = await fetchPaymentReference({
-      cluster,
       swapAccount: swapAccount.toString(),
       publicKey: publicKey.toString(),
     });

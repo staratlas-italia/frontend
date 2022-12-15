@@ -1,15 +1,12 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import {
-  FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS,
-  FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS_DISCOUNTED,
-} from "~/common/constants";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
-import { useNullableSelf } from "~/hooks/useNullableSelf";
 import { Translation } from "~/i18n/Translation";
+import { useFactionAccounts } from "~/pages/citizenship/useFactionAccounts";
+import { appendQueryParams } from "~/utils/appendQueryParams";
 import { fillUrlParameters } from "~/utils/fillUrlParameters";
 import { getRoute } from "~/utils/getRoute";
 
@@ -37,13 +34,10 @@ const FactionImage = styled.img.attrs({
 
 const Citizenship = () => {
   const router = useRouter();
-  const { self } = useNullableSelf();
 
-  const discordLinked = !!self?.discordId;
+  const query = router.query as Record<string, string | number>;
 
-  const accounts = discordLinked
-    ? FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS_DISCOUNTED
-    : FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS;
+  const accounts = useFactionAccounts();
 
   return (
     <>
@@ -64,9 +58,12 @@ const Citizenship = () => {
         <FactionBlock
           onClick={() =>
             router.push(
-              fillUrlParameters(getRoute("/swap/:swapAccount"), {
-                swapAccount: accounts.mud,
-              })
+              appendQueryParams(
+                fillUrlParameters(getRoute("/swap/:swapAccount"), {
+                  swapAccount: accounts.mud,
+                }),
+                query
+              )
             )
           }
         >
@@ -90,9 +87,12 @@ const Citizenship = () => {
         <FactionBlock
           onClick={() =>
             router.push(
-              fillUrlParameters(getRoute("/swap/:swapAccount"), {
-                swapAccount: accounts.ustur,
-              })
+              appendQueryParams(
+                fillUrlParameters(getRoute("/swap/:swapAccount"), {
+                  swapAccount: accounts.ustur,
+                }),
+                query
+              )
             )
           }
         >
@@ -116,9 +116,12 @@ const Citizenship = () => {
         <FactionBlock
           onClick={() =>
             router.push(
-              fillUrlParameters(getRoute("/swap/:swapAccount"), {
-                swapAccount: accounts.oni,
-              })
+              appendQueryParams(
+                fillUrlParameters(getRoute("/swap/:swapAccount"), {
+                  swapAccount: accounts.oni,
+                }),
+                query
+              )
             )
           }
         >

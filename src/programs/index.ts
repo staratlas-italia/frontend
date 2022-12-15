@@ -1,9 +1,13 @@
 import { AnchorProvider, BN, Program } from "@project-serum/anchor";
 import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { AnchorWallet } from "@solana/wallet-adapter-react";
-import { Connection, Keypair, PublicKey } from "@solana/web3.js";
+import { Cluster, Connection, Keypair, PublicKey } from "@solana/web3.js";
 import { AnchorTypes } from "@staratlas/factory/dist/anchor/types";
-import { SAI_TOKEN_SWAP_PROGRAM_ID, USDC_TOKEN_MINT } from "~/common/constants";
+import {
+  DEVNET_USDC_TOKEN_MINT,
+  SAI_TOKEN_SWAP_PROGRAM_ID,
+  USDC_TOKEN_MINT,
+} from "~/common/constants";
 import { IDL, SaiTokenSwap } from "~/programs/sai_token_swap";
 
 type SwapTypes = AnchorTypes<SaiTokenSwap>;
@@ -76,6 +80,7 @@ export const initilizeSwap = async (
 };
 
 export const swapToken = async (
+  cluster: Cluster,
   connection: Connection,
   wallet: AnchorWallet,
   stateAccount: PublicKey,
@@ -93,7 +98,7 @@ export const swapToken = async (
   );
 
   const buyerOutTokenAccount = await getAssociatedTokenAddress(
-    USDC_TOKEN_MINT,
+    cluster === "devnet" ? DEVNET_USDC_TOKEN_MINT : USDC_TOKEN_MINT,
     wallet.publicKey
   );
 

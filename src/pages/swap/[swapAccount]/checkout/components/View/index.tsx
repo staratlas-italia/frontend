@@ -1,5 +1,4 @@
 import { ShieldCheckIcon } from "@heroicons/react/outline";
-import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Loader as CLoader } from "~/components/common/Loader";
 import { Text } from "~/components/common/Text";
@@ -11,7 +10,6 @@ import { useSwapStateAccount } from "~/components/SwapStateAccountGuard";
 import { Wallet } from "~/components/Wallet";
 import { useSwapProgramPrice } from "~/hooks/useSwapProgramPrice";
 import { Translation } from "~/i18n/Translation";
-import { useTranslation } from "~/i18n/useTranslation";
 import { ReferenceRetriever } from "../ReferenceRetriever";
 import { QrCode } from "./QrCode";
 import { SwapTrigger } from "./SwapTrigger";
@@ -65,14 +63,8 @@ const CartItem = () => {
 };
 
 export const View = () => {
-  const router = useRouter();
   const amount = useSwapProgramPrice();
-  const { swapAccount, sections, quantity, vaultCurrency } =
-    useSwapStateAccount();
-
-  const notEnoghFundMessage = useTranslation(
-    "swap.checkout.error.description.notEnoughFunds"
-  );
+  const { sections, quantity, vaultCurrency } = useSwapStateAccount();
 
   return (
     <Container>

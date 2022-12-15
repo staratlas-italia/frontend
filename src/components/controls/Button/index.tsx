@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 import { Loader } from "~/components/common/Loader";
 import { Text } from "~/components/common/Text";
 import { TextColor } from "~/components/common/Text/types";
-import { Flex } from "~/components/layout/Flex";
+import { Flex, FlexProps } from "~/components/layout/Flex";
 import { PaddingProps } from "~/components/layout/Padding";
 import { iconRenderProp } from "~/types";
 
@@ -66,11 +66,16 @@ const getButtonHeight = ({ size }: Pick<ButtonProps, "size">) => {
   }
 };
 
-const Wrapper = styled.button.withConfig({
+type WrapperProps = FlexProps &
+  Pick<ButtonProps, "size" | "loading" | "round"> & {
+    disabled?: boolean;
+  };
+
+const Wrapper = styled(Flex).withConfig({
   shouldForwardProp: (prop, defaultShouldForwardProp) =>
     !["size", "loading", "round"].includes(prop) &&
     defaultShouldForwardProp(prop),
-})`
+})<WrapperProps>`
   ${getButtonHeight}
 
   ${({ disabled }) =>
@@ -101,40 +106,37 @@ export const Button = ({
       disabled={disabled}
       className={classNames(className, "group rounded-md", {
         "w-5 h-5": round,
-        "opacity-60": disabled,
+        "opacity-80": disabled,
       })}
       type={type}
+      align="center"
+      justify="center"
+      {...(round ? undefined : getButtonSize(size))}
+      {...props}
     >
-      <Flex
-        align="center"
-        justify="center"
-        {...(round ? undefined : getButtonSize(size))}
-        {...props}
-      >
-        {iconLeft && (
-          <Flex pr={2}>{iconLeft({ className: `h-5 w-5 ${textColor}` })}</Flex>
-        )}
+      {iconLeft && (
+        <Flex pr={2}>{iconLeft({ className: `h-5 w-5 ${textColor}` })}</Flex>
+      )}
 
-        {loading ? (
-          <Loader />
-        ) : (
-          <Text
-            hover
-            size="base"
-            align="center"
-            mdSize="lg"
-            weight="semibold"
-            className="w-full"
-            color={textColor}
-          >
-            {children}
-          </Text>
-        )}
+      {loading ? (
+        <Loader color={textColor} />
+      ) : (
+        <Text
+          hover
+          size="base"
+          align="center"
+          mdSize="lg"
+          weight="semibold"
+          className="w-full"
+          color={textColor}
+        >
+          {children}
+        </Text>
+      )}
 
-        {iconRight && (
-          <Flex pl={2}>{iconRight({ className: `h-5 w-5 ${textColor}` })}</Flex>
-        )}
-      </Flex>
+      {iconRight && (
+        <Flex pl={2}>{iconRight({ className: `h-5 w-5 ${textColor}` })}</Flex>
+      )}
     </Wrapper>
   );
 };

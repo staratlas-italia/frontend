@@ -2,7 +2,7 @@ import { AnchorProvider, BN, Program } from "@project-serum/anchor";
 import NodeWallet from "@project-serum/anchor/dist/cjs/nodewallet";
 import { getAssociatedTokenAddress } from "@solana/spl-token";
 import {
-  clusterApiUrl,
+  Cluster,
   Connection,
   Keypair,
   PublicKey,
@@ -12,17 +12,26 @@ import { pipe } from "fp-ts/function";
 import { NextApiRequest, NextApiResponse } from "next";
 import {
   APP_BASE_URL,
+  DEVNET_TOKEN_SWAP_STATE_ACCOUNTS,
+  DEVNET_USDC_TOKEN_MINT,
   SAI_TOKEN_SWAP_PROGRAM_ID,
   TOKEN_SWAP_STATE_ACCOUNTS,
   USDC_TOKEN_MINT,
 } from "~/common/constants";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 import { IDL } from "~/programs/sai_token_swap";
+import { getConnectionClusterUrl } from "~/utils/connection";
+
+const getSwapState = (cluster?: Cluster) =>
+  cluster === "devnet"
+    ? DEVNET_TOKEN_SWAP_STATE_ACCOUNTS
+    : TOKEN_SWAP_STATE_ACCOUNTS;
 
 const getHandler = (req: NextApiRequest, res: NextApiResponse) => {
   const stateAccountField = req.query.stateAccount as string;
+  const clusterField = req.query.cluster as Cluster | undefined;
 
-  const state = TOKEN_SWAP_STATE_ACCOUNTS[stateAccountField];
+  const state = getSwapState(clusterField)[stateAccountField];
   const path = state.image.square;
 
   res.status(200).json({
@@ -33,20 +42,31 @@ const getHandler = (req: NextApiRequest, res: NextApiResponse) => {
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const accountField = req.body?.account;
-  const mintField = req.query.mint as string;
   const stateAccountField = req.query.stateAccount as string;
   const referenceField = req.query.reference as string;
+  const publicKeyField = req.query.publicKey as string;
+  const clusterField = req.query.cluster as Cluster | undefined;
 
-  if (!accountField || !mintField || !stateAccountField || !referenceField) {
+  if (
+    !accountField ||
+    !stateAccountField ||
+    !publicKeyField ||
+    !referenceField
+  ) {
     throw new Error("Invalid params");
   }
 
-  const mint = new PublicKey(mintField);
   const owner = new PublicKey(accountField);
+  const publicKey = new PublicKey(publicKeyField);
+
+  if (!owner.equals(publicKey)) {
+    throw new Error("Not same publickey!");
+  }
+
   const reference = new PublicKey(referenceField);
   const stateAccount = new PublicKey(stateAccountField);
 
-  const connection = new Connection(clusterApiUrl("mainnet-beta"));
+  const connection = new Connection(getConnectionClusterUrl(clusterField));
 
   const provider = new AnchorProvider(
     connection,
@@ -67,16 +87,21 @@ const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   );
 
   const buyerOutTokenAccount = await getAssociatedTokenAddress(
-    USDC_TOKEN_MINT,
+    clusterField === "devnet" ? DEVNET_USDC_TOKEN_MINT : USDC_TOKEN_MINT,
     owner
   );
 
-  const buyerInTokenAccount = await getAssociatedTokenAddress(mint, owner);
+  const state = getSwapState(clusterField)[stateAccountField];
+
+  const buyerInTokenAccount = await getAssociatedTokenAddress(
+    state.mint,
+    owner
+  );
 
   const swapIx = await program.methods
     .swap(new BN(1))
     .accounts({
-      mint,
+      mint: state.mint,
       buyerInTokenAccount,
       buyerOutTokenAccount,
       state: stateAccount,
@@ -107,8 +132,6 @@ const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   });
 
   const base64Transaction = serializedTransaction.toString("base64");
-
-  const state = TOKEN_SWAP_STATE_ACCOUNTS[stateAccountField];
 
   const message = `Thank you for your purchase of ${state.name}`;
 

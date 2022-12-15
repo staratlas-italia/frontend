@@ -1,7 +1,11 @@
 import invariant from "invariant";
 import { useRouter } from "next/router";
 import { PropsWithChildren } from "react";
-import { TOKEN_SWAP_STATE_ACCOUNTS } from "~/common/constants";
+import {
+  DEVNET_TOKEN_SWAP_STATE_ACCOUNTS,
+  TOKEN_SWAP_STATE_ACCOUNTS,
+} from "~/common/constants";
+import { useCluster } from "~/components/ClusterProvider";
 import { Redirect } from "~/components/common/Redirect";
 import { getRoute } from "~/utils/getRoute";
 import { isValidSwapStateAccount } from "~/utils/isValidSwapStateAccount";
@@ -9,9 +13,10 @@ import { isValidSwapStateAccount } from "~/utils/isValidSwapStateAccount";
 export const SwapStateAccountGuard = ({
   children,
 }: PropsWithChildren<unknown>) => {
+  const { cluster } = useCluster();
   const { swapAccount } = useRouter().query;
 
-  if (!isValidSwapStateAccount(swapAccount as string)) {
+  if (!isValidSwapStateAccount(cluster, swapAccount as string)) {
     return <Redirect replace to={getRoute("/citizenship")} />;
   }
 
@@ -19,6 +24,7 @@ export const SwapStateAccountGuard = ({
 };
 
 export const useSwapStateAccount = () => {
+  const { cluster } = useCluster();
   const { swapAccount } = useRouter().query;
 
   invariant(
@@ -26,5 +32,9 @@ export const useSwapStateAccount = () => {
     "This hook is meant to be used insied a SwapStateAccountGuard component"
   );
 
-  return TOKEN_SWAP_STATE_ACCOUNTS[swapAccount as string];
+  return (
+    cluster === "devnet"
+      ? DEVNET_TOKEN_SWAP_STATE_ACCOUNTS
+      : TOKEN_SWAP_STATE_ACCOUNTS
+  )[swapAccount as string];
 };

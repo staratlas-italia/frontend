@@ -2,10 +2,12 @@ import { createQR, encodeURL } from "@solana/pay";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useRouter } from "next/router";
 import { memo, useCallback, useEffect, useMemo, useRef } from "react";
+import { useCluster } from "~/components/ClusterProvider";
 import { Flex } from "~/components/layout/Flex";
 import { useSwapStateAccount } from "~/components/SwapStateAccountGuard";
 import { useSwapProgramPrice } from "~/hooks/useSwapProgramPrice";
 import { usePaymentStore } from "~/stores/usePaymentStore";
+import { appendQueryParams } from "~/utils/appendQueryParams";
 import { fillUrlParameters } from "~/utils/fillUrlParameters";
 import { getApiRoute, getRoute } from "~/utils/getRoute";
 import { usePaymentReference } from "../../ReferenceRetriever";
@@ -13,8 +15,10 @@ import { usePaymentReference } from "../../ReferenceRetriever";
 export const QrCode = memo(() => {
   const amount = useSwapProgramPrice();
   const router = useRouter();
-  const { swapAccount, mint, quantity } = useSwapStateAccount();
 
+  const { swapAccount, quantity } = useSwapStateAccount();
+
+  const { cluster } = useCluster();
   const confirmPayment = usePaymentStore((s) => s.confirm);
 
   const { publicKey } = useWallet();
@@ -27,14 +31,15 @@ export const QrCode = memo(() => {
       `${window.location.origin}${getApiRoute("/api/swap")}`
     );
 
-    currentUrl.searchParams.append("stateAccount", swapAccount.toString());
-    currentUrl.searchParams.append("mint", mint.toString());
+    currentUrl.searchParams.append("cluster", cluster);
     currentUrl.searchParams.append("reference", reference.toString());
+    currentUrl.searchParams.append("publicKey", publicKey?.toString() || "");
+    currentUrl.searchParams.append("stateAccount", swapAccount.toString());
 
     return encodeURL({
       link: currentUrl,
     });
-  }, [mint, reference, swapAccount]);
+  }, [cluster, reference, publicKey, swapAccount]);
 
   useEffect(() => {
     const qr = createQR(url, 250, "transparent");
@@ -52,6 +57,7 @@ export const QrCode = memo(() => {
 
     const status = await confirmPayment({
       amount: amount * (quantity || 1),
+      cluster,
       publicKey: publicKey.toString(),
       reference,
     });
@@ -59,23 +65,33 @@ export const QrCode = memo(() => {
     if (status !== null) {
       if (status) {
         router.push(
-          fillUrlParameters(getRoute("/swap/:swapAccount/checkout/confirmed"), {
-            swapAccount: swapAccount.toString(),
-          })
+          appendQueryParams(
+            fillUrlParameters(
+              getRoute("/swap/:swapAccount/checkout/confirmed"),
+              {
+                swapAccount: swapAccount.toString(),
+              }
+            ),
+            { cluster }
+          )
         );
 
         return;
       }
 
       router.push(
-        fillUrlParameters(getRoute("/swap/:swapAccount/checkout/error"), {
-          swapAccount: swapAccount.toString(),
-        })
+        appendQueryParams(
+          fillUrlParameters(getRoute("/swap/:swapAccount/checkout/error"), {
+            swapAccount: swapAccount.toString(),
+          }),
+          { cluster }
+        )
       );
       return;
     }
   }, [
     amount,
+    cluster,
     confirmPayment,
     publicKey,
     quantity,

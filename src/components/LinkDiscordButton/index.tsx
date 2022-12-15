@@ -24,6 +24,7 @@ export const LinkDiscordButton = () => {
   return (
     <Wrapper>
       <Button.Primary
+        disabled
         as="div"
         className="rounded-xl"
         iconLeft={() => (
@@ -39,3 +40,7 @@ export const LinkDiscordButton = () => {
     </Wrapper>
   );
 };
+
+const Loader = () => <Button.Primary as="div" loading className="rounded-xl" />;
+
+LinkDiscordButton.Loader = Loader;

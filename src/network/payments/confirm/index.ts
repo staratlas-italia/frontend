@@ -1,9 +1,11 @@
+import { Cluster } from "@solana/web3.js";
 import { api } from "~/network/api";
 import { ConfirmPaymentResponse } from "~/types/api";
 import { getApiRoute } from "~/utils/getRoute";
 
 type Param = {
   amount: number;
+  cluster: Cluster;
   publicKey: string;
   reference: string;
   signal?: AbortSignal;
@@ -11,6 +13,7 @@ type Param = {
 
 export const confirmPayment = async ({
   amount,
+  cluster,
   publicKey,
   reference,
   signal = new AbortController().signal,
@@ -20,6 +23,7 @@ export const confirmPayment = async ({
     {
       body: {
         amount,
+        cluster,
         publicKey,
         reference,
       },

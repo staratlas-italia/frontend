@@ -10,7 +10,6 @@ type Param = {
 };
 
 export const fetchPaymentReference = async ({
-  cluster,
   swapAccount,
   publicKey,
 }: Param) => {
@@ -21,7 +20,7 @@ export const fetchPaymentReference = async ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: { cluster, swapAccount, publicKey },
+        body: { swapAccount, publicKey },
       }
     );
 
