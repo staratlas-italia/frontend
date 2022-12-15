@@ -6,7 +6,7 @@ export const mongoClient = new MongoClient(process.env.MONGO_DB_URI || "", {
 });
 
 export const getMongoDatabase = (cluster: Cluster = "mainnet-beta") => {
-  const name = cluster === "mainnet-beta" ? "app-db" : "app-db-test";
+  const name = "app-db";
 
   return mongoClient.db(name);
 };

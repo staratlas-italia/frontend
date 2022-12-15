@@ -41,7 +41,13 @@ export const ConnectedContent = () => {
             title: wallet!.name,
             icon: (props) =>
               wallet?.icon ? (
-                <Image src={wallet.icon} width={25} height={25} {...props} />
+                <Image
+                  alt="Wallet icon"
+                  src={wallet.icon}
+                  width={25}
+                  height={25}
+                  {...props}
+                />
               ) : null,
             details: shortenAddress(publicKey?.toString() || "", 10),
           },

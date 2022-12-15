@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 import { Loader } from "~/components/common/Loader";
 import { Text } from "~/components/common/Text";
 import { TextColor } from "~/components/common/Text/types";
-import { Flex } from "~/components/layout/Flex";
+import { Flex, FlexProps } from "~/components/layout/Flex";
 import { PaddingProps } from "~/components/layout/Padding";
 import { iconRenderProp } from "~/types";
 
@@ -21,6 +21,7 @@ export type ButtonProps = PropsWithChildren<{
   size?: ButtonSize;
   round?: boolean;
   textColor?: TextColor;
+  type?: "submit";
 }>;
 
 const getButtonSize = (size?: ButtonSize): Partial<PaddingProps> => {
@@ -48,11 +49,35 @@ const getButtonSize = (size?: ButtonSize): Partial<PaddingProps> => {
   return {};
 };
 
-const Wrapper = styled.button.withConfig({
+const getButtonHeight = ({ size }: Pick<ButtonProps, "size">) => {
+  switch (size) {
+    case "small":
+      return css`
+        height: 44px;
+      `;
+    case "large":
+      return css`
+        height: 68px;
+      `;
+    default:
+      return css`
+        height: 60px;
+      `;
+  }
+};
+
+type WrapperProps = FlexProps &
+  Pick<ButtonProps, "size" | "loading" | "round"> & {
+    disabled?: boolean;
+  };
+
+const Wrapper = styled(Flex).withConfig({
   shouldForwardProp: (prop, defaultShouldForwardProp) =>
     !["size", "loading", "round"].includes(prop) &&
     defaultShouldForwardProp(prop),
-})`
+})<WrapperProps>`
+  ${getButtonHeight}
+
   ${({ disabled }) =>
     disabled &&
     css`
@@ -71,27 +96,31 @@ export const Button = ({
   size = "regular",
   round,
   textColor = "text-black",
+  type,
   ...props
 }: ButtonProps) => {
   return (
     <Wrapper
       as={as}
+      size={size}
       disabled={disabled}
       className={classNames(className, "group rounded-md", {
         "w-5 h-5": round,
-        "opacity-60": disabled,
+        "opacity-80": disabled,
       })}
+      type={type}
+      align="center"
+      justify="center"
+      {...(round ? undefined : getButtonSize(size))}
+      {...props}
     >
-      <Flex
-        align="center"
-        justify="between"
-        {...(round ? undefined : getButtonSize(size))}
-        {...props}
-      >
-        {iconLeft && (
-          <Flex pr={2}>{iconLeft({ className: `h-5 w-5 ${textColor}` })}</Flex>
-        )}
+      {iconLeft && (
+        <Flex pr={2}>{iconLeft({ className: `h-5 w-5 ${textColor}` })}</Flex>
+      )}
 
+      {loading ? (
+        <Loader color={textColor} />
+      ) : (
         <Text
           hover
           size="base"
@@ -103,13 +132,11 @@ export const Button = ({
         >
           {children}
         </Text>
+      )}
 
-        {loading && <Loader />}
-
-        {iconRight && (
-          <Flex pl={2}>{iconRight({ className: `h-5 w-5 ${textColor}` })}</Flex>
-        )}
-      </Flex>
+      {iconRight && (
+        <Flex pl={2}>{iconRight({ className: `h-5 w-5 ${textColor}` })}</Flex>
+      )}
     </Wrapper>
   );
 };

@@ -1,7 +1,8 @@
-import { clusterApiUrl, Connection } from "@solana/web3.js";
+import { Connection } from "@solana/web3.js";
 import create from "zustand";
 import { gmClientService } from "~/common/constants";
 import { StarAtlasEntity } from "~/types";
+import { getConnectionClusterUrl } from "~/utils/connection";
 import { getAtlasMarketPrice } from "~/utils/getAtlasMarketPrice";
 import { getEntityVwapPrice } from "~/utils/getEntityVwapPrice";
 import { getOrderBooks } from "~/utils/getOrderbooks";
@@ -43,9 +44,7 @@ export const useShipsDealsStore = create<ShipsDealsStore>((set, get) => ({
 
     set({ isFetching: true });
 
-    const connection = new Connection(
-      process.env.MAIN_RPC_ENDPOINT || clusterApiUrl("mainnet-beta")
-    );
+    const connection = new Connection(getConnectionClusterUrl("mainnet-beta"));
 
     const orderbooks = await getOrderBooks(gmClientService, connection);
 

@@ -1,33 +1,30 @@
-import { ChartType } from "~/types/api";
-
 export type Routes =
   | "/"
   | "/admin"
   | "/citizenship"
-  | "/citizenship/:faction"
-  | "/citizenship/checkout"
-  | "/citizenship/checkout/confirmed"
-  | "/citizenship/checkout/error"
-  | "/citizenship/invalid"
   | "/dashboard"
   | "/mint"
   | "/ships"
+  | "/ships/:shipId"
   | "/ships/deals"
-  | "/ships/:shipId";
+  | "/swap/:swapAccount"
+  | "/swap/:swapAccount/checkout"
+  | "/swap/:swapAccount/checkout/confirmed"
+  | "/swap/:swapAccount/checkout/error";
 
 export type ApiRoutes =
-  | `/api/charts/${ChartType}`
   | "/api/menu"
-  | "/api/player"
   | "/api/payment/confirm"
   | "/api/payment/reference"
+  | "/api/player"
   | "/api/referral/create"
   | "/api/referral/redeem"
   | "/api/score/:publicKey"
   | "/api/score/rates/:mint"
   | "/api/self"
   | "/api/self/link"
-  | "/api/ships";
+  | "/api/ships"
+  | "/api/swap";
 
 export const getApiRoute = <Route extends ApiRoutes>(route: Route) => route;
 export const getRoute = <Route extends Routes>(route: Route) => route;

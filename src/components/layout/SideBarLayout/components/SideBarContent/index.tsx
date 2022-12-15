@@ -40,21 +40,20 @@ export const SideBarContent = () => {
               item.route,
               query as Record<string, string | number>
             )}
+            target={item.external ? "_blank" : undefined}
           >
-            <a target={item.external ? "_blank" : undefined}>
-              <Flex
-                align="center"
-                px={4}
-                py={2}
-                className="space-x-3 lg:space-x-6 hover:bg-gray-200 hover:bg-opacity-10 rounded-3xl"
-              >
-                <img src={item.icon} className="h-5 w-5 text-white" />
+            <Flex
+              align="center"
+              px={4}
+              py={2}
+              className="space-x-3 lg:space-x-6 hover:bg-gray-200 hover:bg-opacity-10 rounded-3xl"
+            >
+              <img src={item.icon} className="h-5 w-5 text-white" />
 
-                <Text color="text-white" size="base" weight="medium">
-                  {item.name}
-                </Text>
-              </Flex>
-            </a>
+              <Text color="text-white" size="base" weight="medium">
+                {item.name}
+              </Text>
+            </Flex>
           </Link>
         </Flex>
       ))}

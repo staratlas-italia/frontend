@@ -1,5 +1,5 @@
 import { DuplicateIcon, PlusIcon } from "@heroicons/react/solid";
-import { WEBSITE_URL } from "~/common/constants";
+import { APP_BASE_URL } from "~/common/constants";
 import { AssertAuthenticated } from "~/components/auth/AssertAuthenticated";
 import { Text } from "~/components/common/Text";
 import { Button } from "~/components/controls/Button";
@@ -32,7 +32,7 @@ export const Code = () => {
         <Flex
           className="cursor-pointer"
           onClick={() =>
-            copyTextToClipboard(`${WEBSITE_URL}/referral?code=${referralCode}`)
+            copyTextToClipboard(`${APP_BASE_URL}/referral?code=${referralCode}`)
           }
         >
           <DuplicateIcon className="w-5 h-5 text-white" />

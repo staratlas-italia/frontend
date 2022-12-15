@@ -2,31 +2,29 @@ import { captureException } from "@sentry/nextjs";
 import {
   findReference,
   FindReferenceError,
-  validateTransfer,
   ValidateTransferError,
 } from "@solana/pay";
 import { Cluster, Connection, PublicKey } from "@solana/web3.js";
 import BigNumber from "bignumber.js";
 import { pipe } from "fp-ts/function";
 import { NextApiRequest, NextApiResponse } from "next";
-import {
-  DEVNET_USDC_TOKEN_MINT,
-  SAI_CITIZEN_WALLET_DESTINATION,
-  USDC_TOKEN_MINT,
-} from "~/common/constants";
-import { getCitizenshipPrice } from "~/hooks/useCitizenshipPrice";
-import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 import { useMongoMiddleware } from "~/middlewares/useMongo";
 import { getMongoDatabase } from "~/pages/api/mongodb";
-import { Self, Transaction } from "~/types/api";
+import { Transaction } from "~/types/api";
 import { getConnectionClusterUrl } from "~/utils/connection";
 import { isPublicKey } from "~/utils/pubkey";
 
 const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
-  const { cluster: clusterParam, reference: referenceParam, publicKey } = body;
+  const {
+    recipient,
+    amount: amountParam,
+    cluster: clusterParam,
+    reference: referenceParam,
+    publicKey,
+  } = body;
 
-  if (!referenceParam || !isPublicKey(publicKey)) {
+  if (!amountParam || !referenceParam || !isPublicKey(publicKey)) {
     res.status(400).json({
       success: false,
       error: "Invalid parameters supplied.",
@@ -34,16 +32,11 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
+  const amount = new BigNumber(amountParam);
+
   const cluster = clusterParam as Cluster;
 
   const db = getMongoDatabase(cluster);
-  const userCollection = db.collection<Self>("users");
-
-  const currentUser = await userCollection.findOne({
-    wallets: { $in: [publicKey] },
-  });
-
-  const amount = new BigNumber(getCitizenshipPrice(currentUser?.discordId));
 
   const reference = new PublicKey(referenceParam);
   const connection = new Connection(getConnectionClusterUrl(cluster));
@@ -53,24 +46,27 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
       finality: "confirmed",
     });
 
-    await validateTransfer(
-      connection,
+    const status = await connection.getSignatureStatus(
       signatureInfo.signature,
       {
-        recipient: SAI_CITIZEN_WALLET_DESTINATION,
-        splToken:
-          cluster === "devnet" ? DEVNET_USDC_TOKEN_MINT : USDC_TOKEN_MINT,
-        amount,
-        reference,
-      },
-      { commitment: "confirmed" }
+        searchTransactionHistory: true,
+      }
     );
+
+    if (status.value?.confirmationStatus !== "finalized") {
+      throw new FindReferenceError("Not finalized yet");
+    }
+
+    if (status.value.err) {
+      throw new ValidateTransferError("Transaction failed");
+    }
   } catch (e) {
     if (e instanceof FindReferenceError) {
       res.status(200).json({
         success: true,
         verified: false,
       });
+
       return;
     }
 
@@ -83,6 +79,10 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
       });
       return;
     }
+
+    captureException(e, { level: "error" });
+
+    console.log(JSON.stringify(e));
 
     res.status(200).json({
       success: false,
@@ -101,7 +101,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     },
     {
       $set: {
-        status: "ACCEPTED_WITHOUT_RETURN",
+        status: "ACCEPTED",
       },
     }
   );
@@ -115,6 +115,5 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 export default pipe(
   handler,
   matchMethodMiddleware(["POST"]),
-  attachClusterMiddleware,
   useMongoMiddleware
 );

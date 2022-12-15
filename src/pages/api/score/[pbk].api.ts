@@ -12,7 +12,6 @@ import {
   SA_FLEET_PROGRAM,
   TOOLKIT_PRICE,
 } from "~/common/constants";
-import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { ScoreFleetResponse } from "~/types/api";
 import { getConnectionClusterUrl } from "~/utils/connection";
 import { dailyMaintenanceCostInAtlas } from "~/utils/dailyMaintenanceCostInAtlas";
@@ -191,4 +190,4 @@ const handler = async (
   });
 };
 
-export default pipe(handler, attachClusterMiddleware);
+export default pipe(handler);

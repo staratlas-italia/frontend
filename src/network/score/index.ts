@@ -1,4 +1,6 @@
+import { captureException } from "@sentry/nextjs";
 import { Cluster } from "@solana/web3.js";
+import { api } from "~/network/api";
 import { ScoreFleetResponse } from "~/types/api";
 import { appendQueryParams } from "~/utils/appendQueryParams";
 import { fillUrlParameters } from "~/utils/fillUrlParameters";
@@ -8,16 +10,18 @@ export const fetchPlayerStakeShips = async (
   cluster: Cluster,
   publicKey: string
 ) => {
-  const ratesRes = await fetch(
-    appendQueryParams(
+  try {
+    const url = appendQueryParams(
       fillUrlParameters(getApiRoute("/api/score/:publicKey"), {
         publicKey,
       }),
       { cluster }
-    )
-  );
+    );
 
-  const ratesInfo: ScoreFleetResponse = await ratesRes.json();
+    return await api.get<ScoreFleetResponse>(url);
+  } catch (e) {
+    captureException(e, { level: "error" });
 
-  return ratesInfo;
+    return { success: false, error: "An error occured" } as ScoreFleetResponse;
+  }
 };

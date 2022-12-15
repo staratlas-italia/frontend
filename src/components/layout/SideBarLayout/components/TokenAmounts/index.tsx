@@ -8,7 +8,12 @@ export const TokenAmounts = () => {
   );
 
   return (
-    <BlurBackground wrap="wrap" px={3} py={2} className="lg:space-x-3">
+    <BlurBackground
+      wrap="wrap"
+      px={3}
+      py={2}
+      className="lg:space-x-3 space-x-2"
+    >
       <Price
         color="text-white"
         currency="ATLAS"

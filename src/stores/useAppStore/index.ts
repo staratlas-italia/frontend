@@ -5,8 +5,8 @@ type AppStore = {
   showHueAnimation: boolean;
 };
 
-export const useAppStore = create<AppStore>(
-  persist(
+export const useAppStore = create(
+  persist<AppStore>(
     () => ({
       showHueAnimation: true,
     }),

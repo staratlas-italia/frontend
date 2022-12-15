@@ -16,6 +16,7 @@ export const DisconnectedContent = () => {
           key={wallet.name}
           iconLeft={({ className }) => (
             <Image
+              alt="Wallet icon"
               src={wallet.icon}
               width={30}
               height={30}

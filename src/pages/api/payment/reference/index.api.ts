@@ -1,18 +1,15 @@
 import { Keypair } from "@solana/web3.js";
 import { pipe } from "fp-ts/function";
-import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getCitizenshipPrice } from "~/hooks/useCitizenshipPrice";
-import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 import { useMongoMiddleware } from "~/middlewares/useMongo";
 import { getMongoDatabase } from "~/pages/api/mongodb";
 import { Self, Transaction } from "~/types/api";
 
 const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
-  const { userId, cluster, faction, publicKey } = body;
+  const { swapAccount, publicKey } = body;
 
-  if (!userId || !faction || !publicKey) {
+  if (!swapAccount || !publicKey) {
     res.status(400).json({
       success: false,
       error: "Invalid parameters supplied.",
@@ -20,12 +17,12 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const db = getMongoDatabase(cluster);
+  const db = getMongoDatabase();
 
   const transactionsCollection = db.collection<Transaction>("transactions");
   const usersCollection = db.collection<Self>("users");
 
-  const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
+  const user = await usersCollection.findOne({ wallets: publicKey });
 
   if (!user) {
     res.status(404).json({
@@ -36,8 +33,8 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
   }
 
   let pendingTransaction = await transactionsCollection.findOne({
-    userId: new ObjectId(userId),
-    "meta.faction": faction.toUpperCase(),
+    publicKey,
+    "meta.swapAccount": swapAccount,
     status: "PENDING",
   });
 
@@ -53,13 +50,12 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 
   const insertResult = await transactionsCollection.insertOne({
     meta: {
-      faction: faction.toUpperCase(),
-      publicKey,
-      amount: getCitizenshipPrice(user.discordId),
+      swapAccount,
+      amount: 15,
       name: "CITIZENSHIP_CARD",
     },
+    publicKey,
     status: "PENDING",
-    userId: new ObjectId(userId),
     reference,
     createdAt: new Date(),
   });
@@ -81,6 +77,5 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 export default pipe(
   handler,
   matchMethodMiddleware(["POST"]),
-  useMongoMiddleware,
-  attachClusterMiddleware
+  useMongoMiddleware
 );

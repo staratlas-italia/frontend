@@ -3,10 +3,10 @@ import { Price } from "~/components/common/Price";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
+import { LinkDiscordButton } from "~/components/LinkDiscordButton";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 import { shortenAddress } from "~/utils/shortenAddress";
 import { CreatePlayerBanner } from "../CreatePlayerBanner";
-import { LinkDiscordButton } from "~/components/LinkDiscordButton";
 
 export const Profile = () => {
   const player = usePlayerStore((s) => s.player);

@@ -1,7 +1,8 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import styled, { css, keyframes } from "styled-components";
+import { BadgesRetriever } from "~/components/BadgesRetriever";
 import { SelfRetriever } from "~/components/SelfRetriever";
-import { useNullableBadges } from "~/hooks/useNullableBadges";
+import { useBadges } from "~/hooks/useNullableBadges";
 import { useHueAnimation } from "~/stores/useAppStore";
 import { getHueByFactionStyle } from "~/utils/getHueByFaction";
 import { isFactionBadge } from "~/utils/isFactionBadge";
@@ -36,12 +37,12 @@ const LayoutBackground = styled.div.attrs({
 `;
 
 const ConnectedBackground = () => {
-  const { badges } = useNullableBadges();
+  const badges = useBadges();
 
   const showAnimation = useHueAnimation();
 
   const [badge] =
-    badges?.find(([badge]) => isFactionBadge(badge.mintAddress)) || [];
+    badges.find(([badge]) => isFactionBadge(badge.mintAddress)) || [];
 
   if (!badge) {
     return <LayoutBackground />;
@@ -61,7 +62,9 @@ export const Background = () => {
   if (connected) {
     return (
       <SelfRetriever loader={<LayoutBackground />}>
-        <ConnectedBackground />
+        <BadgesRetriever loader={<LayoutBackground />}>
+          <ConnectedBackground />
+        </BadgesRetriever>
       </SelfRetriever>
     );
   }

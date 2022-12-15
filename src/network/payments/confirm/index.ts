@@ -1,8 +1,10 @@
 import { Cluster } from "@solana/web3.js";
+import { api } from "~/network/api";
 import { ConfirmPaymentResponse } from "~/types/api";
 import { getApiRoute } from "~/utils/getRoute";
 
 type Param = {
+  amount: number;
   cluster: Cluster;
   publicKey: string;
   reference: string;
@@ -10,23 +12,27 @@ type Param = {
 };
 
 export const confirmPayment = async ({
+  amount,
   cluster,
   publicKey,
   reference,
   signal = new AbortController().signal,
 }: Param) => {
-  const response = await fetch(getApiRoute("/api/payment/confirm"), {
-    method: "POST",
-    signal,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      cluster,
-      publicKey,
-      reference,
-    }),
-  });
+  const response = await api.post<ConfirmPaymentResponse>(
+    getApiRoute("/api/payment/confirm"),
+    {
+      body: {
+        amount,
+        cluster,
+        publicKey,
+        reference,
+      },
+      headers: {
+        "Content-Type": "application/json",
+      },
+      signal,
+    }
+  );
 
-  return response.json() as Promise<ConfirmPaymentResponse>;
+  return response;
 };

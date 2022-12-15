@@ -18,7 +18,7 @@ export const Logo = () => (
 export const LogoLink = () => {
   const { locale } = useRouter();
   return (
-    <Link href={`/`} locale={locale}>
+    <Link href="/" locale={locale}>
       <span className="cursor-pointer">
         <Flex align="center">
           <Logo />

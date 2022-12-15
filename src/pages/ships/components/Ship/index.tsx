@@ -75,12 +75,10 @@ export const ShipCard = ({ ship }: Props) => {
                 className="mt-5 sm:mt-10"
               >
                 {url && (
-                  <Link href={url}>
-                    <a target="_blank" rel="noreferrer">
-                      <Button.Primary as="div" className="w-full lg:w-auto">
-                        <Translation id="Ships.List.Card.BuyAction.title" />
-                      </Button.Primary>
-                    </a>
+                  <Link href={url} target="_blank" rel="noreferrer">
+                    <Button.Primary as="div" className="w-full lg:w-auto">
+                      <Translation id="Ships.List.Card.BuyAction.title" />
+                    </Button.Primary>
                   </Link>
                 )}
                 <Flex className="mt-3 lg:ml-3 lg:mt-0 w-full">
@@ -90,12 +88,11 @@ export const ShipCard = ({ ship }: Props) => {
                       query: { id: ship?._id },
                     }}
                     locale={locale}
+                    className="w-full lg:w-auto"
                   >
-                    <a className="w-full lg:w-auto">
-                      <Button.Tertiary as="div">
-                        <Translation id="Ships.List.Card.ReadMore.title" />
-                      </Button.Tertiary>
-                    </a>
+                    <Button.Tertiary as="div">
+                      <Translation id="Ships.List.Card.ReadMore.title" />
+                    </Button.Tertiary>
                   </Link>
                 </Flex>
               </Flex>

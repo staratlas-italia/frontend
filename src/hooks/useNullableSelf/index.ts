@@ -9,6 +9,7 @@ export const useNullableSelf = () => {
   const endpoint = useCluster();
 
   const self = usePlayerStore((state) => state.self);
+  const isFetching = usePlayerStore((state) => state.isFetching);
   const fetchSelf = usePlayerStore((state) => state.fetchSelf);
 
   useEffect(() => {
@@ -20,10 +21,10 @@ export const useNullableSelf = () => {
       fetchSelf(endpoint.cluster, publicKey.toString());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [publicKey]);
+  }, [endpoint.cluster, fetchSelf, publicKey]);
 
   return {
-    isFetching: self === null,
+    isFetching,
     self,
   };
 };

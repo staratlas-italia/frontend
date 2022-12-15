@@ -1,30 +1,26 @@
 import { Cluster, PublicKey } from "@solana/web3.js";
-import invariant from "invariant";
 import create from "zustand";
 import { confirmPayment } from "~/network/payments/confirm";
 import { fetchPaymentReference } from "~/network/payments/reference";
-import { usePlayerStore } from "~/stores/usePlayerStore";
-import { Faction } from "~/types";
 
 type PaymentStore = {
-  faction: Faction | null;
   reference: string | null;
   isConfirming: boolean;
   isFetchingReference: boolean;
   confirm: (_: {
+    amount: number;
     cluster: Cluster;
     publicKey: string;
     reference: string;
   }) => Promise<boolean | null>;
-  fetchReference: (_: { cluster?: Cluster; publicKey: PublicKey }) => void;
+  fetchReference: (_: { publicKey: PublicKey; swapAccount: PublicKey }) => void;
 };
 
 export const usePaymentStore = create<PaymentStore>((set, get) => ({
-  faction: null,
   reference: null,
   isConfirming: false,
   isFetchingReference: false,
-  confirm: async ({ cluster, publicKey, reference }) => {
+  confirm: async ({ amount, cluster, publicKey, reference }) => {
     if (get().isConfirming) {
       return null;
     }
@@ -32,6 +28,7 @@ export const usePaymentStore = create<PaymentStore>((set, get) => ({
     set({ isConfirming: true });
 
     const response = await confirmPayment({
+      amount,
       cluster,
       publicKey: publicKey.toString(),
       reference,
@@ -49,27 +46,16 @@ export const usePaymentStore = create<PaymentStore>((set, get) => ({
 
     return null;
   },
-  fetchReference: async ({ cluster, publicKey }) => {
-    const faction = get().faction;
-
-    if (get().isFetchingReference || !faction) {
+  fetchReference: async ({ publicKey, swapAccount }) => {
+    if (get().isFetchingReference) {
       return null;
     }
 
     set({ isFetchingReference: true });
 
-    const self = usePlayerStore.getState().self;
-
-    invariant(
-      self,
-      "This hook is meant to be used inside a SelfRetriever component"
-    );
-
     const response = await fetchPaymentReference({
-      cluster,
-      faction,
+      swapAccount: swapAccount.toString(),
       publicKey: publicKey.toString(),
-      userId: self._id.toString(),
     });
 
     const { reference } = response || {

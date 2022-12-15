@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 import Script from "next/script";
 import { useEffect } from "react";
 import { IntlProvider } from "react-intl";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { FEATURES_ENDPOINT, growthbook } from "~/common/constants";
 import { ClusterProvider, useCluster } from "~/components/ClusterProvider";
 import { MainLayout } from "~/components/layout/MainLayout";
@@ -61,6 +63,8 @@ function App({ router, ...props }: AppProps) {
           <ModalProvider>
             <WalletProvider>
               <ShipsProvider>
+                <ToastContainer />
+
                 <MainLayout>
                   <Pages {...props} />
                 </MainLayout>
@@ -124,6 +128,7 @@ const Pages = ({ Component, pageProps }: Omit<AppProps, "router">) => {
       </Head>
 
       <PreloadResources />
+
       <Component {...pageProps} />
     </ConnectionProvider>
   );

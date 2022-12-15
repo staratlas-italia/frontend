@@ -38,9 +38,7 @@ export const ShipPage = () => {
       <Flex pt={8}>
         <BlurBackground direction="col" className="space-y-5" p={5}>
           <Link href={getRoute("/ships")} locale={locale}>
-            <a>
-              <ArrowLeftIcon className="h-8 w-8 text-white" />
-            </a>
+            <ArrowLeftIcon className="h-8 w-8 text-white" />
           </Link>
 
           <Text

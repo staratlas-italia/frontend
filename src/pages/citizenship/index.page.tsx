@@ -5,6 +5,8 @@ import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
 import { Translation } from "~/i18n/Translation";
+import { useFactionAccounts } from "~/pages/citizenship/useFactionAccounts";
+import { appendQueryParams } from "~/utils/appendQueryParams";
 import { fillUrlParameters } from "~/utils/fillUrlParameters";
 import { getRoute } from "~/utils/getRoute";
 
@@ -33,6 +35,10 @@ const FactionImage = styled.img.attrs({
 const Citizenship = () => {
   const router = useRouter();
 
+  const query = router.query as Record<string, string | number>;
+
+  const accounts = useFactionAccounts();
+
   return (
     <>
       <Flex justify="center" pt={48} px={10}>
@@ -52,9 +58,12 @@ const Citizenship = () => {
         <FactionBlock
           onClick={() =>
             router.push(
-              fillUrlParameters(getRoute("/citizenship/:faction"), {
-                faction: "mud",
-              })
+              appendQueryParams(
+                fillUrlParameters(getRoute("/swap/:swapAccount"), {
+                  swapAccount: accounts.mud,
+                }),
+                query
+              )
             )
           }
         >
@@ -78,9 +87,12 @@ const Citizenship = () => {
         <FactionBlock
           onClick={() =>
             router.push(
-              fillUrlParameters(getRoute("/citizenship/:faction"), {
-                faction: "ustur",
-              })
+              appendQueryParams(
+                fillUrlParameters(getRoute("/swap/:swapAccount"), {
+                  swapAccount: accounts.ustur,
+                }),
+                query
+              )
             )
           }
         >
@@ -104,9 +116,12 @@ const Citizenship = () => {
         <FactionBlock
           onClick={() =>
             router.push(
-              fillUrlParameters(getRoute("/citizenship/:faction"), {
-                faction: "oni",
-              })
+              appendQueryParams(
+                fillUrlParameters(getRoute("/swap/:swapAccount"), {
+                  swapAccount: accounts.oni,
+                }),
+                query
+              )
             )
           }
         >

@@ -1,5 +1,6 @@
 import { Cluster } from "@solana/web3.js";
 import type { WithoutId } from "mongodb";
+import { api } from "~/network/api";
 import { fetchPlayer } from "~/network/player";
 import { Player } from "~/types";
 import { Self } from "~/types/api";
@@ -29,19 +30,27 @@ const buildDefaultSelf = (
     : [null],
 });
 
+type SelfResponse =
+  | {
+      success: true;
+      user: Self;
+    }
+  | {
+      success: false;
+      error: string;
+    };
+
 export const fetchOrCreateSelf = async ({
   cluster,
   publicKey,
 }: {
   cluster: Cluster;
   publicKey: string;
-}): Promise<Self | null> => {
+}) => {
   try {
-    const res = await fetch(
+    const response = await api.get<SelfResponse>(
       appendQueryParams(getApiRoute("/api/self"), { cluster, publicKey })
     );
-
-    const response = await res.json();
 
     if (response.success) {
       return response.user;
@@ -62,20 +71,17 @@ const insertSelf = async ({
 }: {
   cluster: Cluster;
   self: WithoutId<Self>;
-}): Promise<Self | null> => {
+}) => {
   try {
-    const res = await fetch(getApiRoute("/api/self"), {
-      method: "POST",
+    const response = await api.post<SelfResponse>(getApiRoute("/api/self"), {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ cluster, self }),
+      body: { cluster, self },
     });
 
-    const response = await res.json();
-
     if (response.success) {
-      return response.self;
+      return response.user;
     }
 
     return null;
@@ -94,23 +100,23 @@ export const linkDiscordId = async ({
   publicKey: string;
   discordId: string;
   signature: string;
-}): Promise<Self | null> => {
+}) => {
   try {
-    const res = await fetch(getApiRoute("/api/self/link"), {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        cluster,
-        discordId,
-        publicKey,
-        signature,
-        message: getProofMessage(),
-      }),
-    });
-
-    const response = await res.json();
+    const response = await api.post<SelfResponse>(
+      getApiRoute("/api/self/link"),
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: {
+          cluster,
+          discordId,
+          publicKey,
+          signature,
+          message: getProofMessage(),
+        },
+      }
+    );
 
     if (response.success) {
       return response.user;

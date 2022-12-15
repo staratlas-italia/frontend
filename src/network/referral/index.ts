@@ -1,3 +1,5 @@
+import { captureException } from "@sentry/nextjs";
+import { api } from "~/network/api";
 import { Self } from "~/types/api";
 import { getProofMessage } from "~/utils/getProofMessage";
 import { getApiRoute } from "~/utils/getRoute";
@@ -17,19 +19,19 @@ export const createReferral = async (
   signature: string
 ): Promise<string | null> => {
   try {
-    const request = await fetch(getApiRoute("/api/referral/create"), {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        publicKey,
-        signature,
-        message: getProofMessage(),
-      }),
-    });
-
-    const response = (await request.json()) as Response;
+    const response = await api.post<Response>(
+      getApiRoute("/api/referral/create"),
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: {
+          publicKey,
+          signature,
+          message: getProofMessage(),
+        },
+      }
+    );
 
     if (response.success) {
       return response.code;
@@ -57,20 +59,20 @@ export const redeemReferral = async (
   referralCode: string
 ): Promise<Self | null> => {
   try {
-    const request = await fetch(getApiRoute("/api/referral/redeem"), {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        publicKey,
-        signature,
-        referralCode,
-        message: getProofMessage(),
-      }),
-    });
-
-    const response = (await request.json()) as RedeemResponse;
+    const response = await api.post<RedeemResponse>(
+      getApiRoute("/api/referral/redeem"),
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: {
+          publicKey,
+          signature,
+          referralCode,
+          message: getProofMessage(),
+        },
+      }
+    );
 
     if (response.success) {
       return response.user;
@@ -78,6 +80,8 @@ export const redeemReferral = async (
 
     return null;
   } catch (e) {
+    captureException(e, { level: "error" });
+
     return null;
   }
 };

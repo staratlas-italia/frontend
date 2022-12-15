@@ -3,7 +3,6 @@ import { Cluster } from "@solana/web3.js";
 import { pipe } from "fp-ts/function";
 import { ReadPreference } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
-import { attachClusterMiddleware } from "~/middlewares/attachCluster";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
 import { matchSignatureMiddleware } from "~/middlewares/matchSignature";
 import { useMongoMiddleware } from "~/middlewares/useMongo";
@@ -42,7 +41,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
       { $set: { discordId } },
       { returnDocument: "after" }
     );
-     
+
     if (!user) {
       res.status(200).json({
         success: false,
@@ -125,6 +124,5 @@ export default pipe(
   handler,
   useMongoMiddleware,
   matchMethodMiddleware(["POST"]),
-  attachClusterMiddleware,
   matchSignatureMiddleware
 );

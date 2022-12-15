@@ -7,10 +7,9 @@ import { Button } from "../controls/Button";
 
 const LinkWrapper = ({ children }: PropsWithChildren<unknown>) => {
   const router = useRouter();
+
   return (
-    <Link href={`${DISCORD_OAUTH_URL}&state=${router.asPath}`}>
-      <a>{children}</a>
-    </Link>
+    <Link href={`${DISCORD_OAUTH_URL}&state=${router.asPath}`}>{children}</Link>
   );
 };
 
@@ -25,6 +24,7 @@ export const LinkDiscordButton = () => {
   return (
     <Wrapper>
       <Button.Primary
+        disabled
         as="div"
         className="rounded-xl"
         iconLeft={() => (
@@ -40,3 +40,7 @@ export const LinkDiscordButton = () => {
     </Wrapper>
   );
 };
+
+const Loader = () => <Button.Primary as="div" loading className="rounded-xl" />;
+
+LinkDiscordButton.Loader = Loader;

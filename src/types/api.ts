@@ -1,4 +1,4 @@
-import { ObjectId, WithId } from "mongodb";
+import { WithId } from "mongodb";
 import { FactionWithNone, NormalizedShipStakingInfoExtended } from "~/types";
 
 export type Self = WithId<{
@@ -27,16 +27,12 @@ export type PaymentReferenceResponse =
     }
   | { success: true; reference: string };
 
-export type TransactionStatus =
-  | "ACCEPTED"
-  | "ACCEPTED_WITHOUT_RETURN"
-  | "PENDING"
-  | "REJECTED";
+export type TransactionStatus = "ACCEPTED" | "PENDING" | "REJECTED";
 
 export type Transaction<Meta = Record<string, string | number>> = {
   meta: Meta;
   createdAt: Date;
-  userId: ObjectId;
+  publicKey: string;
   reference: string;
   status: TransactionStatus;
 };
@@ -66,31 +62,6 @@ export type ScoreFleetResponse =
     };
 
 export type Faction = null | 0 | 1 | 2;
-
-export type ChartType =
-  | "avg-ship-quantity"
-  | "faction-pie"
-  | "faction-tiers-pie"
-  | "tiers-pie";
-
-export type ChartEntry = { label: string; value: number };
-
-export type BasicChartData = {
-  data: ChartEntry[];
-};
-
-export type FactionTiersPieData = {
-  data: {
-    tiersData: ChartEntry[];
-    factionTiersData: ChartEntry[];
-  };
-};
-
-export type ChartResponses = {
-  [C in ChartType]: C extends "faction-tiers-pie"
-    ? FactionTiersPieData
-    : BasicChartData;
-};
 
 export type DiscordUser = {
   id: string;
