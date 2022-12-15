@@ -18,6 +18,7 @@ import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
 import { useSwapStateAccount } from "~/components/SwapStateAccountGuard";
 import { Translation } from "~/i18n/Translation";
+import { useTranslation } from "~/i18n/useTranslation";
 import { usePaymentReference } from "~/pages/swap/[swapAccount]/checkout/components/ReferenceRetriever";
 import { swapToken } from "~/programs";
 
@@ -25,11 +26,17 @@ export const SwapTrigger = () => {
   const { cluster } = useCluster();
 
   const anchorWallet = useAnchorWallet();
+  const { sendTransaction } = useWallet();
+
   const { connection } = useConnection();
   const { swapAccount, mint, quantity } = useSwapStateAccount();
 
   const reference = usePaymentReference();
-  const { sendTransaction } = useWallet();
+
+  const successMessage = useTranslation("swap.checkout.transaction.success");
+  const pendingMessage = useTranslation("swap.checkout.transaction.pending");
+  const errorMessage = useTranslation("swap.checkout.transaction.error");
+  const solscanMessage = useTranslation("generic.solscan.check");
 
   const [loading, setLoading] = useState(false);
 
@@ -67,13 +74,13 @@ export const SwapTrigger = () => {
       transaction.feePayer = anchorWallet.publicKey;
 
       toast.promise(() => sendTransaction(transaction, connection), {
-        pending: "Sending transaction...",
+        pending: pendingMessage,
         success: {
           render: ({ data: signature }) => {
             if (signature) {
               return (
                 <Flex direction="col">
-                  <Text>Transaction sended!</Text>
+                  <Text>{successMessage}</Text>
 
                   <Flex pt={1}>
                     <Link
@@ -87,7 +94,7 @@ export const SwapTrigger = () => {
                         weight="semibold"
                         decoration="underline"
                       >
-                        Check it on Solscan
+                        {solscanMessage}
                       </Text>
                     </Link>
                   </Flex>
@@ -95,10 +102,10 @@ export const SwapTrigger = () => {
               );
             }
 
-            return "Oops, no signature at all";
+            return errorMessage;
           },
         },
-        error: "Oops, an error occured",
+        error: errorMessage,
       });
     } catch (e) {
       if (e instanceof WalletNotConnectedError) {
@@ -124,7 +131,11 @@ export const SwapTrigger = () => {
     mint,
     quantity,
     reference,
+    pendingMessage,
+    errorMessage,
     sendTransaction,
+    successMessage,
+    solscanMessage,
   ]);
 
   return (

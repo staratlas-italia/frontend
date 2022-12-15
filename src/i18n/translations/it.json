@@ -26,6 +26,9 @@
   "citizenship.checkout.payDirectly.action.title": "Paga subito",
   "swap.checkout.qrcode.hint.0": "Scansiona questo codice con il tuo Wallet Mobile",
   "swap.checkout.qrcode.hint.1": "Ti verrà chiesto di approvare la transazione",
+  "swap.checkout.transaction.pending": "Transazione inviata...",
+  "swap.checkout.transaction.success": "Transazione completata!",
+  "swap.checkout.transaction.error": "Oops, c'è stato un errore con la transazione",
   "citizenship.checkout.subtitle": "Completa il pagamento con Solana Pay per ottenere il tuo badge.",
   "citizenship.checkout.title": "Checkout",
   "citizenship.factionSelector.title": "Scegli una fazione!",
@@ -104,5 +107,6 @@
   "generic.form.error.required": "Il campo è obbligatorio",
   "generic.form.error.publicKey": "Il campo deve essere una public key valida",
   "generic.form.error.publicKey.different": "Il campo deve essere una public key diversa",
-  "generic.form.error.number": "Il campo deve essere un numero"
+  "generic.form.error.number": "Il campo deve essere un numero",
+  "generic.solscan.check": "Controlla su Solscan"
 }
