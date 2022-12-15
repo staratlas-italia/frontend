@@ -1,7 +1,10 @@
 import { Metadata, Metaplex } from "@metaplex-foundation/js";
 import { captureException } from "@sentry/nextjs";
 import { Connection, PublicKey } from "@solana/web3.js";
+import { uniqWith } from "lodash";
 import create from "zustand";
+import { CITIZEN_TOKEN_MINT_PER_FACTION } from "~/common/constants";
+import { getConnectionClusterUrl } from "~/utils/connection";
 import { getBadgeByMint } from "~/utils/getBadgeByMint";
 import { toTuple } from "~/utils/toTuple";
 
@@ -15,7 +18,7 @@ type BadgesStore = {
 export const useBadgesStore = create<BadgesStore>((set, get) => ({
   badges: null,
   isFetching: false,
-  fetchBadges: async (connection, publicKey) => {
+  fetchBadges: async (_, publicKey) => {
     if (get().badges || get().isFetching) {
       return;
     }
@@ -23,18 +26,29 @@ export const useBadgesStore = create<BadgesStore>((set, get) => ({
     set({ isFetching: true });
 
     try {
+      const connection = new Connection(
+        getConnectionClusterUrl("mainnet-beta")
+      );
+
       const metaplex = Metaplex.make(connection, { cluster: "mainnet-beta" });
 
-      const nfts = await metaplex
-        .nfts()
-        .findAllByOwner({
-          owner: new PublicKey(publicKey),
-          commitment: "confirmed",
-        })
-        .run();
+      const nfts = await metaplex.nfts().findAllByOwner({
+        owner: new PublicKey(publicKey),
+      });
+
+      const sfts = await metaplex.nfts().findAllByMintList({
+        mints: [
+          CITIZEN_TOKEN_MINT_PER_FACTION.oni,
+          CITIZEN_TOKEN_MINT_PER_FACTION.mud,
+          CITIZEN_TOKEN_MINT_PER_FACTION.ustur,
+        ],
+      });
 
       const oweNfts = await Promise.all(
-        (nfts as Metadata[])
+        uniqWith(
+          [...nfts, ...sfts] as Metadata[],
+          (a, b) => a.mintAddress.toString() === b.mintAddress.toString()
+        )
           .filter((nft) => getBadgeByMint(nft.mintAddress))
           .map(async (nft) =>
             nft
@@ -53,6 +67,7 @@ export const useBadgesStore = create<BadgesStore>((set, get) => ({
         isFetching: false,
       });
     } catch (error) {
+      console.log("[dd]", error);
       captureException(error);
 
       set({
