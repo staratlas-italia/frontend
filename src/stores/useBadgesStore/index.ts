@@ -31,7 +31,7 @@ export const useBadgesStore = create<BadgesStore>((set, get) => ({
 
     const entities = await saApiClient
       .get<StarAtlasEntity[]>("/nfts")
-      .catch(() => []);
+      .catch(() => [] as StarAtlasEntity[]);
 
     const badges = entities
       .filter((e) => e.attributes.class === "badge")
