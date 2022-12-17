@@ -1,6 +1,10 @@
 import { useWallet } from "@solana/wallet-adapter-react";
+import classNames from "classnames";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useCallback, useMemo } from "react";
+import { useCluster } from "~/components/ClusterProvider";
 import { Text } from "~/components/common/Text";
 import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
@@ -10,12 +14,16 @@ import { useClearAllStores } from "~/hooks/useClearAllStores";
 import { Translation } from "~/i18n/Translation";
 import { useTranslation } from "~/i18n/useTranslation";
 import { useAppStore, useHueAnimation } from "~/stores/useAppStore";
+import { appendQueryParams } from "~/utils/appendQueryParams";
 import { shortenAddress } from "~/utils/shortenAddress";
 
 export const ConnectedContent = () => {
   const { disconnect, publicKey, wallet } = useWallet();
 
   const { close } = useModal("wallet-modal");
+  const { cluster } = useCluster();
+  const { asPath, pathname } = useRouter();
+
   const clear = useClearAllStores();
 
   const hueAnimationEnabled = useHueAnimation();
@@ -70,6 +78,31 @@ export const ConnectedContent = () => {
         direction="col"
         className="border-2 border-gray-300 rounded space-y-8"
       >
+        <Flex>
+          <Link href={pathname}>
+            <Button
+              as="div"
+              size="small"
+              className={classNames({
+                "border-2 border-black": cluster === "mainnet-beta",
+              })}
+            >
+              Mainnet
+            </Button>
+          </Link>
+
+          <Link href={appendQueryParams(asPath, { cluster: "devnet" })}>
+            <Button
+              as="div"
+              size="small"
+              className={classNames({
+                "border-2 border-black": cluster === "devnet",
+              })}
+            >
+              Devnet
+            </Button>
+          </Link>
+        </Flex>
         <List sections={sections} />
 
         <Flex>

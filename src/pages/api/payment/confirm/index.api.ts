@@ -5,7 +5,6 @@ import {
   ValidateTransferError,
 } from "@solana/pay";
 import { Cluster, Connection, PublicKey } from "@solana/web3.js";
-import BigNumber from "bignumber.js";
 import { pipe } from "fp-ts/function";
 import { NextApiRequest, NextApiResponse } from "next";
 import { matchMethodMiddleware } from "~/middlewares/matchMethod";
@@ -16,23 +15,15 @@ import { getConnectionClusterUrl } from "~/utils/connection";
 import { isPublicKey } from "~/utils/pubkey";
 
 const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
-  const {
-    recipient,
-    amount: amountParam,
-    cluster: clusterParam,
-    reference: referenceParam,
-    publicKey,
-  } = body;
+  const { cluster: clusterParam, reference: referenceParam, publicKey } = body;
 
-  if (!amountParam || !referenceParam || !isPublicKey(publicKey)) {
+  if (!referenceParam || !isPublicKey(publicKey)) {
     res.status(400).json({
       success: false,
       error: "Invalid parameters supplied.",
     });
     return;
   }
-
-  const amount = new BigNumber(amountParam);
 
   const cluster = clusterParam as Cluster;
 

@@ -2,9 +2,11 @@ import { Metadata, Metaplex } from "@metaplex-foundation/js";
 import { captureException } from "@sentry/nextjs";
 import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { Connection, PublicKey } from "@solana/web3.js";
-import { uniqWith } from "lodash";
+import { compact, uniqWith } from "lodash";
 import create from "zustand";
 import { CITIZEN_TOKEN_MINT_PER_FACTION } from "~/common/constants";
+import { createApiClient } from "~/network/api";
+import { StarAtlasEntity } from "~/types";
 import { getBadgeByMint } from "~/utils/getBadgeByMint";
 import { toTuple } from "~/utils/toTuple";
 
@@ -15,6 +17,8 @@ type BadgesStore = {
   fetchBadges: (connection: Connection, publicKey: PublicKey) => void;
 };
 
+const saApiClient = createApiClient(process.env.STAR_ATLAS_API_URL || "");
+
 export const useBadgesStore = create<BadgesStore>((set, get) => ({
   badges: null,
   isFetching: false,
@@ -24,6 +28,14 @@ export const useBadgesStore = create<BadgesStore>((set, get) => ({
     }
 
     set({ isFetching: true });
+
+    const entities = await saApiClient
+      .get<StarAtlasEntity[]>("/nfts")
+      .catch(() => []);
+
+    const badges = entities
+      .filter((e) => e.attributes.class === "badge")
+      .map((e) => e.mint);
 
     try {
       const metaplex = Metaplex.make(connection, { cluster: "mainnet-beta" });
@@ -48,16 +60,19 @@ export const useBadgesStore = create<BadgesStore>((set, get) => ({
 
       const tokens = await Promise.all(
         addresses.map((address) =>
-          metaplex.tokens().findTokenWithMintByAddress({
-            address,
-          })
+          metaplex
+            .tokens()
+            .findTokenWithMintByAddress({
+              address,
+            })
+            .catch(() => null)
         )
       );
 
       const finalSfts = sfts.filter(
         (sft) =>
           sft &&
-          tokens
+          compact(tokens)
             .map((t) => t.mint.address.toString())
             .includes((sft as Metadata).mintAddress.toString())
       );
@@ -67,7 +82,11 @@ export const useBadgesStore = create<BadgesStore>((set, get) => ({
           [...nfts, ...finalSfts] as Metadata[],
           (a, b) => a.mintAddress.toString() === b.mintAddress.toString()
         )
-          .filter((nft) => getBadgeByMint(nft.mintAddress))
+          .filter(
+            (nft) =>
+              getBadgeByMint(nft.mintAddress) ||
+              badges.includes(nft.mintAddress.toString())
+          )
           .map(async (nft) =>
             nft
               ? toTuple([

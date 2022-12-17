@@ -1,13 +1,13 @@
 import { AssertAuthenticated } from "~/components/auth/AssertAuthenticated";
 import { LoadingView } from "~/components/LoadingView";
-import { Admin } from "~/views/Admin";
+import { View } from "./View";
 
 const AdminPage = () => (
   <AssertAuthenticated
     adminOnly
     loader={<LoadingView title="Admin.SignatureLoader.title" />}
   >
-    <Admin />
+    <View />
   </AssertAuthenticated>
 );
 
