@@ -153,3 +153,33 @@ export const startOrStopSell = async (
     publicKey: stateAccount,
   };
 };
+
+export const withdrawProceeds = async (
+  cluster: Cluster,
+  connection: Connection,
+  wallet: AnchorWallet,
+  stateAccount: PublicKey
+) => {
+  const program = await getSaiTokenSwapProgram(connection, wallet);
+
+  const [proceedsVaultPda] = await PublicKey.findProgramAddress(
+    [Buffer.from("proceeds_vault"), stateAccount.toBuffer()],
+    SAI_TOKEN_SWAP_PROGRAM_ID
+  );
+
+  const ownerInTokenAccount = await getAssociatedTokenAddress(
+    cluster === "devnet" ? DEVNET_USDC_TOKEN_MINT : USDC_TOKEN_MINT,
+    wallet.publicKey
+  );
+
+  await program.methods
+    .withdrawProceeds()
+    .accounts({
+      state: stateAccount,
+      proceedsVault: proceedsVaultPda,
+      owner: wallet.publicKey,
+      ownerInTokenAccount,
+      mint: cluster === "devnet" ? DEVNET_USDC_TOKEN_MINT : USDC_TOKEN_MINT,
+    })
+    .rpc();
+};
