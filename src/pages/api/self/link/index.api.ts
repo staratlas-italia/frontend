@@ -1,5 +1,4 @@
 import { captureException } from "@sentry/nextjs";
-import { Cluster } from "@solana/web3.js";
 import { pipe } from "fp-ts/function";
 import { ReadPreference } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -10,9 +9,9 @@ import { getMongoDatabase, mongoClient } from "~/pages/api/mongodb";
 import { Self } from "~/types/api";
 
 const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
-  const { cluster, publicKey, discordId } = body;
+  const { publicKey, discordId } = body;
 
-  const db = getMongoDatabase(cluster as Cluster);
+  const db = getMongoDatabase();
 
   const userCollection = db.collection<Self>("users");
 
@@ -21,7 +20,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
   });
 
   const currentUser = await userCollection.findOne({
-    wallets: { $in: [publicKey] },
+    wallets: publicKey,
   });
 
   if (!currentUser) {
@@ -34,7 +33,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (!userWithSameDiscordId) {
-    const user = await userCollection.findOneAndUpdate(
+    const result = await userCollection.findOneAndUpdate(
       {
         _id: currentUser._id,
       },
@@ -42,7 +41,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
       { returnDocument: "after" }
     );
 
-    if (!user) {
+    if (!result.ok) {
       res.status(200).json({
         success: false,
         error: `Cannot update user`,
@@ -53,8 +52,9 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
 
     res.status(200).json({
       success: true,
-      user: user.value,
+      user: result.value,
     });
+
     return;
   }
 

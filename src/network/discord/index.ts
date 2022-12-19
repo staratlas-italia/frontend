@@ -8,8 +8,10 @@ const discordClient = createApiClient(DISCORD_API_URL);
 export const getDiscordSelf = async (token: string) => {
   try {
     const user = await discordClient.get<DiscordUser | null>("/users/@me", {
-      Authorization: `Bearer ${token}`,
-    } as Record<string, string>);
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return user;
   } catch (e) {
