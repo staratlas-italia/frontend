@@ -91,12 +91,10 @@ const insertSelf = async ({
 };
 
 export const linkDiscordId = async ({
-  cluster,
   discordId,
   publicKey,
   signature,
 }: {
-  cluster: Cluster;
   publicKey: string;
   discordId: string;
   signature: string;
@@ -109,7 +107,6 @@ export const linkDiscordId = async ({
           "Content-Type": "application/json",
         },
         body: {
-          cluster,
           discordId,
           publicKey,
           signature,

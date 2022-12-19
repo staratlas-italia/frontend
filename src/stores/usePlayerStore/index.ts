@@ -20,7 +20,6 @@ type PlayerStore = State & {
   isFetching: boolean;
   amounts: [number | null, number | null, number | null];
   linkDiscord: (_: {
-    cluster: Cluster;
     publicKey: string;
     discordId: string;
     signature: string;
@@ -34,7 +33,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
   player: null,
   isFetching: false,
   amounts: [null, null, null],
-  linkDiscord: async ({ cluster, discordId, publicKey, signature }) => {
+  linkDiscord: async ({ discordId, publicKey, signature }) => {
     if (get().isFetching) {
       return;
     }
@@ -42,7 +41,6 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     set({ isFetching: true });
 
     const self = await linkDiscordId({
-      cluster,
       discordId,
       publicKey,
       signature,

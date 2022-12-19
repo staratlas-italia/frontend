@@ -24,7 +24,7 @@ export const LinkDiscordButton = () => {
   return (
     <Wrapper>
       <Button.Primary
-        disabled
+        disabled={!!self.discordId}
         as="div"
         className="rounded-xl"
         iconLeft={() => (

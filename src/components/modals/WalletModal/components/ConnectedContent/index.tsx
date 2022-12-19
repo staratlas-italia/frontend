@@ -78,13 +78,13 @@ export const ConnectedContent = () => {
         direction="col"
         className="border-2 border-gray-300 rounded space-y-8"
       >
-        <Flex>
+        <Flex className="space-x-2">
           <Link href={pathname}>
             <Button
               as="div"
               size="small"
-              className={classNames({
-                "border-2 border-black": cluster === "mainnet-beta",
+              className={classNames("border-2 border-gray-300", {
+                "border-black": cluster === "mainnet-beta",
               })}
             >
               Mainnet
@@ -95,14 +95,15 @@ export const ConnectedContent = () => {
             <Button
               as="div"
               size="small"
-              className={classNames({
-                "border-2 border-black": cluster === "devnet",
+              className={classNames("border-2 border-gray-300", {
+                " border-black": cluster === "devnet",
               })}
             >
               Devnet
             </Button>
           </Link>
         </Flex>
+
         <List sections={sections} />
 
         <Flex>
