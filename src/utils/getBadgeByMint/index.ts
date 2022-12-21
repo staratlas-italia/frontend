@@ -1,6 +1,6 @@
 import { PublicKey } from "@solana/web3.js";
 import { values } from "lodash";
-import { CITIZEN_TOKEN_MINT_PER_FACTION } from "~/common/constants";
+import { CITIZEN_TOKEN_MINT_PER_FACTION } from "~/common/constants/citizenship";
 import { tier1BadgeMints } from "~/utils/getBadgeByMint/tier1";
 import { tier2BadgeMints } from "~/utils/getBadgeByMint/tier2";
 import { tier3BadgeMints } from "~/utils/getBadgeByMint/tier3";

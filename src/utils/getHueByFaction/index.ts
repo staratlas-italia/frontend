@@ -1,4 +1,4 @@
-import { CITIZEN_TOKEN_MINT_PER_FACTION } from "~/common/constants";
+import { CITIZEN_TOKEN_MINT_PER_FACTION } from "~/common/constants/citizenship";
 
 export const getHueByFactionStyle = (badgeMint: string) => {
   switch (badgeMint) {

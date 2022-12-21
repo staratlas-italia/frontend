@@ -4,7 +4,8 @@ import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { Connection, PublicKey } from "@solana/web3.js";
 import { compact, uniqWith } from "lodash";
 import create from "zustand";
-import { CITIZEN_TOKEN_MINT_PER_FACTION } from "~/common/constants";
+import { CITIZEN_TOKEN_MINT_PER_FACTION } from "~/common/constants/citizenship";
+import { TUTOR_SWAP_TOKEN_MINT } from "~/common/constants/tutor";
 import { createApiClient } from "~/network/api";
 import { StarAtlasEntity } from "~/types";
 import { getBadgeByMint } from "~/utils/getBadgeByMint";
@@ -48,6 +49,7 @@ export const useBadgesStore = create<BadgesStore>((set, get) => ({
         CITIZEN_TOKEN_MINT_PER_FACTION.oni,
         CITIZEN_TOKEN_MINT_PER_FACTION.mud,
         CITIZEN_TOKEN_MINT_PER_FACTION.ustur,
+        TUTOR_SWAP_TOKEN_MINT,
       ];
 
       const sfts = await metaplex.nfts().findAllByMintList({
