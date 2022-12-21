@@ -49,7 +49,7 @@ export const Price = ({
           "-"
         )}
       </Text>
-      {!isNullOrUndefined(value) && (
+      {!isNullOrUndefined(value) && currency !== "NONE" && (
         <CurrencyImage
           small={small}
           src={`/images/currencies/${currency.toLowerCase()}_symbol.png`}

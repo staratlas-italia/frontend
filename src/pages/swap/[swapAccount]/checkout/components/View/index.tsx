@@ -49,13 +49,13 @@ const CartItem = () => {
         </Text>
 
         <Text color="text-white" weight="bold">
-          x{quantity || 1}
+          x{new Intl.NumberFormat().format(quantity || 1)}
         </Text>
       </Flex>
 
       <Flex align="center">
         <Text color="text-white">
-          {amount.toFixed(2)} {vaultCurrency}
+          {amount.toFixed(3)} {vaultCurrency}
         </Text>
       </Flex>
     </Flex>

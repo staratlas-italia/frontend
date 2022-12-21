@@ -1,5 +1,5 @@
 import { PublicKey } from "@solana/web3.js";
-import { CITIZEN_TOKEN_MINT_PER_FACTION } from "~/common/constants";
+import { CITIZEN_TOKEN_MINT_PER_FACTION } from "~/common/constants/citizenship";
 
 export const isFactionBadge = (badgeMint: PublicKey) => {
   if (

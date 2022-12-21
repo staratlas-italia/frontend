@@ -10,7 +10,6 @@ import { InfoRow } from "~/components/common/Info";
 import { Price } from "~/components/common/Price";
 import { Text } from "~/components/common/Text";
 import { Button } from "~/components/controls/Button";
-import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
 import { useTokenBalance } from "~/hooks/useTokenBalance";
 import { StateAccount } from "~/pages/admin/View";
@@ -39,6 +38,9 @@ export const ProgramInstance = ({ account, onToggle, loading }: Props) => {
     account.account.proceedsVault
   );
 
+  const { balance: vaultBalance, loading: loadingVaultBalance } =
+    useTokenBalance(account.account.vault);
+
   const handleWithdraw = useCallback(async () => {
     if (!anchorWallet) {
       return;
@@ -54,15 +56,13 @@ export const ProgramInstance = ({ account, onToggle, loading }: Props) => {
 
       toast.success("Done.");
     } catch (e) {
-      console.log(e);
-
       toast.error(e.message);
     }
-  }, []);
+  }, [account.publicKey, anchorWallet, cluster, connection]);
 
   return (
     <Flex direction="col" key={addressString}>
-      <BlurBackground p={3} justify="between">
+      <Flex className="bg-blue-900 rounded" p={3} justify="between">
         <Flex direction="col" className="space-y-3">
           <InfoRow title="Swap">
             <Text color="text-white">
@@ -80,11 +80,12 @@ export const ProgramInstance = ({ account, onToggle, loading }: Props) => {
             </Text>
           </InfoRow>
 
-          <Flex className="space-x-2">
+          <Flex className="space-x-5">
             <InfoRow title="Price">
               <Price
                 color="text-white"
                 currency="USDC"
+                decimals={5}
                 value={account.account.price.toNumber() / Math.pow(10, 6)}
               />
             </InfoRow>
@@ -93,6 +94,13 @@ export const ProgramInstance = ({ account, onToggle, loading }: Props) => {
                 color="text-white"
                 currency="USDC"
                 value={proceedsBalance || 0}
+              />
+            </InfoRow>
+            <InfoRow title="Vault" loading={loadingVaultBalance}>
+              <Price
+                currency="NONE"
+                color="text-white"
+                value={vaultBalance || 0}
               />
             </InfoRow>
           </Flex>
@@ -109,7 +117,7 @@ export const ProgramInstance = ({ account, onToggle, loading }: Props) => {
             <Text color="text-white">Withdraw proceeds</Text>
           </Button>
         </Flex>
-      </BlurBackground>
+      </Flex>
     </Flex>
   );
 };

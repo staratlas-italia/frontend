@@ -80,9 +80,7 @@ export const View = () => {
     [anchorWallet, connection, loading]
   );
 
-  const handleComplete = (something: string) => {
-    console.log(something);
-
+  const handleComplete = () => {
     getAllStates();
   };
 

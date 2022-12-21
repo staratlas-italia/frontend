@@ -1,6 +1,5 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import React, { PropsWithChildren } from "react";
-import { CitizenInfoBanner } from "~/components/CitizenInfoBanner";
 import { Background } from "~/components/layout/Background";
 import { BaseLayout } from "~/components/layout/BaseLayout";
 import { Container } from "~/components/layout/Container";
@@ -27,8 +26,6 @@ export const SideBarLayout = React.memo(
 
           <Container>
             <div className="pt-32 h-full relative container lg:px-5 lg:pl-80 mx-auto pb-32 sm:pb-28 lg:pb-0">
-              <CitizenInfoBanner />
-
               <Flex className="space-x-5 lg:space-x-0" pb={5}>
                 <SidebarToggle />
 

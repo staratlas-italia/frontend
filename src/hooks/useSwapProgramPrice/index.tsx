@@ -1,4 +1,3 @@
-import { BN } from "@project-serum/anchor";
 import { useAnchorWallet, useConnection } from "@solana/wallet-adapter-react";
 import invariant from "invariant";
 import {
@@ -21,7 +20,7 @@ export const SwapProgramPriceRetriever = ({
   const anchorWallet = useAnchorWallet();
   const { connection } = useConnection();
 
-  const { swapAccount, quantity } = useSwapStateAccount();
+  const { swapAccount } = useSwapStateAccount();
 
   useEffect(() => {
     const run = async () => {
@@ -31,13 +30,13 @@ export const SwapProgramPriceRetriever = ({
 
       const state = await fetchSwapPrice(connection, anchorWallet, swapAccount);
 
-      const price = state.price.div(new BN(Math.pow(10, 6)));
+      const price = state.price.toNumber() / Math.pow(10, 6);
 
-      setPrice(price.toNumber() * (quantity || 1));
+      setPrice(price);
     };
 
     run();
-  }, [anchorWallet, connection, swapAccount, quantity]);
+  }, [anchorWallet, connection, swapAccount]);
 
   if (!price) {
     return null;

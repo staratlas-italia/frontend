@@ -2,7 +2,7 @@ import {
   DEVNET_FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS,
   FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS,
   FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS_DISCOUNTED,
-} from "~/common/constants";
+} from "~/common/constants/citizenship";
 import { useCluster } from "~/components/ClusterProvider";
 import { useNullableSelf } from "~/hooks/useNullableSelf";
 
