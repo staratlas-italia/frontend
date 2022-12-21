@@ -108,3 +108,9 @@ export const tutorAccounts: ClusterTutorAccounts = {
 export const clusterSwitch = <T>(cluster: Cluster, devnet: T, mainnet: T) => {
   return cluster === "devnet" ? devnet : mainnet;
 };
+
+export const isTutorSwap = (state: string) =>
+  Object.values({
+    ...DEVNET_TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS,
+    ...TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS,
+  }).includes(state);

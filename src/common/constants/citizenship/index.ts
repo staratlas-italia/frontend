@@ -209,3 +209,10 @@ export const citizenShipAccounts: ClusterCitizenShipAccounts = {
     discounted: {},
   },
 };
+
+export const isCitizenshipSwap = (state: string) =>
+  Object.values({
+    ...DEVNET_FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS,
+    ...FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS_DISCOUNTED,
+    ...FACTION_TO_TOKEN_SWAP_STATE_ACCOUNTS,
+  }).includes(state);
