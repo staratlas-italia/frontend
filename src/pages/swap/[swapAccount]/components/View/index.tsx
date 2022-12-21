@@ -35,7 +35,7 @@ export const View = () => {
 
   const { cluster } = router.query;
 
-  const { swapAccount, image, sections } = useSwapStateAccount();
+  const { swapAccount, image, sections, discounted } = useSwapStateAccount();
 
   return (
     <>
@@ -57,7 +57,7 @@ export const View = () => {
             <Flex direction="col" pb={10} mdPb={5}>
               <Flex>
                 <Text color="text-gray-200" weight="bold">
-                  <Translation id="citizenship.intro.hint" />
+                  <Translation id="swap.intro.hint" />
                 </Text>
               </Flex>
               <Flex pt={3} className="space-x-3">
@@ -93,15 +93,20 @@ export const View = () => {
             </Flex>
 
             <Flex direction="col" pt={5}>
-              <Flex className="md:w-2/3">
-                <Text color="text-gray-200" weight="bold">
-                  <Translation id="citizenship.intro.discord" />
-                </Text>
-              </Flex>
-              <Flex pt={3} justify="between">
-                <SelfRetriever loader={<LinkDiscordButton.Loader />}>
-                  <LinkDiscordButton />
-                </SelfRetriever>
+              {discounted && (
+                <Flex className="md:w-2/3">
+                  <Text color="text-gray-200" weight="bold">
+                    <Translation id="swap.intro.discord" />
+                  </Text>
+                </Flex>
+              )}
+
+              <Flex pt={discounted ? 3 : 0} justify="between">
+                {discounted && (
+                  <SelfRetriever loader={<LinkDiscordButton.Loader />}>
+                    <LinkDiscordButton />
+                  </SelfRetriever>
+                )}
 
                 <Link
                   className={classNames({

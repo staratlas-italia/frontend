@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { Text } from "~/components/common/Text";
 import { Flex } from "~/components/layout/Flex";
+import { useSwapStateAccount } from "~/components/SwapStateAccountGuard";
 import { useSwapProgramPrice } from "~/hooks/useSwapProgramPrice";
 import { Translation } from "~/i18n/Translation";
 import { useTranslation } from "~/i18n/useTranslation";
@@ -16,6 +17,8 @@ const Item = ({ title, value }: { title: string; value: string }) => (
 
 export const TransactionDetails = () => {
   const amount = useSwapProgramPrice();
+
+  const { quantity, vaultCurrency } = useSwapStateAccount();
 
   const dateLabel = useTranslation(
     "citizenship.checkout.confirmed.details.date.label"
@@ -47,7 +50,10 @@ export const TransactionDetails = () => {
 
       <Flex direction="col" className="bg-gray-700 rounded-xl" p={6}>
         <Item title={dateLabel} value={date} />
-        <Item title={amountLabel} value={`-${amount} USDC`} />
+        <Item
+          title={amountLabel}
+          value={`-${(amount * (quantity || 1)).toFixed(2)} ${vaultCurrency}`}
+        />
         <Item title={stateLabel} value={state} />
         <Item title={feeLabel} value="0.00005 SOL" />
       </Flex>

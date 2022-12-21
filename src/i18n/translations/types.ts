@@ -4,13 +4,15 @@ export type TranslationId =
   | "Admin.Stats.title"
   | "auth.sign.cta"
   | "auth.sign.description"
-  | "discord.link.description"
   | "Badges.Heading.title"
   | "citizenship.banner.action.title"
   | "citizenship.banner.pre.subtitle"
   | "citizenship.banner.pre.title"
+  | "tutor.banner.pre.title"
   | "citizenship.banner.subtitle"
+  | "tutor.banner.subtitle"
   | "citizenship.banner.title"
+  | "tutor.banner.title"
   | "citizenship.checkout.cart.total.label"
   | "citizenship.checkout.confirmed.details.amount.label"
   | "citizenship.checkout.confirmed.details.date.label"
@@ -25,21 +27,22 @@ export type TranslationId =
   | "citizenship.checkout.payDirectly.action.title"
   | "citizenship.checkout.subtitle"
   | "citizenship.checkout.title"
+  | "tutor.badgeSelector.pieces"
   | "citizenship.factionSelector.title"
+  | "tutor.badgeSelector.title"
   | "citizenship.intro.description"
-  | "citizenship.intro.discord"
-  | "citizenship.intro.hint"
   | "citizenship.intro.title"
   | "Dashboard.Profile.Placeholder.title"
+  | "discord.link.description"
   | "Fleet.Heading.title"
   | "generic.error.denied"
   | "generic.form.error.number"
   | "generic.form.error.publicKey.different"
   | "generic.form.error.publicKey"
   | "generic.form.error.required"
-  | "generic.solscan.check"
   | "generic.next"
   | "generic.or"
+  | "generic.solscan.check"
   | "Home.EnlistBanner.action.title"
   | "Home.EnlistBanner.description.0"
   | "Home.EnlistBanner.description.1"
@@ -111,6 +114,13 @@ export type TranslationId =
   | "swap.checkout.transaction.error"
   | "swap.checkout.transaction.pending"
   | "swap.checkout.transaction.success"
+  | "swap.intro.discord"
+  | "swap.intro.hint"
+  | "tutor.checkout.confirmed.subtitle"
+  | "tutor.checkout.subtitle"
+  | "tutor.checkout.title"
+  | "tutor.intro.description"
+  | "tutor.intro.title"
   | "Wallet.Disconnect.action.title";
 
 export type TranslationValues = {
@@ -118,6 +128,7 @@ export type TranslationValues = {
   "Mint.Hyperspace.text": { seconds: string };
   "Ships.Details.saleDate": { date: string };
   "citizenship.banner.pre.subtitle": { countdown: string };
+  "tutor.badgeSelector.pieces": { items: string };
 };
 
 export type TranslationValuesId = keyof TranslationValues;

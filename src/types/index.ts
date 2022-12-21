@@ -1,4 +1,5 @@
 import { BN } from "@project-serum/anchor";
+import { PublicKey } from "@solana/web3.js";
 import { ScoreVarsShipInfo, ShipStakingInfo } from "@staratlas/factory";
 import { ComponentType, ReactChild, ReactNodeArray, ReactPortal } from "react";
 import {
@@ -7,6 +8,7 @@ import {
   FUEL_TOKEN_MINT_ID,
   TOOL_TOKEN_MINT_ID,
 } from "~/common/constants";
+import { TranslationId } from "~/i18n/translations/types";
 
 export type StrictReactFragment =
   | {
@@ -103,7 +105,7 @@ export type NormalizedScoreVarsShipInfo = {
     : never;
 };
 
-export type Currency = "ATLAS" | "POLIS" | "USDC";
+export type Currency = "ATLAS" | "POLIS" | "USDC" | "NONE";
 
 export type iconRenderProp = (props: {
   className: string;
@@ -233,3 +235,29 @@ export const factions = ["ONI", "MUD", "USTUR"] as const;
 export type Faction = typeof factions[number];
 
 export type FactionWithNone = Faction | "NONE";
+
+export type SwapSetting = {
+  discounted?: boolean;
+  mint: PublicKey;
+  name: string;
+  quantity?: number;
+  swapAccount: PublicKey;
+  vaultCurrency: string;
+  image: {
+    normal: string;
+    square: string;
+  };
+  sections: {
+    intro: {
+      title: TranslationId;
+      description: TranslationId;
+    };
+    checkout: {
+      title: TranslationId;
+      subtitle: TranslationId;
+    };
+    confirmed: {
+      description: TranslationId;
+    };
+  };
+};

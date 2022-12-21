@@ -5,10 +5,10 @@ import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
 import { Translation } from "~/i18n/Translation";
-import { useFactionAccounts } from "~/pages/citizenship/useFactionAccounts";
 import { appendQueryParams } from "~/utils/appendQueryParams";
 import { fillUrlParameters } from "~/utils/fillUrlParameters";
 import { getRoute } from "~/utils/getRoute";
+import { useFactionAccounts } from "./useFactionAccounts";
 
 const FactionBlock = styled(BlurBackground).attrs({
   p: 5,

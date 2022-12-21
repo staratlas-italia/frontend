@@ -44,7 +44,7 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
       }
     );
 
-    if (status.value?.confirmationStatus !== "finalized") {
+    if (status.value?.confirmationStatus !== "confirmed") {
       throw new FindReferenceError("Not finalized yet");
     }
 

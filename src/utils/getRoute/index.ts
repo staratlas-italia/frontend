@@ -10,7 +10,8 @@ export type Routes =
   | "/swap/:swapAccount"
   | "/swap/:swapAccount/checkout"
   | "/swap/:swapAccount/checkout/confirmed"
-  | "/swap/:swapAccount/checkout/error";
+  | "/swap/:swapAccount/checkout/error"
+  | "/tutor";
 
 export type ApiRoutes =
   | "/api/menu"
