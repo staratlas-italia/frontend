@@ -12,7 +12,10 @@ export const Footer = () => (
       <LocaleSelector />
     </Flex>
     <Flex pb={8} justify="center">
-      <Link href="https://forms.gle/UhjNWDnsXq5bDxhE7" target="_blank">
+      <Link
+        href="https://staratlasitalia.canny.io/sai-web3-app"
+        target="_blank"
+      >
         <Text color="text-white" weight="semibold" size="sm">
           <Translation id="Layout.Sidebar.Feedback.title" />
         </Text>

@@ -1,4 +1,3 @@
-import { CitizenInfoBanner } from "~/components/CitizenInfoBanner";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
 import { Header } from "~/components/layout/Header";
@@ -12,8 +11,6 @@ export const HomePage = () => {
       <Header fluid />
 
       <div className="space-y-10 px-5 pb-5">
-        <CitizenInfoBanner />
-
         <Flex>
           <BlurBackground px={4} py={3} className="w-full md:w-72">
             <Treasury />
