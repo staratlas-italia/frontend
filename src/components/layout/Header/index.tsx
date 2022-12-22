@@ -1,10 +1,10 @@
-import { BellIcon } from "@heroicons/react/solid";
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Flex } from "~/components/layout/Flex";
 import { Wallet } from "~/components/Wallet";
+import { NewsButton } from "./components/NewsButton";
 
 export const Logo = () => (
   <Image
@@ -47,12 +47,8 @@ export const Header = ({ fluid, fixed }: Props) => (
         </Flex>
 
         <Flex align="center" className="space-x-3">
-          <button
-            data-canny-changelog
-            className=" rounded-full bg-white p-3 text-gray-700"
-          >
-            <BellIcon className="h-5 w-5" />
-          </button>
+          <NewsButton />
+
           <Wallet />
         </Flex>
       </Flex>

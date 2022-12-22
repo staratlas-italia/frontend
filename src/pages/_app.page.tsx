@@ -95,22 +95,6 @@ const Pages = ({ Component, pageProps }: Omit<AppProps, "router">) => {
         `}
       </Script>
 
-      <Script strategy="lazyOnload" id="canny">
-        {`
-          !function(w,d,i,s){function l(){if(!d.getElementById(i)){var f=d.getElementsByTagName(s)[0],e=d.createElement(s);e.type="text/javascript",e.async=!0,e.src="https://canny.io/sdk.js",f.parentNode.insertBefore(e,f)}}if("function"!=typeof w.Canny){var c=function(){c.q.push(arguments)};c.q=[],w.Canny=c,"complete"===d.readyState?l():w.attachEvent?w.attachEvent("onload",l):w.addEventListener("load",l,!1)}}(window,document,"canny-jssdk","script");
-        `}
-      </Script>
-
-      <Script strategy="lazyOnload" id="canny-cust">
-        {`  
-           Canny("initChangelog", {
-            appID: "6238fbad0030ab6b975368cf",
-            position: "bottom",
-            align: "right",
-          });
-        `}
-      </Script>
-
       <Script strategy="lazyOnload" id="hotjar">
         {`  
           (function(h,o,t,j,a,r){
