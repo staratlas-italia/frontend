@@ -35,7 +35,8 @@ export const View = () => {
 
   const { cluster } = router.query;
 
-  const { swapAccount, image, sections, discounted } = useSwapStateAccount();
+  const { swapAccount, image, sections, discounted, size } =
+    useSwapStateAccount();
 
   return (
     <>
@@ -73,7 +74,8 @@ export const View = () => {
                   lgPt={0}
                 >
                   <Text size="4xl" weight="bold" color="text-white">
-                    <Translation id={sections.intro.title} />
+                    <Translation id={sections.intro.title} />{" "}
+                    {size && <>{size}</>}
                   </Text>
                   <Text color="text-gray-200">
                     <Translation id={sections.intro.description} />

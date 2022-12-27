@@ -26,11 +26,11 @@ export const TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS: Record<Tutor, string> = {
   l: "C3An2AyJWR1Jk44spiQYDfsCm8ynDdyC1RU3EiZHsAQW",
 };
 
-export const tutorSwapTranslations: SwapSetting["sections"] = {
-  intro: {
-    title: "tutor.intro.title",
-    description: "citizenship.intro.description",
-  },
+const introTranslations: Pick<SwapSetting["sections"]["intro"], "title"> = {
+  title: "tutor.intro.title",
+};
+
+export const tutorSwapTranslations: Omit<SwapSetting["sections"], "intro"> = {
   checkout: {
     title: "tutor.checkout.title",
     subtitle: "tutor.checkout.subtitle",
@@ -50,40 +50,85 @@ export const tutorAccounts: ClusterTutorAccounts = {
   "mainnet-beta": {
     normal: {
       [TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS.s]: {
+        discounts: {
+          discountRelativeToPreviousBundle: 0,
+          preReleaseDiscount: 35,
+        },
         quantity: 5600,
         mint: TUTOR_SWAP_TOKEN_MINT,
-        name: "Tutor Bundle S",
+        name: "Badge Istitutore S",
+        size: "S",
         swapAccount: new PublicKey(TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS.s),
         vaultCurrency: "USDC",
+        prices: {
+          real: 370,
+          full: 560,
+        },
         image: {
           normal: "/images/cards/card-tutor-s.webp",
           square: "/images/cards/card-tutor-s-square.webp",
         },
-        sections: tutorSwapTranslations,
+        sections: {
+          ...tutorSwapTranslations,
+          intro: {
+            ...introTranslations,
+            description: "tutor.intro.description.s",
+          },
+        },
       },
       [TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS.m]: {
+        discounts: {
+          discountRelativeToPreviousBundle: 11,
+          preReleaseDiscount: 41,
+        },
         quantity: 10000,
         mint: TUTOR_SWAP_TOKEN_MINT,
-        name: "Tutor Bundle M",
+        name: "Badge Istitutore M",
+        size: "M",
         swapAccount: new PublicKey(TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS.m),
         vaultCurrency: "USDC",
+        prices: {
+          full: 1000,
+          real: 590,
+        },
         image: {
           normal: "/images/cards/card-tutor-m.webp",
           square: "/images/cards/card-tutor-m-square.webp",
         },
-        sections: tutorSwapTranslations,
+        sections: {
+          ...tutorSwapTranslations,
+          intro: {
+            ...introTranslations,
+            description: "tutor.intro.description.m",
+          },
+        },
       },
       [TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS.l]: {
+        discounts: {
+          discountRelativeToPreviousBundle: 20,
+          preReleaseDiscount: 47,
+        },
         quantity: 22500,
         mint: TUTOR_SWAP_TOKEN_MINT,
-        name: "Tutor Bundle L",
+        name: "Badge Istitutore L",
+        size: "L",
         swapAccount: new PublicKey(TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS.l),
         vaultCurrency: "USDC",
+        prices: {
+          full: 2250,
+          real: 1200,
+        },
         image: {
           normal: "/images/cards/card-tutor-l.webp",
           square: "/images/cards/card-tutor-l-square.webp",
         },
-        sections: tutorSwapTranslations,
+        sections: {
+          ...tutorSwapTranslations,
+          intro: {
+            ...introTranslations,
+            description: "tutor.intro.description.l",
+          },
+        },
       },
     },
   },
@@ -92,14 +137,20 @@ export const tutorAccounts: ClusterTutorAccounts = {
       [DEVNET_TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS.s]: {
         quantity: 5600,
         mint: DEVNET_SWAP_TOKEN_MINT_PER_TUTOR.s,
-        name: "Tutor Bundle S - Devnet",
+        name: "Badge Istitutore S - Devnet",
         swapAccount: new PublicKey(DEVNET_TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS.s),
         vaultCurrency: "USDC-Dev",
         image: {
           normal: "/images/cards/card-tutor-s.webp",
           square: "/images/cards/card-tutor-s-square.webp",
         },
-        sections: tutorSwapTranslations,
+        sections: {
+          ...tutorSwapTranslations,
+          intro: {
+            ...introTranslations,
+            description: "tutor.intro.description.s",
+          },
+        },
       },
     },
   },

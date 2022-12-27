@@ -8,11 +8,8 @@ export type TranslationId =
   | "citizenship.banner.action.title"
   | "citizenship.banner.pre.subtitle"
   | "citizenship.banner.pre.title"
-  | "tutor.banner.pre.title"
   | "citizenship.banner.subtitle"
-  | "tutor.banner.subtitle"
   | "citizenship.banner.title"
-  | "tutor.banner.title"
   | "citizenship.checkout.cart.total.label"
   | "citizenship.checkout.confirmed.details.amount.label"
   | "citizenship.checkout.confirmed.details.date.label"
@@ -27,9 +24,7 @@ export type TranslationId =
   | "citizenship.checkout.payDirectly.action.title"
   | "citizenship.checkout.subtitle"
   | "citizenship.checkout.title"
-  | "tutor.badgeSelector.pieces"
   | "citizenship.factionSelector.title"
-  | "tutor.badgeSelector.title"
   | "citizenship.intro.description"
   | "citizenship.intro.title"
   | "Dashboard.Profile.Placeholder.title"
@@ -42,6 +37,7 @@ export type TranslationId =
   | "generic.form.error.required"
   | "generic.next"
   | "generic.or"
+  | "generic.price"
   | "generic.solscan.check"
   | "Home.EnlistBanner.action.title"
   | "Home.EnlistBanner.description.0"
@@ -116,19 +112,38 @@ export type TranslationId =
   | "swap.checkout.transaction.success"
   | "swap.intro.discord"
   | "swap.intro.hint"
+  | "tutor.badgeSelector.pieces"
+  | "tutor.badgeSelector.title"
+  | "tutor.banner.pre.title"
+  | "tutor.banner.subtitle"
+  | "tutor.banner.title"
+  | "tutor.buyBefore31.12.22"
   | "tutor.checkout.confirmed.subtitle"
   | "tutor.checkout.subtitle"
   | "tutor.checkout.title"
-  | "tutor.intro.description"
+  | "tutor.citizenship.badge"
+  | "tutor.dao.shares"
+  | "tutor.discount.perc"
+  | "tutor.intro.description.l"
+  | "tutor.intro.description.m"
+  | "tutor.intro.description.s"
   | "tutor.intro.title"
-  | "Wallet.Disconnect.action.title";
+  | "Wallet.Disconnect.action.title"
+  | "tutor.shares.description.0"
+  | "tutor.shares.description.1"
+  | "tutor.shares.description.2"
+  | "tutor.shares.description.3"
+  | "tutor.badgeSelector.whatYouReceive";
 
 export type TranslationValues = {
+  "citizenship.banner.pre.subtitle": { countdown: string };
   "Layout.Wallet.Modal.ConnectedTo.title": { wallet: string };
   "Mint.Hyperspace.text": { seconds: string };
   "Ships.Details.saleDate": { date: string };
-  "citizenship.banner.pre.subtitle": { countdown: string };
   "tutor.badgeSelector.pieces": { items: string };
+  "tutor.citizenship.badge": { quantity: string };
+  "tutor.dao.shares": { quantity: string };
+  "tutor.discount.perc": { discount: string };
 };
 
 export type TranslationValuesId = keyof TranslationValues;
