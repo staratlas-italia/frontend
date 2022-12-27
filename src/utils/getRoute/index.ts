@@ -11,7 +11,7 @@ export type Routes =
   | "/swap/:swapAccount/checkout"
   | "/swap/:swapAccount/checkout/confirmed"
   | "/swap/:swapAccount/checkout/error"
-  | "/tutor";
+  | "/institutional";
 
 export type ApiRoutes =
   | "/api/menu"
