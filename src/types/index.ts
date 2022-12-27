@@ -237,15 +237,24 @@ export type Faction = typeof factions[number];
 export type FactionWithNone = Faction | "NONE";
 
 export type SwapSetting = {
+  size?: string;
   discounted?: boolean;
   mint: PublicKey;
   name: string;
   quantity?: number;
   swapAccount: PublicKey;
+  prices?: {
+    real: number;
+    full: number;
+  };
   vaultCurrency: string;
   image: {
     normal: string;
     square: string;
+  };
+  discounts?: {
+    discountRelativeToPreviousBundle: number;
+    preReleaseDiscount: number;
   };
   sections: {
     intro: {
