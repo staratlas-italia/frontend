@@ -73,6 +73,7 @@ export type NormalizedShipStakingInfo = {
 };
 
 export type NormalizedShipStakingInfoExtended = NormalizedShipStakingInfo & {
+  pendingRewardsV2: number;
   rewardRatePerSecond: number;
   fuelMaxReserve: number;
   foodMaxReserve: number;

@@ -16,8 +16,8 @@ export const DEVNET_SWAP_TOKEN_MINT_PER_TUTOR: Record<Tutor, PublicKey> = {
 export const DEVNET_TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS: Record<Tutor, string> =
   {
     s: "BGkzA24K1f8Sp9jxZRXT7Kdu9QMSNUw5tUiiuiro1KwS",
-    m: "",
-    l: "",
+    m: "BGkzA24K1f8Sp9jxZRXT7Kdu9QMSNUw5tUiiuiro1KwS",
+    l: "BGkzA24K1f8Sp9jxZRXT7Kdu9QMSNUw5tUiiuiro1KwS",
   };
 
 export const TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS: Record<Tutor, string> = {
@@ -135,7 +135,43 @@ export const tutorAccounts: ClusterTutorAccounts = {
   devnet: {
     normal: {
       [DEVNET_TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS.s]: {
-        quantity: 5600,
+        quantity: 10,
+        mint: DEVNET_SWAP_TOKEN_MINT_PER_TUTOR.s,
+        name: "Badge Istitutore S - Devnet",
+        swapAccount: new PublicKey(DEVNET_TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS.s),
+        vaultCurrency: "USDC-Dev",
+        image: {
+          normal: "/images/cards/card-tutor-s.webp",
+          square: "/images/cards/card-tutor-s-square.webp",
+        },
+        sections: {
+          ...tutorSwapTranslations,
+          intro: {
+            ...introTranslations,
+            description: "tutor.intro.description.s",
+          },
+        },
+      },
+      [DEVNET_TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS.m]: {
+        quantity: 10,
+        mint: DEVNET_SWAP_TOKEN_MINT_PER_TUTOR.s,
+        name: "Badge Istitutore S - Devnet",
+        swapAccount: new PublicKey(DEVNET_TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS.s),
+        vaultCurrency: "USDC-Dev",
+        image: {
+          normal: "/images/cards/card-tutor-s.webp",
+          square: "/images/cards/card-tutor-s-square.webp",
+        },
+        sections: {
+          ...tutorSwapTranslations,
+          intro: {
+            ...introTranslations,
+            description: "tutor.intro.description.s",
+          },
+        },
+      },
+      [DEVNET_TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS.l]: {
+        quantity: 10,
         mint: DEVNET_SWAP_TOKEN_MINT_PER_TUTOR.s,
         name: "Badge Istitutore S - Devnet",
         swapAccount: new PublicKey(DEVNET_TUTOR_TO_TOKEN_SWAP_STATE_ACCOUNTS.s),

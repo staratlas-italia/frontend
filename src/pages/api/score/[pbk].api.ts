@@ -1,9 +1,10 @@
+import { BN } from "@project-serum/anchor";
 import { Cluster, Connection, PublicKey } from "@solana/web3.js";
 import {
   getAllFleetsForUserPublicKey,
   getScoreVarsShipInfo,
+  ShipStakingInfo,
 } from "@staratlas/factory";
-import { pipe } from "fp-ts/lib/function";
 import type { NextApiRequest, NextApiResponse } from "next";
 import {
   ARMS_PRICE,
@@ -21,9 +22,23 @@ import { isPublicKey } from "~/utils/pubkey";
 import { resDailyConsumption } from "~/utils/resDailyConsumption";
 import { resDailyCostInAtlas } from "~/utils/resDailyCostInAtlas";
 
+const getReward = (fleet: ShipStakingInfo, rewardRate: number) => {
+  const now = Date.now() / 1000;
+
+  const tripStart = fleet.currentCapacityTimestamp.toNumber();
+  const timePass = now - tripStart;
+
+  let pendingReward = fleet.shipQuantityInEscrow
+    .mul(fleet.totalTimeStaked.sub(fleet.stakedTimePaid).add(new BN(timePass)))
+    .mul(new BN(rewardRate))
+    .toNumber();
+
+  return pendingReward;
+};
+
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse<ScoreFleetResponse>
+  res: NextApiResponse<ScoreFleetResponse | any>
 ) => {
   const {
     query: { cluster, pbk },
@@ -63,6 +78,7 @@ const handler = async (
 
   res.status(200).json({
     success: true,
+    date: new Date(new Date().toUTCString()).toISOString(),
     data: accountsWithVars.map((account) => ({
       owner: account.owner.toString(),
       factionId: account.factionId.toString(),
@@ -84,6 +100,9 @@ const handler = async (
       totalTimeStaked: account.totalTimeStaked.toNumber(),
       stakedTimePaid: account.stakedTimePaid.toNumber(),
       pendingRewards: account.pendingRewards.toNumber(),
+      pendingRewardsV2:
+        getReward(account, account.rewardRatePerSecond.toNumber()) /
+        Math.pow(10, 8),
       totalRewardsPaid: account.totalRewardsPaid.toNumber(),
       /* Vars */
       rewardRatePerSecond: account.rewardRatePerSecond.toNumber(),
@@ -190,4 +209,4 @@ const handler = async (
   });
 };
 
-export default pipe(handler);
+export default handler;

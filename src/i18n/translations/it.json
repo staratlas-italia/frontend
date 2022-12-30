@@ -35,6 +35,7 @@
   "Dashboard.Profile.Placeholder.title": "Inizia qui. Connetti il tuo wallet",
   "discord.link.description": "Sto parlando con Discord...",
   "Fleet.Heading.title": "La tua flotta",
+  "fleet.heading.claim.cta": "Rivendica ATLAS",
   "generic.error.denied": "Non sei autorizzato ad accedere a questa sezione!",
   "generic.form.error.number": "Il campo deve essere un numero",
   "generic.form.error.publicKey.different": "Il campo deve essere una public key diversa",
@@ -112,7 +113,7 @@
   "swap.checkout.qrcode.hint.0": "Scansiona questo codice con il tuo Wallet Mobile",
   "swap.checkout.qrcode.hint.1": "Ti verrà chiesto di approvare la transazione",
   "swap.checkout.transaction.error": "Oops, c'è stato un errore con la transazione",
-  "swap.checkout.transaction.pending": "Transazione inviata...",
+  "swap.checkout.transaction.pending": "Sto inviando la transazione...",
   "swap.checkout.transaction.success": "Transazione completata!",
   "swap.intro.discord": "Connettiti al tuo account discord per ottenere uno sconto speciale.",
   "swap.intro.hint": "Connetti il tuo wallet per iniziare.",
@@ -133,5 +134,7 @@
   "tutor.shares.description.1": "in più rispetto al prezzo pieno",
   "tutor.shares.description.2": "e il",
   "tutor.shares.description.3": "in più rispetto al bundle Small",
-  "tutor.badgeSelector.whatYouReceive": "Cosa riceverai:"
+  "tutor.badgeSelector.whatYouReceive": "Cosa riceverai:",
+  "toast.multiple.pending.transaction": "Invio transazione %i di %c...",
+  "toast.multiple.success.transaction": "Transazione %i di %c completata"
 }
