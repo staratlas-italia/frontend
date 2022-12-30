@@ -114,6 +114,20 @@ export const useBadgesStore = create<BadgesStore>((set, get) => ({
       });
     }
   },
-
   clear: () => set({ badges: null }),
 }));
+
+const citizenshipSelector = (state: BadgesStore) =>
+  state.badges?.filter(([badge]) =>
+    Object.values(CITIZEN_TOKEN_MINT_PER_FACTION)
+      .map((p) => p.toString())
+      .includes(badge.mintAddress.toString())
+  );
+
+const tutorSelector = (state: BadgesStore) =>
+  state.badges?.find(([badge]) =>
+    badge.mintAddress.equals(TUTOR_SWAP_TOKEN_MINT)
+  );
+
+export const useCitizenshipBadges = () => useBadgesStore(citizenshipSelector);
+export const useTutorBadge = () => useBadgesStore(tutorSelector);

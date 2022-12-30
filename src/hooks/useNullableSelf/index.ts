@@ -13,13 +13,16 @@ export const useNullableSelf = () => {
   const fetchSelf = usePlayerStore((state) => state.fetchSelf);
 
   useEffect(() => {
-    if (publicKey) {
-      if (self && self.wallets?.includes(publicKey.toString())) {
-        return;
-      }
-
-      fetchSelf(endpoint.cluster, publicKey.toString());
+    if (!publicKey) {
+      return;
     }
+
+    if (self && self.wallets?.includes(publicKey.toString())) {
+      return;
+    }
+
+    fetchSelf(endpoint.cluster, publicKey.toString());
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endpoint.cluster, fetchSelf, publicKey]);
 

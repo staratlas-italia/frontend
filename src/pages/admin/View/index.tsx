@@ -1,14 +1,25 @@
-import { useAnchorWallet, useConnection } from "@solana/wallet-adapter-react";
-import { PublicKey } from "@solana/web3.js";
+import {
+  useAnchorWallet,
+  useConnection,
+  useWallet,
+} from "@solana/wallet-adapter-react";
+import { PublicKey, Transaction } from "@solana/web3.js";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useCluster } from "~/components/ClusterProvider";
 import { Heading } from "~/components/common/Heading";
 import { Button } from "~/components/controls/Button";
 import { Flex } from "~/components/layout/Flex";
 import { AddProgramInstanceModal } from "~/components/modals/AddProgramInstanceModal";
 import { useModal } from "~/contexts/ModalContext";
+import { useTransactionToast } from "~/hooks/useTransactionToast";
 import { ProgramInstance } from "~/pages/admin/View/ProgramInstance";
-import { getAllSwapStates, startOrStopSell } from "~/programs";
+import {
+  getAllSwapStates,
+  getWithdrawProceedsInstruction,
+  startOrStopSell,
+} from "~/programs";
+import { getTokenBalance } from "~/utils/getTokenBalance";
 
 type UnwrapPromiseType<T> = T extends Promise<infer U> ? U : never;
 
@@ -19,13 +30,19 @@ export type StateAccount = UnwrapPromiseType<
 export const View = () => {
   const { open } = useModal("add-program-instance-modal");
 
-  const { connection } = useConnection();
   const anchorWallet = useAnchorWallet();
+  const { sendTransaction } = useWallet();
+
+  const { cluster } = useCluster();
+  const { connection } = useConnection();
+
   const [states, setStates] = useState<Record<string, StateAccount>>({});
 
   const [loading, setLoading] = useState<string[]>([]);
 
-  const getAllStates = useCallback(async () => {
+  const showTransactionToast = useTransactionToast();
+
+  const fetchSwapStates = useCallback(async () => {
     if (!anchorWallet) {
       return;
     }
@@ -42,8 +59,8 @@ export const View = () => {
   }, [anchorWallet, connection]);
 
   useEffect(() => {
-    getAllStates();
-  }, [getAllStates]);
+    fetchSwapStates();
+  }, [fetchSwapStates]);
 
   const handleToggle = useCallback(
     async (stateAccount: PublicKey) => {
@@ -64,11 +81,7 @@ export const View = () => {
           ...states,
           [newState.publicKey.toString()]: newState,
         }));
-
-        console.log(newState);
       } catch (e) {
-        console.log(JSON.stringify(e));
-
         toast.error("Oops, something went wrong!");
       } finally {
         const currentLoaders = new Set(loading);
@@ -80,21 +93,65 @@ export const View = () => {
     [anchorWallet, connection, loading]
   );
 
-  const handleComplete = () => {
-    getAllStates();
-  };
+  const handleClaimAll = useCallback(async () => {
+    if (!anchorWallet) {
+      return;
+    }
+
+    const vaults = Object.values(states).map(
+      (s) => [s.publicKey, s.account.proceedsVault] as const
+    );
+
+    const balances = await Promise.all(
+      vaults.map(async ([state, vault]) => {
+        const balance = await getTokenBalance(connection, vault);
+
+        return [state, balance] as const;
+      })
+    );
+
+    const claimableStates = balances.filter(([, balance]) => balance > 0);
+
+    const ixs = await Promise.all(
+      claimableStates.map(([state]) =>
+        getWithdrawProceedsInstruction(cluster, connection, anchorWallet, state)
+      )
+    );
+
+    const latestBlockhah = await connection.getLatestBlockhashAndContext();
+
+    const transaction = new Transaction({
+      ...latestBlockhah.value,
+      feePayer: anchorWallet.publicKey,
+    });
+
+    transaction.add(...ixs);
+
+    showTransactionToast(() => sendTransaction(transaction, connection));
+  }, [
+    anchorWallet,
+    cluster,
+    connection,
+    sendTransaction,
+    showTransactionToast,
+    states,
+  ]);
 
   return (
     <>
-      <AddProgramInstanceModal onComplete={handleComplete} />
+      <AddProgramInstanceModal onComplete={fetchSwapStates} />
 
       <Flex className="space-y-3" direction="col">
         <Heading
           title="Admin.Stats.title"
           rightContent={
-            <Flex>
+            <Flex className="space-x-3">
               <Button.Neutral size="small" onClick={open}>
                 Add state
+              </Button.Neutral>
+
+              <Button.Neutral size="small" onClick={handleClaimAll}>
+                Claim All
               </Button.Neutral>
             </Flex>
           }

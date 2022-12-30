@@ -11,6 +11,7 @@ import { Translation } from "~/i18n/Translation";
 import { Badges } from "~/pages/dashboard/components/Badges";
 import { Fleet } from "../Fleet";
 import { Profile } from "../Profile";
+import { ClaimAll } from "./ClaimAll";
 
 export const View = () => {
   const { wallet, connected } = useWallet();
@@ -39,7 +40,14 @@ export const View = () => {
         </Flex>
 
         <Flex direction="col" className="z-10 space-y-5">
-          <Heading title="Fleet.Heading.title" />
+          <Heading
+            title="Fleet.Heading.title"
+            rightContent={
+              <BadgesRetriever>
+                <ClaimAll />
+              </BadgesRetriever>
+            }
+          />
 
           <FleetRetriever loader={<LoadingView />}>
             <Fleet />

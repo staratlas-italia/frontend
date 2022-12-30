@@ -35,6 +35,7 @@
   "Dashboard.Profile.Placeholder.title": "Start here. Connect your wallet",
   "discord.link.description": "I'm speaking with Discord...",
   "Fleet.Heading.title": "Your fleet",
+  "fleet.heading.claim.cta": "Claim all ATLAS",
   "generic.error.denied": "You're not authorized to access this section!",
   "generic.form.error.number": "The field must be a number",
   "generic.form.error.publicKey.different": " The field should be a different public key",
@@ -99,7 +100,7 @@
   "swap.checkout.qrcode.hint.0": "Scan this code with your Mobile Wallet",
   "swap.checkout.qrcode.hint.1": "You will be asked to approve the transaction",
   "swap.checkout.transaction.error": "Oops, an error occured with your transaction",
-  "swap.checkout.transaction.pending": "Transaction sent...",
+  "swap.checkout.transaction.pending": "Transaction is pending...",
   "swap.checkout.transaction.success": "Transaction completed!",
   "swap.intro.discord": "Connect your discord account to get a special discount.",
   "swap.intro.hint": "Connect your wallet to start.",
@@ -120,5 +121,7 @@
   "tutor.shares.description.1": "more than the full price",
   "tutor.shares.description.2": "and",
   "tutor.shares.description.3": "more than the Small bundle",
-  "tutor.badgeSelector.whatYouReceive": "What you'll receive:"
+  "tutor.badgeSelector.whatYouReceive": "What you'll receive:",
+  "toast.multiple.pending.transaction": "Running transaction %i of %c...",
+  "toast.multiple.success.transaction": "Transaction %i of %c completed"
 }

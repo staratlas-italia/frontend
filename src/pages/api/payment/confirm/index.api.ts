@@ -44,12 +44,12 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
       }
     );
 
-    if (status.value?.confirmationStatus !== "confirmed") {
-      throw new FindReferenceError("Not finalized yet");
+    if (status.value?.err) {
+      throw new ValidateTransferError("Transaction failed");
     }
 
-    if (status.value.err) {
-      throw new ValidateTransferError("Transaction failed");
+    if (status.value?.confirmationStatus === "processed") {
+      throw new FindReferenceError("Not finalized yet");
     }
   } catch (e) {
     if (e instanceof FindReferenceError) {

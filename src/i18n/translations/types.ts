@@ -133,7 +133,10 @@ export type TranslationId =
   | "tutor.shares.description.1"
   | "tutor.shares.description.2"
   | "tutor.shares.description.3"
-  | "tutor.badgeSelector.whatYouReceive";
+  | "tutor.badgeSelector.whatYouReceive"
+  | "fleet.heading.claim.cta"
+  | "toast.multiple.pending.transaction"
+  | "toast.multiple.success.transaction";
 
 export type TranslationValues = {
   "citizenship.banner.pre.subtitle": { countdown: string };
