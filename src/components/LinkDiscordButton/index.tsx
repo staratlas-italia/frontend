@@ -5,7 +5,7 @@ import { DISCORD_OAUTH_URL } from "~/common/constants";
 import { useSelf } from "~/hooks/useNullableSelf";
 import { Button, ButtonProps } from "../controls/Button";
 
-const LinkWrapper = ({ children }: PropsWithChildren<unknown>) => {
+export const DiscordLink = ({ children }: PropsWithChildren<unknown>) => {
   const router = useRouter();
 
   return (
@@ -21,7 +21,7 @@ export const LinkDiscordButton = ({ kind = "primary" }: Props) => {
   const self = useSelf();
 
   const Wrapper = useMemo(
-    () => (self.discordId ? Fragment : LinkWrapper),
+    () => (self.discordId ? Fragment : DiscordLink),
     [self.discordId]
   );
 

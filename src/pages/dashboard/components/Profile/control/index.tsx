@@ -1,26 +1,33 @@
+import classNames from "classnames";
 import Image from "next/image";
+import { Fragment, useMemo } from "react";
 import { InfoRow } from "~/components/common/Info";
 import { Price } from "~/components/common/Price";
 import { Text } from "~/components/common/Text";
 import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
-import { LinkDiscordButton } from "~/components/LinkDiscordButton";
+import { DiscordLink } from "~/components/LinkDiscordButton";
+import { useSelf } from "~/hooks/useNullableSelf";
 import { usePlayerStore } from "~/stores/usePlayerStore";
 import { shortenAddress } from "~/utils/shortenAddress";
 import { Badges } from "../Badges";
 import { CreatePlayerBanner } from "../CreatePlayerBanner";
 
 export const Profile = () => {
+  const self = useSelf();
   const player = usePlayerStore((s) => s.player);
-  const self = usePlayerStore((s) => s.self);
+
+  const hasAchivements = Boolean(self.tags?.length);
+
+  const Wrapper = useMemo(
+    () => (self.discordId ? Fragment : DiscordLink),
+    [self.discordId]
+  );
 
   if (player === null) {
     return <CreatePlayerBanner />;
   }
-
   const { avatarId, avatarImageUrl, balance, rank, factionRank } = player;
-
-  const hasAchivements = Boolean(self?.tags?.length);
 
   return (
     <Flex>
@@ -42,10 +49,16 @@ export const Profile = () => {
             />
           )}
 
-          {!!self?.discordId && (
+          <Wrapper>
             <Flex
-              p={2}
-              className="rounded-br-xl rounded-tl-xl absolute space-x-2 bottom-0 right-0 bg-gray-700"
+              p={3}
+              className={classNames(
+                {
+                  "bg-green-600": self.discordId,
+                  "bg-red-700": !self.discordId,
+                },
+                "rounded-br-xl rounded-tl-xl absolute space-x-2 bottom-0 right-0"
+              )}
             >
               <Image
                 alt="Discord Link"
@@ -55,10 +68,10 @@ export const Profile = () => {
               />
 
               <Text weight="semibold" color="text-white">
-                Linked
+                {self?.discordId ? "Linked" : "Link to discord"}
               </Text>
             </Flex>
-          )}
+          </Wrapper>
         </Flex>
 
         <Flex direction="col" className="space-y-3">
@@ -76,8 +89,6 @@ export const Profile = () => {
             <InfoRow color="text-gray-200" title="net worth">
               <Price color="text-white" value={balance} />
             </InfoRow>
-
-            {!self?.discordId && <LinkDiscordButton />}
           </Flex>
 
           {hasAchivements && (

@@ -20,7 +20,6 @@ const confettiConfig = {
 };
 
 export const EasterEggDone = () => {
-  const { connected } = useWallet();
   const [active, setActive] = useState(false);
 
   const { cluster } = useCluster();
@@ -52,8 +51,8 @@ export const EasterEggDone = () => {
       <Confetti active={active} config={confettiConfig} />
 
       <iframe
-        width="500px"
-        height="300px"
+        width="100%"
+        height="60%"
         src="https://www.youtube.com/embed/QH2-TGUlwu4?autoplay=1&start=5"
         title="Nyan cat"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
