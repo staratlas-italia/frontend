@@ -1,13 +1,7 @@
-# v1.2.1 (October 6th, 2022)
-
-## Fixes
-
-- Fix ship list UI issues
-
-# v1.2.0 (October 5th, 2022)
+# v2.2.0
 
 ## Features
 
-- Add solana pay integration
-- Add devnet cluster support
-- Add citizen banner support
+- Add claim all for genesis badge users
+- Add kittens easter egg
+- Refactor Button component
