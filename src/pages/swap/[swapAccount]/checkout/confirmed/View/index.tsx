@@ -117,9 +117,9 @@ export const View = () => {
 
             <Flex direction="col" pt={5}>
               <Link replace href={getRoute("/dashboard")}>
-                <Button.Neutral as="div">
+                <Button kind="neutral" as="div">
                   <Translation id="swap.checkout.confirmed.back.action.title" />
-                </Button.Neutral>
+                </Button>
               </Link>
             </Flex>
           </BlurBackground>

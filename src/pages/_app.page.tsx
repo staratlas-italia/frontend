@@ -11,6 +11,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FEATURES_ENDPOINT, growthbook } from "~/common/constants";
 import { ClusterProvider, useCluster } from "~/components/ClusterProvider";
+import { EasterEgg } from "~/components/EasterEgg";
+import { EasterEggModal } from "~/components/EasterEgg/Modal";
+import { HtmlComment } from "~/components/HtmlComment";
 import { MainLayout } from "~/components/layout/MainLayout";
 import { PreloadResources } from "~/components/PreloadResources";
 import { ModalProvider } from "~/contexts/ModalContext";
@@ -53,6 +56,7 @@ function App({ router, ...props }: AppProps) {
 
   return (
     <GrowthBookProvider growthbook={growthbook}>
+      <HtmlComment text="You're looking at the right place?" />
       <ClusterProvider>
         <IntlProvider
           messages={translations}
@@ -65,6 +69,9 @@ function App({ router, ...props }: AppProps) {
                 <ToastContainer />
 
                 <MainLayout>
+                  <EasterEgg iterations={1} />
+                  <EasterEggModal />
+
                   <Pages {...props} />
                 </MainLayout>
               </ShipsProvider>

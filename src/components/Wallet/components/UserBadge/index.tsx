@@ -42,7 +42,8 @@ export const UserBadge = ({
 
   return (
     <Flex className="space-x-2">
-      <Button.Neutral
+      <Button
+        kind="neutral"
         size="small"
         iconRight={disableSettings ? undefined : CogIcon}
         onClick={disableSettings ? undefined : open}
@@ -56,7 +57,7 @@ export const UserBadge = ({
             </Text>
           )}
         </Flex>
-      </Button.Neutral>
+      </Button>
     </Flex>
   );
 };

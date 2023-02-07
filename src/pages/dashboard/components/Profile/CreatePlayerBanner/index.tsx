@@ -21,9 +21,9 @@ export const CreatePlayerBanner = () => {
           target="_blank"
           rel="noopener"
         >
-          <Button.Neutral as="div" size="small">
+          <Button kind="neutral" as="div" size="small">
             Creane uno!
-          </Button.Neutral>
+          </Button>
         </Link>
       </Flex>
     </BlurBackground>

@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 import { Fragment, PropsWithChildren, useMemo } from "react";
 import { DISCORD_OAUTH_URL } from "~/common/constants";
 import { useSelf } from "~/hooks/useNullableSelf";
-import { Button } from "../controls/Button";
+import { Button, ButtonProps } from "../controls/Button";
 
-const LinkWrapper = ({ children }: PropsWithChildren<unknown>) => {
+export const DiscordLink = ({ children }: PropsWithChildren<unknown>) => {
   const router = useRouter();
 
   return (
@@ -13,17 +13,22 @@ const LinkWrapper = ({ children }: PropsWithChildren<unknown>) => {
   );
 };
 
-export const LinkDiscordButton = () => {
+type Props = {
+  kind?: ButtonProps["kind"];
+};
+
+export const LinkDiscordButton = ({ kind = "primary" }: Props) => {
   const self = useSelf();
 
   const Wrapper = useMemo(
-    () => (self.discordId ? Fragment : LinkWrapper),
+    () => (self.discordId ? Fragment : DiscordLink),
     [self.discordId]
   );
 
   return (
     <Wrapper>
-      <Button.Primary
+      <Button
+        kind={kind}
         disabled={!!self.discordId}
         as="div"
         className="rounded-xl"
@@ -36,11 +41,13 @@ export const LinkDiscordButton = () => {
         )}
       >
         {self.discordId ? "Linked" : "Link"}
-      </Button.Primary>
+      </Button>
     </Wrapper>
   );
 };
 
-const Loader = () => <Button.Primary as="div" loading className="rounded-xl" />;
+const Loader = () => (
+  <Button kind="primary" as="div" loading className="rounded-xl" />
+);
 
 LinkDiscordButton.Loader = Loader;

@@ -120,14 +120,15 @@ export const ConnectedContent = () => {
           </Text>
         </Flex>
 
-        <Button.Dark
+        <Button
+          kind="dark"
           onClick={() => {
             close();
             setTimeout(() => onDisconnect(), 300);
           }}
         >
           <Translation id="Layout.Wallet.Disconnect.title" />
-        </Button.Dark>
+        </Button>
       </Flex>
     </Flex>
   );

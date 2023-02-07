@@ -1,10 +1,14 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useCallback } from "react";
-import { Button } from "~/components/controls/Button";
+import { Button, ButtonProps } from "~/components/controls/Button";
 import { useModal } from "~/contexts/ModalContext";
 import { Translation } from "~/i18n/Translation";
 
-export const ConnectButton = () => {
+export const ConnectButton = ({
+  kind = "neutral",
+}: {
+  kind?: ButtonProps["kind"];
+}) => {
   const { open } = useModal("wallet-modal");
   const { wallet, connect, connected } = useWallet();
 
@@ -15,9 +19,9 @@ export const ConnectButton = () => {
   if (!wallet || !connected) {
     return (
       <div>
-        <Button.Neutral size="small" onClick={handleClick}>
+        <Button kind={kind} size="small" onClick={handleClick}>
           <Translation id="Layout.Wallet.Connect.title" />
-        </Button.Neutral>
+        </Button>
       </div>
     );
   }

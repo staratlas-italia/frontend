@@ -127,14 +127,15 @@ export const View = () => {
                   }
                   passHref
                 >
-                  <Button.Neutral
+                  <Button
                     as="div"
                     className="cursor-pointer"
                     disabled={!connected}
+                    kind="neutral"
                     iconRight={ArrowRightIcon}
                   >
                     <Translation id="generic.next" />
-                  </Button.Neutral>
+                  </Button>
                 </Link>
               </Flex>
             </Flex>

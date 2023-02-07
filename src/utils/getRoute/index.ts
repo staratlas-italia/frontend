@@ -14,6 +14,7 @@ export type Routes =
   | "/institutional";
 
 export type ApiRoutes =
+  | "/api/kittens"
   | "/api/menu"
   | "/api/payment/confirm"
   | "/api/payment/reference"
