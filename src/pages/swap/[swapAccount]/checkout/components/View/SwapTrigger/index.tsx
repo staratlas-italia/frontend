@@ -82,21 +82,22 @@ export const SwapTrigger = () => {
   ]);
 
   return (
-    <Button.Neutral
+    <Button
+      kind="neutral"
       disabled={loading}
       loading={loading}
       size="small"
       onClick={handleDirectPayment}
     >
       <Translation id="citizenship.checkout.payDirectly.action.title" />
-    </Button.Neutral>
+    </Button>
   );
 };
 
 const Loader = () => (
-  <Button.Neutral disabled size="small">
+  <Button kind="neutral" disabled size="small">
     <Translation id="citizenship.checkout.payDirectly.action.title" />
-  </Button.Neutral>
+  </Button>
 );
 
 SwapTrigger.Loader = Loader;

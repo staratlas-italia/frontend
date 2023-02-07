@@ -136,9 +136,9 @@ export const AddProgramInstanceModal = ({ onComplete }: Props) => {
                 }}
               />
 
-              <Button.Dark loading={isSubmitting} type="submit">
+              <Button kind="dark" loading={isSubmitting} type="submit">
                 Add
-              </Button.Dark>
+              </Button>
             </Flex>
           </form>
         </FormProvider>

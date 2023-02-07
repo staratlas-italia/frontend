@@ -12,7 +12,8 @@ export const DisconnectedContent = () => {
   return (
     <Flex direction="col" className="space-y-3" p={3}>
       {wallets.map((wallet) => (
-        <Button.Dark
+        <Button
+          kind="dark"
           key={wallet.name}
           iconLeft={({ className }) => (
             <Image
@@ -32,7 +33,7 @@ export const DisconnectedContent = () => {
             id="Layout.Wallet.Modal.ConnectedTo.title"
             values={{ wallet: wallet.name }}
           />
-        </Button.Dark>
+        </Button>
       ))}
     </Flex>
   );

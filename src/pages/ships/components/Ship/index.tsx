@@ -76,9 +76,13 @@ export const ShipCard = ({ ship }: Props) => {
               >
                 {url && (
                   <Link href={url} target="_blank" rel="noreferrer">
-                    <Button.Primary as="div" className="w-full lg:w-auto">
+                    <Button
+                      kind="primary"
+                      as="div"
+                      className="w-full lg:w-auto"
+                    >
                       <Translation id="Ships.List.Card.BuyAction.title" />
-                    </Button.Primary>
+                    </Button>
                   </Link>
                 )}
                 <Flex className="mt-3 lg:ml-3 lg:mt-0 w-full">
@@ -90,9 +94,9 @@ export const ShipCard = ({ ship }: Props) => {
                     locale={locale}
                     className="w-full lg:w-auto"
                   >
-                    <Button.Tertiary as="div">
+                    <Button kind="tertiary" as="div">
                       <Translation id="Ships.List.Card.ReadMore.title" />
-                    </Button.Tertiary>
+                    </Button>
                   </Link>
                 </Flex>
               </Flex>

@@ -146,13 +146,13 @@ export const View = () => {
           title="Admin.Stats.title"
           rightContent={
             <Flex className="space-x-3">
-              <Button.Neutral size="small" onClick={open}>
+              <Button kind="neutral" size="small" onClick={open}>
                 Add state
-              </Button.Neutral>
+              </Button>
 
-              <Button.Neutral size="small" onClick={handleClaimAll}>
+              <Button kind="neutral" size="small" onClick={handleClaimAll}>
                 Claim All
-              </Button.Neutral>
+              </Button>
             </Flex>
           }
         />

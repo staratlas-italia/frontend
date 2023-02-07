@@ -62,9 +62,9 @@ export const SignatureRefresher = () => {
         <Translation id="auth.sign.description" />
       </Text>
 
-      <Button.Neutral size="small" onClick={handleUpdate}>
+      <Button kind="neutral" size="small" onClick={handleUpdate}>
         <Translation id="auth.sign.cta" />
-      </Button.Neutral>
+      </Button>
     </BlurBackground>
   );
 };

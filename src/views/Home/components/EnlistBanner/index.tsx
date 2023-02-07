@@ -39,9 +39,9 @@ export const EnlistBanner = () => (
 
       <Flex justify="end" pt={3}>
         <Link href="https://discord.com/invite/sTRKvKPdE3">
-          <Button.Secondary as="div">
+          <Button kind="secondary" as="div">
             <Translation id="Home.EnlistBanner.action.title" />
-          </Button.Secondary>
+          </Button>
         </Link>
       </Flex>
     </BlurBackground>
