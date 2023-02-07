@@ -1,6 +1,8 @@
 import { WithId } from "mongodb";
 import { FactionWithNone, NormalizedShipStakingInfoExtended } from "~/types";
 
+type Tag = "cat-lover";
+
 export type Self = WithId<{
   createdAt?: Date;
   updatedAt?: Date;
@@ -18,6 +20,7 @@ export type Self = WithId<{
   wallets: string[];
   referral?: { code: string; createdAt: Date };
   fromReferral?: string;
+  tags?: Tag[];
 }>;
 
 export type PaymentReferenceResponse =

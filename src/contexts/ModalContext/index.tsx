@@ -13,7 +13,8 @@ export type AvailableModal =
   | "wallet-modal"
   | "add-program-instance-modal"
   | "how-to-buy-modal"
-  | "ships-modal";
+  | "ships-modal"
+  | "easter-egg";
 
 export const useModal = (id: AvailableModal) => {
   const { modals, setVisible } = useContext(ModalContext);

@@ -1,16 +1,20 @@
+import { captureException } from "@sentry/nextjs";
+import { WalletSignTransactionError } from "@solana/wallet-adapter-base";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useCallback } from "react";
 import { Button } from "~/components/controls/Button";
+import { useBadges } from "~/hooks/useNullableBadges";
 import { useTransactionToast } from "~/hooks/useTransactionToast";
 import { Translation } from "~/i18n/Translation";
 import { useTranslation } from "~/i18n/useTranslation";
 import { useCitizenshipBadges, useTutorBadge } from "~/stores/useBadgesStore";
-import { useFleetClaimAmount, useFleetStore } from "~/stores/useFleetStore";
+import { useFleetStore } from "~/stores/useFleetStore";
+import { allGenesisBadgeMints } from "~/utils/getBadgeByMint";
 
 export const ClaimAll = () => {
-  const amount = useFleetClaimAmount();
   const { connection } = useConnection();
 
+  const badges = useBadges();
   const tutorBadges = useTutorBadge();
   const citizenshipBadges = useCitizenshipBadges();
 
@@ -29,22 +33,32 @@ export const ClaimAll = () => {
       return;
     }
 
-    const txs = await getClaimAllTransactions(connection, publicKey);
-    const signedTxs = (await signAllTransactions?.(txs)) || [];
+    try {
+      const txs = await getClaimAllTransactions(connection, publicKey);
+      const signedTxs = (await signAllTransactions?.(txs)) || [];
 
-    const signatures = await Promise.all(
-      signedTxs.map(async (s) => connection.sendRawTransaction(s.serialize()))
-    );
+      const signatures = await Promise.all(
+        signedTxs.map(async (s) => connection.sendRawTransaction(s.serialize()))
+      );
 
-    for (let [index, signature] of signatures.entries()) {
-      await showTransactionToast(() => Promise.resolve(signature), {
-        pendingMessage: pendingMessage
-          .replace("%i", (index + 1).toString())
-          .replace("%c", signatures.length.toString()),
-        successMessage: successMessage
-          .replace("%i", (index + 1).toString())
-          .replace("%c", signatures.length.toString()),
-      });
+      for (let [index, signature] of signatures.entries()) {
+        await showTransactionToast(() => Promise.resolve(signature), {
+          pendingMessage: pendingMessage
+            .replace("%i", (index + 1).toString())
+            .replace("%c", signatures.length.toString()),
+          successMessage: successMessage
+            .replace("%i", (index + 1).toString())
+            .replace("%c", signatures.length.toString()),
+        });
+      }
+    } catch (e) {
+      if (e instanceof WalletSignTransactionError) {
+        if (e.error.code === 4001) {
+          return;
+        }
+      }
+
+      captureException(e, { level: "error" });
     }
   }, [
     publicKey,
@@ -56,21 +70,20 @@ export const ClaimAll = () => {
     successMessage,
   ]);
 
-  const hasTutorOrCitizenshipBadge =
-    Boolean(tutorBadges) || Boolean(citizenshipBadges?.length);
+  const hasGenesisOrTutorOrCitizenshipBadge =
+    Boolean(tutorBadges) ||
+    Boolean(citizenshipBadges?.length) ||
+    badges.some(([badge]) =>
+      allGenesisBadgeMints.includes(badge.mintAddress.toString())
+    );
 
-  if (!hasTutorOrCitizenshipBadge) {
+  if (!hasGenesisOrTutorOrCitizenshipBadge) {
     return null;
   }
 
   return (
-    <Button.Primary
-      className="group"
-      size="small"
-      onClick={handleClick}
-      // disabled={(amount || 0) <= 5}
-    >
+    <Button kind="primary" className="group" size="small" onClick={handleClick}>
       <Translation id="fleet.heading.claim.cta" />
-    </Button.Primary>
+    </Button>
   );
 };

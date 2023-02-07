@@ -13,7 +13,7 @@ export const Badges = () => {
       {!badges?.length ? (
         <EmptyView title="No badges found" />
       ) : (
-        <Flex className="space-x-3 overflow-scroll">
+        <Flex className="space-x-3 overflow-x-auto pb-1">
           {badges.map(([badge, metadata]) => (
             <BlurBackground
               key={badge.mintAddress.toString()}
