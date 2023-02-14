@@ -34,7 +34,7 @@ export const matchSignatureMiddleware =
     const isValid = isSignatureValid({
       message,
       signature,
-      signer: publicKey,
+      signer: realPublicKey,
     });
 
     try {

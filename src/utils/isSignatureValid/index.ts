@@ -12,6 +12,10 @@ export const validateLedgerAuthTx = (
   publicKey: PublicKey
 ): boolean => {
   try {
+    if (!tx.signatures[0].publicKey.equals(publicKey)) {
+      return false;
+    }
+
     const inx = tx.instructions[0];
 
     if (!inx.programId.equals(MEMO_PROGRAM_ID)) {
@@ -22,10 +26,9 @@ export const validateLedgerAuthTx = (
       return false;
     }
 
-    if (tx.signatures[0].publicKey.equals(publicKey))
-      if (!tx.verifySignatures()) {
-        return false;
-      }
+    if (!tx.verifySignatures()) {
+      return false;
+    }
   } catch (e) {
     return false;
   }
