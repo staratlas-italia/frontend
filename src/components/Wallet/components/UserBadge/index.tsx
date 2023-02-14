@@ -1,6 +1,6 @@
 import { CogIcon } from "@heroicons/react/outline";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { Wallet } from "@solana/wallet-adapter-wallets";
+
 import styled from "styled-components";
 import { Text } from "~/components/common/Text";
 import { Button } from "~/components/controls/Button";
@@ -30,10 +30,8 @@ export const UserBadge = ({
 
   let name = showAddress ? shortenAddress(`${publicKey}`) : "";
 
-  const unknownWallet = wallet as Wallet;
-
-  if (unknownWallet?.name && !showAddress) {
-    name = unknownWallet.name;
+  if (wallet?.adapter.name && !showAddress) {
+    name = wallet.adapter.name;
   }
 
   if (!wallet || !connected || !publicKey) {

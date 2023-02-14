@@ -46,12 +46,12 @@ export const ConnectedContent = () => {
           {
             bordered: true,
             borderColor: "gray-300",
-            title: wallet!.name,
+            title: wallet!.adapter.name,
             icon: (props) =>
-              wallet?.icon ? (
+              wallet?.adapter.icon ? (
                 <Image
                   alt="Wallet icon"
-                  src={wallet.icon}
+                  src={wallet.adapter.icon}
                   width={25}
                   height={25}
                   {...props}

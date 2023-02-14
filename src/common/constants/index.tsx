@@ -87,6 +87,10 @@ export const SAI_TOKEN_SWAP_PROGRAM_ID = new PublicKey(
   "9EwZquhRwZ7efbMwATpt5XRJsbXKFjQ2aFfePyL2ngFg"
 );
 
+export const MEMO_PROGRAM_ID = new PublicKey(
+  "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+);
+
 export const TOKEN_SWAP_STATE_ACCOUNTS: Record<string, SwapSetting> = {
   ...citizenShipAccounts["mainnet-beta"].normal,
   ...citizenShipAccounts["mainnet-beta"].discounted,

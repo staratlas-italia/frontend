@@ -14,11 +14,11 @@ export const DisconnectedContent = () => {
       {wallets.map((wallet) => (
         <Button
           kind="dark"
-          key={wallet.name}
+          key={wallet.adapter.name}
           iconLeft={({ className }) => (
             <Image
               alt="Wallet icon"
-              src={wallet.icon}
+              src={wallet.adapter.icon}
               width={30}
               height={30}
               className={className}
@@ -26,12 +26,12 @@ export const DisconnectedContent = () => {
           )}
           onClick={() => {
             close();
-            setTimeout(() => select(wallet.name), 300);
+            setTimeout(() => select(wallet.adapter.name), 300);
           }}
         >
           <Translation
             id="Layout.Wallet.Modal.ConnectedTo.title"
-            values={{ wallet: wallet.name }}
+            values={{ wallet: wallet.adapter.name }}
           />
         </Button>
       ))}

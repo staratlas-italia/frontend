@@ -1,7 +1,6 @@
-import * as ed from "@noble/ed25519";
 import { captureException } from "@sentry/nextjs";
-import bs58 from "bs58";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
+import { isSignatureValid } from "~/utils/isSignatureValid";
 import { tryParsePublicKey } from "~/utils/pubkey";
 
 export type MatchSignatureMiddlewareRequestBody = {
@@ -32,15 +31,11 @@ export const matchSignatureMiddleware =
         .json({ status: 400, error: "Missing or invalid parameters" });
     }
 
-    const signatureDecoded = bs58.decode(signature);
-
-    const messageBytes = new TextEncoder().encode(message);
-
-    const isValid = await ed.verify(
-      signatureDecoded,
-      messageBytes,
-      realPublicKey.toBytes()
-    );
+    const isValid = isSignatureValid({
+      message,
+      signature,
+      signer: publicKey,
+    });
 
     try {
       if (!isValid) {
