@@ -117,7 +117,20 @@ const handler = async ({ body }: NextApiRequest, res: NextApiResponse) => {
     } finally {
       await session.endSession();
     }
+    return;
   }
+
+  const user = await userCollection.findOneAndUpdate(
+    {
+      discordId,
+    },
+    { $push: { wallets: publicKey } }
+  );
+
+  res.status(200).json({
+    success: true,
+    user: user.value,
+  });
 };
 
 export default pipe(
