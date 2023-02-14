@@ -1,6 +1,6 @@
 import { captureException } from "@sentry/nextjs";
 import { WalletSignTransactionError } from "@solana/wallet-adapter-base";
-import { useWallet } from "@solana/wallet-adapter-react";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import bs58 from "bs58";
 import { useCallback } from "react";
 import { toast } from "react-toastify";
@@ -10,10 +10,12 @@ import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Translation } from "~/i18n/Translation";
 import { useTranslation } from "~/i18n/useTranslation";
 import { useAuthStore } from "~/stores/useAuthStore";
+import { buildAuthLedgerTx } from "~/utils/auth/buildAuthLedgerTx";
 import { getProofMessage } from "~/utils/getProofMessage";
 
 export const SignatureRefresher = () => {
-  const { publicKey, signMessage } = useWallet();
+  const { connection } = useConnection();
+  const { publicKey, signMessage, signTransaction, wallet } = useWallet();
 
   const updateSignature = useAuthStore((s) => s.updateSignature);
 
@@ -25,18 +27,42 @@ export const SignatureRefresher = () => {
     }
 
     const message = getProofMessage();
-
-    const messageBytes = new TextEncoder().encode(message);
-
     try {
-      const newSignature = await signMessage?.(messageBytes);
+      if (wallet?.adapter.name === "Ledger") {
+        const recentBlockhash = await connection.getLatestBlockhash();
 
-      if (newSignature) {
-        const encodedSignature = bs58.encode(newSignature);
+        const ledgerTx = buildAuthLedgerTx(message);
+        ledgerTx.feePayer = publicKey;
+        ledgerTx.recentBlockhash = recentBlockhash.blockhash;
 
-        updateSignature(encodedSignature);
+        const signedTx = await signTransaction?.(ledgerTx);
+
+        if (signedTx) {
+          const serializedTx = signedTx.serialize().toString("base64");
+
+          const encodedSignature = bs58.encode(
+            Buffer.from(
+              `ledger-${JSON.stringify({ transaction: serializedTx })}`
+            )
+          );
+
+          updateSignature(encodedSignature);
+        }
+      } else {
+        const messageBytes = new TextEncoder().encode(message);
+
+        const newSignature = await signMessage?.(messageBytes);
+
+        if (newSignature) {
+          const encodedSignature = bs58.encode(
+            Buffer.from(`normal-${JSON.stringify(newSignature)}`)
+          );
+
+          updateSignature(encodedSignature);
+        }
       }
     } catch (e) {
+      console.log(e);
       if (e instanceof WalletSignTransactionError) {
         if (e.error.code === 4001) {
           // User cancel request
@@ -48,7 +74,15 @@ export const SignatureRefresher = () => {
 
       toast.error(toastErrorMessage);
     }
-  }, [publicKey, signMessage, toastErrorMessage, updateSignature]);
+  }, [
+    connection,
+    publicKey,
+    signMessage,
+    signTransaction,
+    toastErrorMessage,
+    updateSignature,
+    wallet?.adapter.name,
+  ]);
 
   return (
     <BlurBackground
