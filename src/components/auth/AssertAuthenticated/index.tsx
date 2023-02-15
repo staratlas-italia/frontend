@@ -52,7 +52,7 @@ export const AssertAuthenticated = ({
     !signature ||
     !publicKey ||
     !isSignatureValid({
-      signature,
+      proof: signature,
       message: getProofMessage(),
       signer: publicKey,
     })

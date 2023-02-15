@@ -1,3 +1,4 @@
+import { useWallet } from "@solana/wallet-adapter-react";
 import classNames from "classnames";
 import Image from "next/image";
 import { Fragment, useMemo } from "react";
@@ -17,6 +18,8 @@ export const Profile = () => {
   const self = useSelf();
   const player = usePlayerStore((s) => s.player);
 
+  const { publicKey } = useWallet();
+
   const hasAchivements = Boolean(self.tags?.length);
 
   const Wrapper = useMemo(
@@ -24,10 +27,7 @@ export const Profile = () => {
     [self.discordId]
   );
 
-  if (player === null) {
-    return <CreatePlayerBanner />;
-  }
-  const { avatarId, avatarImageUrl, balance, rank, factionRank } = player;
+  const { avatarId, avatarImageUrl, balance, rank, factionRank } = player || {};
 
   return (
     <Flex>
@@ -40,13 +40,15 @@ export const Profile = () => {
         grow={1}
       >
         <Flex className="relative aspect-square  md:max-w-xs" grow={1}>
-          {avatarImageUrl && (
+          {avatarImageUrl ? (
             <Image
-              alt={avatarId}
+              alt={avatarId || "star atlas avatar"}
               className="rounded-xl overflow-hidden"
               src={avatarImageUrl}
               fill
             />
+          ) : (
+            <CreatePlayerBanner />
           )}
 
           <Wrapper>
@@ -76,15 +78,15 @@ export const Profile = () => {
 
         <Flex direction="col" className="space-y-3">
           <Text color="text-white" size="2xl" xlSize="4xl">
-            {shortenAddress(player?.publicKey || "")}
+            {shortenAddress(publicKey?.toString() || "")}
           </Text>
 
           <Flex align="center" className="grid grid-cols-2 gap-5" pt={3}>
             <InfoRow color="text-gray-200" title="universal Rank">
-              <Text color="text-white">{rank}</Text>
+              <Text color="text-white">{rank || "-"}</Text>
             </InfoRow>
             <InfoRow color="text-gray-200" title="faction rank">
-              <Text color="text-white">{factionRank}</Text>
+              <Text color="text-white">{factionRank || "-"}</Text>
             </InfoRow>
             <InfoRow color="text-gray-200" title="net worth">
               <Price color="text-white" value={balance} />

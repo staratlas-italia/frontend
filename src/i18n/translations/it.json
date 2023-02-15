@@ -33,6 +33,8 @@
   "citizenship.intro.description": "L’acquisizione del badge di cittadino ti permette di ottenere l’accesso a tutti i servizi, le attività e i vantaggi in-game relativi alla possibilità di intraprendere un percorso di gioco che include una carriera nella DAO.",
   "citizenship.intro.title": "Round Cittadino",
   "Dashboard.Profile.Placeholder.title": "Inizia qui. Connetti il tuo wallet",
+  "dashboard.profile.missingPlayer.label": "Sembra che al tuo wallet non corrisponda un giocatore StarAtlas",
+  "dashboard.profile.missingPlayer.cta": "Creane uno!",
   "discord.link.description": "Sto parlando con Discord...",
   "Fleet.Heading.title": "La tua flotta",
   "fleet.heading.claim.cta": "Rivendica ATLAS",

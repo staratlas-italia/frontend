@@ -1,18 +1,21 @@
 import Link from "next/link";
 import { Text } from "~/components/common/Text";
 import { Button } from "~/components/controls/Button";
-import { BlurBackground } from "~/components/layout/BlurBackground";
 import { Flex } from "~/components/layout/Flex";
+import { Translation } from "~/i18n/Translation";
 
 export const CreatePlayerBanner = () => {
   return (
-    <BlurBackground align="center" className="space-y-5" direction="col" p={5}>
+    <Flex
+      align="center"
+      justify="center"
+      direction="col"
+      className="bg-gray-700  rounded-xl space-y-3"
+      p={3}
+    >
       <Flex align="center" direction="col">
-        <Text color="text-white" size="2xl">
-          Sembra che il tuo wallet
-        </Text>
-        <Text color="text-white" size="2xl">
-          non corrisponda a un giocatore StarAtlas
+        <Text align="center" color="text-white" size="xl">
+          <Translation id="dashboard.profile.missingPlayer.label" />
         </Text>
       </Flex>
       <Flex>
@@ -22,10 +25,10 @@ export const CreatePlayerBanner = () => {
           rel="noopener"
         >
           <Button kind="neutral" as="div" size="small">
-            Creane uno!
+            <Translation id="dashboard.profile.missingPlayer.cta" />
           </Button>
         </Link>
       </Flex>
-    </BlurBackground>
+    </Flex>
   );
 };

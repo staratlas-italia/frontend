@@ -28,6 +28,8 @@ export type TranslationId =
   | "citizenship.intro.description"
   | "citizenship.intro.title"
   | "Dashboard.Profile.Placeholder.title"
+  | "dashboard.profile.missingPlayer.label"
+  | "dashboard.profile.missingPlayer.cta"
   | "discord.link.description"
   | "Fleet.Heading.title"
   | "generic.error.denied"

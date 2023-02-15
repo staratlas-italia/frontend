@@ -9466,11 +9466,6 @@ pathe@^0.3.5:
   resolved "https://registry.yarnpkg.com/pathe/-/pathe-0.3.8.tgz#3584f03fda1981a6efe8bc24623d82cbb4219acb"
   integrity sha512-c71n61F1skhj/jzZe+fWE9XDoTYjWbUwIKVwFftZ5IOgiX44BVkTkD+/803YDgR50tqeO4eXWxLyVHBLWQAD1g==
 
-pattern-matching-ts@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/pattern-matching-ts/-/pattern-matching-ts-2.0.0.tgz#f67c51c19cd54bae79ed578e4cd0708e1e0cc419"
-  integrity sha512-XfNA/wZ1A92Ps+jzlmFKXviAI6YQt98GwZoHVAsDEMOKYo+g5aSjvMQ3lnvYQskIYdBj30r7S4rAx/VzuxsRhA==
-
 pbkdf2@^3.0.17, pbkdf2@^3.0.3, pbkdf2@^3.0.9:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/pbkdf2/-/pbkdf2-3.1.2.tgz#dd822aa0887580e52f1a039dc3eda108efae3075"
@@ -11263,6 +11258,11 @@ trim-newlines@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/trim-newlines/-/trim-newlines-3.0.1.tgz#260a5d962d8b752425b32f3a7db0dcacd176c144"
   integrity sha512-c1PTsA3tYrIsLGkJkzHF+w9F2EyxfXGo4UyJc4pFL++FMjnq0HJS69T3M7d//gKrFKwy429bouPescbjecU+Zw==
+
+ts-adt@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/ts-adt/-/ts-adt-2.1.2.tgz#7a8626c2d872c97e5b38437e979b814902614fb6"
+  integrity sha512-UD0lr7eyiBjxogQjb1xMCjF7skrnxGZLNm4iROeU3ky5tJzXN0yQkkS4DfNGfM4RaUGMhgyrzf2wUynqK8AdWQ==
 
 ts-interface-checker@^0.1.9:
   version "0.1.13"
