@@ -33,6 +33,8 @@
   "citizenship.intro.description": "The acquisition of the citizen badge allows you to gain access to all the in-game services, activities and benefits related to the possibility of embarking on a game path that includes a career in the DAO.",
   "citizenship.intro.title": "Citizen Round",
   "Dashboard.Profile.Placeholder.title": "Start here. Connect your wallet",
+  "dashboard.profile.missingPlayer.label": "Cannot find a StarAtlas player associated with this wallet",
+  "dashboard.profile.missingPlayer.cta": "Create one!",
   "discord.link.description": "I'm speaking with Discord...",
   "Fleet.Heading.title": "Your fleet",
   "fleet.heading.claim.cta": "Claim all ATLAS",

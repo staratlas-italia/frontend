@@ -37,36 +37,31 @@ export const validateLedgerAuthTx = (
 };
 
 type Param = {
-  signature: string;
+  proof: string;
   message: string;
   signer: PublicKey;
 };
 
-export const isSignatureValid = ({
-  signature: signStr,
-  message,
-  signer,
-}: Param) => {
-  const signatureDecoded = Buffer.from(bs58.decode(signStr), "utf8").toString();
-
-  const [info, signature] = signatureDecoded.split("-");
-
+export const isSignatureValid = ({ proof, message, signer }: Param) => {
   try {
-    const parsedSignature = JSON.parse(signature);
-    const isLedger = info === "ledger";
+    const signatureProof = Buffer.from(bs58.decode(proof), "utf8").toString();
 
-    if (isLedger) {
-      const { transaction: base64Tx } = parsedSignature;
-      const transaction = Transaction.from(Buffer.from(base64Tx, "base64"));
+    const [info, signature] = signatureProof.split("-");
 
-      return validateLedgerAuthTx(transaction, message, signer);
+    const decodedSignature = Buffer.from(signature, "base64");
+
+    switch (info) {
+      case "message":
+        const messageBytes = new TextEncoder().encode(message);
+
+        return ed.sync.verify(decodedSignature, messageBytes, signer.toBytes());
+      case "tx":
+        const transaction = Transaction.from(decodedSignature);
+
+        return validateLedgerAuthTx(transaction, message, signer);
+      default:
+        return false;
     }
-
-    const signBuffer = Buffer.from(parsedSignature);
-
-    const messageBytes = new TextEncoder().encode(message);
-
-    return ed.sync.verify(signBuffer, messageBytes, signer.toBytes());
   } catch (e) {
     return false;
   }

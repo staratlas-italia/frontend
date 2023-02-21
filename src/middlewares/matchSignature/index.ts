@@ -33,7 +33,7 @@ export const matchSignatureMiddleware =
 
     const isValid = isSignatureValid({
       message,
-      signature,
+      proof: signature,
       signer: realPublicKey,
     });
 
