@@ -1,6 +1,9 @@
 import * as ed from "@noble/ed25519";
+import { sha512 } from "@noble/hashes/sha512";
 import { PublicKey, Transaction } from "@solana/web3.js";
 import bs58 from "bs58";
+
+ed.etc.sha512Sync = (...m) => sha512(ed.etc.concatBytes(...m));
 
 const MEMO_PROGRAM_ID = new PublicKey(
   "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
@@ -54,7 +57,7 @@ export const isSignatureValid = ({ proof, message, signer }: Param) => {
       case "message":
         const messageBytes = new TextEncoder().encode(message);
 
-        return ed.sync.verify(decodedSignature, messageBytes, signer.toBytes());
+        return ed.verify(decodedSignature, messageBytes, signer.toBytes());
       case "tx":
         const transaction = Transaction.from(decodedSignature);
 
