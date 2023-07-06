@@ -119,7 +119,6 @@ export type TranslationId =
   | "tutor.banner.pre.title"
   | "tutor.banner.subtitle"
   | "tutor.banner.title"
-  | "tutor.buyBefore31.12.22"
   | "tutor.checkout.confirmed.subtitle"
   | "tutor.checkout.subtitle"
   | "tutor.checkout.title"
