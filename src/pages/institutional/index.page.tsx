@@ -114,12 +114,6 @@ const Tutor = () => {
                         *
                       </li>
                     </ul>
-
-                    <Flex pt={3} direction="col">
-                      <Text size="sm" color="text-gray-500">
-                        * <Translation id="tutor.buyBefore31.12.22" />
-                      </Text>
-                    </Flex>
                   </Flex>
                 </Flex>
 
