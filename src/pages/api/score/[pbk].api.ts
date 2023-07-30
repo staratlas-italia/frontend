@@ -7,15 +7,20 @@ import {
 } from "@staratlas/factory";
 import type { NextApiRequest, NextApiResponse } from "next";
 import {
+  AMMO_TOKEN_MINT_ID,
   ARMS_PRICE,
   FOOD_PRICE,
+  FOOD_TOKEN_MINT_ID,
   FUEL_PRICE,
+  FUEL_TOKEN_MINT_ID,
   SA_FLEET_PROGRAM,
   TOOLKIT_PRICE,
+  TOOL_TOKEN_MINT_ID,
 } from "~/common/constants";
 import { ScoreFleetResponse } from "~/types/api";
 import { getConnectionClusterUrl } from "~/utils/connection";
 import { dailyMaintenanceCostInAtlas } from "~/utils/dailyMaintenanceCostInAtlas";
+import { getEntityBestPrices } from "~/utils/getEntityBestPrices";
 import { grossDailyRewardInAtlas } from "~/utils/grossDailyRewardInAtlas";
 import { netDailyRewardInAtlas } from "~/utils/netDailyRewardInAtlas";
 import { isPublicKey } from "~/utils/pubkey";
@@ -76,6 +81,19 @@ const handler = async (
     Object.assign(item, shipsVars[i])
   );
 
+  const foodPrice =
+    (await getEntityBestPrices(FOOD_TOKEN_MINT_ID, "ATLAS"))?.bestAskPrice ??
+    FOOD_PRICE;
+  const fuelPrice =
+    (await getEntityBestPrices(FUEL_TOKEN_MINT_ID, "ATLAS"))?.bestAskPrice ??
+    FUEL_PRICE;
+  const ammoPrice =
+    (await getEntityBestPrices(AMMO_TOKEN_MINT_ID, "ATLAS"))?.bestAskPrice ??
+    ARMS_PRICE;
+  const toolsPrice =
+    (await getEntityBestPrices(TOOL_TOKEN_MINT_ID, "ATLAS"))?.bestAskPrice ??
+    TOOLKIT_PRICE;
+
   res.status(200).json({
     success: true,
     date: new Date(new Date().toUTCString()).toISOString(),
@@ -132,43 +150,43 @@ const handler = async (
         account.shipQuantityInEscrow.toNumber()
       ),
       dailyFuelCostInAtlas: resDailyCostInAtlas(
-        FUEL_PRICE,
+        fuelPrice,
         account.millisecondsToBurnOneFuel,
         account.shipQuantityInEscrow.toNumber()
       ),
       dailyFoodCostInAtlas: resDailyCostInAtlas(
-        FOOD_PRICE,
+        foodPrice,
         account.millisecondsToBurnOneFood,
         account.shipQuantityInEscrow.toNumber()
       ),
       dailyArmsCostInAtlas: resDailyCostInAtlas(
-        ARMS_PRICE,
+        ammoPrice,
         account.millisecondsToBurnOneArms,
         account.shipQuantityInEscrow.toNumber()
       ),
       dailyToolkitCostInAtlas: resDailyCostInAtlas(
-        TOOLKIT_PRICE,
+        toolsPrice,
         account.millisecondsToBurnOneToolkit,
         account.shipQuantityInEscrow.toNumber()
       ),
       dailyMaintenanceCostInAtlas: dailyMaintenanceCostInAtlas(
         resDailyCostInAtlas(
-          FUEL_PRICE,
+          fuelPrice,
           account.millisecondsToBurnOneFuel,
           account.shipQuantityInEscrow.toNumber()
         ),
         resDailyCostInAtlas(
-          FOOD_PRICE,
+          foodPrice,
           account.millisecondsToBurnOneFood,
           account.shipQuantityInEscrow.toNumber()
         ),
         resDailyCostInAtlas(
-          ARMS_PRICE,
+          ammoPrice,
           account.millisecondsToBurnOneArms,
           account.shipQuantityInEscrow.toNumber()
         ),
         resDailyCostInAtlas(
-          TOOLKIT_PRICE,
+          toolsPrice,
           account.millisecondsToBurnOneToolkit,
           account.shipQuantityInEscrow.toNumber()
         )
@@ -184,22 +202,22 @@ const handler = async (
         ),
         dailyMaintenanceCostInAtlas(
           resDailyCostInAtlas(
-            FUEL_PRICE,
+            fuelPrice,
             account.millisecondsToBurnOneFuel,
             account.shipQuantityInEscrow.toNumber()
           ),
           resDailyCostInAtlas(
-            FOOD_PRICE,
+            foodPrice,
             account.millisecondsToBurnOneFood,
             account.shipQuantityInEscrow.toNumber()
           ),
           resDailyCostInAtlas(
-            ARMS_PRICE,
+            ammoPrice,
             account.millisecondsToBurnOneArms,
             account.shipQuantityInEscrow.toNumber()
           ),
           resDailyCostInAtlas(
-            TOOLKIT_PRICE,
+            toolsPrice,
             account.millisecondsToBurnOneToolkit,
             account.shipQuantityInEscrow.toNumber()
           )
