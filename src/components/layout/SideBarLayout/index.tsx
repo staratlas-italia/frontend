@@ -1,10 +1,10 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import React, { PropsWithChildren } from "react";
+import { SelfRetriever } from "~/components/SelfRetriever";
 import { BaseLayout } from "~/components/layout/BaseLayout";
 import { Container } from "~/components/layout/Container";
 import { Flex } from "~/components/layout/Flex";
 import { Header } from "~/components/layout/Header";
-import { SelfRetriever } from "~/components/SelfRetriever";
 import { Provider } from "./components/Provider";
 import { SideBar } from "./components/SideBar";
 import { SidebarToggle } from "./components/SidebarToggle";
@@ -37,7 +37,6 @@ export const SideBarLayout = React.memo(
             </div>
           </Container>
         </BaseLayout>
-        {/* )} */}
       </Provider>
     );
   }

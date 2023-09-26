@@ -80,6 +80,12 @@ export const getMenuItems = async (
   }
 
   routes.push({
+    name: "Fleet composer",
+    icon: `${APP_BASE_URL}/images/icons/rocket-solid.svg`,
+    route: "https://fleet.staratlasitalia.com/fleet-composer",
+  });
+
+  routes.push({
     name: intl.formatMessage({
       id: "Layout.Sidebar.Resources.title",
     }),
